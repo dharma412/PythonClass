@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<robot generator="Robot 3.1.2 (Python 3.8.6 on win32)" generated="20210423 22:48:31.602" rpa="false">
+<suite id="s1" name="ScrollingPage" source="C:\Users\dhchaluv\Learning\RobotLearning\Tests\ScrollingPage.robot">
+<test id="s1-t1" name="ScrollingTest">
+<kw name="Open Browser" library="SeleniumLibrary">
+<doc>Opens a new browser instance to the given ``url``.</doc>
+<arguments>
+<arg>https://www.countries-ofthe-world.com/flags-of-the-world.html</arg>
+<arg>chrome</arg>
+</arguments>
+<msg timestamp="20210423 22:48:31.780" level="INFO">Opening browser 'chrome' to base url 'https://www.countries-ofthe-world.com/flags-of-the-world.html'.</msg>
+<status status="PASS" starttime="20210423 22:48:31.780" endtime="20210423 22:48:38.573"></status>
+</kw>
+<kw name="Maximize Browser Window" library="SeleniumLibrary">
+<doc>Maximizes current browser window.</doc>
+<status status="PASS" starttime="20210423 22:48:38.573" endtime="20210423 22:48:38.702"></status>
+</kw>
+<kw name="Execute Javascript" library="SeleniumLibrary">
+<doc>Executes the given JavaScript code.</doc>
+<arguments>
+<arg>window.scrollTo(0,document.body.scrollHeight)</arg>
+</arguments>
+<msg timestamp="20210423 22:48:38.703" level="INFO">Executing JavaScript:
+window.scrollTo(0,document.body.scrollHeight)</msg>
+<status status="PASS" starttime="20210423 22:48:38.703" endtime="20210423 22:48:38.712"></status>
+</kw>
+<kw name="Sleep" library="BuiltIn">
+<doc>Pauses the test executed for the given time.</doc>
+<arguments>
+<arg>2</arg>
+</arguments>
+<msg timestamp="20210423 22:48:40.716" level="INFO">Slept 2 seconds</msg>
+<status status="PASS" starttime="20210423 22:48:38.713" endtime="20210423 22:48:40.716"></status>
+</kw>
+<kw name="Execute Javascript" library="SeleniumLibrary">
+<doc>Executes the given JavaScript code.</doc>
+<arguments>
+<arg>window.scrollTo(0,-document.body.scrollHeight)</arg>
+</arguments>
+<msg timestamp="20210423 22:48:40.717" level="INFO">Executing JavaScript:
+window.scrollTo(0,-document.body.scrollHeight)</msg>
+<status status="PASS" starttime="20210423 22:48:40.716" endtime="20210423 22:48:40.726"></status>
+</kw>
+<kw name="Close All Browsers" library="SeleniumLibrary">
+<doc>Closes all open browsers and resets the browser cache.</doc>
+<status status="PASS" starttime="20210423 22:48:40.727" endtime="20210423 22:48:43.236"></status>
+</kw>
+<status status="PASS" starttime="20210423 22:48:31.779" endtime="20210423 22:48:43.237" critical="yes"></status>
+</test>
+<status status="PASS" starttime="20210423 22:48:31.604" endtime="20210423 22:48:43.238"></status>
+</suite>
+<statistics>
+<total>
+<stat pass="1" fail="0">Critical Tests</stat>
+<stat pass="1" fail="0">All Tests</stat>
+</total>
+<tag>
+</tag>
+<suite>
+<stat pass="1" fail="0" id="s1" name="ScrollingPage">ScrollingPage</stat>
+</suite>
+</statistics>
+<errors>
+</errors>
+</robot>
