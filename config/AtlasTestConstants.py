@@ -6,35 +6,60 @@ import random
 
 from  collections import namedtuple
 
-
 path = os.path.dirname(os.path.abspath(__file__))
-atlas_filepath = os.path.join(path,'atlas_filepath.json')
 atlas_servers = os.path.join(path,'atlas_servers.json')
-atlas_customer = os.path.join(path,'atlas_customer.json')
-atlas_config = os.path.join(path,'atlas_config.json')
-atlas_constant = os.path.join(path,'atlas_constants.conf')
-
 with open(atlas_servers) as jsonfile:
-    server_config = json.load(jsonfile)
-
-with open(atlas_customer) as jsonfile:
-    customer_data = json.load(jsonfile)
-
-with open(atlas_filepath) as jsonfile:
-    file_path = json.load(jsonfile)
-
-ATLAS_CONSTANTS= {}
-with open(atlas_constant) as f:
-    for line in f.readlines():
-        (key,val) = line.split("=")
-        ATLAS_CONSTANTS[key.strip()]= val.strip()
+    server_config=json.load(jsonfile)
 
 def get_namedtuple(dictionary):
     return namedtuple('atlas', dictionary.keys())(**dictionary)
 
+with open(atlas_servers) as jsonfile:
+    server_config = json.load(jsonfile)
+
+print(server_config['jenkins_server']['jenkins_user'])
 JENKINS_SERVER = get_namedtuple(server_config['jenkins_server'])
-ATLAS_SERVER = get_namedtuple(server_config['atlas_server'])
-ATLAS_UI = get_namedtuple(server_config['atlas_ui'])
+print(JENKINS_SERVER)
+
+print(JENKINS_SERVER.jenkins_user)
+
+print(''.join(random.choice(string.ascii_uppercase + string.ascii_lowercase+string.digits)) for _ in range(5))
+
+allowed_characters = ''.join(random.choice(string.ascii_uppercase + string.ascii_lowercase+string.digits) for _ in range(5))
+print(allowed_characters)
+
+print(random.choice(string.ascii_uppercase))
+print(string.ascii_lowercase)
+print(string.ascii_uppercase)
+print(string.digits)
+print(string.printable)
+print(string.ascii_letters)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+'''
 allowed_characters = ''.join(random.choice(string.ascii_uppercase + string.ascii_lowercase+string.digits) for _ in range(5))
 customer_data['customer']['customer_name']= customer_data['customer']['customer_name']+allowed_characters
 customer_data['customer']['purchase_order']=customer_data['customer']['purchase_order']+allowed_characters
@@ -106,3 +131,4 @@ for path in file_path:
     for script_config_path in file_path[path]:
         ATLAS_CONSTANTS[script_config_path] = file_path[path][script_config_path]
 
+'''
