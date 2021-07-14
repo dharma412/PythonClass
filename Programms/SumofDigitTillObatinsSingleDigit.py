@@ -5,7 +5,7 @@ def sumofnumber(n):
         sum1=sum1+r
         n=n//10
     return sum1
-res=sumofnumber(4889)
+res=sumofnumber(74611122)
 if res<10:
     print(res)
 else:

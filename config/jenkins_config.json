@@ -1,0 +1,9 @@
+{
+  "browser": "firefox",
+  "headless": "No",
+  "browser_path": "/home/devops/driver/geckodriver",
+  "implicit_wait":10,
+  "explicit_wait":120,
+  "default_expect_timeout": 10,
+  "default_report_path": "/home/devops/ces-atlas_automation/Report/Clilogs"
+}

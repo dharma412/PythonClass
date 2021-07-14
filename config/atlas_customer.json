@@ -1,0 +1,31 @@
+{
+  "customer":{
+    "customer_name": "Testautomation",
+    "contract_number": "999999",
+    "quantity": "100",
+    "purchase_order": "TestAuto-purchase-order",
+    "sales_order": "TestAuto-sales-order",
+    "deal_id": "123",
+    "customer_type": "1",
+    "customer_subtype": "1",
+    "customer_email": "tacustomer@automation.com",
+    "partner_name": "TA Partners",
+    "partner_email": "tapartners@automation.com",
+    "se_name": "TA Sales",
+    "se_email": "seemail@automation.com",
+    "account_manager_name": "TA Account",
+    "account_manager_email":"taaccount@automation.com",
+    "bill_to_name": "TA Bill",
+    "bill_to_email":"tabill@automation.com",
+    "bill_to_address": "Blr,Atlas Automation",
+    "ship_to_address": "Blr,Atlas Automation",
+    "feature_keys": "L-CES-ESO-LIC",
+    "sender_email":"ces-noreply@cisco.com"
+  },
+  "exports_customer":{
+    "customer_name": "exportautomation",
+    "customer_type":"STAGE_TESTAUTO",
+    "customer_sub_type":"DEV_TESTAUTO"
+  }
+}
+
