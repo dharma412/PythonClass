@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<robot generator="Robot 3.1.2 (Python 3.8.6 on win32)" generated="20210511 18:25:20.415" rpa="false">
+<suite id="s1" name="Dictionary" source="C:\Users\dhchaluv\Learning\RobotLearning\RobotPoints\dictionary.robot">
+<test id="s1-t1" name="DictionaryTestcase">
+<kw name="Get Dictionary Items" library="Collections">
+<doc>Returns items of the given ``dictionary`` as a list.</doc>
+<arguments>
+<arg>${dictionary}</arg>
+</arguments>
+<assign>
+<var>${sorted}</var>
+</assign>
+<msg timestamp="20210511 18:25:20.440" level="INFO">${sorted} = ['IDE', 'pycharm', 'name', 'python', 'version', '3.9', 'work', 'USTglobal']</msg>
+<status status="PASS" starttime="20210511 18:25:20.440" endtime="20210511 18:25:20.440"></status>
+</kw>
+<kw name="Log To Console" library="BuiltIn">
+<doc>Logs the given message to the console.</doc>
+<arguments>
+<arg>${sorted}</arg>
+</arguments>
+<status status="PASS" starttime="20210511 18:25:20.441" endtime="20210511 18:25:20.441"></status>
+</kw>
+<kw name="Evaluate" library="BuiltIn">
+<doc>Evaluates the given expression in Python and returns the results.</doc>
+<arguments>
+<arg>type(${sorted})</arg>
+</arguments>
+<assign>
+<var>${typeof}</var>
+</assign>
+<msg timestamp="20210511 18:25:20.442" level="INFO">${typeof} = &lt;class 'list'&gt;</msg>
+<status status="PASS" starttime="20210511 18:25:20.441" endtime="20210511 18:25:20.442"></status>
+</kw>
+<kw name="Log To Console" library="BuiltIn">
+<doc>Logs the given message to the console.</doc>
+<arguments>
+<arg>${typeof}</arg>
+</arguments>
+<status status="PASS" starttime="20210511 18:25:20.442" endtime="20210511 18:25:20.442"></status>
+</kw>
+<kw name="${i} IN [ ${dictionary.keys()} ]" type="for">
+<kw name="${i} = odict_keys(['name', 'version', 'IDE', 'work'])" type="foritem">
+<kw name="Get From Dictionary" library="Collections">
+<doc>Returns a value from the given ``dictionary`` based on the given ``key``.</doc>
+<arguments>
+<arg>${dictionary}</arg>
+<arg>${i}</arg>
+</arguments>
+<assign>
+<var>${val}</var>
+</assign>
+<msg timestamp="20210511 18:25:20.443" level="FAIL">TypeError: unhashable type: 'odict_keys'</msg>
+<status status="FAIL" starttime="20210511 18:25:20.443" endtime="20210511 18:25:20.443"></status>
+</kw>
+<status status="FAIL" starttime="20210511 18:25:20.443" endtime="20210511 18:25:20.443"></status>
+</kw>
+<status status="FAIL" starttime="20210511 18:25:20.443" endtime="20210511 18:25:20.443"></status>
+</kw>
+<status status="FAIL" starttime="20210511 18:25:20.440" endtime="20210511 18:25:20.444" critical="yes">TypeError: unhashable type: 'odict_keys'</status>
+</test>
+<status status="FAIL" starttime="20210511 18:25:20.416" endtime="20210511 18:25:20.445"></status>
+</suite>
+<statistics>
+<total>
+<stat pass="0" fail="1">Critical Tests</stat>
+<stat pass="0" fail="1">All Tests</stat>
+</total>
+<tag>
+</tag>
+<suite>
+<stat pass="0" fail="1" id="s1" name="Dictionary">Dictionary</stat>
+</suite>
+</statistics>
+<errors>
+</errors>
+</robot>

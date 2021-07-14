@@ -1,0 +1,35 @@
+#lists, strings and tuples are ordered collection of objects and
+#sets and dictionaries are unordered collection of objects.
+# len is used to find the length of the any object like list ,strig
+# typ
+# type of object "type funtion"
+
+# list vs tuple vs string
+1.all support index.
+2.all are order collection.
+3.list is mutable and tuple is immutable and string immuatble.
+
+
+#list of inbuilt function
+1.len - to find the length of obejct
+2.type  -to find type object.
+3. del - to delete the any object synxt: del <objectname>
+4. id - to display the object refer value
+# order collection
+1.list
+2.tuple
+3.string
+
+unorder
+1.set
+2.dictionary
+
+
+
+
+# find the sum of digit of a number untill you gets single digit value ex:567
+ex: 5+6+7=1+8=9
+ex:4574573547637
+
+# list =[2,5,3,27,3,25,63,9]
+Find the maximum differnt among elements in list.
