@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-COMPATIBLE" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css" integrity="sha384-PsH8R72JQ3SOdhVi3uxftmaW6Vc51MKb0q5P2rRUpPvrszuE4W1povHYgTpBfshb"
+        crossorigin="anonymous">
+
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
+        crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.3/umd/popper.min.js" integrity="sha384-vFJXuSJphROIrBnz7yo7oB41mKfc8JzQZiCq4NCceLEaO4IHwicKwpJf9c9IpFgh"
+        crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/js/bootstrap.min.js" integrity="sha384-alpBpkh1PFOepccYVYDB4do5UnbKysX5WZXm3XxPqe5iKTfUKjNkCk9SaVuEZflJ"
+        crossorigin="anonymous"></script>
+
+    <title>Home</title>
+</head>
+
+<body>
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+        <a class="navbar-brand" href="#">Test Page</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarColor01" aria-controls="navbarColor01"
+            aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="navbarColor01">
+            <ul class="navbar-nav mr-auto">
+                <li class="nav-item active">
+                    <a class="nav-link" href="#">Home
+                        <span class="sr-only">(current)</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="guide.html">Guide</a>
+                </li>
+            </ul>
+        </div>
+    </nav>
+
+    <div class="container">
+        <div class="jumbotron">
+            <div class="col-sm-4 mx-auto" id="test-1-div">
+                <h1>Test 1</h1>
+                <button type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#myModal">Open Modal</button>
+                <br />
+                <span id="nameVal"></span>
+                <br />
+                <span id="cityVal"></span>
+
+                <script type="text/javascript">
+                    $(function () {
+                        $('#enter').click(function () {
+                            $('#nameVal').text($('#name').val());
+                            $('#cityVal').text($('#city').val());
+                        });
+                    });
+                </script>
+                <!-- Modal -->
+                <div id="myModal" class="modal fade" role="dialog">
+                    <div class="modal-dialog">
+
+                        <!-- Modal content-->
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h4 class="modal-title">Modal Header</h4>
+                                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                            </div>
+                            <div class="modal-body">
+                                <div class="form-group">
+                                    <label for="usr">Name:</label>
+                                    <input type="text" class="form-control" id="name">
+                                    <label for="city">City:</label>
+                                    <input type="text" class="form-control" id="city">
+                                    <div class="checkbox">
+                                        <label>
+                                            <input type="checkbox" value="">Option 1</label>
+                                    </div>
+                                    <div class="checkbox">
+                                        <label>
+                                            <input type="checkbox" value="">Option 2</label>
+                                    </div>
+                                    <button type="button" id="enter">Enter Data </button>
+                                </div>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="jumbotron">
+            <div class="col-sm-4 mx-auto" id="test-2-div">
+                <h1>Test 2</h1>
+                <div class="container">
+                    <h2>Filter Combobox</h2>
+                    <div class="dropdown">
+                        <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">Click Me!
+                            <span class="caret"></span>
+                        </button>
+                        <ul class="dropdown-menu">
+                            <input class="form-control" id="myInput" type="text" placeholder="Search..">
+                            <li>Java</li>
+                            <li>C#</li>
+                            <li>Python</li>
+                            <li>Angular 2</li>
+                            <li>Angular</li>
+                        </ul>
+                    </div>
+                </div>
+                <script>
+                    $(document).ready(function () {
+                        $("#myInput").on("keyup", function () {
+                            var value = $(this).val().toLowerCase();
+                            $(".dropdown-menu li").filter(function () {
+                                $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+                            });
+                        });
+
+                    });
+                </script>
+            </div>
+        </div>
+
+
+        <div class="jumbotron">
+            <div class="col-sm-4 mx-auto" id="test-3-div">
+                <h1>Test 3</h1>
+                <div class="container">
+                    <h2>Search And Table Example</h2>
+                    <input class="form-control" id="searchMe" type="text" placeholder="Search..">
+                    <table class="table table-bordered table-striped">
+                        <thead>
+                            <tr>
+                                <th>City</th>
+                                <th>State</th>
+                                <th>Country</th>
+                            </tr>
+                        </thead>
+                        <tbody id="someTable">
+                            <tr>
+                                <td>Memphis</td>
+                                <td>Tennessee</td>
+                                <td>USA</td>
+                            </tr>
+                            <tr>
+                                <td>South Riding</td>
+                                <td>Virginia</td>
+                                <td>USA</td>
+                            </tr>
+                            <tr>
+                                <td>Edmonton</td>
+                                <td>Alberta</td>
+                                <td>Canada</td>
+                            </tr>
+                            <tr>
+                                <td>Mumbai</td>
+                                <td>Maharashtra</td>
+                                <td>India</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <script>
+                    $(document).ready(function () {
+                        $("#searchMe").on("keyup", function () {
+                            var value = $(this).val().toLowerCase();
+                            $("#someTable tr").filter(function () {
+                                $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+                            });
+                        });
+                    });
+                </script>
+            </div>
+        </div>
+
+        <div class="jumbotron">
+            <div class="col-sm-4 mx-auto" id="test-4-div">
+                <h1>Test 4</h1>
+                <h2>Drag and Drop</h2>
+                <div id="div1" ondrop="drop(event)" ondragover="allowDrop(event)" style="width: 350px;
+                height: 70px;
+                padding: 10px;
+                border: 1px solid #af1919;"></div>
+                <br>
+                <button id="drag1" draggable="true" ondragstart="drag(event)" width="336" height="69">Drag Me</button>
+                <script>
+                    function allowDrop(ev) {
+                        ev.preventDefault();
+                    }
+
+                    function drag(ev) {
+                        ev.dataTransfer.setData("text", ev.target.id);
+                    }
+
+                    function drop(ev) {
+                        ev.preventDefault();
+                        var data = ev.dataTransfer.getData("text");
+                        ev.target.appendChild(document.getElementById(data));
+                    }
+                </script>
+            </div>
+        </div>
+    </div>
+
+</body>
+
+</html>

@@ -1,0 +1,148 @@
+
+&{dict}		age=23	name="python"	version="newversion"
+
+import json
+
+
+dic={age:23,name:"python",version="newversion",framwork="RF",report="html"}
+
+f=open(pathofjson)
+
+jsonobject=f.dump(dic)
+
+jsonobject['age']
+jsonobject['version']
+
+
+
+list1=[1,2,3,4,5]
+
+keys=dic.keys()
+j=0
+for i in keys:
+	if j<len(list1)
+		dic[i]=list1[j]
+		j=j+1
+print(dic)
+
+create list	=  'name'	8 	90	676 	
+
+
+login:
+
+open broser URl HCorn
+input text
+clik 
+
+.python selen
+
+def login(self,URl,password,user)
+	code
+	
+	
+.robot 
+*** settings
+Library 	pathoffule
+
+*** testcase 
+testname
+	login
+	
+	
+list1=[1,1,2,3,4,5,390,6]
+
+list2=[1,2,7,45,390,794]
+						--6
+
+counter=0
+
+for i in list1:
+	if i in list2:
+		counter=counter+1
+		print(i,value is appeard3  in list2 aslo)
+	
+print(counter)
+
+list3=list2.sorted(list2)
+0 1 2 3 4 5 
+[1,2,7,45,390,794]
+-1 -2 -3 -4 -5 -6
+
+
+print(list3[-1]) =value is one 1
+print(list3[1]= value is 2
+
+
+class A:
+	x=10
+	y=20
+	def __init__(self,x,y)
+	
+	def display(self)
+		print(sellf.x,self.y)
+	
+class B(A):
+	pass
+	super.__init__(self,x,y)
+
+
+obj=B
+obj.display
+
+
+def C:
+	g=10
+	def display(self)
+		print(sellf.x,self.y)
+		global g=12
+
+
+
+pages/login/lout/creation
+
+
+tests/Test.py
+
+from pages import *
+
+
+...
+
+cutomer={}
+
+conf.
+
+readdate.py
+
+return dict[]
+.robot 
+*** 
+Steings
+Libray		path
+Livray	 	log
+
+*** vfaribes
+${custolmer}		ddic[name]
+${date}
+$ {mobile} 
+
+
+
+*** testcase***
+test1
+	veryif custikmer is there   ${custolmer}
+test2
+	verify mobiel		${mobile}
+	
+
+robot --test testname SuitName.robot
+
+${testname}
+
+
+
+
+
+
+	
+

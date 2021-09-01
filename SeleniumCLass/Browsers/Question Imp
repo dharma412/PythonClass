@@ -1,0 +1,127 @@
+1.way to find element in selenium
+Ans) ID , Name, Tag,Class, CSS, Partiallink text , link text, Xpath.
+2.)assertion in selenium
+There are differnt assertion assert , verify , Waitfor.
+3. what are / and // in selenium.
+Ans) / start selectin from start node  and used to create absolute oath
+    // start selection matching anywhere in the document and used to create relative xpath
+
+4. differnce between typekeys() and type()
+ans) typekey() will trigger the java script type() wont . Typekey populate the value attribute using the javascript
+    where as type() will enter as user.
+5.differnce between verify and assert?
+Ans) in assertion if verification point at any element is failed it will terimate the execution
+    where as in verification execution will not termiate.
+6.in click commaang can we use screen coordinates?
+Ans) to clikc on specfic part of the element , we should use clickAt command it accepts locatora and x,y coordinates.
+
+7.what are the parameter you have to pass in selenium?
+Ans)Host, port number, Browser, URL.
+8)how can you submit in selenium?
+Ans) element.submit()
+ we can use click also
+9) Implicit wiat and explicy wait?
+wait for particular time then throw NoSuchElementException exeption  driver.implicitly_wait(base.__class__.portalbase.IMPLICIT_WAIT_DEFAULT)
+
+Ex: Explicit wait
+from selenium import webdriver
+from selenium.webdriver.common.by import by
+from selenium.webdriver.support.ui import WebDriveWait
+from selenium.webdriver.support import expected_condition as EC
+
+driver=webdriver.Firefox()
+driver.get("http://somedomain/url_that_delays_loading")
+elemet= webdriverwait(driver,10).until(EC.presence_of_element_located( By.ID,"myDynamicElement" ))
+some methods we can use in explicit condition.,
+title_is
+title_contains
+presence_of_element_located
+visibility_of_element_located
+visibility_of
+presence_of_all_elements_located
+text_to_be_present_in_element
+text_to_be_present_in_element_value
+frame_to_be_available_and_switch_to_it
+invisibility_of_element_located
+element_to_be_clickable
+staleness_of
+element_to_be_selected
+element_located_to_be_selected
+element_selection_state_to_be
+element_located_selection_state_to_be
+alert_is_present
+
+10)attribute you must take when you dont have framename or frameid ?
+driver.findElement("//iframe") it will retun list  of frames.
+
+11)Find element vs find elements ?
+Ans)first one return first occuring element in the current page based on "Locating machanism" while other retunrs list of all webelement.
+
+12)Explain how you can login into site if its is showing any authentication popup for password and username?
+Ans) Syntax-http://username:password@url example:http://creyate:tom@www.gmail.com
+
+13)how to assert text on webpage?
+Ans) webElement el= driver.findelement(By.id("ElementID"))
+    String text=el.getText()
+    Assert.assertEquals("EpectedVarible",Actualvariable)
+
+14)  Explain how you can find broken images in a page using Selenium Web driver ?
+To find the broken images in a page using Selenium web driver is
+
+Get XPath and get all the links in the page using tag name
+In the page click on each and every link
+Look for 404/500 in the target page title
+
+15)Explain how you can handle colors in web driver?
+To handle colors in web driver you can use
+
+Use getCssValue(arg0) function to get the colors by sending ‘color’ string as an argument
+
+16)Explain how you can switch between frames?
+Ans) We can switch between the frames by [driver.switchTo().frame()] method takes following parametr.
+       A number, A name or ID, previously found WebElement
+17)Mention 5 different exceptions you had in Selenium web driver?
+The 5 different exceptions you had in Selenium web drivers are
+WebDriverException
+NoAlertPresentException
+NoSuchWindowException
+NoSuchElementException
+TimeoutException
+
+18)Explain how can we perform double click?
+Ans) Actions act= new Actions(driver);
+    act.doubleclick(driver.findelement(By.id("Id name"))
+
+19)How will you use  Selenium to upload a file ?
+You can use “type”command to type in a file input box of upload file.
+Then, you have to use “Robot” class in JAVA to make file upload work.
+20)Which web driver implementation is fastest?
+HTMLUnit Driver implementation is fastest, HTMLUnitDriver does not execute tests on browser but plain http request,
+ which is far quick than launching a browser and executing tests
+
+21)What is the difference between getWindowhandles() and getwindowhandle() ?
+getwindowhandles(): It is used to get the address of all the open browser and its return type is Set<String>
+
+getwindowhandle(): It is used to get the address of the current browser where the control is and return type is string
+
+22) Explain how you can switch back from a frame?
+To switch back from a frame use method defaultContent()
+Syntax-driver.switchTo().defaultContent();
+
+23)List out different types of locators?
+Different types of locators are
+By.id()
+By.name()
+By.tagName()
+By.className()
+By.linkText()
+By.partialLinkText()
+By.xpath
+By.cssSelector()
+
+24) What is Selenese and what are the types of Selenese ?
+Selenese is a selenium set of command which are used for running the test
+There are three types of Selenese
+Actions: It is used for performing the operations and interactions with the target elements
+Assertions: It is used as a check points
+Accessors: It is used for storing the values in a variable

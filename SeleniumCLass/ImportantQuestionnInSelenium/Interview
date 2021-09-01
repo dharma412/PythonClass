@@ -1,0 +1,3 @@
+1. driver.get() vs driver.navigateTo()
+return type of get is void
+return type of navogaion is naigate interface it has history 

@@ -1,0 +1,20 @@
+class loginpage():
+      
+    def __init__(self):
+        self.txt_user_name = By.ID,"ID"
+        self.txt_user_password = By.ID,"ID"
+        self.btn_login = By.XPATH,'XPATH'
+
+
+    def launch__browser(self, url):
+        SeleniumPage.open("https://"+url)
+	
+	
+path = os.path.dirname(os.path.abspath(__file__))
+pathofjson = os.path.join(path,'jsondatfile.json')
+
+with open(pathofjson) as jsonfile:
+    jsondata = json.load(jsonfile)
+	
+	
+//tag[conatins(text(),"+name+"]
