@@ -1,0 +1,9 @@
+list1=[1,2,8,4,5,6,8,8,3,26,3,6]
+#list1.append('89')
+#list1.extend([12,56])
+#list1.insert(4,1234)
+#print(list1.count(3))
+#list1.pop(2)
+#list1.remove(8)
+list1.sort()
+print(list1)

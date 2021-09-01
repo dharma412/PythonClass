@@ -8,26 +8,11 @@ str1="hello"
 str2='hell1'
 print(type(str2))
 
-
-str1='hello'
-print(str1)
-
-str1='hello2'
-print(str1)
-
-str2="hello"
-print(str2)
-
-str3="""string can be write in multipe
+str3='''string can be write in multipe
     lines using the 
     triple quotes 
-    bgyftfyhb"""
+    bgyftfyhb'''
 print(str3)
-
-str1="tekja"
-str1="todyaclass"
-
-print(str1)
 
 # we can access the elements of string  using the index
 # index must be integer can not use floate or other type which leads to typeError.
@@ -38,11 +23,15 @@ print(str1)
 # -ve index is right to left and strat from -1 to -n
 
 mystring='This is python'
-#print(mystring[0:1])
+
+for var in mystring:
+    print(var, end=',')
+
+#print(len(mystring))
+print(len(mystring[0:5]))
 
 #print(mystring[0])
 print(mystring[-6:-2])
-
 
 
 mystring='This is python'
@@ -148,9 +137,11 @@ print('He said, "What\\ there?\"')
 
 # string functions
 # capitalize--It will change the first letter of string into upper case.
-str1="hello world to email academy"
+str1="Hello world to email academy"
 print(str1.capitalize())
 #if first letter of string is alredy upper case it won't change.
+
+str1="Hello world to email academy"
 # title- it will capitalise the each word of the string in given string
 print(str1.title())
 
@@ -184,7 +175,7 @@ b=str2.split(',')
 print(b)
 
 # lower - it will convert all letter into lower case
-str1="AMULS ACADEmY"
+str1="AmuLS ACADEmY"
 print(str1.islower())
 str2=str1.lower()
 print(str2)
@@ -202,13 +193,13 @@ print(str1.swapcase())
 
 # replace function
 str1= "hello welcome nisha"
-str2=str1.replace("nisha","amulyas")
+str2=str1.replace("nisha","234")
 print(str2)
 str3=str2.replace("o","r")
 print(str3)
 
 # isdigit - return True if string has all digit else False
-str1="123445353"
+str1="123445353&34%$"
 print(str1.isdigit())
 
 str2="1233jr783hr93hf83hf"
@@ -218,15 +209,13 @@ print(str2.isdigit())
 str1="helloiamlearningpython"
 print(str1.isalpha())
 
-str2="hello"
-print(str2.isalpha())
 
 # strip - removes extra characters left and right side of string
-str1="!!!hello !!!!!!!!python!!!!"
+str1="!!!hello !!!!!!!!python&&&"
 print(str1.strip("!"))  # strip only removes extra characters from left and right not from the middle.
 
 str1="!!!hello !!!!!!!!python!!!!"
-print(str1.lstrip('!'))
+print(str1.lstrip('&'))
 
 str1="!!!hello !!!!!!!!python!!!!!!"
 print(str1.rstrip('!'))
@@ -242,6 +231,7 @@ print(dict)
 
 
 # maketrans --
+
 str1="hello guys and welcome"
 dic1={"a":"1","b":"2","c":"3","d":"4"}
 table=str1.maketrans(dic1)
@@ -252,12 +242,13 @@ string1="hello guys and welcome"
 str1="abcde"
 str2="12345"
 t=string1.maketrans(str1,str2)
+print(t)
 t1=string1.translate(t)
 print(t1)
 print(t)
 
 # maketrans with three arguments
-string1="hello guys and welcome"
+string1="hello guys and welcome$&"
 str1="abcde"
 str2="12345"
 str3="($&"
@@ -266,7 +257,34 @@ print(string1.translate(t))
 print(t)
 
 
-
-
 print(ord('u '))
 print(chr(147))
+
+
+# *************************** Problem **********************
+# palindrome : reverse == original
+
+str1="madam"
+str2=str1[::-1]
+
+str1='python'
+print(str1[::-1])
+
+
+
+
+str1='madam'
+str2=""
+for i in str1:
+    #print(i)
+    str2=i+str2
+    #print(str2)
+#print(str2)
+if str1==str2:
+    print("This is palindorme")
+else:
+    print("Not palindrome")
+
+
+
+

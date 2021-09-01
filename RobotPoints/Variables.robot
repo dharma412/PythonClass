@@ -10,9 +10,6 @@ ${scalar}    set vari
 %{var} - environment variable
 @{list1}        create list    a    b    c
 
-
-
-
 *** Keywords ***
 AssignVariable
     ${scalar}       set variable    hello world.

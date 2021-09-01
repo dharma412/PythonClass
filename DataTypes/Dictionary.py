@@ -2,28 +2,68 @@
 # dic has key value
 # all keys are immutable
 # all values are mutable
-#dic mutable object
+# dic mutable object
 import json
-
+# declaration
 dic1={'key':'value','key2':'value','key3':'value3'}
 
+dic13={2:2,'name':'version'}
+
+dic_={2:2,'name':'version',1:[1,2,4,6,3]}
+print(type(dic_))
+
+my_dictionary=dict({2:2,'name':'version',1:[1,2,4,6,3]})
+print(type(my_dictionary))
+
+my_dictionary12=dict([(1,'apple'),(2,'eat')])
+print(my_dictionary12)
+
+# access element and update the values add dictionary.
+dic_={2:2,'name':'version',1:[1,2,4,6,3]}
+#print(dic_['name2'])  # retun keyerror if key is not there in dictionary.
+#print(dic_.get('name2')) #return none if key is not there in dictionary
+
+dic_['name']='version100'
+#dic_['name4']='version12'
+#dic_['name5']='version12'
+#dic_['name6']='version12'
+print(dic_)
+
+# remove element : LIFO
+dic_={2:2,'name':'version',1:[1,2,4,6,3],3:[1343]}
+dic_.clear()
+#dic_.popitem()
+#dic_.pop('name')
+print(dic_)
+
+# methods
+dic1_={'name':'teja','name1':'anil','name3':'mani','name4':'mani4'}
+#items
+#for i,j in dic1_.items():
+ #   print(i,j)
+#
+#for i in dic1_.keys():
+ #   print(i)
+
+#for i in dic1_.values():
+#    print(i)
+
+print(dic1_.update(name1234='new value'))
+print(dic1_)
+print(dic1_.setdefault('name1243','values123'))
+# Return correspoding value if key is there in dictionary else new and value will be added in dictionary if no value provide defalut to None.
+print(dic1_)
+
+list1=[1,2,3,5,543]
+print(type(list1))
+#value="thisispython"
+print(dict.fromkeys(list1))  # if we dont give value default to None.
 
 
-dic1={'name':'teja','name1':'anil','name3':'mani','name4':'mani4'}
-#print(dic1['name12'])
-print(dic1.setdefault('name1','puthihhghj'))
 
-list1={1,2,3,5,543}
-value="thisispython"
-print(dict.fromkeys(list1,value))
 
-print(dic1.fromkeys(['name','name1','name3','name4']))
 
-print(dic1.popitem())
-print(dic1.popitem())
-#print(dic1)
-
-#print(dic1.update(update1='new value'))
+#print(dic1.update()
 print(dic1)
 
 
@@ -74,13 +114,14 @@ dic3.popitem()
 
 #dictionary Comprehension
 dict1 = {'a': 1, 'b': 2, 'c': 3, 'd': 4, 'e': 5}
-mydict={k:v*3 for (k,v) in dict1.items()}
-print(mydict)
+mydictionary={k:v*v*v for (k,v ) in dict1.items()}
+print(mydictionary)
 
-#nested List
+#nested Dictionary
+nest_dict={ 'Dict1': 234,'Dict2': {'name': 'Bob', 'age': '25'}}
+print(nest_dict['Dict2']['name'])
+print(nest_dict)
 
-nest_dict={ 'Dict1': {'name': 'Ali', 'age': '19'},'Dict2': {'name': 'Bob', 'age': '25'}}
-nest_dict['Dict1']['name']="Ali2"
 nest_dict['Dict3'] = {'name': 'Cara', 'age': 25}
 nest_dict['Dict1']['salary']=345433
 nest_dict['Dict1'].update(address="pathuru",area="kota center")

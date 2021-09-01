@@ -1,9 +1,11 @@
-#Single Inheritance from parent class to child class.
+#Single Inheritance from one parent class to one child class.
 
-#Multiple Inheritance: When a class can be derived from more than one base class this type of inheritance is called multiple inheritance.
+#Multiple Inheritance: When a class can be derived from more than one parent class this type of inheritance is called multiple inheritance.
 In multiple inheritance, all the features of the base classes are inherited into the derived class.
 
 #Multilevel Inheritance :In multilevel inheritance, features of the base class and the derived class are further inherited into the new derived class.
 his is similar to a relationship representing a child and grandfather.
+
+A-->B-->C-->D
 
 #Hierarchical Inheritance: when many child class inherit from the one base class is called the Hirearchical In.

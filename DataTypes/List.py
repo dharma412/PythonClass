@@ -1,25 +1,107 @@
-# syntax
-# empty list
+import json
+list=[]
 
-#append - to a
+a = ['foo', 'bar', 'baz', 'qux', 'quux', 'corge']
+b=a[::]
+print(id(b))
+print(id(a))
+print(a[::] is a)
+
+list2=[12,45,3,5]
+list3=list2.copy()
+print(id(list2))
+print(id(list3))
+print(list2 is list3)
+
+a = [1, 2, 5, 8]
+a[2:2]=[3,4,5,6]
+print(a)
+
+
+a=346
+print(a)
+b='python'
+print(type(a))
+
+print(type(b))
+
+var=[1,2,4,67,43,4]
+print(type(var))
+
+
+#homogoneus -all all same
+#for loop - iterable object (list, tuple, string)
+var1=[]
+python=[1,2,2,3,3,4,4,5,5,6,7,8,9,10]
+for i in python:
+    if i%2!=0:
+        var1.append(i)
+print(var1)
+
+# print all duplicate elements or repeating elements.
+var1=[]
+dict={}
+python=[1,2,2,3,3,4,4,5,5,6,7,8,9,10]
+for i in python:
+    if i not in var1:
+        var1.append(i)
+    else:
+        print(var1)
+print(var1)
+
+
+# print 100 from 1 to 100.
+# print all even numbers from 1 to 100
+for var34 in range(0,100):
+    if var34%2==0:
+        print(var34, end=',')
+
+
+
+
+#methods in list
+# append
 # extend
 # insert
 # count
+# pop
 # sort
-# pop  --> index
 # index
 # clear
 # remove --> Value
 # copy
 
-# general function len
-list1=[]
+#list , tuple, string --- iterable objcet s
 
-list2=[1,2,34,56,7,1,1,2,2,3,45,6]
-del list2
+
+list1=[2,1,4,3,5,134,8,3,166,7537,75273,8,3,26,3,6,'python']
+list1.sort()
+print(list1)
+
+#list1.append(878) #last add
+#list1.extend([23,56])
+#list1.insert(4,454)
+#print(list1.count(3456))
+#print(list1.index(3,6,11))
+#list1.pop(2)
+#list1.remove(8)
+#list1.sort(reverse=True)
+#list1.clear()
+#list1.reverse()
+#list2=list1.copy()  #Deep copy
+list2=list1    # shallow copy
+list2.append(56)
+print(list1)
 print(list2)
+#list2=list1 # shallow copy
+#list2.append(53)
+#print(list1)
+#print(list2)
+#list2=list1.copy()
+print(list1)
+print(list1)
 
-print(len(list2))
+
 
 print(list2[::-1])
 list2.reverse()
@@ -107,9 +189,60 @@ print(list6.count(7))
 for i in list2:
     print(i*2)
 
-list6=[x-2 for x in [1,3,53,4,3,3]]
+list6=[x-2 for x in [4,3,53,4,3,3]]
 print(list6)
 
-lis1=[x*2 for x in [1,3,53,4,3,3]]
+list1=[1,3,53,4,3,3]
+lis1=[x*x for x in list1]
 print(lis1)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+#************************ Problem *******************************
+#Print all even numbers from given list
+list1=[1,2,3,65,2,457,2,9,8,62,87,2,2,2,8,62,2,2,2,2,8,62]
+list2=[]
+for i in list1:
+    if i%2==0:
+        list2.append(i)
+print(list2)
+#Print square of each element from given list.
+
+list1=[1,2,3,65,2,457,2,9,8,62,87]
+list2=[]
+for i in list1:
+    list2.append(i*i)
+
+print(list2)
+
+
+
+
+
+
+
+
+
+
+#print(list2)
+
+
+print(10%2)
+
+
+
+
+
 

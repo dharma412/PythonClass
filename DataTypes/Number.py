@@ -11,6 +11,55 @@ c='100'
 
 x = set()
 print(x)
+2,1.2, 2+4j, python
+integer, string , float number, 3+4j, list, tuple, dictionary, set , frozen set
+
+
+
+print(type(10))
+
+vamsi="python"
+print(type(vamsi))
+
+print((vamsi))
+print((vamsi))
+print((vamsi))
+print((vamsi))
+print((vamsi))
+
+
+print(('vamsi1'))
+print(('vamsi1'))
+print(('vamsi1'))
+
+print(type(vamsi))
+
+sai=5
+print(type(sai))
+
+result=vamsi+sai
+print(type(result))
+
+print(result)
+
+print(8+4)
+
+var1=76
+print(type(var1))
+var1=878
+print(type(var1))
+
+print(var1)
+
+var2='python'
+
+print(var1+var2)
+
+
+
+
+
+
 
 
 

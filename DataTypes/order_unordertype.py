@@ -2,7 +2,7 @@
 # sets and dictionaries are unordered collection of objects.
 
 letters = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ'
-print(set(letters))
+#print(set(letters))
 #string_letters = tuple(letters)
 #print(string_letters)
 
@@ -10,6 +10,10 @@ lists_letters = list(letters)
 tuples_letters = tuple(letters)
 sets_letters = set(letters)
 
+print(letters)
+print(lists_letters)
+print(tuples_letters)
+print(sets_letters)
 
 #print("String: ", string_letters)
 print() # for new line

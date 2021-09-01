@@ -98,3 +98,21 @@ print(a.fact())
 print(b.area())
 
 #Method Overloading, a way to create multiple methods with the same name but different arguments, is not possible in Python.
+
+
+
+
+#"+" addiion on int fload
+a=3
+b=8
+print(a+b)
+
+# + int fload names
+a="name"
+b="lastname"
+print(a+b)
+
+
+
+
+

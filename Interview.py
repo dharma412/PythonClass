@@ -43,15 +43,13 @@ print(f.read())
 
 
 
-
-
-
 listoflines=f.readlines()
 for i in listoflines:
     print(i,end=',')
 
 print((f.readlines()))
 print(type(f.readlines()))
+
 
 
 

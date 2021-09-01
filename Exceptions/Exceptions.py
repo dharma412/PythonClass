@@ -18,17 +18,16 @@ try:
 except IndexError as e:
     print("This error is due to "+ str(e))
 
-try:
-    a = [1, 2, 3,5, 5]
-    print ((a[1]))
-except IndexError as e:
-    print("This error is due to "+ str(e))
-except FileNotFoundError as e:
-    print("This error is due to "+ str(e))
-else:
-    print("exception is not occure")
-finally:
-    print("I will execute anyway ")
+from customExceptions import *
+
+a = [1, 2, 3,5, 5]
+for i in a:
+    if i==3:
+        raise ConfigErrorException1("This is custome exception")
+    else:
+        print("This is not exception")
+
+
 
 a=10
 b=0
