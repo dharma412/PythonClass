@@ -1,0 +1,19 @@
+Methods
+1.Instance method
+2. class method
+3. static method
+
+Variables
+1.Instance variable
+2. Static varibles
+
+
+#instance variables:
+1.Ways to declare the variable
+    Inside the constructor by using self variable.
+    Inside the Instance method by using the self variable.
+    Outside the class by using oject reference variable.
+
+# Static Varibles
+1.ways to declare the variable
+    Outside of the class

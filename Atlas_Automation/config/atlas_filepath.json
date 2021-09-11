@@ -1,0 +1,12 @@
+{
+  "scripts": {
+    "license_pusher":"/usr/local/ironport/atlas/automator/scripts/license/license_pusher.py",
+    "inventory_cleaner":"/usr/local/ironport/atlas/automator/resourceprovisioner/inventory_cleaner.py",
+    "feature_expiry_monitor":"/usr/local/ironport/atlas/automator/scripts/feature_expiry_monitor/feature_expiry_monitor.py"
+  },
+  "config_path": {
+    "vm_inventory": "/usr/local/ironport/atlas/etc/vm_inventory.conf",
+    "django_settings":"/usr/local/ironport/atlas/etc/django_settings.py"
+  }
+}
+

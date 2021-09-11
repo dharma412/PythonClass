@@ -1,0 +1,384 @@
+Received: from auto-ces-dhchaluv-dev1-atlas1.nap5.ironport.com (localhost [127.0.0.1])
+	by auto-ces-dhchaluv-dev1-atlas1.nap5.ironport.com (Postfix) with ESMTP id 9F03910056A3
+	for <dhchaluv@cisco.com>; Mon, 16 Aug 2021 03:32:34 -0700 (PDT)
+Content-Type: multipart/mixed; boundary="===============2011980218751126742=="
+MIME-Version: 1.0
+To: dhchaluv@cisco.com
+Cc: 
+From: ces-noreply@cisco.com
+Subject: [Atlas - AUTOMATION] Configuration complete for customer12
+Message-Id: <20210816103234.9F03910056A3@auto-ces-dhchaluv-dev1-atlas1.nap5.ironport.com>
+Date: Mon, 16 Aug 2021 03:32:34 -0700 (PDT)
+
+This is a multi-part alternative message
+--===============2011980218751126742==
+Content-Type: multipart/alternative;
+ boundary="===============2863480152382023402=="
+MIME-Version: 1.0
+
+--===============2863480152382023402==
+Content-Type: text/plain; charset="us-ascii"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7bit
+
+Your Cisco Cloud Email Security (CES) service is ready!
+
+Organization Name: customer12
+Start Date: 2021-08-16 03:32:34 America/Los_Angeles
+Below you will find information about your login credentials and other important information regarding your CES. Please retain this email for future reference.
+
+Configuration and Testing
+
+Please refer to the latest https://cisco.app.box.com/v/csoc-rfp-test-plans-pov/folder/40465002150 on how to configure the customers environment for the best results.
+For support during the activation period, please reach out to the ces-activations@cisco.com and we will be happy to assist however we can.
+Additional information can be found on the https://wiki.cisco.com/display/esawiki/Email+Security+Wiki and the https://cisco.jiveon.com/groups/cloud-email-security-ops
+Appliance Access
+
+Partner SE Login Credentials:
+
+Username: partner_syseng
+Password: FCfv!Lj9p
+Note: To provide the highest level of security to our customers, the syseng username and password will be revoked in 30 days after this email.
+
+Service URL Information
+
+Email Security
+
+https://dh3-esa1.auto-dev1.nap5.ironport.com
+Security Management
+https://dh3-sma1.auto-dev1.nap5.ironport.com
+End User Quarantine
+https://dh3-euq1.auto-dev1.nap5.ironport.com
+
+Host and IP Information
+
+Email Security Appliances
+esa1.hc3-25.auto-dev1.nap5.ironport.com [10.9.142.183]
+esa2.hc3-25.auto-dev1.nap5.ironport.com [10.9.142.187]
+Secure Management Appliance
+sma1.hc3-25.auto-dev1.nap5.ironport.com [10.9.142.184]
+
+Mail exchange records
+
+mx1.hc3-25.auto-dev1.nap5.ironport.com
+mx2.hc3-25.auto-dev1.nap5.ironport.com
+
+
+SPF Records
+
+v=spf1 exists:%{i}.spf.hc3-25.dhchaluv-auto-dev1.nap5.ironport.com ~all
+
+If this is a hybrid deployment, then SE or AM should raise a license re-distribution request onbehalf of the customer by using this "https://app.smartsheet.com/b/form/b1402f634c4d488c9beb75ef41828026" link and providing all the relevant details. CES environment will be appropriately provisioned  whenever there is a change in the mix of On-Prem and Cloud email security licenses.
+
+Note: In order to use the CLI, you require access to the bastion access. If you don't have access please contact ces-activations@cisco.com  or refer to the internal article https://cisco.jiveon.com/groups/cloud-email-security-ops
+
+Notes & Additional Information
+
+The MX record information will be provided to you and the customer via a welcome letter after Cisco completes its activation steps
+
+Cisco TAC Information:
+Cisco CES is supported through Cisco TAC. You need to use CCO ID in conjunction with Cisco Contract Number to open a TAC service request.
+The CCO ID is your Cisco.com login username for all support requests and downloads.
+
+Cisco Contract Number: 99999899
+
+If you do not have a CCO ID, please create one at <a href="https://identity.cisco.com/ui/tenants/global/v1.0/enrollment-ui">here</a> and link the contract number to your account.
+
+This email also provides information needed to login to the <a href="https://mycase.cloudapps.cisco.com/case">TAC Service Request Manager</a>, which is a single interface for all your support related needs. It allows you to view open service tickets, track the progress of ticket, view and download reports and much more.
+
+Other Important Links to reach TAC Service:
+Mail to tac@cisco.com  to reach TAC over Email (Note: Please provide your Cisco.com account and Contract Number to open a case)
+Goto https://www.cisco.com/c/en/us/support/web/tsd-cisco-worldwide-contacts.html to reach TAC by Phone
+Mail to web-help@cisco.com to get help with Cisco.com account or Contract Number issues
+
+
+
+For Microsoft/Office 365 and G-Suite Customers
+Please visit the links to find out the steps required to Cisco CES with the cloud email services, for inbound and outbound email delivery.
+
+Office365: http://cs.co/ces-office365
+G-Suite: http://cs.co/ces-gsuite
+
+Important bookmarks:
+Quick Start Guide: https://docs.ces.cisco.com/docs/cloud-email-security-quick-start-guide
+CES Guides: https://docs.ces.cisco.com/docs
+CES Best Practices: http://cs.co/ces-setup-guide#use (Note: Choose "Best Practices")
+CES Status: https://status.ces.cisco.com  (Note: Click the "Subscribe" button to receive the latest CES alerts and notifications)
+
+Are you migrating from ESA to CES or from other email security gateway solutions?
+For ESA to CES migration - Reach out to ces-activations@cisco.com and get started.
+
+If you have any questions during this process, reach out to the CES Activation Team (ces-activations@cisco.com), and we will be happy to assist.
+
+Thank you, we look forward to working closely with you.
+
+
+2020 Cisco and/or its affiliates.
+Cisco.com  Privacy Statement  Trademarks
+
+
+--===============2863480152382023402==
+Content-Type: text/html; charset="us-ascii"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7bit
+
+<html>
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+  </head>
+  <body text="#000000" bgcolor="#FFFFFF">
+    <div align="center">
+      <table cellspacing="10" cellpadding="0" width="600" border="0">
+        <tbody>
+          <tr>
+            <td valign="top">
+              <table style="border-color: silver; border-collapse:
+                collapse; border-spacing: 0" cellspacing="0"
+                cellpadding="0" width="100%" border="1">
+                <tbody>
+                  <tr>
+                    <td valign="top">
+                      <p><img id="_x0000_i1026" src="cid:logo2"
+                          height="74" width="600"></p>
+                       <p style="margin: 10px 20px 10px 20px;"><font
+                          size="+1"><b>Your Cisco Cloud Email Security (CES) service is ready!</b>
+                          </font><br>
+                        <br>
+                        <b>Organization Name: customer12</b><br>
+                        <b>Start Date: 2021-08-16 03:32:34 America/Los_Angeles</b><br>
+                        <br> Below you will find information about your login credentials
+                        and other important information regarding your CES.
+                        Please retain this email for future reference<br>
+                      </p>
+                      <p style="margin: 10px 20px 10px 20px;"><b>Configuration
+                          and Testing</b></p>
+                      <ul>
+                        <li style="margin-right: 20px;">Please refer to
+                          the latest <a
+href="https://cisco.app.box.com/v/csoc-rfp-test-plans-pov/folder/40465002150">CES
+                            POV guide</a> on how to configure the
+                          customers environment for the best results</li>
+                        <li style="margin-right: 20px;">For support
+                          during the activation period, please reach out
+                          to the <a
+                            href="mailto:ces-activations@cisco.com">CES
+                            Activation Team</a> and we will be happy to
+                          assist however we can</li>
+                        <li style="margin-right: 20px;">Additional
+                          information can be found on the <a
+                            href="https://wiki.cisco.com/display/esawiki/Email+Security+Wiki">ESA
+                            Wiki</a> and the <a
+                            href="https://cisco.jiveon.com/groups/cloud-email-security-ops">CES
+                            Jive page</a></li>
+                      </ul>
+                      <table cellspacing="" cellpadding="20"
+                        width="100%" border="0">
+                        <tbody>
+                          <tr>
+                            <td valign="top">
+                              <table cellspacing="0" cellpadding="20"
+                                width="100%" border="0">
+                                <tbody>
+                                  <tr>
+                                    <td valign="top" bgcolor="#e8ebf1"<b>Appliance
+                          Access</b></p>
+                      <u><br><b>Partner SE Login Credentials:</b></u></p>
+                        <li> Username: partner_syseng </li>
+                          <li>Password: FCfv!Lj9p</li>
+                            <br>
+                           <font
+                          size="-1"><b>Note:</b> To provide the highest
+                          level of security to our customers, the syseng
+                          username and password will be revoked in 30
+                          days after this email.</font></p>
+                      <b><br><u>Service URL Information:</u></b></p>
+                              <b>Email Security</b></p>
+                                  https://dh3-esa1.auto-dev1.nap5.ironport.com<br>
+                             <b>Security Management</b></p>
+                                 https://dh3-sma1.auto-dev1.nap5.ironport.com<br>
+                            <b>End User Quarantine</b></p>
+                                 https://dh3-euq1.auto-dev1.nap5.ironport.com
+                            </p>
+                        <br>
+                      <b><u>Host and IP Information:</u></b></p>
+                                      <b>Email Security Appliances:</b>&nbsp;&nbsp;&nbsp; </p>
+                                              esa1.hc3-25.auto-dev1.nap5.ironport.com [10.9.142.183] <br>
+                                              esa2.hc3-25.auto-dev1.nap5.ironport.com [10.9.142.187] <br>
+                                      <b>Secure Management Appliance:</b>&nbsp;&nbsp;&nbsp;</p>
+                                              sma1.hc3-25.auto-dev1.nap5.ironport.com [10.9.142.184] <br>
+                         </p>
+                                </p>
+                       <b><br><u>Mail exchange records</u></b></p>
+                                       <li>
+                                       mx1.hc3-25.auto-dev1.nap5.ironport.com</li>
+                                       <li>
+                                       mx2.hc3-25.auto-dev1.nap5.ironport.com</li>
+                                      </p>
+                       <b><br><u>Include CES host and IP address in your SPF record</u></b></p>
+                                 <br>
+                                 v=spf1 exists:%{i}.spf.hc3-25.dhchaluv-auto-dev1.nap5.ironport.com ~all<br>
+                                 </p> <br>
+                                 </td>
+                                  </tr>
+                                </tbody>
+                              </table>
+                            </td>
+                          </tr>
+                        </tbody>
+                      </table>
+                       <p style="margin: 0px 20px 5px 20px;">If this is a hybrid deployment,
+                       then SE or AM should raise a license re-distribution request on
+                       behalf of the customer by using this <a moz-do-not-send="true"
+href="https://app.smartsheet.com/b/form/b1402f634c4d488c9beb75ef41828026"> link</a> and providing all
+                       the relevant details. CES environment will be appropriately provisioned
+                       whenever there is a change in the mix of On-Prem and Cloud email security licenses.</p>
+                      <p style="margin: 10px 20px 10px 20px;"><font
+                          size="-1"><b>Note:</b> In order to use the
+                          CLI, you require access to the bastion access.
+                          If you don't have access please contact <a
+                            href="mail-to:ces-activations@cisco.com">ces-activations</a>
+                          or refer to the internal article <a
+                            href="https://cisco.jiveon.com/groups/cloud-email-security-ops">here</a>.</font></p>
+                      <p style="margin: 10px 20px 10px 20px;"><b>Notes
+                          &amp; Additional Information</b></p>
+                      <ul>
+                        <li>The MX record information will be provided
+                          to you and the customer via a welcome letter
+                          after Cisco completes its activation steps</li>
+                      </ul>
+                      <p style="margin: 10px 20px 10px 20px;"><font
+                          size="+1"><b><u>Cisco TAC Information</b></u></font>
+                          <br>Cisco CES is supported through Cisco TAC. You need to use CCO ID in conjunction with Cisco Contract Number to open a TAC service request.<br>
+                          <br><b>Cisco Contract Number: 99999899</b><br>
+                          <br>If you do not have a CCO ID, please create one at <a href="https://identity.cisco.com/ui/tenants/global/v1.0/enrollment-ui">here</a> and link the contract number to your account.<br>
+                          <p style="margin: 10px 20px 10px 20px;">This email also provides information needed to login to the <a href="https://mycase.cloudapps.cisco.com/case">TAC Service Request Manager</a>, which is a single interface for all your support related needs. It allows you to view open service tickets, track the progress of ticket, view and download reports and much more.<br>
+                         <br><b>Other Important Links to reach TAC Service:</b>
+                          <ul>
+                          <li>Click <a href="mailto:tac@cisco.com">here</a> to reach TAC over Email (Note: Please provide your Cisco.com account and Contract Number to open a case)</li>
+                          <li>Click <a href="https://www.cisco.com/c/en/us/support/web/tsd-cisco-worldwide-contacts.html">here</a> to reach TAC by Phone</li>
+                          <li>Click <a href="mailto:web-help@cisco.com">here</a> to get help with Cisco.com account or Contract Number issues </li>
+                          </ul>
+
+                          <p style="margin: 10px 20px 10px 20px;"><font
+                          size="+1"><b><u>For Microsoft/Office 365 and G-Suite Customers:</b></u></font>
+                            <br>Please visit the links to find out the steps required to Cisco CES with the cloud email services, for inbound and outbound email delivery.<br>
+                            <ul>
+                            <li><a href="http://cs.co/ces-office365"><b>Microsoft/Office 365</b></a></li>
+                            <li><a href="http://cs.co/ces-gsuite"><b>G-Suite</b></a></li>
+                            </ul>
+                      <p style="margin: 0px 20px 5px 20px;"><font size="+1"><b><u>Important bookmarks:</u></b></font>
+                       <ul><li><a href="https://docs.ces.cisco.com/docs/cloud-email-security-quick-start-guide"><b>Quick Start Guide</a></li>
+                          <li><a href="https://docs.ces.cisco.com/docs">CES Guides</a></li>
+                          <li><a href="http://cs.co/ces-setup-guide#use">CES Best Practices</a>(Note: Choose "Best Practices")</li>
+                          <li><a href="https://status.ces.cisco.com">CES Status</a> (<b>Note:</b> Click the "Subscribe" button to receive the latest CES alerts and notifications)</b></p></li>
+                            </ul>
+                        <p style="margin: 10px 20px 5px 20px;"><b>Are you migrating from ESA to CES or from other email security gateway solutions?</b>
+                        <br>For ESA to CES migration - Reach out to ces-activations@cisco.com and get started.<br></p>
+
+                      <p style="margin: 10px 20px 5px 20px;"> If you
+                        have any questions during this process, reach
+                        out to the <a
+                          href="mailto:ces-activations@cisco.com">CES
+                          Activation Team</a> and we will be happy to
+                        assist however we can.</p>
+                      <p style="margin: 10px 20px 20px 20px;"> Thank
+                        you, we look forward to working closely with
+                        you.</p>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </td>
+          </tr>
+          <tr>
+            <td valign="top">
+              <table cellspacing="0" cellpadding="10" width="100%"
+                border="0">
+                <tbody>
+                  <tr>
+                    <td valign="top"><font size="-2">@copy 2020 Cisco and/or
+                        its affiliates.</font><br>
+                    </td>
+                    <td valign="top" align="right"><font size="-2"><a
+                          href="http://www.cisco.com/">Cisco.com</a> | <a
+href="http://www.cisco.com/en/US/swassets/sw293/privacy_statement.html">Privacy
+                          Statement</a> | <a
+href="http://www.cisco.com/en/US/swassets/sw293/trademark_statement.html">Trademarks</a></font><br>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+              <br>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <br>
+  </body>
+</html>
+
+--===============2863480152382023402==--
+--===============2011980218751126742==
+Content-Type: image/png
+MIME-Version: 1.0
+Content-Transfer-Encoding: base64
+Content-ID: logo2
+
+iVBORw0KGgoAAAANSUhEUgAAAlgAAABKCAIAAADohb0yAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJ
+bWFnZVJlYWR5ccllPAAAA4ZpVFh0WE1MOmNvbS5hZG9iZS54bXAAAAAAADw/eHBhY2tldCBiZWdp
+bj0i77u/IiBpZD0iVzVNME1wQ2VoaUh6cmVTek5UY3prYzlkIj8+IDx4OnhtcG1ldGEgeG1sbnM6
+eD0iYWRvYmU6bnM6bWV0YS8iIHg6eG1wdGs9IkFkb2JlIFhNUCBDb3JlIDUuNi1jMDY3IDc5LjE1
+Nzc0NywgMjAxNS8wMy8zMC0yMzo0MDo0MiAgICAgICAgIj4gPHJkZjpSREYgeG1sbnM6cmRmPSJo
+dHRwOi8vd3d3LnczLm9yZy8xOTk5LzAyLzIyLXJkZi1zeW50YXgtbnMjIj4gPHJkZjpEZXNjcmlw
+dGlvbiByZGY6YWJvdXQ9IiIgeG1sbnM6eG1wTU09Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEu
+MC9tbS8iIHhtbG5zOnN0UmVmPSJodHRwOi8vbnMuYWRvYmUuY29tL3hhcC8xLjAvc1R5cGUvUmVz
+b3VyY2VSZWYjIiB4bWxuczp4bXA9Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC8iIHhtcE1N
+Ok9yaWdpbmFsRG9jdW1lbnRJRD0ieG1wLmRpZDpmODdhY2E3YS01YTlkLTRhZTktYmFlNC04Y2Ex
+NTY1MmI3ZjgiIHhtcE1NOkRvY3VtZW50SUQ9InhtcC5kaWQ6MEU5OUMyNkRBRjVFMTFFNUEyQUVG
+MzhGMjhENUIzRDgiIHhtcE1NOkluc3RhbmNlSUQ9InhtcC5paWQ6MEU5OUMyNkNBRjVFMTFFNUEy
+QUVGMzhGMjhENUIzRDgiIHhtcDpDcmVhdG9yVG9vbD0iQWRvYmUgUGhvdG9zaG9wIENDIDIwMTUg
+KE1hY2ludG9zaCkiPiA8eG1wTU06RGVyaXZlZEZyb20gc3RSZWY6aW5zdGFuY2VJRD0ieG1wLmlp
+ZDo2ZGQzODhlOC04NmZiLTQ5NDItOWExNy1kODIxZmFlMmQzYjkiIHN0UmVmOmRvY3VtZW50SUQ9
+ImFkb2JlOmRvY2lkOnBob3Rvc2hvcDpmMjU0MjY4My0wNDYzLTExNzktOWI2Ny1kMTdhZjRiYTI2
+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
+--===============2011980218751126742==--

@@ -1,10 +1,24 @@
 #function
 #function without parameters
+import sys
+
+
+def squre(x):
+    return x*x
+print(squre(5))
+
+
+
 
 print('this is python')
 
+
+count=0
+
 def functiname(): # called function
-    print("This is python version is 3.9")
+    global count
+    count=count+1
+    functiname()
 functiname() # calling function
 
 def sumofnum(*teka): # called function

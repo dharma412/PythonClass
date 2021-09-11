@@ -18,6 +18,8 @@ class MobileCopmanies():
 
     def getRevenue(self):
         print(self.revenue)
+
+
 print(MobileCopmanies.getRevenue())
 sumsung=MobileCopmanies("samsung","korea","100$",78378,"$50")
 Iphone=MobileCopmanies("Iphone","America","2090$",7834378,"$150")

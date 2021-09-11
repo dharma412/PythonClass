@@ -1,0 +1,10 @@
+{
+   "newuser":
+   {  "username": "testuser",
+      "firstname": "test",
+      "lastname": "user",
+      "email": "dhchaluv@cisco.com",
+      "password":"Ironport123!"
+   }
+
+}

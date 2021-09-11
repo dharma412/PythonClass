@@ -4,6 +4,35 @@
 #The Python interpreter limits the depths of recursion to help avoid infinite recursions, resulting in stack overflows.
 
 
+def fac(x):
+    if x==1 or x==0:
+          return 1
+    else:
+       print(x)
+       result=x*fac(x-1)
+       #print(result)
+    return result
+result=fac(4)
+print(result)
+
+
+
+def fact(n):
+    fact=1
+    if n<0:
+        return 1
+    elif n==0 or n==1:
+        return 1
+    else:
+        for i in range(1,n+1):
+            fact=fact*i
+    print(fact)
+fact(4)
+
+
+
+
+
 
 def fact(x):
     if x==1:

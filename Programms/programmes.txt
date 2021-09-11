@@ -1,0 +1,31 @@
+Given a array of numbers representing the stock prices of a company in chronological order, 
+write a function that calculates the maximum profit you could have made from buying and selling that stock once. 
+You must buy before you can sell it.
+
+9, 11, 8, 5, 7, 10
+9-11 =2
+3 
+2
+5
+For example, given [9, 11, 8, 5, 7, 10], 
+
+
+
+dic1={'a':25,'b':21,'c':24,'d':21,'e':17}
+
+
+order_dict1=sorted(dic1.items(), key=lambda x:x[1],reverse=True)
+print(order_dict1)
+for i in order_dict1:
+    print(i[0],i[1])
+
+
+
+for key,value in sorted(dic1.items()):
+    print(key,value)
+
+
+for key,value in sorted(dic1.items()):
+    print(key,value)
+
+you should return 5, since you could buy the stock at 5 dollars and sell it at 10 dollar                                                                                                                                                                

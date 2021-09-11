@@ -1,4 +1,4 @@
-import pandas as pd
+import pandas as a
 
 
 
@@ -9,5 +9,5 @@ def change_year(cell):
         return 2022
     return cell
 
-df=pd.read_excel('sampleData_Excel_Data.xlsx','sampleData',converters = {'Year':change_year})
+df=a.read_excel('sampleData_Excel_Data.xlsx','sampleData',converters = {'Year':change_year})
 print(df)
