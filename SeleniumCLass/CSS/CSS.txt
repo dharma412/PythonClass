@@ -1,0 +1,7 @@
+CSS Selectors in Selenium have many formats, but we will only focus on the most common ones.
+
+Tag and ID                      input#email locator of facebook email field
+Tag and class                   input.className
+Tag and attribute               input[attribute=value]
+Tag, class, and attribute       input.class[attribute=value]
+Inner text                      tag.conatins()

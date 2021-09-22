@@ -1,0 +1,557 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ProductionOrder>
+    <IDOCData>
+        <DocumentNumber>0101002917161660</DocumentNumber>
+        <SerialNumber>20180809092419</SerialNumber>
+        <SendingSystem>SAPP03</SendingSystem>
+        <CreationTimeStamp>2018-08-09T09:24:20Z</CreationTimeStamp>
+    </IDOCData>
+    <OrderHeader>
+        <OrderNumber>20190411</OrderNumber>
+        <OrderType>ZP01</OrderType>
+        <UOM>MIL</UOM>
+        <OrderSeqanceNumber>00000000000000</OrderSeqanceNumber>
+        <TotalOrderQuantity>5000</TotalOrderQuantity>
+        <MaterialNumber>10001573</MaterialNumber>
+        <AlternateUOM>1</AlternateUOM>
+        <BillOfMaterial>01436245</BillOfMaterial>
+        <Plant>RO32</Plant>
+        <OrderHeaderAdditionalInfo>
+            <ScheduledStartDate>20180708</ScheduledStartDate>
+            <ScheduledStartTime>000001</ScheduledStartTime>
+            <ScheduledEndDate>20180719</ScheduledEndDate>
+            <ScheduledEndTime>191300</ScheduledEndTime>
+            <BatchNumber>72332018</BatchNumber>
+            <CreatedBy>98912428</CreatedBy>
+        </OrderHeaderAdditionalInfo>
+        <ProductionOrderHeaderStatus>
+            <Status>I0002</Status>
+        </ProductionOrderHeaderStatus>
+        <ProductionOrderSequences>
+            <ProductionOrderProcesses>
+                <ActivityNumber>0010</ActivityNumber>
+                <ControlKey>ZP03</ControlKey>
+                <StandardValue01>0.000</StandardValue01>
+                <StandardValue02>1.000</StandardValue02>
+                <StandardValue03>1.000</StandardValue03>
+                <OperationComponents>
+                    <ComponentScrapPercent>0.00</ComponentScrapPercent>
+                    <RequirementQuantity>20.800</RequirementQuantity>
+                    <BatchNumber />
+                    <FixedQuantity />
+                    <StorageLocation>P101</StorageLocation>
+                    <MaterialNumber>41823956</MaterialNumber>
+                    <BaseUOM>KGM</BaseUOM>
+                    <Plant>RO32</Plant>
+                    <BOMItemNumber>0060</BOMItemNumber>
+                    <ReservationNumber>0521225649</ReservationNumber>
+                    <ItemReservationNumber>0040</ItemReservationNumber>
+                    <RecordType />
+                    <PhantomIndicator />
+                    <OrderPath>00</OrderPath>
+                    <BackflushIndicator>X</BackflushIndicator>
+                </OperationComponents>
+                <OperationComponents>
+                    <ComponentScrapPercent>0.00</ComponentScrapPercent>
+                    <RequirementQuantity>62.400</RequirementQuantity>
+                    <BatchNumber />
+                    <FixedQuantity />
+                    <StorageLocation>P101</StorageLocation>
+                    <MaterialNumber>41823955</MaterialNumber>
+                    <BaseUOM>KGM</BaseUOM>
+                    <Plant>RO32</Plant>
+                    <BOMItemNumber>0070</BOMItemNumber>
+                    <ReservationNumber>0521225649</ReservationNumber>
+                    <ItemReservationNumber>0041</ItemReservationNumber>
+                    <RecordType />
+                    <PhantomIndicator />
+                    <OrderPath>00</OrderPath>
+                    <BackflushIndicator>X</BackflushIndicator>
+                </OperationComponents>
+                <OperationComponents>
+                    <ComponentScrapPercent>0.00</ComponentScrapPercent>
+                    <RequirementQuantity>78.000</RequirementQuantity>
+                    <BatchNumber />
+                    <FixedQuantity />
+                    <StorageLocation>B101</StorageLocation>
+                    <MaterialNumber>41825698</MaterialNumber>
+                    <BaseUOM>KGM</BaseUOM>
+                    <Plant>RO32</Plant>
+                    <BOMItemNumber>0080</BOMItemNumber>
+                    <ReservationNumber>0521225649</ReservationNumber>
+                    <ItemReservationNumber>0042</ItemReservationNumber>
+                    <RecordType />
+                    <PhantomIndicator />
+                    <OrderPath>00</OrderPath>
+                    <BackflushIndicator>X</BackflushIndicator>
+                </OperationComponents>
+                <OperationComponents>
+                    <ComponentScrapPercent>0.00</ComponentScrapPercent>
+                    <RequirementQuantity>260000.000</RequirementQuantity>
+                    <BatchNumber />
+                    <FixedQuantity />
+                    <StorageLocation>P109</StorageLocation>
+                    <MaterialNumber>40061500</MaterialNumber>
+                    <BaseUOM>EA</BaseUOM>
+                    <Plant>RO32</Plant>
+                    <BOMItemNumber>0090</BOMItemNumber>
+                    <ReservationNumber>0521225649</ReservationNumber>
+                    <ItemReservationNumber>0043</ItemReservationNumber>
+                    <RecordType />
+                    <PhantomIndicator />
+                    <OrderPath>00</OrderPath>
+                    <BackflushIndicator>X</BackflushIndicator>
+                </OperationComponents>
+                <OperationComponents>
+                    <ComponentScrapPercent>2.90</ComponentScrapPercent>
+                    <RequirementQuantity>0.022</RequirementQuantity>
+                    <BatchNumber />
+                    <FixedQuantity />
+                    <StorageLocation>P101</StorageLocation>
+                    <MaterialNumber>41828312</MaterialNumber>
+                    <BaseUOM>MIL</BaseUOM>
+                    <Plant>RO32</Plant>
+                    <BOMItemNumber>0100</BOMItemNumber>
+                    <ReservationNumber>0521225649</ReservationNumber>
+                    <ItemReservationNumber>0044</ItemReservationNumber>
+                    <RecordType />
+                    <PhantomIndicator />
+                    <OrderPath>00</OrderPath>
+                    <BackflushIndicator>X</BackflushIndicator>
+                </OperationComponents>
+                <OperationComponents>
+                    <ComponentScrapPercent>1.80</ComponentScrapPercent>
+                    <RequirementQuantity>26.468</RequirementQuantity>
+                    <BatchNumber />
+                    <FixedQuantity />
+                    <StorageLocation>P101</StorageLocation>
+                    <MaterialNumber>41824333</MaterialNumber>
+                    <BaseUOM>MIL</BaseUOM>
+                    <Plant>RO32</Plant>
+                    <BOMItemNumber>0110</BOMItemNumber>
+                    <ReservationNumber>0521225649</ReservationNumber>
+                    <ItemReservationNumber>0045</ItemReservationNumber>
+                    <RecordType />
+                    <PhantomIndicator />
+                    <OrderPath>00</OrderPath>
+                    <BackflushIndicator>X</BackflushIndicator>
+                </OperationComponents>
+                <OperationComponents>
+                    <ComponentScrapPercent>2.90</ComponentScrapPercent>
+                    <RequirementQuantity>0.536</RequirementQuantity>
+                    <BatchNumber />
+                    <FixedQuantity />
+                    <StorageLocation>P101</StorageLocation>
+                    <MaterialNumber>40006334</MaterialNumber>
+                    <BaseUOM>MIL</BaseUOM>
+                    <Plant>RO32</Plant>
+                    <BOMItemNumber>0120</BOMItemNumber>
+                    <ReservationNumber>0521225649</ReservationNumber>
+                    <ItemReservationNumber>0046</ItemReservationNumber>
+                    <RecordType />
+                    <PhantomIndicator />
+                    <OrderPath>00</OrderPath>
+                    <BackflushIndicator>X</BackflushIndicator>
+                </OperationComponents>
+                <OperationComponents>
+                    <ComponentScrapPercent>2.30</ComponentScrapPercent>
+                    <RequirementQuantity>4.256</RequirementQuantity>
+                    <BatchNumber />
+                    <FixedQuantity />
+                    <StorageLocation>P101</StorageLocation>
+                    <MaterialNumber>40042685</MaterialNumber>
+                    <BaseUOM>KGM</BaseUOM>
+                    <Plant>RO32</Plant>
+                    <BOMItemNumber>0130</BOMItemNumber>
+                    <ReservationNumber>0521225649</ReservationNumber>
+                    <ItemReservationNumber>0047</ItemReservationNumber>
+                    <RecordType />
+                    <PhantomIndicator />
+                    <OrderPath>00</OrderPath>
+                    <BackflushIndicator>X</BackflushIndicator>
+                </OperationComponents>
+                <OperationComponents>
+                    <ComponentScrapPercent>0.00</ComponentScrapPercent>
+                    <RequirementQuantity>3380.000</RequirementQuantity>
+                    <BatchNumber />
+                    <FixedQuantity />
+                    <StorageLocation />
+                    <MaterialNumber>31558727</MaterialNumber>
+                    <BaseUOM>MIL</BaseUOM>
+                    <Plant>RO32</Plant>
+                    <BOMItemNumber>0010</BOMItemNumber>
+                    <ReservationNumber>0521225649</ReservationNumber>
+                    <ItemReservationNumber>0049</ItemReservationNumber>
+                    <RecordType />
+                    <PhantomIndicator>X</PhantomIndicator>
+                    <OrderPath>01</OrderPath>
+                    <BackflushIndicator />
+                </OperationComponents>
+                <OperationComponents>
+                    <ComponentScrapPercent>2.80</ComponentScrapPercent>
+                    <RequirementQuantity>194.578</RequirementQuantity>
+                    <BatchNumber />
+                    <FixedQuantity />
+                    <StorageLocation>P101</StorageLocation>
+                    <MaterialNumber>40022774</MaterialNumber>
+                    <BaseUOM>KTM</BaseUOM>
+                    <Plant>RO32</Plant>
+                    <BOMItemNumber>0010</BOMItemNumber>
+                    <ReservationNumber>0521225649</ReservationNumber>
+                    <ItemReservationNumber>0050</ItemReservationNumber>
+                    <RecordType />
+                    <PhantomIndicator />
+                    <OrderPath>01</OrderPath>
+                    <BackflushIndicator>X</BackflushIndicator>
+                </OperationComponents>
+                <OperationComponents>
+                    <ComponentScrapPercent>1.20</ComponentScrapPercent>
+                    <RequirementQuantity>40.197</RequirementQuantity>
+                    <BatchNumber />
+                    <FixedQuantity />
+                    <StorageLocation>P101</StorageLocation>
+                    <MaterialNumber>40058570</MaterialNumber>
+                    <BaseUOM>KTM</BaseUOM>
+                    <Plant>RO32</Plant>
+                    <BOMItemNumber>0020</BOMItemNumber>
+                    <ReservationNumber>0521225649</ReservationNumber>
+                    <ItemReservationNumber>0051</ItemReservationNumber>
+                    <RecordType />
+                    <PhantomIndicator />
+                    <OrderPath>01</OrderPath>
+                    <BackflushIndicator>X</BackflushIndicator>
+                </OperationComponents>
+                <OperationComponents>
+                    <ComponentScrapPercent>2.40</ComponentScrapPercent>
+                    <RequirementQuantity>865.280</RequirementQuantity>
+                    <BatchNumber />
+                    <FixedQuantity />
+                    <StorageLocation>P101</StorageLocation>
+                    <MaterialNumber>31055229</MaterialNumber>
+                    <BaseUOM>MIL</BaseUOM>
+                    <Plant>RO32</Plant>
+                    <BOMItemNumber>0030</BOMItemNumber>
+                    <ReservationNumber>0521225649</ReservationNumber>
+                    <ItemReservationNumber>0052</ItemReservationNumber>
+                    <RecordType />
+                    <PhantomIndicator />
+                    <OrderPath>01</OrderPath>
+                    <BackflushIndicator>X</BackflushIndicator>
+                </OperationComponents>
+                <OperationComponents>
+                    <ComponentScrapPercent>0.50</ComponentScrapPercent>
+                    <RequirementQuantity>30.063</RequirementQuantity>
+                    <BatchNumber />
+                    <FixedQuantity />
+                    <StorageLocation>P101</StorageLocation>
+                    <MaterialNumber>41808370</MaterialNumber>
+                    <BaseUOM>KGM</BaseUOM>
+                    <Plant>RO32</Plant>
+                    <BOMItemNumber>0040</BOMItemNumber>
+                    <ReservationNumber>0521225649</ReservationNumber>
+                    <ItemReservationNumber>0053</ItemReservationNumber>
+                    <RecordType />
+                    <PhantomIndicator />
+                    <OrderPath>01</OrderPath>
+                    <BackflushIndicator>X</BackflushIndicator>
+                </OperationComponents>
+                <OperationComponents>
+                    <ComponentScrapPercent>0.50</ComponentScrapPercent>
+                    <RequirementQuantity>4.077</RequirementQuantity>
+                    <BatchNumber />
+                    <FixedQuantity />
+                    <StorageLocation>P101</StorageLocation>
+                    <MaterialNumber>41824244</MaterialNumber>
+                    <BaseUOM>KGM</BaseUOM>
+                    <Plant>RO32</Plant>
+                    <BOMItemNumber>0050</BOMItemNumber>
+                    <ReservationNumber>0521225649</ReservationNumber>
+                    <ItemReservationNumber>0054</ItemReservationNumber>
+                    <RecordType />
+                    <PhantomIndicator />
+                    <OrderPath>01</OrderPath>
+                    <BackflushIndicator>X</BackflushIndicator>
+                </OperationComponents>
+                <OperationComponents>
+                    <ComponentScrapPercent>9.00</ComponentScrapPercent>
+                    <RequirementQuantity>1676.311</RequirementQuantity>
+                    <BatchNumber />
+                    <FixedQuantity />
+                    <StorageLocation>B101</StorageLocation>
+                    <MaterialNumber>31012192</MaterialNumber>
+                    <BaseUOM>KGM</BaseUOM>
+                    <Plant>RO32</Plant>
+                    <BOMItemNumber>0060</BOMItemNumber>
+                    <ReservationNumber>0521225649</ReservationNumber>
+                    <ItemReservationNumber>0055</ItemReservationNumber>
+                    <RecordType />
+                    <PhantomIndicator />
+                    <OrderPath>01</OrderPath>
+                    <BackflushIndicator>X</BackflushIndicator>
+                </OperationComponents>
+                <OperationComponents>
+                    <ComponentScrapPercent>0.00</ComponentScrapPercent>
+                    <RequirementQuantity>1820.000</RequirementQuantity>
+                    <BatchNumber />
+                    <FixedQuantity />
+                    <StorageLocation />
+                    <MaterialNumber>31055464</MaterialNumber>
+                    <BaseUOM>MIL</BaseUOM>
+                    <Plant>RO32</Plant>
+                    <BOMItemNumber>0020</BOMItemNumber>
+                    <ReservationNumber>0521225649</ReservationNumber>
+                    <ItemReservationNumber>0056</ItemReservationNumber>
+                    <RecordType />
+                    <PhantomIndicator>X</PhantomIndicator>
+                    <OrderPath>02</OrderPath>
+                    <BackflushIndicator />
+                </OperationComponents>
+                <OperationComponents>
+                    <ComponentScrapPercent>2.80</ComponentScrapPercent>
+                    <RequirementQuantity>104.774</RequirementQuantity>
+                    <BatchNumber />
+                    <FixedQuantity />
+                    <StorageLocation>P101</StorageLocation>
+                    <MaterialNumber>40022774</MaterialNumber>
+                    <BaseUOM>KTM</BaseUOM>
+                    <Plant>RO32</Plant>
+                    <BOMItemNumber>0010</BOMItemNumber>
+                    <ReservationNumber>0521225649</ReservationNumber>
+                    <ItemReservationNumber>0057</ItemReservationNumber>
+                    <RecordType />
+                    <PhantomIndicator />
+                    <OrderPath>02</OrderPath>
+                    <BackflushIndicator>X</BackflushIndicator>
+                </OperationComponents>
+                <OperationComponents>
+                    <ComponentScrapPercent>1.20</ComponentScrapPercent>
+                    <RequirementQuantity>21.645</RequirementQuantity>
+                    <BatchNumber />
+                    <FixedQuantity />
+                    <StorageLocation>P101</StorageLocation>
+                    <MaterialNumber>40057097</MaterialNumber>
+                    <BaseUOM>KTM</BaseUOM>
+                    <Plant>RO32</Plant>
+                    <BOMItemNumber>0020</BOMItemNumber>
+                    <ReservationNumber>0521225649</ReservationNumber>
+                    <ItemReservationNumber>0058</ItemReservationNumber>
+                    <RecordType />
+                    <PhantomIndicator />
+                    <OrderPath>02</OrderPath>
+                    <BackflushIndicator>X</BackflushIndicator>
+                </OperationComponents>
+                <OperationComponents>
+                    <ComponentScrapPercent>0.50</ComponentScrapPercent>
+                    <RequirementQuantity>16.188</RequirementQuantity>
+                    <BatchNumber />
+                    <FixedQuantity />
+                    <StorageLocation>P101</StorageLocation>
+                    <MaterialNumber>40026575</MaterialNumber>
+                    <BaseUOM>KGM</BaseUOM>
+                    <Plant>RO32</Plant>
+                    <BOMItemNumber>0040</BOMItemNumber>
+                    <ReservationNumber>0521225649</ReservationNumber>
+                    <ItemReservationNumber>0060</ItemReservationNumber>
+                    <RecordType />
+                    <PhantomIndicator />
+                    <OrderPath>02</OrderPath>
+                    <BackflushIndicator>X</BackflushIndicator>
+                </OperationComponents>
+                <OperationComponents>
+                    <ComponentScrapPercent>0.50</ComponentScrapPercent>
+                    <RequirementQuantity>2.195</RequirementQuantity>
+                    <BatchNumber />
+                    <FixedQuantity />
+                    <StorageLocation>P101</StorageLocation>
+                    <MaterialNumber>41824244</MaterialNumber>
+                    <BaseUOM>KGM</BaseUOM>
+                    <Plant>RO32</Plant>
+                    <BOMItemNumber>0050</BOMItemNumber>
+                    <ReservationNumber>0521225649</ReservationNumber>
+                    <ItemReservationNumber>0061</ItemReservationNumber>
+                    <RecordType />
+                    <PhantomIndicator />
+                    <OrderPath>02</OrderPath>
+                    <BackflushIndicator>X</BackflushIndicator>
+                </OperationComponents>
+                <OperationComponents>
+                    <ComponentScrapPercent>9.00</ComponentScrapPercent>
+                    <RequirementQuantity>902.629</RequirementQuantity>
+                    <BatchNumber />
+                    <FixedQuantity />
+                    <StorageLocation>B101</StorageLocation>
+                    <MaterialNumber>31012192</MaterialNumber>
+                    <BaseUOM>KGM</BaseUOM>
+                    <Plant>RO32</Plant>
+                    <BOMItemNumber>0060</BOMItemNumber>
+                    <ReservationNumber>0521225649</ReservationNumber>
+                    <ItemReservationNumber>0062</ItemReservationNumber>
+                    <RecordType />
+                    <PhantomIndicator />
+                    <OrderPath>02</OrderPath>
+                    <BackflushIndicator>X</BackflushIndicator>
+                </OperationComponents>
+                <OperationComponents>
+                    <ComponentScrapPercent>1.50</ComponentScrapPercent>
+                    <RequirementQuantity>34.836</RequirementQuantity>
+                    <BatchNumber />
+                    <FixedQuantity />
+                    <StorageLocation>P101</StorageLocation>
+                    <MaterialNumber>41827571</MaterialNumber>
+                    <BaseUOM>KTM</BaseUOM>
+                    <Plant>RO32</Plant>
+                    <BOMItemNumber>0020</BOMItemNumber>
+                    <ReservationNumber>0521225649</ReservationNumber>
+                    <ItemReservationNumber>0065</ItemReservationNumber>
+                    <RecordType />
+                    <PhantomIndicator />
+                    <OrderPath>03</OrderPath>
+                    <BackflushIndicator>X</BackflushIndicator>
+                </OperationComponents>
+                <OperationComponents>
+                    <ComponentScrapPercent>1.60</ComponentScrapPercent>
+                    <RequirementQuantity>35.981</RequirementQuantity>
+                    <BatchNumber />
+                    <FixedQuantity />
+                    <StorageLocation>P101</StorageLocation>
+                    <MaterialNumber>41824024</MaterialNumber>
+                    <BaseUOM>KTM</BaseUOM>
+                    <Plant>RO32</Plant>
+                    <BOMItemNumber>0040</BOMItemNumber>
+                    <ReservationNumber>0521225649</ReservationNumber>
+                    <ItemReservationNumber>0067</ItemReservationNumber>
+                    <RecordType />
+                    <PhantomIndicator />
+                    <OrderPath>03</OrderPath>
+                    <BackflushIndicator>X</BackflushIndicator>
+                </OperationComponents>
+                <OperationComponents>
+                    <ComponentScrapPercent>1.25</ComponentScrapPercent>
+                    <RequirementQuantity>35.900</RequirementQuantity>
+                    <BatchNumber />
+                    <FixedQuantity />
+                    <StorageLocation>P101</StorageLocation>
+                    <MaterialNumber>41828004</MaterialNumber>
+                    <BaseUOM>KTM</BaseUOM>
+                    <Plant>RO32</Plant>
+                    <BOMItemNumber>0050</BOMItemNumber>
+                    <ReservationNumber>0521225649</ReservationNumber>
+                    <ItemReservationNumber>0068</ItemReservationNumber>
+                    <RecordType />
+                    <PhantomIndicator />
+                    <OrderPath>03</OrderPath>
+                    <BackflushIndicator>X</BackflushIndicator>
+                </OperationComponents>
+                <OperationComponents>
+                    <ComponentScrapPercent>0.20</ComponentScrapPercent>
+                    <RequirementQuantity>6.253</RequirementQuantity>
+                    <BatchNumber />
+                    <FixedQuantity />
+                    <StorageLocation>P101</StorageLocation>
+                    <MaterialNumber>40011388</MaterialNumber>
+                    <BaseUOM>KGM</BaseUOM>
+                    <Plant>RO32</Plant>
+                    <BOMItemNumber>0060</BOMItemNumber>
+                    <ReservationNumber>0521225649</ReservationNumber>
+                    <ItemReservationNumber>0069</ItemReservationNumber>
+                    <RecordType />
+                    <PhantomIndicator />
+                    <OrderPath>03</OrderPath>
+                    <BackflushIndicator>X</BackflushIndicator>
+                </OperationComponents>
+                <OperationComponents>
+                    <ComponentScrapPercent>0.20</ComponentScrapPercent>
+                    <RequirementQuantity>18.237</RequirementQuantity>
+                    <BatchNumber />
+                    <FixedQuantity />
+                    <StorageLocation>P101</StorageLocation>
+                    <MaterialNumber>40011388</MaterialNumber>
+                    <BaseUOM>KGM</BaseUOM>
+                    <Plant>RO32</Plant>
+                    <BOMItemNumber>0070</BOMItemNumber>
+                    <ReservationNumber>0521225649</ReservationNumber>
+                    <ItemReservationNumber>0070</ItemReservationNumber>
+                    <RecordType />
+                    <PhantomIndicator />
+                    <OrderPath>03</OrderPath>
+                    <BackflushIndicator>X</BackflushIndicator>
+                </OperationComponents>
+                <OperationComponents>
+                    <ComponentScrapPercent>0.00</ComponentScrapPercent>
+                    <RequirementQuantity>26.000</RequirementQuantity>
+                    <BatchNumber />
+                    <FixedQuantity />
+                    <StorageLocation />
+                    <MaterialNumber>31608641</MaterialNumber>
+                    <BaseUOM>MIL</BaseUOM>
+                    <Plant>RO32</Plant>
+                    <BOMItemNumber>0040</BOMItemNumber>
+                    <ReservationNumber>0521225649</ReservationNumber>
+                    <ItemReservationNumber>0071</ItemReservationNumber>
+                    <RecordType />
+                    <PhantomIndicator>X</PhantomIndicator>
+                    <OrderPath>04</OrderPath>
+                    <BackflushIndicator />
+                </OperationComponents>
+                <OperationComponents>
+                    <ComponentScrapPercent>0.50</ComponentScrapPercent>
+                    <RequirementQuantity>7.200</RequirementQuantity>
+                    <BatchNumber />
+                    <FixedQuantity />
+                    <StorageLocation>P101</StorageLocation>
+                    <MaterialNumber>41824201</MaterialNumber>
+                    <BaseUOM>KTM</BaseUOM>
+                    <Plant>RO32</Plant>
+                    <BOMItemNumber>0010</BOMItemNumber>
+                    <ReservationNumber>0521225649</ReservationNumber>
+                    <ItemReservationNumber>0072</ItemReservationNumber>
+                    <RecordType />
+                    <PhantomIndicator />
+                    <OrderPath>04</OrderPath>
+                    <BackflushIndicator>X</BackflushIndicator>
+                </OperationComponents>
+                <OperationComponents>
+                    <ComponentScrapPercent>0.90</ComponentScrapPercent>
+                    <RequirementQuantity>7.191</RequirementQuantity>
+                    <BatchNumber />
+                    <FixedQuantity />
+                    <StorageLocation>P101</StorageLocation>
+                    <MaterialNumber>41825499</MaterialNumber>
+                    <BaseUOM>KTM</BaseUOM>
+                    <Plant>RO32</Plant>
+                    <BOMItemNumber>0020</BOMItemNumber>
+                    <ReservationNumber>0521225649</ReservationNumber>
+                    <ItemReservationNumber>0073</ItemReservationNumber>
+                    <RecordType />
+                    <PhantomIndicator />
+                    <OrderPath>04</OrderPath>
+                    <BackflushIndicator>X</BackflushIndicator>
+                </OperationComponents>
+                <OperationComponents>
+                    <ComponentScrapPercent>0.00</ComponentScrapPercent>
+                    <RequirementQuantity>520.000</RequirementQuantity>
+                    <BatchNumber />
+                    <FixedQuantity />
+                    <StorageLocation />
+                    <MaterialNumber>31608632</MaterialNumber>
+                    <BaseUOM>EA</BaseUOM>
+                    <Plant>RO32</Plant>
+                    <BOMItemNumber>0050</BOMItemNumber>
+                    <ReservationNumber>0521225649</ReservationNumber>
+                    <ItemReservationNumber>0074</ItemReservationNumber>
+                    <RecordType />
+                    <PhantomIndicator>X</PhantomIndicator>
+                    <OrderPath>05</OrderPath>
+                    <BackflushIndicator />
+                </OperationComponents>
+                <OperationAdditionalInfo>
+                    <WorkCenter>SP04</WorkCenter>
+                    <MaterialNumber>10001573</MaterialNumber>
+                </OperationAdditionalInfo>
+            </ProductionOrderProcesses>
+        </ProductionOrderSequences>
+        <ProductionOrderItem SEGMENT="">
+            <StorageLocation>P101</StorageLocation>
+        </ProductionOrderItem>
+    </OrderHeader>
+</ProductionOrder>

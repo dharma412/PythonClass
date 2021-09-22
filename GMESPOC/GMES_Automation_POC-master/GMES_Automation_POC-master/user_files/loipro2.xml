@@ -1,0 +1,960 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<ZXLOIPRO03>
+    <IDOC BEGIN="1">
+        <EDI_DC40 SEGMENT="1">
+            <DOCNUM>0000000876213648</DOCNUM>
+            <IDOCTYP>LOIPRO03</IDOCTYP>
+            <CIMTYP>ZXLOIPRO03</CIMTYP>
+            <MESTYP>LOIPRO</MESTYP>
+            <CREDAT>20181227</CREDAT>
+            <CRETIM>070240</CRETIM>
+        </EDI_DC40>
+        <E1AFKOL SEGMENT="1">
+            <AUFNR>2019502</AUFNR>
+            <AUART>ZP01</AUART>
+            <BMEINS>MIL</BMEINS>
+            <CY_SEQNR>00000000000010</CY_SEQNR>
+            <GAMNG>20</GAMNG>
+            <GLTRS>20181227</GLTRS>
+            <GLUZS>240000</GLUZS>
+            <GMEIN>MIL</GMEIN>
+            <GSTRS>20181227</GSTRS>
+            <GSUZS>222520</GSUZS>
+            <MATNR>10038381</MATNR>
+            <STLAL>2</STLAL>
+            <STLNR>01224220</STLNR>
+            <WERKS>RO02</WERKS>
+            <Z1EDKAFKOL SEGMENT="1">
+                <ZGSTSTARTDATE>20170907</ZGSTSTARTDATE>
+                <ZGSTSTARTTIME>080001</ZGSTSTARTTIME>
+                <ZGSTENDDATE>20170909</ZGSTENDDATE>
+                <ZGSTENDTIME>141800</ZGSTENDTIME>
+                <PWERK>RO32</PWERK>
+                <CHARG>65252018</CHARG>
+                <RSNUM>0500431511</RSNUM>
+                <ERNAM>81033130</ERNAM>
+            </Z1EDKAFKOL>
+            <E1JSTKL SEGMENT="1">
+                <STAT>I0002</STAT>
+            </E1JSTKL>
+            <E1AFFLL SEGMENT="1">
+                <E1AFVOL SEGMENT="1">
+                    <VORNR>0010</VORNR>
+                    <FSAVD>20181227</FSAVD>
+                    <FSAVZ>222520</FSAVZ>
+                    <STEUS>ZP08</STEUS>
+                    <VGE01>HUR</VGE01>
+                    <VGE02>HUR</VGE02>
+                    <VGE03>HUR</VGE03>
+                    <VGW01>0.000</VGW01>
+                    <VGW02>1.000</VGW02>
+                    <VGW03>1.000</VGW03>
+                    <Z1EDPOPERITEMS SEGMENT="1">
+                        <AUSCH>0.00</AUSCH>
+                        <BDMNG>50</BDMNG>
+                        <CHARG />
+                        <FMENG />
+                        <LGORT />
+                        <MATNR>10038381</MATNR>
+                        <MEINS>MIL</MEINS>
+                        <WERKS>RO02</WERKS>
+                        <BWART>261</BWART>
+                        <POSNR>0010</POSNR>
+                        <RSNUM>0500431511</RSNUM>
+                        <RSPOS>0028</RSPOS>
+                        <RSART />
+                        <ALPRF>00</ALPRF>
+                        <EWAHR>0</EWAHR>
+                        <DUMPS>X</DUMPS>
+                        <AUFST>01</AUFST>
+                        <AUFWG>01</AUFWG>
+                        <RGEKZ />
+                    </Z1EDPOPERITEMS>
+                    <Z1EDPOPERITEMS SEGMENT="1">
+                        <AUSCH>5.00</AUSCH>
+                        <BDMNG>48.804</BDMNG>
+                        <CHARG />
+                        <FMENG />
+                        <LGORT>P101</LGORT>
+                        <MATNR>31052004</MATNR>
+                        <MEINS>KTM</MEINS>
+                        <WERKS>RO32</WERKS>
+                        <BWART>261</BWART>
+                        <POSNR>0010</POSNR>
+                        <RSNUM>0500431511</RSNUM>
+                        <RSPOS>0029</RSPOS>
+                        <RSART />
+                        <ALPRF>00</ALPRF>
+                        <EWAHR>0</EWAHR>
+                        <DUMPS />
+                        <AUFST>01</AUFST>
+                        <AUFWG>01</AUFWG>
+                        <RGEKZ>X</RGEKZ>
+                    </Z1EDPOPERITEMS>
+                    <Z1EDPOPERITEMS SEGMENT="1">
+                        <AUSCH>1.50</AUSCH>
+                        <BDMNG>2.831</BDMNG>
+                        <CHARG />
+                        <FMENG />
+                        <LGORT>P101</LGORT>
+                        <MATNR>41811966</MATNR>
+                        <MEINS>KGM</MEINS>
+                        <WERKS>RO32</WERKS>
+                        <BWART>261</BWART>
+                        <POSNR>0020</POSNR>
+                        <RSNUM>0500431511</RSNUM>
+                        <RSPOS>0030</RSPOS>
+                        <RSART />
+                        <ALPRF>00</ALPRF>
+                        <EWAHR>0</EWAHR>
+                        <DUMPS />
+                        <AUFST>01</AUFST>
+                        <AUFWG>01</AUFWG>
+                        <RGEKZ>X</RGEKZ>
+                    </Z1EDPOPERITEMS>
+                    <Z1EDPOPERITEMS SEGMENT="1">
+                        <AUSCH>3.00</AUSCH>
+                        <BDMNG>22.655</BDMNG>
+                        <CHARG />
+                        <FMENG />
+                        <LGORT>P101</LGORT>
+                        <MATNR>41808002</MATNR>
+                        <MEINS>KTM</MEINS>
+                        <WERKS>RO32</WERKS>
+                        <BWART>261</BWART>
+                        <POSNR>0030</POSNR>
+                        <RSNUM>0500431511</RSNUM>
+                        <RSPOS>0031</RSPOS>
+                        <RSART />
+                        <ALPRF>00</ALPRF>
+                        <EWAHR>0</EWAHR>
+                        <DUMPS />
+                        <AUFST>01</AUFST>
+                        <AUFWG>01</AUFWG>
+                        <RGEKZ>X</RGEKZ>
+                    </Z1EDPOPERITEMS>
+                    <Z1EDPOPERITEMS SEGMENT="1">
+                        <AUSCH>2.00</AUSCH>
+                        <BDMNG>14.359</BDMNG>
+                        <CHARG />
+                        <FMENG />
+                        <LGORT>P101</LGORT>
+                        <MATNR>41811965</MATNR>
+                        <MEINS>KGM</MEINS>
+                        <WERKS>RO32</WERKS>
+                        <BWART>261</BWART>
+                        <POSNR>0040</POSNR>
+                        <RSNUM>0500431511</RSNUM>
+                        <RSPOS>0032</RSPOS>
+                        <RSART />
+                        <ALPRF>00</ALPRF>
+                        <EWAHR>0</EWAHR>
+                        <DUMPS />
+                        <AUFST>01</AUFST>
+                        <AUFWG>01</AUFWG>
+                        <RGEKZ>X</RGEKZ>
+                    </Z1EDPOPERITEMS>
+                    <Z1EDPOPERITEMS SEGMENT="1">
+                        <AUSCH>4.00</AUSCH>
+                        <BDMNG>431.600</BDMNG>
+                        <CHARG />
+                        <FMENG />
+                        <LGORT>B102</LGORT>
+                        <MATNR>31558680</MATNR>
+                        <MEINS>MIL</MEINS>
+                        <WERKS>RO32</WERKS>
+                        <BWART>261</BWART>
+                        <POSNR>0050</POSNR>
+                        <RSNUM>0500431511</RSNUM>
+                        <RSPOS>0033</RSPOS>
+                        <RSART />
+                        <ALPRF>00</ALPRF>
+                        <EWAHR>0</EWAHR>
+                        <DUMPS />
+                        <AUFST>01</AUFST>
+                        <AUFWG>01</AUFWG>
+                        <RGEKZ>X</RGEKZ>
+                    </Z1EDPOPERITEMS>
+                    <Z1EDPOPERITEMS SEGMENT="1">
+                        <AUSCH>6.00</AUSCH>
+                        <BDMNG>1196.528</BDMNG>
+                        <CHARG />
+                        <FMENG />
+                        <LGORT>B101</LGORT>
+                        <MATNR>31559980</MATNR>
+                        <MEINS>KGM</MEINS>
+                        <WERKS>RO32</WERKS>
+                        <BWART>261</BWART>
+                        <POSNR>0060</POSNR>
+                        <RSNUM>0500431511</RSNUM>
+                        <RSPOS>0034</RSPOS>
+                        <RSART />
+                        <ALPRF>00</ALPRF>
+                        <EWAHR>0</EWAHR>
+                        <DUMPS />
+                        <AUFST>01</AUFST>
+                        <AUFWG>01</AUFWG>
+                        <RGEKZ>X</RGEKZ>
+                    </Z1EDPOPERITEMS>
+                    <Z1EDPAFVOL SEGMENT="1">
+                        <ARBPL>SM04</ARBPL>
+                        <KTEXT>GD 121, 83/22mm, 1 row laser</KTEXT>
+                        <MATNR>31560425</MATNR>
+                    </Z1EDPAFVOL>
+                    <E1RESBL SEGMENT="1">
+                        <AUSCH>0.00</AUSCH>
+                        <BDMNG>1660.000</BDMNG>
+                        <MATNR>10038381</MATNR>
+                        <MEINS>MIL</MEINS>
+                        <WERKS>RO02</WERKS>
+                        <POSNR>0010</POSNR>
+                        <RSNUM>0500431511</RSNUM>
+                        <RSPOS>0028</RSPOS>
+                        <ALPRF>00</ALPRF>
+                        <DUMPS>X</DUMPS>
+                        <AUFST>01</AUFST>
+                        <AUFWG>01</AUFWG>
+                    </E1RESBL>
+                    <E1RESBL SEGMENT="1">
+                        <AUSCH>5.00</AUSCH>
+                        <BDMNG>48.804</BDMNG>
+                        <LGORT>P101</LGORT>
+                        <MATNR>31052004</MATNR>
+                        <MEINS>KTM</MEINS>
+                        <WERKS>RO32</WERKS>
+                        <POSNR>0010</POSNR>
+                        <RSNUM>0500431511</RSNUM>
+                        <RSPOS>0029</RSPOS>
+                        <ALPRF>00</ALPRF>
+                        <AUFST>01</AUFST>
+                        <AUFWG>01</AUFWG>
+                    </E1RESBL>
+                    <E1RESBL SEGMENT="1">
+                        <AUSCH>1.50</AUSCH>
+                        <BDMNG>2.831</BDMNG>
+                        <LGORT>P101</LGORT>
+                        <MATNR>41811966</MATNR>
+                        <MEINS>KGM</MEINS>
+                        <WERKS>RO32</WERKS>
+                        <POSNR>0020</POSNR>
+                        <RSNUM>0500431511</RSNUM>
+                        <RSPOS>0030</RSPOS>
+                        <ALPRF>00</ALPRF>
+                        <AUFST>01</AUFST>
+                        <AUFWG>01</AUFWG>
+                    </E1RESBL>
+                    <E1RESBL SEGMENT="1">
+                        <AUSCH>3.00</AUSCH>
+                        <BDMNG>22.655</BDMNG>
+                        <LGORT>P101</LGORT>
+                        <MATNR>41808002</MATNR>
+                        <MEINS>KTM</MEINS>
+                        <WERKS>RO32</WERKS>
+                        <POSNR>0030</POSNR>
+                        <RSNUM>0500431511</RSNUM>
+                        <RSPOS>0031</RSPOS>
+                        <ALPRF>00</ALPRF>
+                        <AUFST>01</AUFST>
+                        <AUFWG>01</AUFWG>
+                    </E1RESBL>
+                    <E1RESBL SEGMENT="1">
+                        <AUSCH>2.00</AUSCH>
+                        <BDMNG>14.359</BDMNG>
+                        <LGORT>P101</LGORT>
+                        <MATNR>41811965</MATNR>
+                        <MEINS>KGM</MEINS>
+                        <WERKS>RO32</WERKS>
+                        <POSNR>0040</POSNR>
+                        <RSNUM>0500431511</RSNUM>
+                        <RSPOS>0032</RSPOS>
+                        <ALPRF>00</ALPRF>
+                        <AUFST>01</AUFST>
+                        <AUFWG>01</AUFWG>
+                    </E1RESBL>
+                    <E1RESBL SEGMENT="1">
+                        <AUSCH>4.00</AUSCH>
+                        <BDMNG>431.600</BDMNG>
+                        <LGORT>B102</LGORT>
+                        <MATNR>31558680</MATNR>
+                        <MEINS>MIL</MEINS>
+                        <WERKS>RO32</WERKS>
+                        <POSNR>0050</POSNR>
+                        <RSNUM>0500431511</RSNUM>
+                        <RSPOS>0033</RSPOS>
+                        <ALPRF>00</ALPRF>
+                        <AUFST>01</AUFST>
+                        <AUFWG>01</AUFWG>
+                    </E1RESBL>
+                    <E1RESBL SEGMENT="1">
+                        <AUSCH>6.00</AUSCH>
+                        <BDMNG>1196.528</BDMNG>
+                        <LGORT>B101</LGORT>
+                        <MATNR>31559980</MATNR>
+                        <MEINS>KGM</MEINS>
+                        <WERKS>RO32</WERKS>
+                        <POSNR>0060</POSNR>
+                        <RSNUM>0500431511</RSNUM>
+                        <RSPOS>0034</RSPOS>
+                        <ALPRF>00</ALPRF>
+                        <AUFST>01</AUFST>
+                        <AUFWG>01</AUFWG>
+                    </E1RESBL>
+                </E1AFVOL>
+                <E1AFVOL SEGMENT="1">
+                    <VORNR>0020</VORNR>
+                    <FSAVD>20180622</FSAVD>
+                    <FSAVZ>222520</FSAVZ>
+                    <STEUS>ZP03</STEUS>
+                    <VGE01>HUR</VGE01>
+                    <VGE02>HUR</VGE02>
+                    <VGE03>HUR</VGE03>
+                    <VGW01>0.000</VGW01>
+                    <VGW02>1.000</VGW02>
+                    <VGW03>1.000</VGW03>
+                    <Z1EDPOPERITEMS SEGMENT="1">
+                        <AUSCH>0.00</AUSCH>
+                        <BDMNG>83000.000</BDMNG>
+                        <CHARG />
+                        <FMENG />
+                        <LGORT>P101</LGORT>
+                        <MATNR>75079431</MATNR>
+                        <MEINS>EA</MEINS>
+                        <WERKS>RO32</WERKS>
+                        <BWART>261</BWART>
+                        <POSNR>0050</POSNR>
+                        <RSNUM>0500431511</RSNUM>
+                        <RSPOS>0025</RSPOS>
+                        <RSART />
+                        <ALPRF>00</ALPRF>
+                        <EWAHR>0</EWAHR>
+                        <DUMPS />
+                        <AUFST>00</AUFST>
+                        <AUFWG>00</AUFWG>
+                        <RGEKZ>X</RGEKZ>
+                    </Z1EDPOPERITEMS>
+                    <Z1EDPOPERITEMS SEGMENT="1">
+                        <AUSCH>2.00</AUSCH>
+                        <BDMNG>8.466</BDMNG>
+                        <CHARG />
+                        <FMENG />
+                        <LGORT>P101</LGORT>
+                        <MATNR>41826680</MATNR>
+                        <MEINS>MIL</MEINS>
+                        <WERKS>RO32</WERKS>
+                        <BWART>261</BWART>
+                        <POSNR>0090</POSNR>
+                        <RSNUM>0500431511</RSNUM>
+                        <RSPOS>0026</RSPOS>
+                        <RSART />
+                        <ALPRF>00</ALPRF>
+                        <EWAHR>0</EWAHR>
+                        <DUMPS />
+                        <AUFST>00</AUFST>
+                        <AUFWG>00</AUFWG>
+                        <RGEKZ>X</RGEKZ>
+                    </Z1EDPOPERITEMS>
+                    <Z1EDPOPERITEMS SEGMENT="1">
+                        <AUSCH>2.00</AUSCH>
+                        <BDMNG>0.170</BDMNG>
+                        <CHARG />
+                        <FMENG />
+                        <LGORT>P101</LGORT>
+                        <MATNR>41826755</MATNR>
+                        <MEINS>MIL</MEINS>
+                        <WERKS>RO32</WERKS>
+                        <BWART>261</BWART>
+                        <POSNR>0100</POSNR>
+                        <RSNUM>0500431511</RSNUM>
+                        <RSPOS>0027</RSPOS>
+                        <RSART />
+                        <ALPRF>00</ALPRF>
+                        <EWAHR>0</EWAHR>
+                        <DUMPS />
+                        <AUFST>00</AUFST>
+                        <AUFWG>00</AUFWG>
+                        <RGEKZ>X</RGEKZ>
+                    </Z1EDPOPERITEMS>
+                    <Z1EDPOPERITEMS SEGMENT="1">
+                        <AUSCH>0.00</AUSCH>
+                        <BDMNG>83.000</BDMNG>
+                        <CHARG />
+                        <FMENG />
+                        <LGORT />
+                        <MATNR>31051244</MATNR>
+                        <MEINS>MIL</MEINS>
+                        <WERKS>RO02</WERKS>
+                        <BWART>261</BWART>
+                        <POSNR>0020</POSNR>
+                        <RSNUM>0500431511</RSNUM>
+                        <RSPOS>0035</RSPOS>
+                        <RSART />
+                        <ALPRF>00</ALPRF>
+                        <EWAHR>0</EWAHR>
+                        <DUMPS>X</DUMPS>
+                        <AUFST>01</AUFST>
+                        <AUFWG>02</AUFWG>
+                        <RGEKZ />
+                    </Z1EDPOPERITEMS>
+                    <Z1EDPOPERITEMS SEGMENT="1">
+                        <AUSCH>3.00</AUSCH>
+                        <BDMNG>13.251</BDMNG>
+                        <CHARG />
+                        <FMENG />
+                        <LGORT>P101</LGORT>
+                        <MATNR>41807793</MATNR>
+                        <MEINS>KTM</MEINS>
+                        <WERKS>RO32</WERKS>
+                        <BWART>261</BWART>
+                        <POSNR>0010</POSNR>
+                        <RSNUM>0500431511</RSNUM>
+                        <RSPOS>0036</RSPOS>
+                        <RSART />
+                        <ALPRF>00</ALPRF>
+                        <EWAHR>0</EWAHR>
+                        <DUMPS />
+                        <AUFST>01</AUFST>
+                        <AUFWG>02</AUFWG>
+                        <RGEKZ>X</RGEKZ>
+                    </Z1EDPOPERITEMS>
+                    <Z1EDPOPERITEMS SEGMENT="1">
+                        <AUSCH>3.00</AUSCH>
+                        <BDMNG>0.000</BDMNG>
+                        <CHARG />
+                        <FMENG />
+                        <LGORT>P101</LGORT>
+                        <MATNR>40033542</MATNR>
+                        <MEINS>KTM</MEINS>
+                        <WERKS>RO32</WERKS>
+                        <BWART>261</BWART>
+                        <POSNR>0020</POSNR>
+                        <RSNUM>0500431511</RSNUM>
+                        <RSPOS>0037</RSPOS>
+                        <RSART>1</RSART>
+                        <ALPRF>00</ALPRF>
+                        <EWAHR>0</EWAHR>
+                        <DUMPS />
+                        <AUFST>01</AUFST>
+                        <AUFWG>02</AUFWG>
+                        <RGEKZ>X</RGEKZ>
+                    </Z1EDPOPERITEMS>
+                    <Z1EDPOPERITEMS SEGMENT="1">
+                        <AUSCH>3.00</AUSCH>
+                        <BDMNG>2.736</BDMNG>
+                        <CHARG />
+                        <FMENG />
+                        <LGORT>P101</LGORT>
+                        <MATNR>41807897</MATNR>
+                        <MEINS>KTM</MEINS>
+                        <WERKS>RO32</WERKS>
+                        <BWART>261</BWART>
+                        <POSNR>0020</POSNR>
+                        <RSNUM>0500431511</RSNUM>
+                        <RSPOS>0037</RSPOS>
+                        <RSART />
+                        <ALPRF>00</ALPRF>
+                        <EWAHR>0</EWAHR>
+                        <DUMPS />
+                        <AUFST>01</AUFST>
+                        <AUFWG>02</AUFWG>
+                        <RGEKZ>X</RGEKZ>
+                    </Z1EDPOPERITEMS>
+                    <Z1EDPOPERITEMS SEGMENT="1">
+                        <AUSCH>2.00</AUSCH>
+                        <BDMNG>84.660</BDMNG>
+                        <CHARG />
+                        <FMENG />
+                        <LGORT>P101</LGORT>
+                        <MATNR>40056079</MATNR>
+                        <MEINS>MIL</MEINS>
+                        <WERKS>RO32</WERKS>
+                        <BWART>261</BWART>
+                        <POSNR>0030</POSNR>
+                        <RSNUM>0500431511</RSNUM>
+                        <RSPOS>0039</RSPOS>
+                        <RSART />
+                        <ALPRF>00</ALPRF>
+                        <EWAHR>0</EWAHR>
+                        <DUMPS />
+                        <AUFST>01</AUFST>
+                        <AUFWG>02</AUFWG>
+                        <RGEKZ>X</RGEKZ>
+                    </Z1EDPOPERITEMS>
+                    <Z1EDPOPERITEMS SEGMENT="1">
+                        <AUSCH>3.00</AUSCH>
+                        <BDMNG>14.448</BDMNG>
+                        <CHARG />
+                        <FMENG />
+                        <LGORT>P101</LGORT>
+                        <MATNR>40045907</MATNR>
+                        <MEINS>KTM</MEINS>
+                        <WERKS>RO32</WERKS>
+                        <BWART>261</BWART>
+                        <POSNR>0040</POSNR>
+                        <RSNUM>0500431511</RSNUM>
+                        <RSPOS>0040</RSPOS>
+                        <RSART />
+                        <ALPRF>00</ALPRF>
+                        <EWAHR>0</EWAHR>
+                        <DUMPS />
+                        <AUFST>01</AUFST>
+                        <AUFWG>02</AUFWG>
+                        <RGEKZ>X</RGEKZ>
+                    </Z1EDPOPERITEMS>
+                    <Z1EDPOPERITEMS SEGMENT="1">
+                        <AUSCH>3.00</AUSCH>
+                        <BDMNG>14.448</BDMNG>
+                        <CHARG />
+                        <FMENG />
+                        <LGORT>P101</LGORT>
+                        <MATNR>40006509</MATNR>
+                        <MEINS>KTM</MEINS>
+                        <WERKS>RO32</WERKS>
+                        <BWART>261</BWART>
+                        <POSNR>0050</POSNR>
+                        <RSNUM>0500431511</RSNUM>
+                        <RSPOS>0041</RSPOS>
+                        <RSART />
+                        <ALPRF>00</ALPRF>
+                        <EWAHR>0</EWAHR>
+                        <DUMPS />
+                        <AUFST>01</AUFST>
+                        <AUFWG>02</AUFWG>
+                        <RGEKZ>X</RGEKZ>
+                    </Z1EDPOPERITEMS>
+                    <Z1EDPOPERITEMS SEGMENT="1">
+                        <AUSCH>1.50</AUSCH>
+                        <BDMNG>6.235</BDMNG>
+                        <CHARG />
+                        <FMENG />
+                        <LGORT>P101</LGORT>
+                        <MATNR>41811846</MATNR>
+                        <MEINS>KGM</MEINS>
+                        <WERKS>RO32</WERKS>
+                        <BWART>261</BWART>
+                        <POSNR>0060</POSNR>
+                        <RSNUM>0500431511</RSNUM>
+                        <RSPOS>0042</RSPOS>
+                        <RSART />
+                        <ALPRF>00</ALPRF>
+                        <EWAHR>0</EWAHR>
+                        <DUMPS />
+                        <AUFST>01</AUFST>
+                        <AUFWG>02</AUFWG>
+                        <RGEKZ>X</RGEKZ>
+                    </Z1EDPOPERITEMS>
+                    <Z1EDPOPERITEMS SEGMENT="1">
+                        <AUSCH>1.50</AUSCH>
+                        <BDMNG>1.483</BDMNG>
+                        <CHARG />
+                        <FMENG />
+                        <LGORT>P101</LGORT>
+                        <MATNR>41807017</MATNR>
+                        <MEINS>KGM</MEINS>
+                        <WERKS>RO32</WERKS>
+                        <BWART>261</BWART>
+                        <POSNR>0070</POSNR>
+                        <RSNUM>0500431511</RSNUM>
+                        <RSPOS>0043</RSPOS>
+                        <RSART />
+                        <ALPRF>00</ALPRF>
+                        <EWAHR>0</EWAHR>
+                        <DUMPS />
+                        <AUFST>01</AUFST>
+                        <AUFWG>02</AUFWG>
+                        <RGEKZ>X</RGEKZ>
+                    </Z1EDPOPERITEMS>
+                    <Z1EDPOPERITEMS SEGMENT="1">
+                        <AUSCH>0.00</AUSCH>
+                        <BDMNG>8.300</BDMNG>
+                        <CHARG />
+                        <FMENG />
+                        <LGORT />
+                        <MATNR>31028068</MATNR>
+                        <MEINS>MIL</MEINS>
+                        <WERKS>RO02</WERKS>
+                        <BWART>261</BWART>
+                        <POSNR>0030</POSNR>
+                        <RSNUM>0500431511</RSNUM>
+                        <RSPOS>0044</RSPOS>
+                        <RSART />
+                        <ALPRF>00</ALPRF>
+                        <EWAHR>0</EWAHR>
+                        <DUMPS>X</DUMPS>
+                        <AUFST>01</AUFST>
+                        <AUFWG>03</AUFWG>
+                        <RGEKZ />
+                    </Z1EDPOPERITEMS>
+                    <Z1EDPOPERITEMS SEGMENT="1">
+                        <AUSCH>3.00</AUSCH>
+                        <BDMNG>2.480</BDMNG>
+                        <CHARG />
+                        <FMENG />
+                        <LGORT>P101</LGORT>
+                        <MATNR>41814241</MATNR>
+                        <MEINS>KTM</MEINS>
+                        <WERKS>RO32</WERKS>
+                        <BWART>261</BWART>
+                        <POSNR>0010</POSNR>
+                        <RSNUM>0500431511</RSNUM>
+                        <RSPOS>0045</RSPOS>
+                        <RSART />
+                        <ALPRF>00</ALPRF>
+                        <EWAHR>0</EWAHR>
+                        <DUMPS />
+                        <AUFST>01</AUFST>
+                        <AUFWG>03</AUFWG>
+                        <RGEKZ>X</RGEKZ>
+                    </Z1EDPOPERITEMS>
+                    <Z1EDPOPERITEMS SEGMENT="1">
+                        <AUSCH>3.00</AUSCH>
+                        <BDMNG>2.480</BDMNG>
+                        <CHARG />
+                        <FMENG />
+                        <LGORT>P101</LGORT>
+                        <MATNR>40006537</MATNR>
+                        <MEINS>KTM</MEINS>
+                        <WERKS>RO32</WERKS>
+                        <BWART>261</BWART>
+                        <POSNR>0020</POSNR>
+                        <RSNUM>0500431511</RSNUM>
+                        <RSPOS>0046</RSPOS>
+                        <RSART />
+                        <ALPRF>00</ALPRF>
+                        <EWAHR>0</EWAHR>
+                        <DUMPS />
+                        <AUFST>01</AUFST>
+                        <AUFWG>03</AUFWG>
+                        <RGEKZ>X</RGEKZ>
+                    </Z1EDPOPERITEMS>
+                    <Z1EDPOPERITEMS SEGMENT="1">
+                        <AUSCH>0.00</AUSCH>
+                        <BDMNG>166.000</BDMNG>
+                        <CHARG />
+                        <FMENG />
+                        <LGORT />
+                        <MATNR>31007758</MATNR>
+                        <MEINS>EA</MEINS>
+                        <WERKS>RO02</WERKS>
+                        <BWART>261</BWART>
+                        <POSNR>0040</POSNR>
+                        <RSNUM>0500431511</RSNUM>
+                        <RSPOS>0047</RSPOS>
+                        <RSART />
+                        <ALPRF>00</ALPRF>
+                        <EWAHR>0</EWAHR>
+                        <DUMPS>X</DUMPS>
+                        <AUFST>01</AUFST>
+                        <AUFWG>04</AUFWG>
+                        <RGEKZ />
+                    </Z1EDPOPERITEMS>
+                    <Z1EDPOPERITEMS SEGMENT="1">
+                        <AUSCH>1.00</AUSCH>
+                        <BDMNG>168.000</BDMNG>
+                        <CHARG />
+                        <FMENG />
+                        <LGORT>P101</LGORT>
+                        <MATNR>40015955</MATNR>
+                        <MEINS>EA</MEINS>
+                        <WERKS>RO32</WERKS>
+                        <BWART>261</BWART>
+                        <POSNR>0010</POSNR>
+                        <RSNUM>0500431511</RSNUM>
+                        <RSPOS>0048</RSPOS>
+                        <RSART />
+                        <ALPRF>00</ALPRF>
+                        <EWAHR>0</EWAHR>
+                        <DUMPS />
+                        <AUFST>01</AUFST>
+                        <AUFWG>04</AUFWG>
+                        <RGEKZ>X</RGEKZ>
+                    </Z1EDPOPERITEMS>
+                    <Z1EDPOPERITEMS SEGMENT="1">
+                        <AUSCH>2.00</AUSCH>
+                        <BDMNG>0.221</BDMNG>
+                        <CHARG />
+                        <FMENG />
+                        <LGORT>P101</LGORT>
+                        <MATNR>41826182</MATNR>
+                        <MEINS>KTM</MEINS>
+                        <WERKS>RO32</WERKS>
+                        <BWART>261</BWART>
+                        <POSNR>0020</POSNR>
+                        <RSNUM>0500431511</RSNUM>
+                        <RSPOS>0049</RSPOS>
+                        <RSART />
+                        <ALPRF>00</ALPRF>
+                        <EWAHR>0</EWAHR>
+                        <DUMPS />
+                        <AUFST>01</AUFST>
+                        <AUFWG>04</AUFWG>
+                        <RGEKZ>X</RGEKZ>
+                    </Z1EDPOPERITEMS>
+                    <Z1EDPAFVOL SEGMENT="1">
+                        <ARBPL>SP04</ARBPL>
+                        <KTEXT>Square Corner B11P</KTEXT>
+                        <MATNR>10038381</MATNR>
+                    </Z1EDPAFVOL>
+                    <E1RESBL SEGMENT="1">
+                        <AUSCH>0.00</AUSCH>
+                        <BDMNG>83000.000</BDMNG>
+                        <LGORT>P101</LGORT>
+                        <MATNR>75079431</MATNR>
+                        <MEINS>EA</MEINS>
+                        <WERKS>RO32</WERKS>
+                        <POSNR>0050</POSNR>
+                        <RSNUM>0500431511</RSNUM>
+                        <RSPOS>0025</RSPOS>
+                        <ALPRF>00</ALPRF>
+                        <AUFST>00</AUFST>
+                        <AUFWG>00</AUFWG>
+                    </E1RESBL>
+                    <E1RESBL SEGMENT="1">
+                        <AUSCH>2.00</AUSCH>
+                        <BDMNG>8.466</BDMNG>
+                        <LGORT>P101</LGORT>
+                        <MATNR>41826680</MATNR>
+                        <MEINS>MIL</MEINS>
+                        <WERKS>RO32</WERKS>
+                        <POSNR>0090</POSNR>
+                        <RSNUM>0500431511</RSNUM>
+                        <RSPOS>0026</RSPOS>
+                        <ALPRF>00</ALPRF>
+                        <AUFST>00</AUFST>
+                        <AUFWG>00</AUFWG>
+                    </E1RESBL>
+                    <E1RESBL SEGMENT="1">
+                        <AUSCH>2.00</AUSCH>
+                        <BDMNG>0.170</BDMNG>
+                        <LGORT>P101</LGORT>
+                        <MATNR>41826755</MATNR>
+                        <MEINS>MIL</MEINS>
+                        <WERKS>RO32</WERKS>
+                        <POSNR>0100</POSNR>
+                        <RSNUM>0500431511</RSNUM>
+                        <RSPOS>0027</RSPOS>
+                        <ALPRF>00</ALPRF>
+                        <AUFST>00</AUFST>
+                        <AUFWG>00</AUFWG>
+                    </E1RESBL>
+                    <E1RESBL SEGMENT="1">
+                        <AUSCH>0.00</AUSCH>
+                        <BDMNG>83.000</BDMNG>
+                        <MATNR>31051244</MATNR>
+                        <MEINS>MIL</MEINS>
+                        <WERKS>RO02</WERKS>
+                        <POSNR>0020</POSNR>
+                        <RSNUM>0500431511</RSNUM>
+                        <RSPOS>0035</RSPOS>
+                        <ALPRF>00</ALPRF>
+                        <DUMPS>X</DUMPS>
+                        <AUFST>01</AUFST>
+                        <AUFWG>02</AUFWG>
+                    </E1RESBL>
+                    <E1RESBL SEGMENT="1">
+                        <AUSCH>3.00</AUSCH>
+                        <BDMNG>13.251</BDMNG>
+                        <LGORT>P101</LGORT>
+                        <MATNR>41807793</MATNR>
+                        <MEINS>KTM</MEINS>
+                        <WERKS>RO32</WERKS>
+                        <POSNR>0010</POSNR>
+                        <RSNUM>0500431511</RSNUM>
+                        <RSPOS>0036</RSPOS>
+                        <ALPRF>00</ALPRF>
+                        <AUFST>01</AUFST>
+                        <AUFWG>02</AUFWG>
+                    </E1RESBL>
+                    <E1RESBL SEGMENT="1">
+                        <AUSCH>3.00</AUSCH>
+                        <BDMNG>0.000</BDMNG>
+                        <LGORT>P101</LGORT>
+                        <MATNR>40033542</MATNR>
+                        <MEINS>KTM</MEINS>
+                        <WERKS>RO32</WERKS>
+                        <POSNR>0020</POSNR>
+                        <RSNUM>0500431511</RSNUM>
+                        <RSPOS>0037</RSPOS>
+                        <RSART>1</RSART>
+                        <ALPRF>00</ALPRF>
+                        <AUFST>01</AUFST>
+                        <AUFWG>02</AUFWG>
+                    </E1RESBL>
+                    <E1RESBL SEGMENT="1">
+                        <AUSCH>3.00</AUSCH>
+                        <BDMNG>2.736</BDMNG>
+                        <LGORT>P101</LGORT>
+                        <MATNR>41807897</MATNR>
+                        <MEINS>KTM</MEINS>
+                        <WERKS>RO32</WERKS>
+                        <POSNR>0020</POSNR>
+                        <RSNUM>0500431511</RSNUM>
+                        <RSPOS>0037</RSPOS>
+                        <ALPRF>00</ALPRF>
+                        <AUFST>01</AUFST>
+                        <AUFWG>02</AUFWG>
+                    </E1RESBL>
+                    <E1RESBL SEGMENT="1">
+                        <AUSCH>2.00</AUSCH>
+                        <BDMNG>84.660</BDMNG>
+                        <LGORT>P101</LGORT>
+                        <MATNR>40056079</MATNR>
+                        <MEINS>MIL</MEINS>
+                        <WERKS>RO32</WERKS>
+                        <POSNR>0030</POSNR>
+                        <RSNUM>0500431511</RSNUM>
+                        <RSPOS>0039</RSPOS>
+                        <ALPRF>00</ALPRF>
+                        <AUFST>01</AUFST>
+                        <AUFWG>02</AUFWG>
+                    </E1RESBL>
+                    <E1RESBL SEGMENT="1">
+                        <AUSCH>3.00</AUSCH>
+                        <BDMNG>14.448</BDMNG>
+                        <LGORT>P101</LGORT>
+                        <MATNR>40045907</MATNR>
+                        <MEINS>KTM</MEINS>
+                        <WERKS>RO32</WERKS>
+                        <POSNR>0040</POSNR>
+                        <RSNUM>0500431511</RSNUM>
+                        <RSPOS>0040</RSPOS>
+                        <ALPRF>00</ALPRF>
+                        <AUFST>01</AUFST>
+                        <AUFWG>02</AUFWG>
+                    </E1RESBL>
+                    <E1RESBL SEGMENT="1">
+                        <AUSCH>3.00</AUSCH>
+                        <BDMNG>14.448</BDMNG>
+                        <LGORT>P101</LGORT>
+                        <MATNR>40006509</MATNR>
+                        <MEINS>KTM</MEINS>
+                        <WERKS>RO32</WERKS>
+                        <POSNR>0050</POSNR>
+                        <RSNUM>0500431511</RSNUM>
+                        <RSPOS>0041</RSPOS>
+                        <ALPRF>00</ALPRF>
+                        <AUFST>01</AUFST>
+                        <AUFWG>02</AUFWG>
+                    </E1RESBL>
+                    <E1RESBL SEGMENT="1">
+                        <AUSCH>1.50</AUSCH>
+                        <BDMNG>6.235</BDMNG>
+                        <LGORT>P101</LGORT>
+                        <MATNR>41811846</MATNR>
+                        <MEINS>KGM</MEINS>
+                        <WERKS>RO32</WERKS>
+                        <POSNR>0060</POSNR>
+                        <RSNUM>0500431511</RSNUM>
+                        <RSPOS>0042</RSPOS>
+                        <ALPRF>00</ALPRF>
+                        <AUFST>01</AUFST>
+                        <AUFWG>02</AUFWG>
+                    </E1RESBL>
+                    <E1RESBL SEGMENT="1">
+                        <AUSCH>1.50</AUSCH>
+                        <BDMNG>1.483</BDMNG>
+                        <LGORT>P101</LGORT>
+                        <MATNR>41807017</MATNR>
+                        <MEINS>KGM</MEINS>
+                        <WERKS>RO32</WERKS>
+                        <POSNR>0070</POSNR>
+                        <RSNUM>0500431511</RSNUM>
+                        <RSPOS>0043</RSPOS>
+                        <ALPRF>00</ALPRF>
+                        <AUFST>01</AUFST>
+                        <AUFWG>02</AUFWG>
+                    </E1RESBL>
+                    <E1RESBL SEGMENT="1">
+                        <AUSCH>0.00</AUSCH>
+                        <BDMNG>8.300</BDMNG>
+                        <MATNR>31028068</MATNR>
+                        <MEINS>MIL</MEINS>
+                        <WERKS>RO02</WERKS>
+                        <POSNR>0030</POSNR>
+                        <RSNUM>0500431511</RSNUM>
+                        <RSPOS>0044</RSPOS>
+                        <ALPRF>00</ALPRF>
+                        <DUMPS>X</DUMPS>
+                        <AUFST>01</AUFST>
+                        <AUFWG>03</AUFWG>
+                    </E1RESBL>
+                    <E1RESBL SEGMENT="1">
+                        <AUSCH>3.00</AUSCH>
+                        <BDMNG>2.480</BDMNG>
+                        <LGORT>P101</LGORT>
+                        <MATNR>41814241</MATNR>
+                        <MEINS>KTM</MEINS>
+                        <WERKS>RO32</WERKS>
+                        <POSNR>0010</POSNR>
+                        <RSNUM>0500431511</RSNUM>
+                        <RSPOS>0045</RSPOS>
+                        <ALPRF>00</ALPRF>
+                        <AUFST>01</AUFST>
+                        <AUFWG>03</AUFWG>
+                    </E1RESBL>
+                    <E1RESBL SEGMENT="1">
+                        <AUSCH>3.00</AUSCH>
+                        <BDMNG>2.480</BDMNG>
+                        <LGORT>P101</LGORT>
+                        <MATNR>40006537</MATNR>
+                        <MEINS>KTM</MEINS>
+                        <WERKS>RO32</WERKS>
+                        <POSNR>0020</POSNR>
+                        <RSNUM>0500431511</RSNUM>
+                        <RSPOS>0046</RSPOS>
+                        <ALPRF>00</ALPRF>
+                        <AUFST>01</AUFST>
+                        <AUFWG>03</AUFWG>
+                    </E1RESBL>
+                    <E1RESBL SEGMENT="1">
+                        <AUSCH>0.00</AUSCH>
+                        <BDMNG>166.000</BDMNG>
+                        <MATNR>31007758</MATNR>
+                        <MEINS>EA</MEINS>
+                        <WERKS>RO02</WERKS>
+                        <POSNR>0040</POSNR>
+                        <RSNUM>0500431511</RSNUM>
+                        <RSPOS>0047</RSPOS>
+                        <ALPRF>00</ALPRF>
+                        <DUMPS>X</DUMPS>
+                        <AUFST>01</AUFST>
+                        <AUFWG>04</AUFWG>
+                    </E1RESBL>
+                    <E1RESBL SEGMENT="1">
+                        <AUSCH>1.00</AUSCH>
+                        <BDMNG>168.000</BDMNG>
+                        <LGORT>P101</LGORT>
+                        <MATNR>40015955</MATNR>
+                        <MEINS>EA</MEINS>
+                        <WERKS>RO32</WERKS>
+                        <POSNR>0010</POSNR>
+                        <RSNUM>0500431511</RSNUM>
+                        <RSPOS>0048</RSPOS>
+                        <ALPRF>00</ALPRF>
+                        <AUFST>01</AUFST>
+                        <AUFWG>04</AUFWG>
+                    </E1RESBL>
+                    <E1RESBL SEGMENT="1">
+                        <AUSCH>2.00</AUSCH>
+                        <BDMNG>0.221</BDMNG>
+                        <LGORT>P101</LGORT>
+                        <MATNR>41826182</MATNR>
+                        <MEINS>KTM</MEINS>
+                        <WERKS>RO32</WERKS>
+                        <POSNR>0020</POSNR>
+                        <RSNUM>0500431511</RSNUM>
+                        <RSPOS>0049</RSPOS>
+                        <ALPRF>00</ALPRF>
+                        <AUFST>01</AUFST>
+                        <AUFWG>04</AUFWG>
+                    </E1RESBL>
+                </E1AFVOL>
+            </E1AFFLL>
+            <E1AFPOL SEGMENT="1">
+                <POSNR>0001</POSNR>
+                <BMENG>0.000</BMENG>
+                <LGORT>A201</LGORT>
+                <VERID>SP04</VERID>
+            </E1AFPOL>
+        </E1AFKOL>
+    </IDOC>
+</ZXLOIPRO03>

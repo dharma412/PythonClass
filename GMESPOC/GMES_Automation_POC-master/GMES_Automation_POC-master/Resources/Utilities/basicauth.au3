@@ -1,0 +1,6 @@
+WinWaitActive("Windows Security")
+Send("itcinfotech\TESTUSER")
+Send("{TAB}")
+Send("PASSWORD")
+Send("{TAB}")
+Send("{ENTER}")
