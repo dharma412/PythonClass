@@ -1,0 +1,4 @@
+Python  veriosn is 3.8 and   Python is very easy to learn
+
+
+and i use pychrm to work on Python
