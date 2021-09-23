@@ -1,0 +1,56 @@
+# $Id: //prod/main/sarf_centos/resources/unresolvable_host.txt#1 $
+# $DateTime: 2019/03/22 01:36:06 $
+# $Author: aminath $
+
+*** Settings ***
+Variables  constants.py
+Resource   wsa/global.txt
+
+*** Variables ***
+${POLICY}        Policy01
+${D_POLICY}      DPolicy01
+${IDS_POLICY}    IDSPolicy01
+${CUST_CAT}      CustCat01
+
+*** Keyword ***
+Request And Verify Logs  [Arguments]   ${patt}=${Empty}  ${request}=${Empty}  ${no_entry}=1  ${is_curl}=${True}  ${timeout}=120
+     [Documentation]   Arguments:
+     ...        patt - Pattern to search in accesslogs \n
+     ...        request - Request URL for Curl request \n
+     ...        no_entry - number of new access log entries \n
+     ...        is_curl  - if request is in curl format, set argument to True \n
+     ...   Keyword to send request and verify search patterns. \n
+     # Create baseline
+     Filter Access Log Create Baseline
+     # send request
+     Run Keyword if  ${is_curl} == ${True}    Run
+     ...   curl ${IPV_PARAM} -m 60 -v -x ${DUT}:3128 -F file=@file -H "Expect:" ${request}
+     Run Keyword Unless   ${is_curl} == ${True}
+     ...   Run  ${request}
+     # search pattern in accesslogs
+     Filter Access Log Check  ${baseline_accesslog}  ${patt}  ${no_entry}  ${timeout}
+
+Edit Url Action  [Arguments]   ${action}=${Empty}
+     [Documentation]   Arguments: \n
+     ...    action - Action for all predefined URL categories under Decryption policy \n
+     Decryption Policies Add    ${D_POLICY}
+     ...  description=Test Decryption policy
+     ...  identities=${GLOBAL_IDENTITY}
+     Decryption Policies Edit Url Categories   ${D_POLICY}
+     ...  all_predefine_url_action=${action}
+
+Create Test File  [Arguments]   ${size}=${Empty}
+    [Documentation]   Arguments:
+     ...      size - Size of a file
+    Run  truncate -s ${size} file
+
+Remove Test File
+    Run   rm file
+
+Add Ids And Set Https Size
+     Onbox Dlp Policies Add   ${IDS_POLICY}
+     ...  description=IDS policy
+     ...  identities=${GLOBAL_IDENTITY}
+     Onbox DLP Policies Edit Content   ${IDS_POLICY}
+     ...  blocking_settings=custom
+     ...  http_file_size=1 mb

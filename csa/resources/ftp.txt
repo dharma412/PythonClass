@@ -1,0 +1,771 @@
+# $Id: //prod/main/sarf_centos/resources/ftp.txt#2 $
+# $DateTime: 2019/06/03 22:56:07 $
+# $Author: revlaksh $
+
+*** Settings ***
+Resource    wsa/global.txt
+Resource    set_sshlib_prompt.txt
+
+*** Variables ***
+${RECONNECTIONS}     4
+${PASSIVE_MODE_ON_MESSAGE}   Passive mode: on; fallback to active mode: on.
+${PASSIVE_MODE_OFF_MESSAGE}  Passive mode: off; fallback to active mode: off.
+${CODE_226}          226 Transfer complete
+${CODE_421}          421 Service not available
+${PROFTPD_CONF_PATH}  /usr/local/etc/proftpd.conf
+${PROFTPD_SERVICE}   /usr/local/etc/rc.d/proftpd
+${PROFTPD_BIN}       /usr/local/sbin/proftpd
+${TIMEOUT}           600
+${OFFBOX_SERVER_EMULATOR}  icaptestd17.py
+${UPSTREAM_PROXY}    delegated
+*** Keywords ***
+Restore Proftpd Config File
+    [Documentation]    Bring config file to initial state
+    SCP    from_host=${CLIENT_IP}
+    ...    from_user=testuser
+    ...    from_prompt=$
+    ...    from_location=tests/testdata/proftpd.conf
+    ...    to_host=${FTP_SERVER}
+    ...    to_location=${PROFTPD_CONF_PATH}
+
+Disable EPSV_EPRT
+    Restore Proftpd Config File
+    # Connect to FTP
+    Open Connection     ${FTP_SERVER}
+    Login   ${RTESTUSER}    ${RTESTUSER_PASSWORD}
+    # Disable EPSV/EPRT
+    Execute Command  echo "<Limit EPSV EPRT>" >> ${PROFTPD_CONF_PATH}
+    Execute Command  echo "DenyAll" >> ${PROFTPD_CONF_PATH}
+    Execute Command  echo "</Limit>" >> ${PROFTPD_CONF_PATH}
+    Close Connection
+
+    # Restart service
+    Restart Proftpd With Default Settings
+
+Switch To Passive If Active Mode Is Current
+    [Documentation]  This keyword switches ftp mode to passive.
+    ${output}=  Execute Ftp Command  status
+    ${line}=  Get Lines Matching Pattern  ${output}  ${PASSIVE_MODE_OFF_MESSAGE}
+    Run Keyword If  '${line}' == '${PASSIVE_MODE_OFF_MESSAGE}'  Execute Ftp Command  passive
+
+Test Files Cleanup
+    [Documentation]  This keyword removes files from
+    ...              ${CLIENT_HOSTNAME}:${DIR_WITH_FILES_FOR_UPLOAD}\n
+    ...              and ${FTP_SERVER}:${FTP_SERVER_ROOT_DIR}/${DIR_FOR_UPLOADS}
+    Delete Files At Location  ${CLIENT_HOSTNAME}
+    ...  ${TESTUSER}  ${TESTUSER_PASSWORD}  ${DIR_WITH_FILES_FOR_UPLOAD}
+    Delete Files At Location  ${FTP_SERVER}
+    ...  ${FTPUSER}  ${FTPUSER_PASSWORD}
+    ...  ${FTP_SERVER_ROOT_DIR}/${DIR_FOR_UPLOADS}
+    Delete Files At Location  ${FTP_SERVER}
+    ...  ${FTPUSER}  ${FTPUSER_PASSWORD}
+    ...  ${FTP_SERVER_ROOT_DIR}/tmp
+    ${status}  ${value}=  Run Keyword And Ignore Error  Variable Should Exist  \${TEST_FILE}
+    Run Keyword If  '${status}' == 'PASS'
+    ...  Delete File  ${CLIENT_HOSTNAME}  ${TESTUSER}  ${TESTUSER_PASSWORD}
+    ...  /home/${TESTUSER}/${TEST_FILE}
+    Run Keyword If  '${status}' == 'PASS'
+    ...  Delete File  ${FTP_SERVER}  ${RTESTUSER}  ${RTESTUSER_PASSWORD}
+    ...  ${FTP_SERVER_ROOT_DIR}/${TEST_FILE}
+
+Edit proftpd Config
+    [Documentation]  Setting up proftpd conf file.
+    Execute Command  echo -n "<IfDefine DISABLEPASSIVE>" >> ${PROFTPD_CONF_PATH}
+    Execute Command  echo >> ${PROFTPD_CONF_PATH}
+    Execute Command  echo -n "<Limit EPSV PASV>" >> ${PROFTPD_CONF_PATH}
+    Execute Command  echo >> ${PROFTPD_CONF_PATH}
+    Execute Command  echo -n "DenyAll" >> ${PROFTPD_CONF_PATH}
+    Execute Command  echo >> ${PROFTPD_CONF_PATH}
+    Execute Command  echo -n "</Limit>" >> ${PROFTPD_CONF_PATH}
+    Execute Command  echo >> ${PROFTPD_CONF_PATH}
+    Execute Command  echo -n "</IfDefine>" >> ${PROFTPD_CONF_PATH}
+
+Proftpd Config Enable Rest Control
+    [Documentation]  Setting up proftpd conf file.
+    Execute Command  echo -n "<IfDefine DISABLEREST>" >> ${PROFTPD_CONF_PATH}
+    Execute Command  echo >> ${PROFTPD_CONF_PATH}
+    Execute Command  echo -n " AllowRetrieveRestart off" >> ${PROFTPD_CONF_PATH}
+    Execute Command  echo >> ${PROFTPD_CONF_PATH}
+    Execute Command  echo -n " AllowStoreRestart off" >> ${PROFTPD_CONF_PATH}
+    Execute Command  echo >> ${PROFTPD_CONF_PATH}
+    Execute Command  echo -n "</IfDefine>" >> ${PROFTPD_CONF_PATH}
+    Execute Command  echo >> ${PROFTPD_CONF_PATH}
+    Execute Command  echo -n "<IfDefine ENABLEREST>" >> ${PROFTPD_CONF_PATH}
+    Execute Command  echo >> ${PROFTPD_CONF_PATH}
+    Execute Command  echo -n " AllowRetrieveRestart on" >> ${PROFTPD_CONF_PATH}
+    Execute Command  echo >> ${PROFTPD_CONF_PATH}
+    Execute Command  echo -n " AllowStoreRestart on" >> ${PROFTPD_CONF_PATH}
+    Execute Command  echo >> ${PROFTPD_CONF_PATH}
+    Execute Command  echo -n "</IfDefine>" >> ${PROFTPD_CONF_PATH}
+
+_Restart proftpd with check
+    [Documentation]  Restart proftpd with a specified mode and check that \n
+    ...    proftpd process has started\n
+    ...    We need 2s sleep after restart (before check).\n
+    ...    If 1-st check fails: wait 5s, restart, wait 5s, check.\n
+    ...    If 2-nd check fails: keyword fails with message: "proftpd failed to start"
+    [Arguments]   ${command}
+
+    ${first_try}=    _Restart proftpd  ${command}    2
+    ${second_try}=    Run Keyword Unless    ${first_try}    _Restart proftpd  ${command}    5
+    Close Connection
+    ${success}=    Evaluate    ${first_try} or ${second_try}
+    Run Keyword Unless    ${success}    Fail    proftpd failed to start
+
+_Restart proftpd
+    [Arguments]   ${command}  ${timeout}
+    [Return]    ${success}
+    ${out}=  Execute Command  ${PROFTPD_SERVICE} forcestop
+    Sleep  ${timeout}
+    ${out}=  Execute Command  ${command}
+    Sleep  ${timeout}
+    ${processes}=  Execute Command  ps aux | grep ftp | wc -l
+    ${success}=    Evaluate    ${processes} > 0
+
+Restart Proftpd With Default Settings
+    [Documentation]     Starting proftpd on remote server
+    ...                 with default settings.
+    Open Connection     ${FTP_SERVER}
+    Login   ${RTESTUSER}    ${RTESTUSER_PASSWORD}
+    # kill other instances of ftp server if any
+    ${out}=  Execute Command  ps aux | grep ftp | awk '{print $2}' | xargs kill -9
+    # start proftpd
+    _Restart proftpd with check    ${PROFTPD_SERVICE} forcerestart
+
+Restart proftpd With Disabled Rest Command
+    [Documentation]  Starting proftpd on remote server with disabled rest command
+    Open Connection     ${FTP_SERVER}
+    Login   ${RTESTUSER}    ${RTESTUSER_PASSWORD}
+    ${output}=  Execute Command  cat ${PROFTPD_CONF_PATH} | grep 'IfDefine DISABLEREST'
+    Run Keyword If  '${output}' == '${EMPTY}'  Proftpd Config Enable Rest Control
+    _Restart proftpd with check    ${PROFTPD_BIN} -DDISABLEREST
+
+Restart proftpd With Enabled Rest Command
+    [Documentation]  Starting proftpd on remote server with enabled rest command
+    Open Connection     ${FTP_SERVER}
+    Login   ${RTESTUSER}    ${RTESTUSER_PASSWORD}
+    ${output}=  Execute Command  cat ${PROFTPD_CONF_PATH} | grep 'IfDefine DISABLEREST'
+    Run Keyword If  '${output}' == '${EMPTY}'  Proftpd Config Enable Rest Control
+    _Restart proftpd with check    ${PROFTPD_BIN} -DENABLEREST
+
+Restart delegated For ${protocol}
+    [Documentation]  Restart delegated upstream server for ftp or http protocol
+    Should Be True     ['ftp', 'http'].__contains__('${protocol}')    Invalid protocol; should be 'ftp' or 'http'
+    Open Connection     ${FTP_SERVER}
+    Login   ${RTESTUSER}    ${RTESTUSER_PASSWORD}
+    ${output}=  Execute Command
+    ...     ps ax | grep ${UPSTREAM_PROXY} | awk '{print $1}' | xargs kill -9
+    ${out}=  Execute Command  ${UPSTREAM_PROXY} -P${FTP_UPSTREAM_PROXY_PORT} SERVER=${protocol}
+    Close Connection
+
+Restart proftpd With Passive Mode Disabled
+    [Documentation]     Starting proftpd on remote server\n
+    ...                 with passive mode disabled.\n
+    [Arguments]  ${server}=${FTP_SERVER}
+    Open Connection     ${server}
+    Login   ${RTESTUSER}    ${RTESTUSER_PASSWORD}
+    ${output}=  Execute Command  cat ${PROFTPD_CONF_PATH} | grep 'IfDefine DISABLEPASSIVE'
+    Run Keyword If  '${output}' == '${EMPTY}'  Edit proftpd Config
+    _Restart proftpd with check    ${PROFTPD_BIN} -DDISABLEPASSIVE
+
+Restart proftpd With Passive Mode Enabled
+    [Documentation]     Starting proftpd on remote server
+    ...                 with passive mode enabled.
+    Restart Proftpd With Default Settings
+
+Switch To Active If Passive Mode Is Current
+    [Documentation]  This keywords switches ftp server to passive mode.
+    ${output}=  Execute Ftp Command  status
+    ${line}=    Get Lines Matching Pattern
+    ...         ${output}  ${PASSIVE_MODE_ON_MESSAGE}
+    ${output}=  Run Keyword If  '${line}'
+    ...         Execute Ftp Command  passive
+    Should Contain  ${output}   ${PASSIVE_MODE_OFF_MESSAGE}
+
+Ftp Suite Setup
+    [Documentation]  Default setup for NFTP test suite.
+    Run Command On FTP Client  mkdir -p ${DIR_WITH_FILES_FOR_UPLOAD}
+    Set Suite Variable  ${SSW_MODE}  P1
+    DefaultTestSuiteSetup
+    ${config_file} =    Save Config
+    Set Default Configuration    timeout=10 seconds
+    Set Suite Variable  ${DUT_CONFIGURATION}  ${config_file}
+    Restart Proftpd With Default Settings
+    Restart delegated For ftp
+
+Ftp Suite Teardown
+    [Documentation]  Default teardown for NFTP test suite.
+    DefaultTestSuiteTeardown
+
+Ftp Testcase Setup
+    [Documentation]  Default setup for NFTP test cases.
+    DefaultTestCaseSetup
+    ${_timeout}=  Convert To Integer  ${TIMEOUT}
+    Start Ftp Client  ${TESTUSER}  ${TESTUSER_PASSWORD}  time=${_timeout}
+
+Ftp Testcase Teardown
+    [Documentation]  Default teardown for NFTP test cases.
+    # restore ssh library prompt to default value.
+    Set SSHLib Prompt  ${EMPTY}
+    Close Ftp Client
+    Test Files Cleanup
+    DefaultTestCaseTeardown
+    Stop All Processes
+
+Ftp Client Restart
+    [Documentation]  Restarts FTP client
+    Close Ftp Client
+    ${_timeout}=  Convert To Integer  ${TIMEOUT}
+    Start Ftp Client  ${TESTUSER}  ${TESTUSER_PASSWORD}  time=${_timeout}
+
+Default Wsa Configuration Setup
+    [Documentation]  Setting up WSA configuration for test case.
+    Identities Add Policy   ${IDENTITY}  protocol=ftp
+    Access Policies Add     ${POLICY}  identity=${IDENTITY}
+    Commit Changes
+
+Default Wsa Configuration Cleanup
+    [Documentation]  WSA configuration cleanup.
+    Configuration File Reset  reset_network=yes
+    Configuration File Load  ${DUT_CONFIGURATION}
+    Commit Changes
+
+Login To FTP Server
+    [Documentation]  This keyword connects to FTP server ${FTP_SERVER}.
+    [Arguments]   ${server}=${FTP_SERVER}
+    ...  ${user}=${FTPUSER}  ${pass}=${FTPUSER_PASSWORD}
+    ...  ${acc}=${None}
+    ...  ${mode}=forward
+    Run Keyword if  '${mode}' == 'forward'  Execute Ftp Command  gate ${DUT_P1} ${DUT_FTP_PROXY_PORT}
+    ${output}=  Login To Ftp Site  ${server}  ${user}  ${pass}  ${acc}
+    Should Match Regexp   ${output}    230 .*
+    [Return]  ${output}
+
+Login To FTP Server And Check Log
+    [Documentation]  This keyword connects to FTP server and
+    ...              checks access log for connection entry.
+    [Arguments]   ${user}=${FTPUSER}  ${pass}=${FTPUSER_PASSWORD}  ${mode}=forward
+    ...  ${pattern}=.*${CLIENT_IP}.*230.*(FTP_CONNECT|FTP_TUNNEL) tunnel://(${FTP_SERVER}|${FTP_SERVER_IP}).*
+    ...  ${acc}=${None}
+    # create access log base line
+    Filter Access Log Create Baseline
+
+    ${output}=  Run Keyword And Ignore Error  Login To FTP Server  user=${user}  pass=${pass}  acc=${acc}  mode=${mode}
+
+    Run Keyword If  '${pattern}'  Filter Access Log Check    ${baseline_accesslog}  ${pattern}
+
+    [Return]  ${output}
+
+Ftp Put File And Check Log
+    [Documentation]  This keyword puts file located in ${DIR_WITH_FILES_FOR_UPLOAD}\n
+    ...              to FTP server and checks access logs for correct entry.\n
+    ...              ${waittime} can be used to wait before checking logs.
+    [Arguments]  ${directory}=${DIR_WITH_FILES_FOR_UPLOAD}
+    ...          ${file}=${TEST_FILE}
+    ...          ${pattern}=.*${CLIENT_IP}.*226.*STOR ftp://(${FTP_SERVER}|${FTP_SERVER_IP})(/${DIR_FOR_UPLOADS}/|/)${TEST_FILE}.*
+    ...          ${ids_datalosslog_pattern}=${EMPTY}
+    ...          ${waittime}=1
+
+    # create access log base line
+    Filter Access Log Create Baseline
+    # create ids dataloss log base line
+    ${baseline_ids_dataloss_log}=  Filter Log Create Baseline  ${IDSDATALOSS_LOGS}
+
+    ${output}=  Execute Ftp Command  put ${directory}/${file} ${file}
+    Log         ${output}
+    Sleep       ${waittime}
+
+    Filter Access Log Check    ${baseline_accesslog}  ${pattern}
+
+    Run Keyword Unless  '${ids_datalosslog_pattern}' == '${EMPTY}'
+    ...  Check IDS_Dataloss Log  ${baseline_ids_dataloss_log}  ${ids_datalosslog_pattern}
+
+    [Return]  ${output}
+
+Ftp Get File And Check Log
+    [Documentation]  This keyword gets file from FTP server, stores it in\n
+    ...              /home/${TESTUSER} directory and checks access logs for correct entry.
+    [Arguments]  ${directory}=/home/${TESTUSER}
+    ...          ${file}=${TEST_FILE}
+    ...          ${pattern}=.*${CLIENT_IP}.*226.*RETR ftp://(${FTP_SERVER}|${FTP_SERVER_IP})(/${DIR_FOR_UPLOADS}/|/)${TEST_FILE}.*
+    ...          ${ids_datalosslog_pattern}=${EMPTY}
+    # create access log base line
+    Filter Access Log Create Baseline
+    # create ids dataloss log base line
+    ${baseline_ids_dataloss_log}=  Filter Log Create Baseline  ${IDSDATALOSS_LOGS}
+
+    ${output}=  Execute Ftp Command  get ${file} ${directory}/${file}
+    Log         ${output}
+
+    Filter Access Log Check    ${baseline_accesslog}  ${pattern}
+
+    Run Keyword Unless  '${ids_datalosslog_pattern}' == '${EMPTY}'
+    ...  Check IDS_Dataloss Log  ${baseline_ids_dataloss_log}  ${ids_datalosslog_pattern}
+
+    [Return]  ${output}
+
+Start TCPDump FTP Control Connection Between DUT and FTP Server
+    [Documentation]  This keyword is used to start tcpdump session to catch packets\n
+    ...  or ftp control connection between DUT and FTP server. Argument `packets_num`\n
+    ...  used to set number of packets to be catched from session. Default value is 5.
+    [Arguments]  ${packets_num}=5
+    ${interface}=  Get P1 Interface Name
+    ${args}=  Set Variable
+    ...  -tt -Aq -i ${interface} -c ${packets_num} -s0 dst host ${FTP_SERVER} and dst port ftp
+    Start TCPDump On Host  ${DUT}  ${RTESTUSER}  ${RTESTUSER_PASSWORD}  ${args}
+
+Get TCPDump FTP Control Connection Between DUT and FTP Server Capturing Results
+    [Documentation]  This keyword returns results of tcpdump session between DUT and FTP server.
+    ${out}=  Get TCPDump Session Results From Host
+    ...  ${DUT}  ${RTESTUSER}  ${RTESTUSER_PASSWORD}
+    [Return]  ${out}
+
+Configure Onbox IDS
+    [Documentation]  Configuring Onbox IDS
+    [Arguments]  ${file_type}=${EMPTY}  ${file_size}=${EMPTY}  ${file_name}=${EMPTY}
+    Onbox DLP Policies Add  ${IDS_POLICY}
+    ...  identities=${IDENTITY}
+    Run Keyword If  '${file_type}' != '${EMPTY}'  Configure File Type Blocking
+    Run Keyword If  '${file_size}' != '${EMPTY}'  Configure File Size Blocking
+    Run Keyword If  '${file_name}' != '${EMPTY}'  Configure File Name Blocking
+    Commit Changes
+
+Configure File Size Blocking
+    [Documentation]  Set file size blocking for IDS policy.
+    Onbox Dlp Policies Edit Content  ${IDS_POLICY}
+    ...  blocking_settings=custom
+    ...  ftp_file_size=${file_size}
+
+Configure File Name Blocking
+    [Documentation]  Set file name blocking for IDS policy.
+    Onbox Dlp Policies Edit Content  ${IDS_POLICY}
+    ...  blocking_settings=custom
+    ...  file_names=${file_name}
+
+Configure File Type Blocking
+    [Documentation]  Set file type blocking for IDS policy.
+    Onbox Dlp Policies Edit Content  ${IDS_POLICY}
+    ...  blocking_settings=custom
+    ...  block_types=${file_type}:all
+
+Set Up WSA Configuration Block Over 1mb File By IDS
+    [Documentation]  Set up IDS blocking for files over 1 mb.
+    Configure Onbox IDS  file_size=1 mb
+
+Set Up Wsa Configuration Block Ftp
+    [Documentation]  WSA configuration block FTP by Access Policy protocol block.
+    Default Wsa Configuration Setup
+    Access Policies Edit Protocols And User Agents  ${POLICY}  block_protocols=nativeftp
+    Commit Changes
+
+Set Up WSA Configuration LDAP Auth
+    [Documentation]  WSA configuration with LDAP auth.
+    [Arguments]  ${protocol}=ftp
+    Authentication Add Ldap Realm  ${LDAP_REALM}  ${LDAP_AUTH_SERVER}
+    ...                     base_dn=${LDAP_BASE_DN}
+    ...                     uname_attr=${USER_NAME_ATTR}
+    Identities Add Policy   ${IDENTITY}
+    ...                     protocol=${protocol}
+    ...                     auth_method=requires
+    ...                     auth_realm=${LDAP_REALM}
+    Access Policies Add     ${POLICY}    identity=${IDENTITY}
+    Commit Changes
+
+Set Up Wsa Configuration LDAP Auth And Upstream Proxy
+    [Documentation]  WSA configuration: policy with LDAP auth and upstream proxy.
+    Set Up WSA Configuration LDAP Auth
+    WSA Upstream Proxy Config
+    Commit Changes
+
+Set Up Wsa Configuration Custom Cat Block FTP
+    [Documentation]  WSA configuration: block FTP protocol by custom category.
+    Custom Url Category Add     ${CAT}
+    ...                         ${FTP_SERVER_IP}
+    ...                         order=1
+    Identities Add Policy   ${IDENTITY}
+    ...                     url_categories=${CAT}
+    ...                     protocol=all
+    Access Policies Add     ${POLICY}    identity=${IDENTITY}
+    Access Policies Edit Protocols And User Agents      ${POLICY}
+    ...                                                 block_protocols=nativeftp
+    Commit Changes
+
+Set Up Wsa Configuration Custom Cat Warn FTP
+    [Documentation]  WSA configuration: set warn on custom url cat.
+    Custom Url Category Add     ${CAT}
+    ...                         ${FTP_SERVER_IP}
+    ...                         order=1
+    Identities Add Policy   ${IDENTITY}
+    ...                     url_categories=${CAT}
+    Access Policies Add     ${POLICY}    identity=${IDENTITY}
+    ${url_cats}=  Create List  ${CAT}:warn
+    Access Policies Edit Url Categories      ${POLICY}
+    ...   ${url_cats}
+    Commit Changes
+
+WSA Upstream Proxy Config
+    [Documentation]  Setting up upstream proxy configuration. This keyword\n
+    ...              should be used only inside other wsa configuration keywords.
+    Upstream Proxy Add Group    ${UPSTREAM_GROUP}
+    ...                         ${FTP_UPSTREAM_PROXY}:${FTP_UPSTREAM_PROXY_PORT}:${RECONNECTIONS}
+    ...                         failure_handling=drop
+    Routing Policies Add    ${R_POLICY}
+    ...                     identities=${IDENTITY}
+    Routing Policies Edit Destination  ${R_POLICY}  ${UPSTREAM_GROUP}
+
+Set Upstream DUT As Upstream FTP Proxy
+    [Documentation]  Setting up DUT as upstream proxy.
+    ${p1_intrf}=  Set Variable If  '${FTP_UPSTREAM_DUT_PROXY[:4]}' == 'wsa0'  -p1.  -data.
+    ${upstream_p1_dut}=  Replace String  ${FTP_UPSTREAM_DUT_PROXY}  .  ${p1_intrf}
+    Set Test Variable  ${FTP_UPSTREAM_PROXY}  ${upstream_p1_dut}
+    Set Test Variable  ${FTP_UPSTREAM_PROXY_PORT}  ${FTP_UPSTREAM_DUT_PROXY_PORT}
+
+Set Up Wsa Configuration Upstream Proxy
+    [Documentation]  Setting up WSA configuration for test case\n
+    ...             (default policies + upstream proxy).
+    Default Wsa Configuration Setup
+    WSA Upstream Proxy Config
+    Commit Changes
+
+Set Up Wsa Configuration Upstream Proxy NTLM Auth
+    [Documentation]  Setting up WSA configuration for test case\n
+    ...              (basic ntlm auth + upstream proxy).
+    Set Up WSA Configuration NTLM Auth
+    WSA Upstream Proxy Config
+    Commit Changes
+
+Set Up WSA Configuration Block FTP By Size
+    [Documentation]  WSA configuration to block objects with specified size.
+    [Arguments]  ${filesize}=1
+    Access Policies Edit Objects  ${POLICY}
+    ...  setting_type=custom  ftp_size=${filesize}
+    Commit Changes
+
+Set Up WSA Configuration Block FTP Over 1Gb
+    [Documentation]  WSA configuration to block objects with size over 1 Gb.
+    Set Up WSA Configuration Block FTP By Size  1024
+
+Set Up Wsa Configuration Upstream Proxy Block Object Size
+    [Documentation]  WSA configuration to block objects with size over 1 mb.
+    Set Up Wsa Configuration Upstream Proxy
+    Set Up WSA Configuration Block FTP By Size
+
+Set Up Off-box DLP Server
+    [Documentation]  Off-box DLP server setup.
+    External Dlp Servers Edit Servers
+    ...  ${EX_DLP_SERVER}%${EX_DLP_SERVER_PORT}%${EX_DLP_RECONNECTIONS}%${EX_DLP_SERVICE_URL}
+    Commit Changes
+
+Set Up External Data Loss Prevention
+    [Documentation]  WSA Off-box policy configuration to scan all uploads.
+    Offbox Dlp Policies Add  ${EX_DLP_POLICY}
+    ...  identities=${IDENTITY}
+    Offbox Dlp Policies Edit Destinations  ${EX_DLP_POLICY}
+    ...  settings_type=custom
+    ...  scan_uploads=all
+    Commit Changes
+
+Set Up Wsa Configuration Upstream Proxy Block FTP By Offbox-DLP
+    [Documentation]  WSA configuration for off-box policy tests.
+    Set Up Wsa Configuration Upstream Proxy
+    Set Up Off-box DLP Server
+    Set Up External Data Loss Prevention
+
+Set Up WSA Configuration Block 1mb GZ File By IDS
+    [Documentation]  WSA configuration to block gz files with size over 1 mb.
+    Default Wsa Configuration Setup
+    Onbox DLP Policies Add  ${IDS_POLICY}
+    ...  identities=${IDENTITY}
+    Onbox Dlp Policies Edit Content  ${IDS_POLICY}
+    ...  blocking_settings=custom
+    ...  block_types=${filetypes.ARC_GZIP}:1 mb
+    Commit Changes
+
+Disable IDS File Size Blocking
+    [Documentation]  This keyword disables IDS block by file size.
+    Onbox Dlp Policies Edit Content  ${IDS_POLICY}
+    ...  blocking_settings=custom
+    ...  ftp_file_size=no_limit
+    Commit Changes
+
+Set Up WSA Configuration NTLM SSP Auth
+    [Documentation]  Set up WSA configuration to use NTLM SSP auth
+    Set Up WSA Configuration NTLM Auth  auth_scheme=NTLMSSP
+
+Set Up WSA Configuration NTLM Auth
+    [Documentation]  Set up WSA configuration to use NTLM auth
+    [Arguments]  ${auth_scheme}=Basic  ${protocol}=ftp
+    Authentication Add Ntlm Realm   ${NTLM_REALM}
+    ...                             ${NTLM_AUTH_SERVER}
+    ...                             ${AD_DOMAIN}
+    ...                             domain_user=${AD_JOIN_USER}
+    ...                             domain_pw=${AD_JOIN_USER_PASSWORD}
+    Identities Add Policy  ${IDENTITY}
+    ...  protocol=${protocol}
+    ...  auth_method=requires
+    ...  auth_realm=${NTLM_REALM}
+    ...  auth_scheme=${auth_scheme}
+    Access Policies Add  ${POLICY}
+    ...  identity=${IDENTITY}
+    Commit Changes
+
+Set Up WSA Configuration NTLM Auth And Block 1mb File By IDS
+    [Documentation]  WSA configuration to block files over 1 mb by IDS for session witn NTLM auth.
+    Set Up WSA Configuration NTLM Auth
+    Set Up WSA Configuration Block Over 1mb File By IDS
+    Commit Changes
+
+Remove Ipfw Rule On FTP Server
+    [Documentation]  Removes ipfw rule on FTP Server
+    Remove Ipfw Rule On Host  ${FTP_SERVER}  ${RTESTUSER}  ${RTESTUSER_PASSWORD}
+
+Remove Ipfw Rule On Upstream Proxy
+    [Documentation]  Keyword removes ipfw rule from upstream proxy server.
+    Remove Ipfw Rule On Host  ${FTP_UPSTREAM_PROXY}
+    ...  ${RTESTUSER}  ${TESTUSER_PASSWORD}
+
+Set Up WSA EUN Configuration
+    [Documentation]  EUN NFTP message setup. Note: variable ${EUN_MSG} should exist.
+    Eun Edit Settings
+    ...  nativeftp_language=English
+    ...  nativeftp_msg=${EUN_MSG}
+
+Set EUN Warn Page
+    [Documentation]  EUN Warn page setup. Note: variable ${EUN_MSG} should exist.
+    Eun Edit Settings
+    ...  url_cat_time_between=30s
+    ...  url_cat_msg=${EUN_MSG}
+
+Set Up WSA EUA Page Configuration
+    [Documentation]  EUN EUA page setup.
+    Eun Edit Settings
+    ...  logo=Use Cisco IronPort Logo
+    ...  notification_msg=custom EUA page message
+    ...  notification_contact=odmin
+    ...  notification_email=odmin@ironport.cisco.com
+
+Set Big EUN Msg
+    [Documentation]  Setting up EUN_MSG variable with 2048 bytes long string.
+    ${msg}=  Generate Random String  2048
+    Set Test Variable  ${EUN_MSG}  ${msg}
+
+Set Timeout To 600
+    [Documentation]  Setting big timeout for ftp utility.
+    ${_timeout}=  Convert To Integer  600
+    Set Suite Variable  ${TIMEOUT}  ${_timeout}
+
+Emulate Slow Connection On FTP Server
+    [Documentation]  Emulates 100Kbits speed on Ftp server.
+    Emulate Slow Connection  ${FTP_SERVER}  ${FTPUSER}  ${FTPUSER_PASSWORD}
+
+Emulate Slow Connection On FTP Client
+    [Documentation]  Emulates 100Kbits speed on Ftp client.
+    Emulate Slow Connection  ${CLIENT_HOSTNAME}  ${TESTUSER}  ${TESTUSER_PASSWORD}
+
+Emulate Slow Connection On Offbox-DLP Server
+    [Documentation]  Emulates 100Kbits speed on Offbox-DLP.
+    Emulate Slow Connection  ${EX_DLP_SERVER}  ${TESTUSER}  ${TESTUSER_PASSWORD}  ${EX_DLP_SERVER_PORT}
+
+Emulate Slow Connection On Upstream Server
+    [Documentation]  Emulates 100Kbits speed on upstream server.
+    Emulate Slow Connection  ${FTP_UPSTREAM_PROXY}  ${TESTUSER}  ${TESTUSER_PASSWORD}
+
+Emulate Slow Connection
+    [Documentation]  Emulate slow connection with ipwf rules.
+    [Arguments]  ${host}  ${user}  ${pass}  ${port}=${EMPTY}
+    ${command}=  Catenate
+    ...  sudo ipfw pipe 10 config bw 100Kbits &&
+    ...  sudo ipfw add 2001 pipe 10 all from ${host} ${port} to ${DUT_P1} &&
+    ...  sudo ipfw add 2002 pipe 10 all from ${DUT_P1} to ${host}
+    Open Connection  ${host}
+    Login  ${user}  ${pass}
+    Execute Command  ${command}
+    Close Connection
+
+Remove Slow Emulation
+    [Documentation]  Removes ipwf rules that emulate slow connection.
+    [Arguments]  ${host}  ${user}  ${pass}
+    Open Connection  ${host}
+    Login  ${user}  ${pass}
+    Execute Command  sudo ipfw delete 2001 && sudo ipfw delete 2002 && sudo ipfw pipe delete 10
+    Close Connection
+
+Remove Slow FTP Server Emulation
+    [Documentation]  Removes slow speed emulation on Ftp server.
+    Remove Slow Emulation  ${FTP_SERVER}  ${FTPUSER}  ${FTPUSER_PASSWORD}
+
+Remove Slow FTP Client Emulation
+    [Documentation]  Removes slow speed emulation on Ftp client.
+    Remove Slow Emulation  ${CLIENT_HOSTNAME}  ${TESTUSER}  ${TESTUSER_PASSWORD}
+
+Remove Slow Offbox-DLP Emulation
+    [Documentation]  Removes slow speed emulation on Offbox-DLP.
+    Remove Slow Emulation  ${EX_DLP_SERVER}  ${TESTUSER}  ${TESTUSER_PASSWORD}
+
+Remove Slow Upstream Emulation
+    [Documentation]  Removes slow speed emulation on upstream server.
+    Remove Slow Emulation  ${FTP_UPSTREAM_PROXY}  ${TESTUSER}  ${TESTUSER_PASSWORD}
+
+Set Up Wsa Configuration Block FTP By Offbox-DLP
+    [Documentation]  WSA configuration to block FTP protocol by Off-box DLP.
+    Set Up Off-box DLP Server
+    Set Up External Data Loss Prevention
+
+Set Up WSA Configuration Block Object
+    [Documentation]  WSA Configuration to block objects defined in ${BLOCK_LIST}\n
+    ...  for access policy ${POLICY}.
+    Access Policies Edit Objects  ${POLICY}
+    ...  setting_type=custom
+    ...  file_types=${BLOCK_LIST}
+    Commit Changes
+
+WSA Set Up Auth Format For FTP Proxy
+  [Documentation]  Set up authentication format for ftp proxy. Either 'Check Point' or 'Raptor'.
+  [Arguments]  ${format}=Check Point
+  Ftp Proxy Edit Settings  auth_format=${format}
+  Commit Changes
+
+WSA Set Up Raptor Auth Format For FTP Proxy
+  [Documentation]  Set up raptor authentication format for ftp proxy.
+  WSA Set Up Auth Format For FTP Proxy  format=Raptor
+
+Log In Using Raptor Auth Format
+  [Documentation]  This keyword logs into DUT using raptor auth format. This\n
+  ...              keyword should be used instead of ftp utility because ftp\n
+  ...              freebsd client does not support raptor format correctly (\n
+  ...              it sends "user <username>@<server> <auth_system_user>@<server>"\n
+  ...              instead of "user <username>@<server> <auth_system_user>")
+  [Arguments]  ${server}=${DUT_P1}
+  ...  ${port}=${DUT_FTP_PROXY_PORT}
+  ...  ${user}=${TESTUSER}
+  ...  ${ftp_server}=${FTP_SERVER}
+  ...  ${raptor_user}=${NTLM_USER}
+  ...  ${pass}=${TESTUSER_PASSWORD}
+  ...  ${acct}=${NTLM_USER_PASSWORD}
+  ...  ${pattern}=(230|530)(-)?\\s+(User \\w+ logged in|Anonymous access granted, restrictions apply|Login denied|Login incorrect)
+  ${_timeout}=  Set SSHLib Timeout  60 seconds
+  Open Connection     ${CLIENT_HOSTNAME}
+  Login   ${TESTUSER}    ${TESTUSER_PASSWORD}
+  ${prompt}  Set SSHLib Prompt  $
+  Write  telnet ${server} ${port}
+  ${out}=  Read Until  220
+  Write  user ${user}@${ftp_server} ${raptor_user}
+  ${out}=  Read Until  331 User name okay, need password.
+  Write  pass ${pass}
+  ${out}=  Read Until  332 Need account for login.
+  Write  acct ${acct}
+  ${out}=  Read Until Regexp  ${pattern}
+  Write  quit
+  ${out}=  Read
+  Set SSHLib Prompt  ${prompt}
+  Close Connection
+  Set SSHLib Timeout  ${_timeout}
+
+Run External DLP Server Emulator In ${mode} Block
+    [Documentation]     Runs DLP Srv emulator assuming that the script\n
+    ...                 is already in testuser's home directory.\n
+    ...                 Usage:\n
+    ...                 1) Run External DLP Server Emulator In Vontu Block\n
+    ...                 2) Run External DLP Server Emulator In Http-error Block\n
+    ...                 3) Run External DLP Server Emulator In None Block
+    ${mode}=  Set Variable  ${mode.lower()}
+    Should Be True     ['vontu', 'http-error', 'none'].__contains__('${mode}')    Invalid mode; should be 'vontu', 'http-error' or 'none'
+    Open Connection     ${EX_DLP_SERVER}
+    Login   ${TESTUSER}     ${TESTUSER_PASSWORD}
+    ${protocol}=  Set Variable If
+    ...  '${mode}' == 'vontu'  httpblockedVontu
+    ...  '${mode}' == 'http-error'  httpblocked
+    ...  '${mode}' == 'none'  icap204
+    ${output}=  Execute Command
+    ...     ps ax | grep ${OFFBOX_SERVER_EMULATOR} | grep -v grep | awk '{print $1}' | xargs kill -9
+
+    SCP
+    ...  from_host=${CLIENT_HOSTNAME}
+    ...  from_location=%{SARF_HOME}/tests/testdata/icaptestd17.py
+    ...  to_host=${EX_DLP_SERVER}
+    ...  to_location=/home/${TESTUSER}/
+
+    ${output}=  Start Command
+    ...     python /home/${TESTUSER}/${OFFBOX_SERVER_EMULATOR} --protocol ${protocol} &
+
+    Log  Command Start Output: ${output}
+    Close Connection
+    [Return]    ${output}
+
+Stop External DLP Server Emulator
+    [Documentation]     Kills process run by DLP Srv emulator script
+    Open Connection     ${EX_DLP_SERVER}
+    Login   ${TESTUSER}     ${TESTUSER_PASSWORD}
+    ${output}=  Execute Command
+    ...     ps ax | grep ${OFFBOX_SERVER_EMULATOR} | grep -v grep | awk '{print $1}' | xargs kill -9
+    Close Connection
+    Should Be Empty     ${output}
+    [Return]    ${output}
+
+Execute Command On Emulated FTP Server And Get Output
+    [Documentation]  Emulates ftp server answer on given command.
+    [Arguments]  ${command}  ${answer}  ${expected_pattern}
+    Set SSHLib Timeout  10 seconds
+    Open Connection  ${FTP_SERVER}  server
+    Login  ${TESTUSER}  ${TESTUSER_PASSWORD}
+    Set SSHLib Prompt  $
+    Write  sudo ${PROFTPD_SERVICE} forcestop
+    ${out}=  Read Until  Stopping proftpd.
+    Read Until Prompt
+    Write  sudo nc -l 21
+    Write  220 Ready
+    Write  230 Anonymous access granted, restrictions apply
+    Read
+    Open Connection  ${CLIENT_HOSTNAME}  client
+    Login  ${TESTUSER}  ${TESTUSER_PASSWORD}
+    Write  telnet ${DUT_P1} ${DUT_FTP_PROXY_PORT}
+    ${out}=  Read Until  220 Ready.
+    Write  user ${FTPUSER}@${FTP_SERVER}
+    ${out}=  Read Until  331 User name okay, need password.
+    Write  pass ${FTPUSER_PASSWORD}
+    ${out}=   Read Until  230 Anonymous access granted, restrictions apply
+    Write  ${command}
+    Read
+    Switch Connection  server
+    Read
+    Write  ${answer}
+    Read
+    Switch Connection  client
+    ${out}=   Read Until Regexp  ${expected_pattern}
+    Close All Connections
+    [Return]  ${out}
+
+Start Upstream Proxy Server
+    [Documentation]  Start delegated upstream server for ftp protocol
+    Restart delegated For ftp
+
+Stop Upstream Proxy Server
+    [Documentation]  Stop delegated upstream server for ftp protocol
+    Open Connection     ${FTP_SERVER}
+    Login   ${RTESTUSER}    ${RTESTUSER_PASSWORD}
+    ${output}=  Execute Command
+    ...  ps aux | grep ${UPSTREAM_PROXY} | grep -v grep | awk '{print $2}' | xargs kill -9
+    ${output}=  Execute Command
+    ...  ps ax | grep ${UPSTREAM_PROXY} | grep -v grep
+    Close Connection
+
+Get P1 Interface Name
+    ${interfaces}=  Run On DUT  cat /data/db/config/system.network/data.cfg | grep 'jack_names ='
+    ${match}  ${interface}=  Should Match Regexp  ${interfaces}  .*"P1":"(\\w+)".*
+    [Return]  ${interface}
+
+Get M1 Interface Name
+    ${out}=  Run On DUT  env
+    ${match}  ${intf}=  Should Match Regexp  ${out}  MANAGEMENT_INTERFACE=(\\w*)
+    [Return]  ${intf}
+
+Login To FTP Server And Expect Error
+    [Documentation]  This keyword connects to FTP server ${FTP_SERVER}.
+    [Arguments]   ${server}=${FTP_SERVER}
+    ...  ${user}=${FTPUSER}  ${pass}=${FTPUSER_PASSWORD}
+    ...  ${mode}=forward
+    ...  ${error}=${EMPTY}
+    Run Keyword if  '${mode}' == 'forward'  Execute Ftp Command  gate ${DUT_P1} ${DUT_FTP_PROXY_PORT}
+    ${output}=  Login To Ftp Site  ${server}  ${user}  ${pass}
+    Should Match Regexp   ${output}    ${error} .*
+    [Return]  ${output}

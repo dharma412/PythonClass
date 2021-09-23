@@ -1,0 +1,158 @@
+#!/usr/bin/env python -tt
+# $Id: //prod/main/sarf_centos/testlib/phoebe1300/gui/admin/log_subscriptions_def/subscription_settings.py#2 $
+# $DateTime: 2019/09/09 11:25:44 $
+# $Author: saurgup5 $
+
+from common.gui.inputs_owner import InputsOwner, CUSTOM_RADIO_FLAG, \
+    get_module_inputs_pairs
+
+LOG_TYPE_COMBO = ('Log Type',
+                  "//select[@name='type']")
+LOG_NAME = ('Log Name',
+            "//input[@name='new_id']")
+LOG_FIELDS_ADD_COMBO = ('Log Fields', "//select[@id='sll_field[]']")
+LOG_FIELDS_REMOVE_COMBO = ('Log Fields', "//select[@id='selected_field[]']")
+
+## Below line is just a tweak to avoid ValueError: Unknown setting name(s) error.
+## Without this testlib.common.gui.input_owner:_check_if_inputs_are_registered()
+## will raise a ValueError exception for 'Consolidated Event Logs Action' parameter
+LOG_FIELDS_ACTION_COMBO = ('Consolidated Event Logs Action',
+                           ['add', 'remove', 'move up', 'move down'])
+
+LOG_FIELDS_ADD_BUTTON = "//input[@id='add_field']"
+LOG_FIELDS_REMOVE_BUTTON = "//input[@id='remove_field']"
+LOG_FIELDS_MOVE_UP_BUTTON = "//input[@id='move_up']"
+LOG_FIELDS_MOVE_DOWN_BUTTON = "//input[@id='move_down']"
+FILE_NAME = ('File Name',
+             "//input[@name='filename']")
+ROLLOVER_BY_FILESIZE = ('Rollover by File Size',
+                        "//input[@name='filesize']")
+ROLLOVER_BY_TIME_COMBO = ('Rollover by Time',
+                          "//select[@id='rollover_by_time']")
+ROLLOVER_CUSTOM_TIME = ('Custom Rollover Interval',
+                        "//input[@name='rollover_custom_time']")
+LOG_LEVEL_RADIO = lambda index: "//input[@id='level_radio%d']" % (index,)
+LOG_LEVEL_RADIOGROUP = ('Log Level',
+                        {'Critical': LOG_LEVEL_RADIO(1),
+                         'Warning': LOG_LEVEL_RADIO(2),
+                         'Information': LOG_LEVEL_RADIO(3),
+                         'Debug': LOG_LEVEL_RADIO(4),
+                         'Trace': LOG_LEVEL_RADIO(5)})
+RETRIEVAL_METHOD_RADIO = lambda index: "//input[@id='method_radio%d']" % \
+                                       (index,)
+RETRIEVAL_METHOD_RADIOGROUP = ('Retrieval Method',
+                               {'Manually Download Logs': RETRIEVAL_METHOD_RADIO(1),
+                                'FTP Push to Remote Server': RETRIEVAL_METHOD_RADIO(2),
+                                'SCP Push to Remote Server': RETRIEVAL_METHOD_RADIO(3),
+                                'Syslog Push': RETRIEVAL_METHOD_RADIO(4),
+                                'AWS S3 Push': RETRIEVAL_METHOD_RADIO(5)})
+# Manually download logs
+MAXIMUM_FILES = ('Maximum Files',
+                 "//input[@id='max_num_files']")
+# FTP Push to Remote Server
+FTP_HOST = ('FTP Host',
+            "//input[@id='ftp_host']")
+FTP_DIRECTORY = ('FTP Directory',
+                 "//input[@id='ftp_directory']")
+FTP_USERNAME = ('FTP Username',
+                "//input[@id='ftp_username']")
+FTP_PASSWORD = ('FTP Password',
+                "//input[@id='ftp_password']")
+# SCP Push to Remote Server
+PROTOCOL_RADIO = lambda index: "//input[@id='scp_protocol%s']" % (index,)
+PROTOCOL_RADIO_GROUP = ('SCP Protocol',
+                        {'SSH1': PROTOCOL_RADIO(1),
+                         'SSH2': PROTOCOL_RADIO(2)})
+SCP_HOST = ('SCP Host',
+            "//input[@id='scp_host']")
+SCP_PORT = ('SCP Port',
+            "//input[@id='scp_port']")
+SCP_DIRECTORY = ('SCP Directory',
+                 "//input[@id='scp_directory']")
+SCP_USERNAME = ('SCP Username',
+                "//input[@id='scp_username']")
+ENABLE_HOST_KEY_CHECKING_CHECKBOX = ('Enable Host Key Checking',
+                                     "//input[@id='scp_key']")
+HOST_KEY_CHECKING_RADIOGROUP = ('Host Key Checking',
+                                {'Automatically Scan': "//input[@id='key_method_radio1']",
+                                 CUSTOM_RADIO_FLAG: ('input_text',
+                                                     'get_value',
+                                                     "//textarea[@id='key_value']",
+                                                     "//input[@id='key_method_radio2']")})
+# Syslog Push
+PUSH_HOSTNAME = ('Hostname',
+                 "//input[@id='syslog_hostname']")
+PUSH_PROTOCOL_RADIO = lambda index: "//input[@id='syslog_protocol%d']" % \
+                                    (index,)
+PUSH_PROTOCOL_RADIOGROUP = ('Syslog Push Protocol',
+                            {'UDP': PUSH_PROTOCOL_RADIO(1),
+                             'TCP': PUSH_PROTOCOL_RADIO(2)})
+FACILITY_COMBO = ('Facility',
+                  "//select[@name='syslog_facility']")
+
+# AWS S3 Push
+S3_BUCKET_NAME = ("S3 Bucket Name", "//input[@id='aws_s3_bucket_name']")
+S3_ACCESS_KEY = ("S3 Access Key", "//input[@id='aws_s3_access_key']")
+S3_SECRET_KEY = ("S3 Secret Key", "//input[@id='aws_s3_secret_access_key']")
+
+
+class SubscriptionSettings(InputsOwner):
+    def _get_registered_inputs(self):
+        return get_module_inputs_pairs(__name__)
+
+    def set(self, new_value):
+        self._set_combos(new_value,
+                         LOG_TYPE_COMBO)
+        # page reload will happen here
+        self.gui.wait_until_page_loaded()
+
+        if new_value.has_key('Log Fields'):
+            if new_value.has_key('Consolidated Event Logs Action'):
+                consolidated_event_logs_action = new_value['Consolidated Event Logs Action'].lower()
+                if consolidated_event_logs_action == 'add':
+                    self._set_dual_lists(new_value,
+                                         LOG_FIELDS_ADD_BUTTON,
+                                         LOG_FIELDS_ADD_COMBO)
+                elif consolidated_event_logs_action == 'remove':
+                    self._set_dual_lists(new_value,
+                                         LOG_FIELDS_REMOVE_BUTTON,
+                                         LOG_FIELDS_REMOVE_COMBO)
+                elif consolidated_event_logs_action == 'move up':
+                    self._set_dual_lists(new_value,
+                                         LOG_FIELDS_MOVE_UP_BUTTON,
+                                         LOG_FIELDS_REMOVE_COMBO)
+                elif consolidated_event_logs_action == 'move down':
+                    self._set_dual_lists(new_value,
+                                         LOG_FIELDS_MOVE_DOWN_BUTTON,
+                                         LOG_FIELDS_REMOVE_COMBO)
+                else:
+                    raise ValueError('Unknown option {option} pass for' \
+                                     '"Consolidated Event Logs Action" parameter' \
+                                     .format(option=new_value['Consolidated Event Logs Action']))
+            else:
+                raise ValueError('"{action}" (case sensitive) is mandatory for "{log}" type' \
+                                 .format(action='Consolidated Event Logs Action',
+                                         log='Consolidated Event Logs'))
+
+        self._set_radio_groups(new_value,
+                               LOG_LEVEL_RADIOGROUP,
+                               RETRIEVAL_METHOD_RADIOGROUP)
+        self._set_checkboxes(new_value,
+                             ENABLE_HOST_KEY_CHECKING_CHECKBOX)
+        self._set_radio_groups(new_value,
+                               PROTOCOL_RADIO_GROUP,
+                               HOST_KEY_CHECKING_RADIOGROUP,
+                               PUSH_PROTOCOL_RADIOGROUP)
+        self._set_edits(new_value,
+                        LOG_NAME, FILE_NAME, ROLLOVER_BY_FILESIZE,
+                        MAXIMUM_FILES,
+                        FTP_HOST, FTP_DIRECTORY, FTP_USERNAME, FTP_PASSWORD,
+                        SCP_HOST, SCP_PORT, SCP_DIRECTORY, SCP_USERNAME,
+                        PUSH_HOSTNAME, S3_BUCKET_NAME, S3_ACCESS_KEY, S3_SECRET_KEY)
+        self._set_combos(new_value,
+                         ROLLOVER_BY_TIME_COMBO,
+                         FACILITY_COMBO)
+        self._set_edits(new_value, ROLLOVER_CUSTOM_TIME)
+
+    def get(self):
+        raise NotImplementedError()

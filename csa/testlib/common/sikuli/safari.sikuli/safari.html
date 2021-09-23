@@ -1,0 +1,176 @@
+<html>
+<head>
+    <style type="text/css">
+        .sikuli-code {
+            font-size: 20px;
+            font-family: "Osaka-mono", Monospace;
+            line-height: 1.5em;
+            display: table-cell;
+            white-space: pre-wrap; /* css-3 */
+            white-space: -moz-pre-wrap !important; /* Mozilla, since 1999 */
+            white-space: -pre-wrap; /* Opera 4-6 */
+            white-space: -o-pre-wrap; /* Opera 7 */
+            word-wrap: break-word; /* Internet Explorer 5.5+ */
+            width: 99%; /* remove horizontal scroll-bar when viewing in IE7 */
+        }
+
+        .sikuli-code img {
+            vertical-align: middle;
+            margin: 2px;
+            border: 1px solid #ccc;
+            padding: 2px;
+            -moz-border-radius: 5px;
+            -webkit-border-radius: 5px;
+            -moz-box-shadow: 1px 1px 1px gray;
+            -webkit-box-shadow: 1px 1px 2px gray;
+        }
+
+        .kw {
+            color: blue;
+        }
+
+        .skw {
+            color: rgb(63, 127, 127);
+        }
+
+        .str {
+            color: rgb(128, 0, 0);
+        }
+
+        .dig {
+            color: rgb(128, 64, 0);
+        }
+
+        .cmt {
+            color: rgb(200, 0, 200);
+        }
+
+        h2 {
+            display: inline;
+            font-weight: normal;
+        }
+
+        .info {
+            border-bottom: 1px solid #ddd;
+            padding-bottom: 5px;
+            margin-bottom: 20px;
+            display: none;
+        }
+
+        a {
+            color: #9D2900;
+        }
+
+        body {
+            font-family: "Trebuchet MS", Arial, Sans-Serif;
+        }
+
+    </style>
+</head>
+<body>
+<div class="info">
+    <h2>safari.sikuli\safari.sikuli</h2> <a href="safari.sikuli\safari.zip">(Download this script)</a>
+</div>
+<pre class="sikuli-code">
+<span class="cmt"># $Id: //prod/main/sarf_centos/testlib/common/sikuli/safari.sikuli/safari.html#1 $
+</span><span class="cmt"># $DateTime: 2019/03/22 01:36:06 $
+</span><span class="cmt"># $Author: aminath $
+</span><span class="kw">import</span> os
+<span class="kw">import</span> sys
+<span class="kw">import</span> sikulilog <span class="kw">as</span> log
+<span class="kw">from</span> sikuli.Sikuli <span class="kw">import</span> *
+
+safariscriptPath = <span class="str">"safari.sikuli"</span>
+addImagePath(safariscriptPath)
+setAutoWaitTimeout(<span class="dig">10</span>)
+
+<span class="kw">class</span> Safari(object):
+
+    <span class="kw">def</span> openSafari(self):
+        mark = log.get_length()
+        App.open(<span class="str">"Safari"</span>)
+        <span class="skw">wait</span>(<span class="dig">2</span>)
+        App.focus(<span class="str">"Safari"</span>)
+        <span class="skw">wait</span>(<span class="dig">2</span>)
+        log.process(mark)
+
+    <span class="kw">def</span> setupProxySafari(self, proxyhost=None, port=<span class="str">"3128"</span>):
+        mark = log.get_length()
+        <span class="skw">click</span>(<img src="1356039750608.png"/>)
+        <span class="skw">wait</span>(<span class="dig">2</span>)
+        <span class="skw">type</span>(<span class="str">","</span>, KEY_CTRL)
+        <span class="skw">wait</span>(<img src="SafariAdvanced.png"/>)
+        <span class="skw">click</span>(<img src="SafariAdvanced.png"/>)
+        <span class="skw">wait</span>(<img src="SafariChangeSettin.png"/>)
+        <span class="skw">click</span>(<img src="SafariChangeSettin.png"/>)
+        <span class="skw">wait</span>(<img src="SafariLANsettin.png"/>)
+        <span class="skw">click</span>(<img src="SafariLANsettin.png"/>)
+        <span class="skw">click</span>(<img src="Useaproxyser.png"/>)
+        <span class="skw">type</span>(Key.TAB)
+        <span class="skw">type</span>(proxyhost)
+        <span class="skw">type</span>(Key.TAB)
+        <span class="skw">type</span>(port)
+        <span class="skw">wait</span>(<span class="dig">2</span>)
+        <span class="skw">type</span>(Key.ENTER)
+        <span class="skw">wait</span>(<span class="dig">2</span>)
+        <span class="skw">type</span>(Key.TAB)
+        <span class="skw">type</span>(Key.ENTER)
+        <span class="skw">wait</span>(<span class="dig">2</span>)
+        <span class="skw">click</span>(<img src="x7.png"/>)
+        <span class="skw">wait</span>(<span class="dig">2</span>)
+        <span class="skw">type</span>(<span class="str">"q"</span>, KEY_CTRL)
+        <span class="skw">type</span>(Key.ENTER)
+        <span class="skw">wait</span>(<span class="dig">2</span>)
+        log.process(mark)
+
+    <span class="kw">def</span> authenticateSafari(self, domain=<span class="str">"wga"</span>, username=<span
+        class="str">"admin"</span>,
+                           password=<span class="str">"ironport"</span>, url=<span
+        class="str">"http://www.google.com"</span>):
+        mark = log.get_length()
+        App.open(<span class="str">"Safari"</span>)
+        <span class="skw">wait</span>(<span class="dig">5</span>)
+        <span class="skw">type</span>(<span class="str">"t"</span>, KEY_CTRL)
+        <span class="skw">type</span>(url)
+        <span class="skw">type</span>(Key.ENTER)
+        <span class="skw">wait</span>(<img src="Name.png"/>, <span class="dig">120</span>)
+        <span class="skw">type</span>(<img src="Name.png"/>, <span class="str">"%s\\%s"</span> % (domain, username))
+        <span class="skw">type</span>(Key.TAB)
+        <span class="skw">type</span>(password)
+        <span class="skw">click</span>(<img src="LogIn.png"/>)
+        <span class="skw">wait</span>(<span class="dig">2</span>)
+        log.process(mark)
+
+    <span class="kw">def</span> cleanupSafari(self):
+        mark = log.get_length()
+        <span class="skw">type</span>(<span class="str">","</span>, KEY_CTRL)
+        <span class="skw">wait</span>(<span class="dig">2</span>)
+        <span class="skw">wait</span>(<img src="SafariAdvanced.png"/>)
+        <span class="skw">click</span>(<img src="SafariAdvanced.png"/>)
+        <span class="skw">wait</span>(<img src="SafariChangeSettin.png"/>)
+        <span class="skw">click</span>(<img src="SafariChangeSettin.png"/>)
+        <span class="skw">wait</span>(<img src="SafariLANsettin.png"/>)
+        <span class="skw">click</span>(<img src="SafariLANsettin.png"/>)
+        <span class="skw">click</span>(<img src="Useaproxyser.png"/>)
+        <span class="skw">type</span>(Key.ENTER)
+        <span class="skw">wait</span>(<span class="dig">2</span>)
+        <span class="skw">type</span>(Key.TAB)
+        <span class="skw">wait</span>(<span class="dig">2</span>)
+        <span class="skw">type</span>(Key.ENTER)
+        <span class="skw">wait</span>(<span class="dig">2</span>)
+        <span class="skw">click</span>(<img src="x7.png"/>)
+        <span class="skw">wait</span>(<span class="dig">2</span>)
+        <span class="skw">type</span>(<span class="str">"q"</span>, KEY_CTRL)
+        <span class="skw">type</span>(Key.ENTER)
+        <span class="skw">wait</span>(<span class="dig">2</span>)
+        log.process(mark)
+
+<span class="kw">if</span> __name__ == <span class="str">"__main__"</span>:
+    safari = Safari()
+    safari.openSafari()
+    safari.setupProxySafari()
+    safari.authenticateSafari()
+    safari.cleanupSafari()
+</pre>
+</body>
+</html>

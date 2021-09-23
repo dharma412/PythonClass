@@ -1,0 +1,599 @@
+# $Id: //prod/main/sarf_centos/resources/http.txt#4 $
+# $DateTime: 2019/07/29 05:39:41 $
+# $Author: revlaksh $
+
+# Resources for HTTP tests
+
+*** Settings ***
+Resource    wsa/global.txt
+Library     Collections
+
+*** Variables ***
+${HTTP_URL}    http://${HTTP_SERVER}/cgi-bin/post_count.py
+${TCPDUMP}     tcpdump.log
+${FILE}            fileToPost
+${nc_file}         nc.req
+${LS_PATTERN}   root.*\\d+${SPACE}+(\\S+)${SPACE}+(\\d+)${SPACE}+(\\d+:\\d+).*
+
+*** Keyword ***
+Set NTLM Authentication
+    [Documentation]      Setup LDAP Authentication:
+    ...    \nSee http://tims.cisco.com/view-entity.cmd?ent=405340
+
+    Set Test Variable    ${REALM}        ntlmrealm${TEST_ID}
+    Set Test Variable    ${IDENTITY}     id${TEST_ID}
+    Set Test Variable    ${POLICY}       access${TEST_ID}
+    Authentication Add NTLM Realm    ${REALM}
+    ...           ${NTLM_AUTH_SERVER}
+    ...           ${AD_DOMAIN}
+    ...           domain_user=${AD_JOIN_USER}
+    ...           domain_pw=${AD_JOIN_USER_PASSWORD}
+    ...           run_test=${True}
+    ...           join_domain=False
+    Commit Changes    ${TEST_ID}
+    Set NTLM Security Mode    mode=domain
+    Commit
+    Authentication Edit Ntlm Realm  ${REALM}
+    ...    join_domain=True
+    ...    net_domain=${AD_NET_DOMAIN}
+    ...    domain_user=${AD_JOIN_USER}
+    ...    domain_pw=${AD_JOIN_USER_PASSWORD}
+    Identities Add Policy    ${IDENTITY}
+    ...    auth_method=requires
+    ...    auth_realm=${REALM}
+    ...    auth_scheme=NTLMSSP or Basic
+    Access Policies Add    ${POLICY}
+    ...    identities=${IDENTITY}
+    Commit Changes    ${TEST_ID}
+
+Set LDAP Authentication
+    [Documentation]      Setup LDAP Authentication:
+    ...    \n\tGo to Network -> Authentication
+    ...    \n\tClick on Add realm
+    ...    \n\tChoose LDAP Authentication and configure the following server details.
+    ...    \n\t\tRealm Name:ldap${TEST_ID}
+    ...    \n\t\LDAP server details:
+    ...    \n\t\tLDAP Server:${LDAP_AUTH_SERVER}
+    ...    \n\t\tBase DN: ${LDAP_BASE_DN}
+    ...    \n\t\tUser Name Attribute: ${USER_NAME_ATTR}
+    ...    \n\t\Click Start test and ensure that the test passes
+    ...    \n\t\Web Security Manager-> Identities
+    ...    \n\t\Create an Identity id${TEST_ID}
+    ...    \n\t\In the Identity, Select Require Authentication and select realm ldap${TEST_ID}
+    Set Test Variable    ${REALM}    ldap${TEST_ID}
+    Set Test Variable    ${IDENT}    id${TEST_ID}
+    Authentication Add Ldap Realm    ${REALM}    ${LDAP_AUTH_SERVER}
+    ...    base_dn=${LDAP_BASE_DN}
+    ...    uname_attr=${USER_NAME_ATTR}
+    ...    run_test=${True}
+    Identities Add Policy    ${IDENT}
+    ...    auth_method=requires
+    ...    auth_realm=${REALM}
+    Commit Changes    ${TEST_ID}
+
+Remove Uploaded File
+    [Documentation]      Clean-up uploaded folder
+    ${_result}=    Switch Connection      ${HTTP_SERVER_CONNECTION}
+    ${_result}=    Execute Command        sudo rm uploaded_files/${FILE}
+
+Check Uploaded File
+    [Documentation]      Clean-up uploaded folder
+    ${MD5_UPLOADED}=    Switch Connection      ${HTTP_SERVER_CONNECTION}
+    ${MD5_UPLOADED}=    Execute Command        md5 -q uploaded_files/${FILE}
+    Run Keyword And Continue On Failure    Should Be Equal    ${MD5_ORIGINAL}    ${MD5_UPLOADED}
+
+Create File To Post
+    [Documentation]      Create a file to be posted in the testsuite
+    Run    rm -rf ${FILE}
+    :FOR   ${index}   IN RANGE    1000
+    \    Run    echo ${index}. 12345678901234567890123456789012345678901234567890 >> ${FILE}
+    Run    truncate -s 50K ${FILE}
+    ${_temp}    Run    md5 -q ${FILE}
+    Set Suite Variable    ${MD5_ORIGINAL}    ${_temp}
+
+NC Create Request   [Arguments]    @{text}
+    [Documentation]    Create file for netcat
+    Run    sudo rm -f ${nc_file}
+
+    :FOR   ${line}    IN
+    ...    POST http://${HTTP_SERVER}:8000/ HTTP/1.1
+    ...    Host: ${HTTP_SERVER}
+    ...    User-Agent: Mozilla/5.0 \\(Windows\\; U\\; Windows NT 5.1\\; en-US\\; rv:1.9.2.3\\) Gecko/20100401 Firefox/3.6.3
+    ...    Accept: text/html,application/xhtml+xml,application/xml\\;q=0.9,\\*/\\*\\;q=0.8
+    ...    Accept-Language: en-us,en\\;q=0.5
+    ...    Accept-Encoding: gzip,deflate
+    ...    Accept-Charset: ISO-8859-1,utf-8\\;q=0.7,\\*\\;q=0.7
+    ...    Keep-Alive: 115
+    ...    Proxy-Connection: keep-alive
+    ...    Content-Type: multipart/form-data\\; boundary=---------------------------14162188131998
+    ...    @{text}
+    ...    ${Empty}
+    \    Run    echo ${line} >> ${nc_file}
+
+    ${_file}=      Run    cat ${nc_file} ${FILE}
+    Log            ${_file}
+
+OffBox DLP Scan All
+   [Documentation]      Set Up Offbox DLP
+   ...    \nCreate OffBox Dlp Policy to scan all uploads
+   Onbox Dlp Disable
+   Set Test Variable    ${EX_DLP_POLICY}    OffboxDlpPolicy${TEST_ID}
+   External DLP Servers Edit Servers
+   ...    ${TOOLS}%2323%2%icap://${TOOLS}:2323/reqmod
+   Offbox DLP Policies Add                  ${EX_DLP_POLICY}
+   Offbox DLP Policies Edit Destinations    ${EX_DLP_POLICY}    settings_type=custom    scan_uploads=all
+
+OMS Create Policy
+   [Documentation]      Create an OMS policy
+   ...    \nCreate OffBox Dlp Policy to scan all uploads
+   Set Test Variable    ${OMS_POLICY}    ScanMcafeeWebrootSophos${TEST_ID}
+   OMS Policies Add     ${OMS_POLICY}
+   ...    identities=${GLOBAL_IDENTITY}
+
+Remove File To Post
+   [Documentation]      Remove file that was posted in the testsuite
+   Run    rm ${FILE}
+
+Kill All tcpdump Processes
+    [Documentation]    Kill all tcpdump processes running on DUT
+    ${_result}=    Switch Connection      ${DUT_CONNECTION}
+    ${_result}=    Execute Command        ps auxww | grep tcpdump | egrep -v grep | awk '{print $2}' | xargs kill
+
+Start tcpdump
+    [Documentation]    Start tcpdump processes on DUT writing to ${TCPDUMP}
+    ${out}=  Run On DUT  env
+    ${match}  ${intf}=  Should Match Regexp  ${out}  MANAGEMENT_INTERFACE=(\\w*)
+    ${_result}=    Switch Connection      ${DUT_CONNECTION}
+    ${_result}=    Start Command        tcpdump -i ${intf} src ${HTTP_SERVER} > ${TCPDUMP}
+
+Get tcpdump
+    [Documentation]    Stop tcpdump and returns its content
+    Kill All tcpdump Processes
+    ${tcpdump}=            Execute Command    cat ${TCPDUMP}
+    Set Test Variable      ${tcpdump_log}     ${tcpdump}
+
+Set IPFW Rule To Reset Connection
+    [Documentation]    Rlogin to the web server and add IPFW rule to reset connection
+    ...     \nIt's expected that connection to HTTP_SERVER is open
+    ${_result}=    Switch Connection      ${HTTP_SERVER_CONNECTION}
+    ${_result}=    Execute Command        sudo ipfw add 00102 reset tcp from ${DUT} to me
+
+Remove IPFW Rule To Reset Connection
+    [Documentation]    Rlogin to the web server and add IPFW rule to reset connection
+    ...     \nIt's expected that connection to HTTP_SERVER is open
+    ${_result}=    Switch Connection      ${HTTP_SERVER_CONNECTION}
+    ${_result}=    Execute Command        sudo ipfw delete 00102
+
+NC Create File And Fire   [Arguments]    @{text}
+    [Documentation]    Create a file for netcat, call it, and then remove
+    ${nc_file}=    Set Variable    nc${TEST_ID}
+    Run    sudo rm -f ${nc_file}
+
+    :FOR   ${line}    IN    @{text}
+    \    Run    echo ${line} >> ${nc_file}
+
+    ${_file}=      Run    cat ${nc_file}
+    Log            ${_file}
+    ${_client_out}=      Run    cat ${nc_file} | nc ${DUT} 3128
+    Set Test Variable    ${client_out}    ${_client_out}
+    Run                  sudo rm -f {nc_file}
+
+POST_Testsuite_Setup
+   [Documentation]    Open connection to HTTP Server
+   Default TestSuite Setup
+
+HTTP_Testcase_Setup
+    [Documentation]    Default Setup + Clear Proxy Cache
+    Diagnostic Proxy Cache
+    ${_connection}=        Open Connection        ${DUT}
+    Set Test Variable      ${DUT_CONNECTION}      ${_connection}
+    Login   ${RTESTUSER}   ${RTESTUSER_PASSWORD}
+
+    ${_connection}=        Open Connection              ${HTTP_SERVER}
+    Set Test Variable      ${HTTP_SERVER_CONNECTION}    ${_connection}
+    Login   ${HTTP_USER}   ${HTTP_PASSWORD}
+    DefaultTestCaseSetup
+
+POST_Testcase_Setup
+   [Documentation]    Default Setup + Clear Proxy Cache
+   DefaultTestCaseSetup
+   Diagnostic Proxy Cache
+   Run Keyword And Ignore Error  Edit Ssl Configuration
+   ...  proxy=sslv3#y
+   ...  ldaps=sslv3#y
+   ...  sicap=sslv3#y
+   ...  update=sslv3#y
+   ...  application_mgmt=sslv3#y
+
+   Run keyword and ignore error  Commit Changes
+
+
+POST_And_Verify    [Arguments]
+   ...    ${Size}=${Empty}
+   ...    ${Expect100}=${Empty}
+   [Documentation]    Arguments:\n
+   ...    \tSize - size of file to post with suffix K, M, or G\n
+   ...    \tExpect100 - empty or '100-continue'\n
+   ...    Algorithm:\n
+   ...    Remove resulting file\n
+   ...    Create file to post of specified size\n
+   ...    Send the POST command\n
+   ...    Verifications:\n
+   ...    \tResult file is POSTed on HTTP_SERVER\n
+   ...    \tThe response on <CLIENT> contains 'Connected to <DUT>'\n
+   ...    \tIf not 100-continue, the response on <CLIENT> does not contain '100-continue'\n
+   ...    \tIf 100-continue, the response on <CLIENT> contains '> Expect: 100-continue'\n
+   ...    \tOne and only one new entry is logged to access log\n
+   ...    \tNew access log entry contains 'TCP_MISS/200'\n
+   ...    \tNew access log entry contains 'POST ${HTTP_URL}'\n
+   Open Connection    ${HTTP_SERVER}
+   Login    ${HTTP_USER}    ${HTTP_PASSWORD}
+   # remove resulting file
+   ${out}    Execute Command    rm /tmp/log
+   # Send the POST command
+   Run    truncate -s ${Size} file
+   Filter Access Log Create Baseline
+   ${client_out}=    Run
+   ...    curl ${IPV_PARAM} -v -m 1200 -x ${DUT}:3128 -F file=@file -H "Expect: ${Expect100}" ${HTTP_URL} 2>&1
+   Log    ${client_out}
+
+   # Verifications
+   # 1. Result file is POSTed on HTTP_SERVER
+   ${out}    Execute Command    ls -l /tmp/log
+   Run Keyword And Continue On Failure    Should Contain    ${out}    log
+
+   # 2.The response on <CLIENT> contains the following lines:
+   # * Connected to <DUT>
+   Run Keyword And Continue On Failure    Should Contain    ${client_out}    * Connected to ${DUT}
+   Run Keyword And Continue On Failure    Should Contain    ${client_out}    > POST ${HTTP_URL}
+
+   # 3. Whether the response on <CLIENT> contains "100-continue"
+   Run Keyword Unless    "${Expect100}"    Run Keyword And Continue On Failure    Should Not Contain    ${client_out}    100-continue
+   Run Keyword If    "${Expect100}"    Run Keyword And Continue On Failure    Should Contain    ${client_out}    > Expect: 100-continue
+
+   # 4. One and only one new entry is logged to access log
+   Access Log Get    1    30
+
+   # 5. New access log entry contains:
+   # TCP_MISS/200
+   Run Keyword And Continue On Failure    Should Contain    ${access_log}    TCP_MISS/200
+
+   # POST ${HTTP_URL}
+   Run Keyword And Continue On Failure    Should Contain    ${access_log}    POST ${HTTP_URL}
+
+Check Server on ${port} port
+
+    ${netstat_output}=  Execute Command  netstat -aln|grep ${port}|grep -v 8443|grep -v 8000|grep -v 8081|grep LISTEN
+    Log  ${netstat_output}
+    Should Not Be Empty  ${netstat_output}  No any processes on ${port} port
+
+    ${cli_curl_command}=  Set Variable  curl ${IPV_PARAM} -v http://${HTTP_SERVER}   
+    Run Keyword If  '${port}' == '443'  Set Variable  ${cli_curl_command}  curl ${IPV_PARAM} -v -k https://${HTTP_SERVER}
+
+    ${cli_curl_command_out}=  Execute Command  ${cli_curl_command}
+     Log  ${cli_curl_command_out}
+    Should Match Regexp  ${cli_curl_command_out}  ${pattern}
+
+Restart HTTP Server
+    [Documentation]  Start http server on ${HTTP_SERVER} machine
+    ${out}=  Run Command On Host  command=service httpd restart
+    Log  ${out}
+
+Restart HTTP Server And Check Availability
+    [Documentation]  Restarting http server on ${HTTP_SERVER} machine and checking availability on 80 and 443 ports.
+    [Arguments]  ${http_port}=${True}   ${https_port}=${True}  ${pattern}=DOCTYPE HTML PUBLIC
+    Open Connection     ${HTTP_SERVER}
+    Login   ${RTESTUSER}    ${RTESTUSER_PASSWORD}
+    ${restart_output}=  Execute Command  service httpd restart 2>&1
+    Log  ${restart_output}
+    Sleep  7
+    Run Keyword If   '${http_port}' == '${True}'  Run Keyword And Continue On Failure  Check Server on 80 port
+    Run Keyword If  '${https_port}' == '${True}'  Run Keyword And Continue On Failure  Check Server on 443 port
+
+    Close Connection
+
+Start HTTP Server
+    [Documentation]  Start http server on ${HTTP_SERVER} machine
+    Open Connection     ${HTTP_SERVER}
+    Login   ${RTESTUSER}    ${RTESTUSER_PASSWORD}
+    ${out}=  Execute Command  service httpd restart
+    Close Connection
+
+Stop HTTP Server
+    [Documentation]  Stop http server on ${HTTP_SERVER} machine
+    Open Connection     ${HTTP_SERVER}
+    Login   ${RTESTUSER}    ${RTESTUSER_PASSWORD}
+    ${out}=  Execute Command  service httpd stop 2>&1
+    Close Connection
+
+Start Custom HTTP Server With Answer ${answer}
+    [Documentation]  Start custom http server script with answer specified in argument
+    Open Connection     ${HTTP_SERVER}
+    Login   ${TESTUSER}    ${TESTUSER_PASSWORD}
+    ${output}=  Execute Command   sudo ps auxww | grep -v grep | grep ${CUSTOM_HTTP_SERVER_SCRIPT} | awk '{print $2}' | xargs sudo kill -9
+    ${output}=  Execute Command   sudo ps auxww | grep -v grep | grep "${NO_RESPONCE_SERVER_COMMAND}" | awk '{print $2}' | xargs sudo kill -9
+    ${output}=  Start Command     sudo nohup ~/${CUSTOM_HTTP_SERVER_SCRIPT} ${answer} &
+    Sleep   3
+
+    ${out}=  Execute Command  ps auxww | grep -v grep | grep ${CUSTOM_HTTP_SERVER_PORT}
+    Log  ${out}
+    ${status}  ${value}=  Run Keyword And Ignore Error  Should Contain  ${out}  ${answer}
+    Run Keyword If  '${status}' == 'FAIL'  Fail  msg=${err_msg_start}
+    ${out}=  Execute Command  ps auxww | grep -v grep | grep ${CUSTOM_HTTP_SERVER_SCRIPT}
+    Log  ${out}
+    ${status}  ${value}=  Run Keyword And Ignore Error  Should Contain  ${out}  ${answer}
+    Run Keyword If  '${status}' == 'FAIL'  Fail  msg=${err_msg_start}
+    Close Connection
+
+Stop Custom HTTP Server
+    [Documentation]  Stop custom http server script
+    Open Connection     ${HTTP_SERVER}
+    Login   ${TESTUSER}    ${TESTUSER_PASSWORD}
+    # Kill all processes on port 8080 and ${CUSTOM_HTTP_SERVER_SCRIPT}
+    Execute Command   sudo ps auxww | grep -v grep | grep ${CUSTOM_HTTP_SERVER_SCRIPT} | awk '{print $2}' | xargs sudo kill -9
+    Execute Command   sudo ps auxww | grep -v grep | grep "${NO_RESPONCE_SERVER_COMMAND}" | awk '{print $2}' | xargs sudo kill -9
+    Sleep   2
+
+    # Check if no processes on ${CUSTOM_HTTP_SERVER_PORT}
+    ${out}=  Execute Command  netstat -aln | grep LISTEN | grep ${CUSTOM_HTTP_SERVER_PORT}
+    Log  ${out}
+    ${status}  ${value}=  Run Keyword And Ignore Error  Should Be Empty  ${out}
+    Run Keyword If  '${status}' == 'FAIL'  Fail  msg=${err_msg_stop}
+    # Check if ${CUSTOM_HTTP_SERVER_SCRIPT} is not started
+    ${out}=  Execute Command  ps auxww | grep -v grep | grep "${NO_RESPONCE_SERVER_COMMAND}"
+    Log  ${out}
+    ${status}  ${value}=  Run Keyword And Ignore Error  Should Be Empty  ${out}
+    Run Keyword If  '${status}' == 'FAIL'  Fail  msg=${err_msg_stop}
+    Close Connection
+
+Start No Response HTTP Server
+    [Documentation]  Start custom http server script with no response
+    Open Connection     ${HTTP_SERVER}
+    Login   ${TESTUSER}    ${TESTUSER_PASSWORD}
+    Execute Command  ps auxww | grep -v grep | grep '${NO_RESPONCE_SERVER_COMMAND}' | awk '{print $2}' | xargs kill -9
+    Start Command  nohup ${NO_RESPONCE_SERVER_COMMAND} &
+    Close Connection
+
+Stop No Response HTTP Server
+    [Documentation]  Stop custom http server script with no response
+    Open Connection     ${HTTP_SERVER}
+    Login   ${TESTUSER}    ${TESTUSER_PASSWORD}
+    Execute Command  ps auxww | grep -v grep | grep '${NO_RESPONCE_SERVER_COMMAND}' | awk '{print $2}' | xargs kill -9
+    Close Connection
+
+Send HTTP Request
+    [Documentation]  Sends http request
+    [Arguments]
+    ...  ${url}=http://${HTTP_SERVER}/cgi-bin/post_count.py
+    ...  ${dut_proxy}=${DUT_P1}:${DUT_HTTP_PROXY_PORT}
+    ...  ${timeout}=60
+    ...  ${additional}=${EMPTY}
+    ...  ${output}=/dev/null
+    [Documentation]  Make request to custom http server and verify answers
+    ${dut_proxy}=  Set Variable If  '${dut_proxy}' != '${EMPTY}'  -x ${dut_proxy}${SPACE}  ${EMPTY}
+    ${additional}=  Set Variable If  '${additional}' != '${EMPTY}'  ${additional}${SPACE}  ${EMPTY}
+    ${output}=  Set Variable If  '${output}' != '${EMPTY}'  -o ${output}${SPACE}  ${EMPTY}
+    ${client_out}=  Run  curl ${IPV_PARAM} -v -m ${timeout} ${output}${dut_proxy}${additional}${url} 2>&1
+    Log  ${client_out}
+    [Return]  ${client_out}
+
+Send Multiple HTTP Requests
+    [Documentation]  Make requests to a list of urls
+    [Arguments]
+    ...  ${url_list}
+    ...  ${dut_proxy}=${DUT_P1}:${DUT_HTTP_PROXY_PORT}
+    ...  ${timeout}=60
+    ...  ${additional}=${EMPTY}
+    ...  ${output}=/dev/null
+
+    ${dut_proxy}=  Set Variable If  '${dut_proxy}' != '${EMPTY}'  -x ${dut_proxy}${SPACE}  ${EMPTY}
+    ${additional}=  Set Variable If  '${additional}' != '${EMPTY}'  ${additional}${SPACE}  ${EMPTY}
+    ${output}=  Set Variable If  '${output}' != '${EMPTY}'  -o ${output}${SPACE}  ${EMPTY}
+
+    ${len}=    Get Length       ${url_list}
+    ${return_list}=   Create List
+
+    : FOR    ${i}     IN Range    0     ${len}
+    \        ${url}=          Get From List         ${url_list}      ${i}
+    \        Start Process
+    \        ...      curl ${IPV_PARAM} -v -m ${timeout} ${output}${dut_proxy}${additional}${url} 2>&1
+    \        ...      alias=p${i}
+
+    : FOR    ${i}     IN Range    0     ${len}
+    \        Switch Process   p${i}
+    \        ${output}=       Read Process Output
+    \        Append To List   ${return_list}        ${output}
+    \        Log  ${output}
+
+    [Return]  ${return_list}
+
+Send HTTP Request And Check Logs
+    [Documentation]  Sends http request and checks logs
+    [Arguments]
+    ...  ${url}=http://${HTTP_SERVER}/cgi-bin/post_count.py
+    ...  ${dut_proxy}=${DUT_P1}:${DUT_HTTP_PROXY_PORT}
+    ...  ${timeout}=60
+    ...  ${additional}=${EMPTY}
+    ...  ${log_regexp}=.*${CLIENT_IP}.*200.*
+    ...  ${output}=/dev/null
+    ...  ${num_of_log_entries}=1
+    ...  ${ids_pattern}=${EMPTY}
+    [Documentation]  Make request to custom http server and verify answers
+    Filter Access Log Create Baseline
+    Run Keyword Unless  '${ids_pattern}' == '${EMPTY}'  Filter IDS Log Create Baseline
+    ${dut_proxy}=  Set Variable If  '${dut_proxy}' != '${EMPTY}'  -x ${dut_proxy}${SPACE}  ${EMPTY}
+    ${additional}=  Set Variable If  '${additional}' != '${EMPTY}'  ${additional}${SPACE}  ${EMPTY}
+    ${output}=  Set Variable If  '${output}' != '${EMPTY}'  -o ${output}${SPACE}  ${EMPTY}
+    ${client_out}=  Run  curl ${IPV_PARAM} -vvv -m ${timeout} ${output}${dut_proxy}${additional}${url} 2>&1
+    Log  ${client_out}
+    ${log}=  Filter Access Log Check    ${baseline_accesslog}  ${log_regexp}  no_entry=${num_of_log_entries}  timeout=40
+    Run Keyword Unless  '${ids_pattern}' == '${EMPTY}'
+    ...  Check IDS_Dataloss Log  ${baseline_ids_log}  ${ids_pattern}
+    [Return]  ${client_out}  ${log}
+
+Run Command On HTTP Server
+    [Documentation]
+    ...  Executes CLI command on remote http-server.\n
+    [Arguments]
+    ...  ${command}=${EMPTY}
+    ${out}=  Run Command On Host  command=${command}
+    [Return]  ${out}
+
+Set Custom Header On HTTP Server
+    [Documentation]  Sets custom header which will be returned by Apache in each request answer.\n
+    ...              Parameters:\n
+    ...                -header: Header Name\n
+    ...                -value: Header Value\n
+
+    [Arguments]  ${header}
+    ...          ${value}
+
+    ${conf}=  Set Variable  bash -c \'echo -e \"<ifModule mod_headers.c>\\nHeader unset ETag\\nHeader set ${header} \\"${value}\\"\\n</ifModule>\">>/usr/local/etc/apache22/Includes/custom_headers.conf\'
+    Run Command On Host  command=${conf}
+    ${out}=  Run Command On Host  command=cat /usr/local/etc/apache22/Includes/custom_headers.conf
+    Log  ${out}
+    Restart HTTP Server And Check Availability  pattern=.*
+
+Remove All Custom Headers
+    [Documentation]  Removes all custom headers from Apache Configuration\n
+    Run Command On Host  command=rm /usr/local/etc/apache22/Includes/custom_headers.conf
+    Restart HTTP Server And Check Availability  pattern=html
+
+Get Document Root
+    [Documentation]  Retrives Document Root for Web derver on HTTP Server\n
+    ${document_root}=  Run Command On Host  command=grep -E \"^DocumentRoot.*\" /usr/local/etc/apache22/httpd.conf | head -1 | sed -e s/DocumentRoot// | sed -e s/\\"//g | sed -e \"s/ //g\"
+    Should Not Be Empty  ${document_root}
+    [Return]  ${document_root}
+
+Send Trace Request    [Arguments]
+    ...    ${HTTP_URL}=http://${HTTP_SERVER}
+    ...    ${Headers}=-H 'Host: ${HTTP_SERVER}'
+    [Documentation]    Send HTTP Trace Request
+    ...    \nArguments:
+    ...    \n\t`URL` - URL of HTTP Server
+    ...    \n\t`Headers` - Headers to be sent
+    ...    \nReturn: Client's  output|
+    ${client_out}=    Run    curl ${IPV_PARAM} -vvv -m 60 -x ${DUT}:3128 -X TRACE ${Headers} ${HTTP_URL}
+    Log    ${client_out}
+    [Return]    ${client_out}
+
+Send Trace Request And Verify    [Arguments]
+    ...    ${HTTP_URL}=http://${HTTP_SERVER}
+    ...    ${Headers}=-H 'Host: ${HTTP_SERVER}'
+    ...    ${number_of_matches}=1
+    [Documentation]    Send HTTP Trace Request, waits for access log, and verifies output
+    ...    \nArguments:
+    ...    \n\t`URL` - URL of HTTP Server
+    ...    \n\t`Headers` - Headers to be sent
+    ...    \n\t`number_of_matches` - number of new records in access log
+    ...    \nReturn: Client's  output|
+    ${client_out}=    Send Trace Request    ${HTTP_URL}    ${Headers}
+    Run Keyword And Continue On Failure    Should Contain    ${client_out}    * Connected to ${DUT}
+    Run Keyword And Continue On Failure    Should Contain    ${client_out}    > TRACE ${HTTP_URL}
+    Access Log Get    ${number_of_matches}
+    Run Keyword And Continue On Failure    Should Contain    ${access_log}    TRACE ${HTTP_URL}
+    [Return]    ${client_out}
+
+Send POST Request And Verify Logs
+   [Arguments]
+   ...    ${Size}=${Empty}
+   ...    ${Headers}=${Empty}
+   ...    ${log_regexp}=.*${CLIENT_IP}.*200.*POST ${HTTP_URL}.*
+   [Documentation]    Arguments:\n
+   ...    \tSize - size of file to post with suffix K, M, or G\n
+   ...    \tExpect - empty or 'chunked'\n
+   ...    Algorithm:\n
+   ...    Remove resulting file\n
+   ...    Create file to post of specified size\n
+   ...    Send the POST command\n
+   ...    Verifications:\n
+   ...    \tResult file is POSTed on HTTP_SERVER\n
+   ...    \tThe response on <CLIENT> contains 'Connected to <DUT>'\n
+   ...    \tIf not chunked, the response on <CLIENT> does not contain 'chunked'\n
+   ...    \tIf chunked, the response on <CLIENT> contains 'Transfer-Encoding: chunked'\n
+   ...    \tNew access log entry contains 'TCP_MISS/200' 'POST ${HTTP_URL}'\n
+   Open Connection    ${HTTP_SERVER}
+   Login    ${HTTP_USER}    ${HTTP_PASSWORD}
+
+   # remove resulting file
+   ${out}    Execute Command    rm /tmp/log
+
+   # Create file to post of specified size
+   Run  dd if=/dev/random of=file bs=1 count=0 seek=${Size}
+
+   # create access log base line
+   Filter Access Log Create Baseline
+
+   ${client_out}=    Run    curl ${IPV_PARAM} -v -x ${DUT}:${DUT_HTTP_PROXY_PORT} -F file=@file ${Headers} ${HTTP_URL} 2>&1
+   Log    ${client_out}
+
+   Run  rm file
+
+   # Verifications
+   # 1. Result file is POSTed on HTTP_SERVER
+   ${out}    Execute Command    ls -l /tmp/log
+   Run Keyword And Continue On Failure    Should Contain    ${out}    log
+
+   # 2.The response on <CLIENT> contains the following lines:
+   # * Connected to <DUT> and  > POST ${HTTP_URL}
+   Run Keyword And Continue On Failure    Should Contain    ${client_out}    * Connected to ${DUT}
+   Run Keyword And Continue On Failure    Should Contain    ${client_out}    > POST ${HTTP_URL}
+
+   # 3. Whether the response on <CLIENT> contains "chunked"
+#   Run Keyword Unless    "${Headers}"    Run Keyword And Continue On Failure    Should Not Contain    ${client_out}    chunked
+#   Run Keyword If    "${Headers}"    Run Keyword And Continue On Failure    Should Contain    ${client_out}    Transfer-Encoding: chunked
+
+    ${log}=  Run Keyword If  '${Headers}' == '${EMPTY}'  Run Keyword And Continue On Failure    Should Not Contain    ${client_out}    chunked
+    ${log}=  Run Keyword If  '${Headers}' != '${EMPTY}'  Run Keyword And Continue On Failure    Should Contain    ${client_out}    Transfer-Encoding: chunked
+
+   # 4. Check if access log contains correct entry.
+   ${log}=   Filter Access Log Check    ${baseline_accesslog}  ${log_regexp}
+   [Return]  ${client_out}  ${log}
+
+Copy File To HTTP Server
+   [Documentation]   Copies files from client to required location in HTTP Server
+   [Arguments]  ${src_file}=${EMPTY}
+   ...  ${tgt_file}=${EMPTY}
+   ...  ${user}=${RTESTUSER}
+   ...  ${pass}=${RTESTUSER_PASSWORD}
+   ...  ${loc}=/usr/local/www/apache22/data
+   Scp
+   ...  from_host=${CLIENT_HOSTNAME}
+   ...  from_location=${EXECDIR}/tests/testdata/${src_file}
+   ...  to_host=${HTTP_SERVER}
+   ...  to_user=${user}
+   ...  to_password=${pass}
+   ...  to_location=${loc}/${tgt_file}
+
+Restore and Restart HTTP Server
+   Run On Host  ${HTTP_SERVER}  ${RTESTUSER}  ${RTESTUSER_PASSWORD}  cp /usr/local/etc/apache22/httpd.conf /usr/local/etc/apache22/httpd.conf.bkup
+   ${out}=  Run On Host  ${HTTP_SERVER}  ${RTESTUSER}  ${RTESTUSER_PASSWORD}
+   ...  ls -l /usr/local/etc/apache22/httpd.conf.bkup
+   Log  ${out}
+   ${match}  ${month}  ${day}  ${time}=  Should Match Regexp  ${out}  ${LS_PATTERN}
+   Log Many  '${match}'  '${month}'  '${day}'  '${time}'
+   ${filename}=  Catenate  SEPARATOR=.  httpd.conf.bkup  ${month}  ${day}  ${time}
+   Run On Host  ${HTTP_SERVER}  ${RTESTUSER}  ${RTESTUSER_PASSWORD}  mv /usr/local/etc/apache22/httpd.conf.bkup /usr/local/etc/apache22/${filename}
+   ${status}  ${msg}=  Run Keyword And Ignore Error  Copy File To HTTP Server  src_file=server_httpd.conf  tgt_file=httpd.conf  user=${RTESTUSER}  pass=${RTESTUSER_PASSWORD}
+   ...  loc=/usr/local/etc/apache22
+   Log  ${msg}
+   #If copying of httpd.conf file failed, copy the bkup file
+   Run Keyword If  '${status}' == 'FAIL'  Run On Host  ${HTTP_SERVER}  ${RTESTUSER}  ${RTESTUSER_PASSWORD}
+   ...  cp /usr/local/etc/apache22/${filename} /usr/local/etc/apache22/httpd.conf
+   Run On Host  ${HTTP_SERVER}  ${RTESTUSER}  ${RTESTUSER_PASSWORD}  rm /usr/local/etc/apache22/${filename}
+   Restart HTTP Server
+   Set SSHLib Prompt  ${EMPTY}
+   ${netstat_out}=  Run On Host  ${HTTP_SERVER}  ${RTESTUSER}  ${RTESTUSER_PASSWORD}  netstat -aln | grep LISTEN | grep -v 8443 | grep -v 8080
+   Should Contain  ${netstat_out}  443
+   Should Contain  ${netstat_out}  80
+
+Restart HTTP Server And Check
+   Set SSHLib Prompt  ${EMPTY}
+   ${out}=  Run On Host  ${HTTP_SERVER}  ${RTESTUSER}  ${RTESTUSER_PASSWORD}  apachectl status
+   ${apache_server_status}  ${msg}=  Run Keyword And Ignore Error  Should Match Regexp  ${out}  apache\\d+ is running as pid
+   Run Keyword If  '${apache_server_status}' == 'FAIL'  Restart HTTP Server
+   ${netstat_out}=  Run On Host  ${HTTP_SERVER}  ${RTESTUSER}  ${RTESTUSER_PASSWORD}  netstat -aln | grep LISTEN | grep -v 8443 | grep -v 8080
+   ${https_status}  ${msg}=  Run Keyword And Ignore Error  Should Contain  ${netstat_out}  443
+   ${http_status}  ${msg}=  Run Keyword And Ignore Error  Should Contain  ${netstat_out}  80
+   Run Keyword If  '${http_status}' == 'FAIL'  Fail  "HTTP server not listening on port 80"
+   Run Keyword If  '${https_status}' == 'FAIL'  Fail  "HTTP server not listening on port 443"

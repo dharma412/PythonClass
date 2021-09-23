@@ -1,0 +1,87 @@
+#!/usr/bin/env python
+# $Id: //prod/main/sarf_centos/testlib/zeus1380/cli/ctor/passwd.py#1 $
+# $DateTime: 2020/05/25 00:19:30 $
+# $Author: sarukakk $
+
+"""
+    IAF 2 CLI ctor - passwd
+"""
+import sys
+import re
+
+import clictorbase
+from clictorbase import IafCliConfiguratorBase, IafCliError, REQUIRED
+from sal.deprecated.expect import EXACT
+
+TIMEOUT=10
+DEBUG = True
+
+class passwd(clictorbase.IafCliConfiguratorBase):
+
+    class OldPwdWrongError(IafCliError): pass
+    class WeakPwdError(IafCliError): pass
+    newlines = 1
+
+    def __init__(self, sess):
+        IafCliConfiguratorBase.__init__(self, sess)
+        self._set_local_err_dict({
+             ('Old password did not match', EXACT) : self.OldPwdWrongError,
+             ('criteria for password are not met', EXACT) : self.WeakPwdError,
+             })
+
+    def __call__(self, old_pwd=REQUIRED, new_pwd=REQUIRED, abbrev=True, \
+                 sys_gen_passwd=REQUIRED):
+
+        self.clearbuf()
+
+        if sys_gen_passwd is None:
+            sys_gen_passwd = 'no'
+
+        system_gen_passwd = ''
+        if abbrev:
+            self._writeln('passwd')
+        else:
+            self._writeln('passphrase')
+
+        try:
+            self._query("Old passphrase", timeout=TIMEOUT)
+            self._writeln(old_pwd)
+            self._query('Would you like to get a system generated passphrase? [N]>')
+            self._writeln(sys_gen_passwd)
+
+            if sys_gen_passwd.lower() == "no" or sys_gen_passwd.lower() == 'n':
+                self._query("New Passphrase", timeout=TIMEOUT)
+                self._writeln(new_pwd)
+                self._query("Please enter the new pass", timeout=TIMEOUT)
+                self._writeln(new_pwd)
+
+            elif sys_gen_passwd.lower() == "yes" or sys_gen_passwd.lower() == 'y':
+                self._query("want to proceed with this", timeout=TIMEOUT)
+                self._writeln("Yes")
+                sys_gen_passwd_output = self.getbuf() 
+                self._info(sys_gen_passwd_output)
+                sys_gen_passwd = re.search( \
+                    r'This is your system generated passphrase:\s+(.*)\n', \
+                    sys_gen_passwd_output, re.I | re.M)
+                system_gen_passwd = sys_gen_passwd.group(1).strip()
+                return system_gen_passwd
+
+            else:
+                self._info("Invalid input given")
+                   
+        except:
+            self.interrupt()
+            exc_type, exc_value, exc_traceback = sys.exc_info()
+            raise exc_type, exc_value, exc_traceback
+
+if __name__ == '__main__':
+    # if cli_sess is already defined, we have a CLI session object from
+    # the validator we can use; if not, we must create one
+    try:
+        cli_sess
+    except NameError:
+        cli_sess = clictorbase.get_sess()
+
+    pw = passwd(cli_sess)
+    print pw(old_pwd='ironport', new_pwd='123456')
+    print pw(old_pwd='123456', new_pwd='ironport', abbrev=False)

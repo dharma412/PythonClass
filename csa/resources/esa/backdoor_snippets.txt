@@ -1,0 +1,200 @@
+# $Id: //prod/main/sarf_centos/resources/esa/backdoor_snippets.txt#2 $ $DateTime: 2019/08/09 05:01:34 $ $Author: saurgup5 $
+
+*** Settings ***
+Library    SSHLibrary  30
+Library    Collections
+Library    UtilsLibrary  ${ESA}
+Variables  credentials.py
+
+
+*** Keywords ***
+Wait For Services
+    [Documentation]  Wait for services given in ${service_list} (should contain
+    ...  service names as they are shown in `/data/bin/heimdall_svc status_extended`
+    ...  command output)\n
+    ...  If ${should_be_enabled} is ${True} then this KW waits until
+    ...  all listed services are present in process list after being enabled.\n
+    ...  If ${should_be_enabled} is ${False} then this KW waits until
+    ...  all listed services are NOT present in process list after being disabled.\n
+    ...  ${timeout} is maximum number of seconds to wait (60 by default)
+    [Arguments]  ${service_list}  ${should_be_enabled}  ${timeout}=60  ${hostname}=${ESA_IP}
+    Wait For Appliance Services  ${hostname}  ${service_list}  ${should_be_enabled}  ${timeout}
+
+Set SLBL State And Commit
+    [Documentation]  Quickly enable/disable SLBL feature via backdoor and
+    ...  commits changes. Make sure there are no conflicting changes
+    ...  on appliance in order to call this keyword. ${is_enabled} can be
+    ...  either ${True} or ${False}
+    [Arguments]  ${is_enabled}
+    @{slbl_control_script}=  Create List
+    ...  from command_client import command_client
+    ...  from variable_store import variable_store
+    ...  import os
+    ...  COMMANDD_SOCKET_PATH = os.getenv("DEV_CONFIG_CLI_SOCK_PATH", "/tmp/commandd.mainsock")
+    ...  cc = command_client()
+    ...  cc.connect(COMMANDD_SOCKET_PATH)
+    ...  vs = variable_store(cc)
+    ...  vs.change_var('slbl.isq.enable_slbl', int(${is_enabled}))
+    ...  vs.change_var('slbl.hermes.perform_slbl_check', int(${is_enabled}))
+    ...  vs.commit_changes('admin', '')
+    Backdoor Run  gui  ${slbl_control_script}
+    @{wait_for}=  Create List  slbld  slbl_db_server
+    Wait For Services  ${wait_for}  ${is_enabled}
+
+Clean EUQ
+    [Documentation]  Quickly empty all messages from EUQ via backdor.
+    ...  EUQ has to be disabled in order to use this keyword
+    @{isq_clean_script}=  Create List
+    ...  from command_client import command_client
+    ...  import os
+    ...  COMMANDD_SOCKET_PATH = os.getenv("DEV_CONFIG_CLI_SOCK_PATH", "/tmp/commandd.mainsock")
+    ...  command_client = command_client()
+    ...  command_client.connect(COMMANDD_SOCKET_PATH)
+    ...  command_client.call(('hermes.omh',), 'euq_clean_all', None, destination=None)
+    Backdoor Run  euq_server  ${isq_clean_script}
+
+Clean System Quarantines
+    [Documentation]  Quickly clean messages whose MIDs are in range
+    ...  ${min_mid}..${max_mid}
+    [Arguments]  ${min_mid}=1  ${max_mid}=1000000
+    ${clear_system_quarantines_cmd}=  Set Variable
+    ...  /data/bin/runas admin /data/bin/cli.sh "quarantineconfig deletemsg ${min_mid}-${max_mid}"
+    Run On Dut  ${clear_system_quarantines_cmd}
+
+Force ISQ Notifications
+    @{code_list}=  Create List
+    ...  from euq.manager import euq_shell
+    ...  sch = euq_shell.sch
+    ...  n=sch.nscheduler
+    ...  n.runjob(sch.Job(0,0))
+    Backdoor Run  euq_server  ${code_list}
+
+Clean All Reports And Commit
+    [Documentation]  Clear all existing scheduled and archived reports.
+    ...  Commits all existing changes.
+    @{cleaning_script}=  Create List
+    ...  from shared.ScheduledReports import ScheduledReports as SR
+    ...  from command_client import command_client
+    ...  from variable_store import variable_store
+    ...  import os
+    ...  COMMANDD_SOCKET_PATH = os.getenv('DEV_CONFIG_CLI_SOCK_PATH', '/tmp/commandd.mainsock')
+    ...  cc = command_client()
+    ...  cc.connect(COMMANDD_SOCKET_PATH)
+    ...  vs = variable_store(cc)
+    ...  sr = SR(vs, cc, 'admin')
+    ...  reportlist = sr.get_reports_list()
+    ...  keys = [key for key, value in reportlist]
+    ...  sr.delete_reports(keys)
+    ...  reportlist = sr.get_archived_reports_list('all')
+    ...  keys = [key for key, value in reportlist]
+    ...  map(sr.delete_archived_report, keys)
+    ...  vs.commit_changes('admin', '')
+    Backdoor Run  gui  ${cleaning_script}
+
+Reset Featurekeys
+    [Documentation]  Set given featurekeys to 1 month\n
+    ...  @{fkeys}: featurekey names as they are mentioned in
+    ...  http://eng.ironport.com/docs/qa/sarf/esakeyword/common/util/featurekeytool.html
+    [Arguments]  @{fkeys}
+    ${duration}=  Set Variable  2592000
+    ${expiry}=  Evaluate  int(time.time()) + ${duration}  time
+    @{code_listing}=  Create List
+    ...  import features.utils
+    ...  import tags
+    ...  result = []
+    ...  for component in map(lambda x: str(x), ${fkeys}):
+    ...  ${SPACE*4}opts_dict = {'quantity': 1, 'expiry': int(${expiry}), 'duration': int(${duration}), 'clear': None, 'component': component}
+    ...  ${SPACE*4}key = features.utils._encode_key(opts_dict)
+    ...  ${SPACE*4}key = features.utils._encrypt_string(key, tags.hardware_address())
+    ...  ${SPACE*4}result.append(features.utils._denormalize_key(key))
+    ...  print '<<<< ', result, ' >>>>'
+    ...  \n
+    ${output}=  Backdoor Run  hermes  ${code_listing}
+    ${serials_list_str}=  Evaluate
+    ...  re.search(r'<<<<\\s+(\\[.*\\])\\s+>>>>', """${output}""").group(1)  re
+    @{serials_list}=  Evaluate  ${serials_list_str}
+    FOR  ${serial}  IN  @{serials_list}
+       Feature Key Activate  ${serial}
+    END
+
+Generate Alerts Via Backdoor
+    [Documentation]  Generate alerts via backdoor.
+    ...  - `message_map`: dictionary. Keys of the dictionary depend on class of alerts and daemon.
+    ...  In order to get list of available keys:
+    ...  telnet /tmp/${daemon}.bd
+    ...  >>> import qlog
+    ...  >>> m = qlog.singleton.register.messages
+    ...  >>> for n in m.keys():
+    ...  ...    if '${alert_class}' in m[n].alert_classes:
+    ...  ...        print n
+    ...  - `alert_class`: in most cases the same value as ${daemon}(eg, class 'updater' daemon 'updaterd').
+    ...  You can generate the same alert using different daemons. For example 'AS.TOOL.INFO_ALERT'
+    ...  can be generated from thirdparty.bd and from hermes.bd.
+    ...  `daemon`: Daemon to generate alerts from. To get list of available daemons:
+    ...  ls /tmp/*.bd
+    ...  Values are the quantity of messages to send for each alert.\n
+    ...  Set the dictionary key to 'ALL' if you want to send all messages, and
+    ...  value is the quantity of messages for each type.\n
+    ...  If message_map is None or is not specified, then the quantity of the messages
+    ...  is 1 for each possible message type.
+    [Arguments]  ${daemon}  ${alert_class}=${None}  ${message_map}=${None}
+    @{alerts_gen_script}=  Create List
+    ...  ${EMPTY}
+    ...  import qlog
+    ...  message_map = ${message_map}
+    ...  messages = qlog.singleton.register.messages
+    # Default map if absent
+    ...  if not message_map:
+    ...  ${SPACE*4}message_map = {'ALL': 1}
+    ...  ${EMPTY}
+    # Uppercase everything
+    ...  message_map = dict((msg.upper(), int(count)) for msg, count in message_map.iteritems())
+    # If 'ALL' present then fetch all messages that contain alerts
+    ...  if 'ALL' in message_map:
+    ...  ${SPACE*4}if '${alert_class}' != 'None':
+    ...  ${SPACE*8}all_messages = [message for message, value in messages.iteritems() if not hasattr(value.alert_classes, '__call__') if '${alert_class}' in value.alert_classes]
+    ...  ${SPACE*4}else:
+    ...  ${SPACE*8}all_messages = [message for message, value in messages.iteritems() if value.alert_classes]
+    ...  ${SPACE*4}message_map = dict(zip(all_messages, [message_map['ALL']] * len(all_messages)))
+    ...  ${EMPTY}
+    # Convert messages dict to plain list containing each key as much times as it mentioned in dict
+    ...  messages_to_send = reduce(lambda head,item: head + [item[0]] * item[1], message_map.iteritems(), [])
+    # Inner map builds arguments list for each alert
+    ...  get_args = lambda args: map(lambda x: '[arg%s]' % x, xrange(len(args)))
+    ...  map(lambda msg: qlog.send_alert(msg, *get_args(messages[msg].arguments)), messages_to_send)
+    ...  \r\n
+    ${res}=  Backdoor Run  ${daemon}  ${alerts_gen_script}
+    Log  ${res}
+
+Generate DUT Feature Key
+    [Documentation]  Return activation number for the given appliance feature
+    ...  ${name} one of featurekey names as they are mentioned in
+    ...  http://eng.ironport.com/docs/qa/sarf/esakeyword/common/util/featurekeytool.html\n
+    ...  ${duration}: featurekey ducration in seconds
+    [Arguments]  ${name}  ${duration}=2592000
+    ${expiry}=  Evaluate  int(time.time()) + ${duration}  time
+    @{code_listing}=  Create List
+    ...  import features.utils
+    ...  import tags
+    ...  opts_dict = {'quantity': 1, 'expiry': int(${expiry}), 'duration': int(${duration}), 'clear': None, 'component': '${name}'}
+    ...  key = features.utils._encode_key(opts_dict)
+    ...  key = features.utils._encrypt_string(key, tags.hardware_address())
+    ...  print '<<<< ', features.utils._denormalize_key(key), ' >>>>'
+    ...  \n
+    ${output}=  Backdoor Run  hermes  ${code_listing}
+    ${serial}=  Evaluate
+    ...  re.search(r'<<<<\\s+(\\S+)\\s+>>>>', """${output}""").group(1)  re
+    [Return]  ${serial}
+
+Reset DHAP Counters
+    @{code_listing}=  Create List
+    ...  import hat
+    ...  hat.hat_counters_dict = {}
+    ...  \n
+    Backdoor Run  hermes  ${code_listing}
+
+Uninitialize Spoof
+    @{set_spoof_script}=  Create List
+    ...  import spoof_smtp_session as U
+    ...  U.remove_ips()
+    Backdoor Run  hermes  ${set_spoof_script}

@@ -1,0 +1,1237 @@
+#!/usr/bin/env python
+# Python's libraries
+import os
+import socket
+import sys
+import re
+import urllib2
+import platform
+import warnings
+import commands
+
+# RF's libraries
+import robot
+from robot import utils
+from robot.libraries.OperatingSystem import OperatingSystem
+
+# in-house imports
+from common.util.misc import Misc
+
+DEFAULT_BROWSER = 'chrome'
+PORTS = {
+    'WSA_http'  : '8080',
+    'WSA_https' : '8443',
+    'SMA_http'  : '80',
+    'SMA_https' : '443',
+    'ESA_http'  : '80',
+    'ESA_https' : '443',
+}
+SUPPORTED_BROWSERS = [ 'chrome', 'firefox', 'opera']
+WSA_MODEL = 'S'
+SMA_MODEL = 'M'
+ESA_MODEL_C = 'C'
+ESA_MODEL_X = 'X'
+WSA = 'WSA'
+SMA = 'SMA'
+ESA = 'ESA'
+
+dut_types_map = {
+        ESA_MODEL_C: ESA,
+        ESA_MODEL_X: ESA,
+        SMA_MODEL: SMA,
+        WSA_MODEL: WSA,
+        }
+
+# greek names of appliances
+greek_dut_types_map = {
+        ESA_MODEL_C: 'phoebe',
+        ESA_MODEL_X: 'phoebe',
+        SMA_MODEL: 'zeus',
+        WSA_MODEL: 'coeus',
+        }
+
+# Custom exception to be used when DUT's CLI can't be referred for info about
+# version and model of the appliance under test
+class CliUnaccesible(Exception): pass
+
+class Dut:
+    def __init__(self, hostname, type=None, version=None, build=None,
+                 model=None, browser=None):
+        self.hostname = hostname
+        self.type = type
+        self.version = version
+        self.build = build
+        self.model = model
+        self.browser = browser
+
+    def get_info(self):
+        """
+        Get information about appliance under test.
+
+        Initially it tries getting information from QA Backdoor, if this is not
+        possible then the output of CLI command version is parsed.
+        """
+        # list of information about DUT to be retrieved
+        info_dict = {}
+        # list of info keys that should be retrieved from CLI command version
+        info_list = ['Model', 'Version']
+        # mapping of above keys to keys used on QA Backdoor
+        qabackdoor_keys = {
+                info_list[0]: 'model',
+                info_list[1]: 'current version',
+                }
+        print "Checking QA backdoor"
+        try:
+            # try QA Backdoor
+            response = urllib2.urlopen('http://%s:8123' % (socket.gethostbyname(self.hostname)))
+            for line in response.readlines():
+                if not line.startswith('<') and line.find(':') > 0:
+                    for info in info_list:
+                        if line.startswith(qabackdoor_keys[info]):
+                            value = line.split(':', 1)[1]
+                            # remove ending <P> and surrounding spaces
+                            value = value[ :value.find('<') ].strip()
+                            # convert build label to version
+                            if info == 'Version':
+                                version_numbers = value.rsplit('-', 4)[1:]
+                                value = '.'.join(version_numbers[:3])+'-'+version_numbers[3]
+                            info_dict[info] = value
+
+            return info_dict
+        except:
+            print 'It seems DUT is RfS mode - no access to QA Backdoor on ' \
+                  '%s. Trying connecting to CLI' % (self.hostname,)
+        try:
+            # retrieve information from DUT's CLI
+            from SSHLibrary import SSHLibrary
+            ssh_session = SSHLibrary()
+            ssh_session.open_connection(self.hostname, timeout=60)
+            print "ssh connection.."
+            ssh_session.login('admin', Misc(None,None).get_admin_password(self.hostname))
+            ssh_session.start_command('version')
+            out = ssh_session.read_command_output()
+            ssh_session.close_connection()
+
+            lines = out.split('\n')
+            for info in info_list:
+                for line in lines:
+                    if line.startswith(info):
+                        key, value = line.split(":", 1)
+                        info_dict[key] = value.strip()
+                        break
+
+            return info_dict
+        except Exception as e:
+            raise CliUnaccesible("Can\'t connect to the CLI of %s due to error:\n%s" % (self.hostname, e))
+
+    def update_info(self, skip_check=False):
+        if not skip_check:
+            # when --skip-check parameter is not specified and both
+            # --dut-version and --dut-model are given try to get actual values
+            # from appliance and replace
+            try:
+                dut_info = self.get_info()
+                self.model = dut_info['Model']
+                self.version = dut_info['Version']
+            except KeyError:
+                raise CliUnaccesible("Can't retrieve Model or Version " \
+                    "information from the output of CLI command 'version'.\n" \
+                    "Check whether CLI works properly on %s" % (self.hostname,))
+            except CliUnaccesible:
+                if not self.version or not self.model:
+                    raise
+        else:
+            # when --skip-check is specified do not check actual values from DUT
+            # get dut version using CLI version command if not specified
+            if not self.version or not self.model:
+                dut_info = self.get_info()
+            if not self.model:
+                self.model = dut_info['Model']
+
+        # dut_type is a first letter in dut_model: either S, M, or C
+        self.type = self.model[:1].upper()
+        self.build = self.version
+        if self.version:
+            self.version = get_dut_lib_version(self.version, self.type)
+        else:
+            self.build = dut_info['Version']
+            self.version = get_dut_lib_version(self.build, self.type)
+        # assign full build label to the dut build e.g. coeus-7-5-0-123
+        self.build = get_build_label(self.build, self.type)
+        # handle situation when there is no suitable codeline for DUT version
+        if self.version is None:
+            raise ValueError("SARF could not find suitable codeline for DUT "
+                "build: %s" % (self.build,))
+        elif not self.build.replace('-', '').startswith(self.version):
+            sys.stderr.write("WARN: There is no exact codeline for %s appliance"
+                    " %s with build %s! %s will be used as the most close "
+                    "codeline version.\n" % (dut_types_map[self.type],
+                        self.hostname, self.build, self.version))
+
+class DutList:
+    def __init__(self):
+        self.duts = {WSA: [], SMA: [], ESA: []}
+
+    def add_dut(self, dut):
+        dut_type = dut_types_map[dut.type]
+        if dut_type in self.duts:
+            self.duts[dut_type].append(dut)
+        else:
+            raise Exception('Not supported DUT TYPE: ' + str(dut_type))
+
+    def prepare_variables(self, dut_type_main=None, dut_main=None, lib_version=None, license_mode=None,user_type=None, sl_state=None, sl_cleanup=False):
+
+        args = []
+        dut_lib_flag = 0
+        use_smart_license = 0
+        sl_cleanup_needed = 0
+        smart_license_new_user = None
+        smart_license_registered_state = None
+        # prepare main dut variables
+        if dut_type_main is not None:
+            if dut_type_main in self.duts:
+                dut_type = dut_type_main
+            else:
+                raise Exception('Not supported DUT MAIN TYPE: ' + str(dut_type_main))
+        elif self.duts[SMA]:
+            dut_type = SMA
+        elif self.duts[WSA]:
+            dut_type = WSA
+        elif self.duts[ESA]:
+            dut_type = ESA
+        dut_index = 0
+
+        if dut_main is not None:
+            for type, dut_list in self.duts.iteritems():
+                for index, dut in enumerate(dut_list):
+                     if dut.hostname == dut_main:
+                         dut_index = index
+                         dut_type = type
+
+        dut = self.duts[dut_type][dut_index].hostname
+        dut_version = self.duts[dut_type][dut_index].version
+        dut_build = self.duts[dut_type][dut_index].build
+        dut_model = self.duts[dut_type][dut_index].model
+        dut_browser = self.duts[dut_type][dut_index].browser
+        if lib_version:
+            dut_version = lib_version[0]
+            dut_lib_flag = 1
+
+        if license_mode == 'smart':
+            use_smart_license = 1
+            print "**** LICENSE MODE  : SMART LICENSE ****"
+        else:
+            print "**** LICENSE MODE  : CLASSIC LICENSE ****"
+
+        if use_smart_license:
+            if sl_cleanup == 'True':
+                sl_cleanup_needed = 1
+
+            if user_type == 'new':
+                smart_license_new_user = 1
+            elif user_type == 'existing':
+                smart_license_new_user = 0
+            else:
+                raise ValueError("user_type should be either new or existing")
+
+            if sl_state == 'registered':
+                smart_license_registered_state = 1
+            elif sl_state == 'eval':
+                smart_license_registered_state = 0
+            else:
+                raise ValueError("sl_state should be either eval or registered")
+
+        dut_protocol = 'https'
+
+        global_id = 'Global Identity Policy'
+
+        if dut_type == WSA:
+            wsa_lib = int(dut_version.strip('coeus'))
+            wsa_lib = wsa_lib*10 if wsa_lib < 100 else wsa_lib
+            if wsa_lib >= 870:
+                global_id = 'Global Identification Profile'
+
+        client = socket.gethostname()
+        lab_suffix = client.rsplit(".",1)[1].upper()
+        dut_port = PORTS[dut_type + '_' + dut_protocol]
+        dut_ports = PORTS[dut_type + '_http'] + ',' + PORTS[dut_type + '_https']
+        dut_root = "%s://%s:%s" % (dut_protocol, dut, dut_port)
+
+        # add metadata
+        args.extend(['--metadata', 'dut_model:' + dut_model,
+                     '--metadata', 'dut_build:' + dut_build,
+                     '--metadata', 'dut_type:' + dut_type,
+                     '--metadata', 'dut_lib:' + dut_version,
+                     '--metadata', 'client:' + client,
+                     '--metadata', 'browser:' + dut_browser,
+                     '--metadata', 'dut_hostname:' + dut],)
+
+        args.extend(
+                ['--variable', 'DUT:' + dut,
+                 '--variable', 'DUT_LIB_VERSION:' + dut_version,
+                 '--variable', 'DUT_LIB_FLAG:'  + str(dut_lib_flag),
+                 '--variable', 'USE_SMART_LICENSE:'  + str(use_smart_license),
+                 '--variable', 'SMART_LICENSE_NEW_USER:'  + str(smart_license_new_user),
+                 '--variable', 'SMART_LICENSE_REGISTERED_STATE:'  + str(smart_license_registered_state),
+                 '--variable', 'SMART_LICENSE_CLEANUP_CONFIG:'  + str(sl_cleanup_needed),
+                 '--variable', 'DUT_TYPE:' + dut_type,
+                 '--variable', 'DUT_BUILD:' + dut_build,
+                 '--variable', 'DUT_MODEL:' + dut_model,
+                 '--variable', 'DUT_BROWSER:' + dut_browser,
+                 '--variable', 'DUT_PROTOCOL:' + dut_protocol,
+                 '--variable', 'DUT_PORT:' + dut_port,
+                 '--variable', 'DUT_PORTS:' + dut_ports,
+                 '--variable', 'DUT_ROOT:' + dut_root,
+                 '--variable', 'GLOBAL_IDENTITY:' + global_id,
+                 '--variable', 'LAB_ID:' + lab_suffix,
+                 ])
+
+        # prepare type specific variables
+        dut_ids = []
+        sma_ids = []
+        wsa_ids = []
+        esa_ids = []
+        for dut_type, dut_list in self.duts.items():
+            for i in range(len(dut_list)):
+                if i == 0:
+                    dut_id = dut_type
+                else:
+                    dut_id = dut_type + str(i+1)
+                dut_ids.append(dut_id)
+                (eval(dut_type.lower()+'_ids')).append(dut_id)
+                args.extend(
+                        ['--variable', dut_id + ':' + dut_list[i].hostname,
+                         '--variable', dut_id + '_LIB_VERSION:' \
+                                 + dut_list[i].version,
+                         '--variable', dut_id + '_BUILD:' + dut_list[i].build,
+                         '--variable', dut_id + '_MODEL:' + dut_list[i].model,
+                         '--variable', dut_id + '_BROWSER:' \
+                                 + dut_list[i].browser,
+                         ])
+        args.extend(['--variable', 'DUT_IDS:' + ','.join(dut_ids),])
+        args.extend(['--variable', 'SMA_IDS:' + ','.join(sma_ids),])
+        args.extend(['--variable', 'WSA_IDS:' + ','.join(wsa_ids),])
+        args.extend(['--variable', 'ESA_IDS:' + ','.join(esa_ids),])
+        return args
+
+# return whole label for build on dut
+def get_build_label(dut_version, dut_type):
+    prefix = greek_dut_types_map[dut_type]
+    suffix = dut_version.replace('.', '-')
+    return prefix + '-' + suffix
+
+# find the most suitable codeline for AsyncOS version under test
+def get_dut_lib_version(dut_version, dut_type):
+    prefix = greek_dut_types_map[dut_type]
+    label = prefix + dut_version.replace('.', '').partition('-')[0]
+    libs = os.listdir(os.path.join(os.environ['SARF_HOME'], 'testlib'))
+    if label in libs:
+        return label
+    elif label[:-1] in libs:
+        return label[:-1]
+    elif label[:-2] in libs:
+        return label[:-2]
+    codelines = []
+    for codeline in libs:
+        if codeline.startswith(prefix) and codeline < label:
+            codelines.append(codeline)
+    if len(codelines) > 0:
+        codelines.sort()
+        return codelines[-1]
+    else:
+        return None
+
+# get consolidated SARF and Robot Framework doc string
+def get_doc():
+
+    sarf_doc = """
+SARF Test Case Runner -- A runner script for SARF test suites and test cases.
+
+Version:  <VERSION>
+
+Usage:  pybot_run --dut=<hostname> [options] test_scripts
+
+Security Appliance Robot Framework (SARF) is a new automation framework that has
+been chosen to provide test automation for Cisco IronPort security appliance. It
+is based on an open source Robot Framework.
+
+SARF Test Case Runner is a wrapper to the Robot Framework's pybot command that
+support additional parameters listed in "SARF Options" section.
+
+SARF Options:
+
+    --dut hostname *        Hostname of an appliance under test
+    --dut-version version * [Optional] Version of the appliance under test.
+                            If parameter --skip-check is not set and it's possible
+                            to retrieve version from the appliance the specified
+                            value will be ignored.
+                            Example: --dut-version 7.5.0-350
+    --dut-model model *     [Optional] Model of the appliance under test.
+                            If parameter --skip-check is not set and it's possible
+                            to retrieve model from the appliance the specified
+                            value will be ignored.
+                            Example: --dut-model S160
+    --dut-type-main *       [Optional] DUT Type of Main DUT to be used in reports.
+                            Value must be one of the duts passed as arguments
+                            Possible values are ESA,SMA,WSA. If paremeter is not used
+                            will assume one of SMA,WSA,ESA as main dut in that order
+                            depending on dut passed. This value will be overridden
+                            by dut-main parameter if specified.
+    --dut-main hostname *   [Optional] Hostname of Main Dut to be used in reports.
+                            This will override dut-type-main parameter
+    --skip-check            Skip checking whether dut is reachable. It is useful
+                            when "Restore Machine" or "Restore Network Settings"
+                            keywords used in test case to recover network
+                            connectivity.
+                            Also this parameter changes whether to use values
+                            of --dut-version and --dut-model parameters that
+                            we specified as described below:
+                            1) If parameter --skip-check is set and both parameters
+                            --dut-model and --dut-version are set then values
+                            specified in these parameters will be used.
+                            2) If parameter --skip-check is set and one of
+                            parameters --dut-model or --dut-version is set then
+                            value specified in this parameter will be used as
+                            is. Value of another parameter will be retrieved
+                            from the appliance.
+                            3) If --skip-check parameter is NOT set and one of
+                            or both parameters --dut-model and --dut-version are
+                            set and it's possible to retrieve info from the
+                            appliance then the specified values will be ignored
+                            and values that were retrieved from the appliance
+                            will be used instead.
+    --browser browser       [Optional] Browser configuration to be used to
+                            connect to WebUI on appliances. If this parameter is
+                            set Selenium Grid server will be used.
+                            If parameter is not set then default value
+                            "local/firefox" is used and local Selenium RC server
+                            and Firefox browser are used.
+                            Currently supported browser configurations:
+                            - Mac/Safari
+                            - Vista/Chrome
+                            - Vista/IE7
+                            - Vista/IE8
+                            - Vista/IE9
+                            - Vista/Opera
+                            - Vista/Safari
+                            - XP/Chrome
+                            - XP/Firefox
+                            - XP/IE7
+                            - XP/IE8
+                            - XP/Opera
+                            - XP/Safari
+                            - Win7/Chrome
+                            - Win7/Firefox
+                            - Win7/IE9
+                            - Win7/Safari
+                            Example: --browser Mac/Safari
+    --rerun-failed          [Optional] If spefied another pybot_run command will
+                            be performed with the list of failed test cases from
+                            the original run.
+                            Additonal log, report, debug and output file will be
+                            generated with the results of execution of failed
+                            test cases.
+                            Example: --rerun-failed
+    --print-warnings        [Optional] If spefied Python DeprecationWarning messages
+                            will be printed out in the output.
+                            Example: --print-warnings
+    --lib-version version * [Optional] Pass the library version to be picked up
+                            Example: --lib-version=exp-phoebe1100
+    --license-mode *        [Optional] Pass 'smart' if smart licensing to be enabled
+                            In Smart Licensing mode you manage licenses for your Cisco
+                            products on the cloud based portal(Cisco Smart Software Manager)
+                            When you pass smart license mode parameter, all the
+                            features enabled in classic license mode will be disabled.
+                            Features can be enabled/configured after activating
+                            the entitlements(feature keys) either in evaluation
+                            mode or after registering your product with CSSM.
+                            Example:  --license-mode=smart
+    --user-type *           [Optional] Pass new or existing based on user type
+                            Applicable only if --license-mode = smart
+                            Example: --user-type=new, --user-type=existing
+    --sl-state *            [Optional] Pass eval or registered
+                            Applicable only if --license-mode = smart
+                            Example: --sl-state=eval, --sl-state=registered
+    --sl-cleanup *          [Optional] Pass True or False to enable or disable
+                            Smart Licensing cleanup ( Release licenses,
+                            Deregister,Disable SL)
+                            Applicable only if --license-mode = smart
+                            Example: --sl-cleanup=True, --sl-cleanup=False
+    --easypov-mode *        Journal mode enables the easypov ex: --easypov-mode=enable
+
+Robot Framework Options
+=======================
+
+ -N --name name           Set the name of the top level test suite. Underscores
+                          in the name are converted to spaces. Default name is
+                          created from the name of the executed data source.
+ -D --doc documentation   Set the documentation of the top level test suite.
+                          Underscores in the documentation are converted to
+                          spaces and it may also contain simple HTML formatting
+                          (e.g. *bold* and http://url/).
+ -M --metadata name:value *  Set metadata of the top level test suite.
+                          Underscores in the name and value are converted to
+                          spaces. Value can contain same HTML formatting as
+                          --doc. Example: `--metadata version:1.2`
+ -G --settag tag *        Sets given tag(s) to all executed test cases.
+ -t --test name *         Select test cases to run by name or long name. Name
+                          is case and space insensitive and it can also be a
+                          simple pattern where `*` matches anything and `?`
+                          matches any char. If using `*` and `?` in the console
+                          is problematic see --escape and --argumentfile.
+ -s --suite name *        Select test suites to run by name. When this option
+                          is used with --test, --include or --exclude, only
+                          test cases in matching suites and also matching other
+                          filtering criteria are selected. Name can be a simple
+                          pattern similarly as with --test and it can contain
+                          parent name separated with a dot. For example
+                          `-s X.Y` selects suite `Y` only if its parent is `X`.
+ -i --include tag *       Select test cases to run by tag. Similarly as name
+                          with --test, tag is case and space insensitive and it
+                          is possible to use patterns with `*` and `?` as
+                          wildcards. Tags and patterns can also be combined
+                          together with `AND`, `OR`, and `NOT` operators.
+                          Examples: --include foo --include bar*
+                                    --include fooANDbar*
+ -e --exclude tag *       Select test cases not to run by tag. These tests are
+                          not run even if included with --include. Tags are
+                          matched using the rules explained with --include.
+ -R --rerunfailed output  Select failed tests from an earlier output file to be
+                          re-executed. Equivalent to selecting same tests
+                          individually using --test option.
+    --runfailed output    Deprecated since RF 2.8.4. Use --rerunfailed instead.
+ -c --critical tag *      Tests having given tag are considered critical. If no
+                          critical tags are set, all tags are critical. Tags
+                          can be given as a pattern like with --include.
+ -n --noncritical tag *   Tests with given tag are not critical even if they
+                          have a tag set with --critical. Tag can be a pattern.
+ -v --variable name:value *  Set variables in the test data. Only scalar
+                          variables are supported and name is given without
+                          `${}`. See --escape for how to use special characters
+                          and --variablefile for a more powerful variable
+                          setting mechanism that allows also list variables.
+                          Examples:
+                          --variable str:Hello  =>  ${str} = `Hello`
+                          -v str:Hi_World -E space:_  =>  ${str} = `Hi World`
+                          -v x: -v y:42  =>  ${x} = ``, ${y} = `42`
+ -V --variablefile path *  File to read variables from (e.g. `path/vars.py`).
+                          Example file:
+                          |  import random
+                          |  __all__ = [`scalar`, `LIST__var`, `integer`]
+                          |  scalar = `Hello world!`
+                          |  LIST__var = [`Hello`, `list`, `world`]
+                          |  integer = random.randint(1,10)
+                          =>
+                          ${scalar} = `Hello world!`
+                          @{var} = [`Hello`,`list`,`world`]
+                          ${integer} = <random integer from 1 to 10>
+ -d --outputdir dir       Where to create output files. The default is the
+                          directory where tests are run from and the given path
+                          is considered relative to that unless it is absolute.
+ -o --output file         XML output file. Given path, similarly as paths given
+                          to --log, --report, --xunit, and --debugfile, is
+                          relative to --outputdir unless given as an absolute
+                          path. Other output files are created based on XML
+                          output files after the test execution and XML outputs
+                          can also be further processed with Rebot tool. Can be
+                          disabled by giving a special value `NONE`. In this
+                          case, also log and report are automatically disabled.
+                          Default: output.xml
+ -l --log file            HTML log file. Can be disabled by giving a special
+                          value `NONE`. Default: log.html
+                          Examples: `--log mylog.html`, `-l NONE`
+ -r --report file         HTML report file. Can be disabled with `NONE`
+                          similarly as --log. Default: report.html
+ -x --xunit file          xUnit compatible result file. Not created unless this
+                          option is specified.
+    --xunitfile file      Deprecated. Use --xunit instead.
+    --xunitskipnoncritical  Mark non-critical tests on xUnit output as skipped.
+ -b --debugfile file      Debug file written during execution. Not created
+                          unless this option is specified.
+ -T --timestampoutputs    When this option is used, timestamp in a format
+                          `YYYYMMDD-hhmmss` is added to all generated output
+                          files between their basename and extension. For
+                          example `-T -o output.xml -r report.html -l none`
+                          creates files like `output-20070503-154410.xml` and
+                          `report-20070503-154410.html`.
+    --splitlog            Split log file into smaller pieces that open in
+                          browser transparently.
+    --logtitle title      Title for the generated test log. The default title
+                          is `<Name Of The Suite> Test Log`. Underscores in
+                          the title are converted into spaces in all titles.
+    --reporttitle title   Title for the generated test report. The default
+                          title is `<Name Of The Suite> Test Report`.
+    --reportbackground colors  Background colors to use in the report file.
+                          Either `all_passed:critical_passed:failed` or
+                          `passed:failed`. Both color names and codes work.
+                          Examples: --reportbackground green:yellow:red
+                                    --reportbackground #00E:#E00
+ -L --loglevel level      Threshold level for logging. Available levels: TRACE,
+                          DEBUG, INFO (default), WARN, NONE (no logging). Use
+                          syntax `LOGLEVEL:DEFAULT` to define the default
+                          visible log level in log files.
+                          Examples: --loglevel DEBUG
+                                    --loglevel DEBUG:INFO
+    --suitestatlevel level  How many levels to show in `Statistics by Suite`
+                          in log and report. By default all suite levels are
+                          shown. Example:  --suitestatlevel 3
+    --tagstatinclude tag *  Include only matching tags in `Statistics by Tag`
+                          and `Test Details` in log and report. By default all
+                          tags set in test cases are shown. Given `tag` can
+                          also be a simple pattern (see e.g. --test).
+    --tagstatexclude tag *  Exclude matching tags from `Statistics by Tag` and
+                          `Test Details`. This option can be used with
+                          --tagstatinclude similarly as --exclude is used with
+                          --include.
+    --tagstatcombine tags:name *  Create combined statistics based on tags.
+                          These statistics are added into `Statistics by Tag`
+                          and matching tests into `Test Details`. If optional
+                          `name` is not given, name of the combined tag is got
+                          from the specified tags. Tags are combined using the
+                          rules explained in --include.
+                          Examples: --tagstatcombine requirement-*
+                                    --tagstatcombine tag1ANDtag2:My_name
+    --tagdoc pattern:doc *  Add documentation to tags matching given pattern.
+                          Documentation is shown in `Test Details` and also as
+                          a tooltip in `Statistics by Tag`. Pattern can contain
+                          characters `*` (matches anything) and `?` (matches
+                          any char). Documentation can contain formatting
+                          similarly as with --doc option.
+                          Examples: --tagdoc mytag:My_documentation
+                                    --tagdoc regression:*See*_http://info.html
+                                    --tagdoc owner-*:Original_author
+    --tagstatlink pattern:link:title *  Add external links into `Statistics by
+                          Tag`. Pattern can contain characters `*` (matches
+                          anything) and `?` (matches any char). Characters
+                          matching to wildcard expressions can be used in link
+                          and title with syntax %N, where N is index of the
+                          match (starting from 1). In title underscores are
+                          automatically converted to spaces.
+                          Examples: --tagstatlink mytag:http://my.domain:Link
+                          --tagstatlink bug-*:http://tracker/id=%1:Bug_Tracker
+    --removekeywords all|passed|name:<pattern>|for|wuks|none *  Remove keyword
+                          data from the generated log file. Keywords containing
+                          warnings are not removed except in `all` mode.
+                          all:     remove data from all keywords
+                          passed:  remove data only from keywords in passed
+                                   test cases and suites
+                          name:<pattern>:  remove data from keywords that match
+                                   the given pattern. The pattern is matched
+                                   against the full name of the keyword (e.g.
+                                   'MyLib.Keyword', 'resource.Second Keyword'),
+                                   is case, space, and underscore insensitive,
+                                   and may contain `*` and `?` as wildcards.
+                                   Examples: --removekeywords name:Lib.HugeKw
+                                             --removekeywords name:myresource.*
+                          for:     remove passed iterations from for loops
+                          wuks:    remove all but the last failing keyword
+                                   inside `BuiltIn.Wait Until Keyword Succeeds`
+    --flattenkeywords name:<pattern> *  Flattens matching keywords in the
+                          generated log file. Matching keywords get all
+                          messages from their child keywords and children are
+                          discarded otherwise. Matching rules are same as with
+                          `--removekeywords name:<pattern>`.
+    --listener class *    A class for monitoring test execution. Gets
+                          notifications e.g. when a test case starts and ends.
+                          Arguments to listener class can be given after class
+                          name, using colon as separator. For example:
+                          --listener MyListenerClass:arg1:arg2
+    --warnonskippedfiles  If this option is used, skipped test data files will
+                          cause a warning that is visible in the console output
+                          and the log file. By default skipped files only cause
+                          an info level syslog message.
+    --nostatusrc          Sets the return code to zero regardless of failures
+                          in test cases. Error codes are returned normally.
+    --runemptysuite       Executes tests also if the top level test suite is
+                          empty. Useful e.g. with --include/--exclude when it
+                          is not an error that no test matches the condition.
+    --dryrun              Verifies test data and runs tests so that library
+                          keywords are not executed.
+    --exitonfailure       Stops test execution if any critical test fails.
+    --skipteardownonexit  Causes teardowns to be skipped if test execution is
+                          stopped prematurely.
+    --randomize all|suites|tests|none  Randomizes the test execution order.
+                          all:    randomizes both suites and tests
+                          suites: randomizes suites
+                          tests:  randomizes tests
+                          none:   no randomization (default)
+    --runmode mode *      Deprecated in version 2.8. Use individual options
+                          --dryrun, --exitonfailure, --skipteardownonexit, or
+                          --randomize instead.
+ -W --monitorwidth chars  Width of the monitor output. Default is 78.
+ -C --monitorcolors auto|on|ansi|off  Use colors on console output or not.
+                          auto: use colors when output not redirected (default)
+                          on:   always use colors
+                          ansi: like `on` but use ANSI colors also on Windows
+                          off:  disable colors altogether
+                          Note that colors do not work with Jython on Windows.
+ -K --monitormarkers auto|on|off  Show `.` (success) or `F` (failure) on
+                          console when top level keywords in test cases end.
+                          Values have same semantics as with --monitorcolors.
+ -P --pythonpath path *   Additional locations (directories, ZIPs, JARs) where
+                          to search test libraries from when they are imported.
+                          Multiple paths can be given by separating them with a
+                          colon (`:`) or using this option several times. Given
+                          path can also be a glob pattern matching multiple
+                          paths but then it normally must be escaped or quoted.
+                          Examples:
+                          --pythonpath libs/
+                          --pythonpath /opt/testlibs:mylibs.zip:yourlibs
+                          -E star:STAR -P lib/STAR.jar -P mylib.jar
+ -E --escape what:with *  Escape characters which are problematic in console.
+                          `what` is the name of the character to escape and
+                          `with` is the string to escape it with. Note that
+                          all given arguments, incl. data sources, are escaped
+                          so escape characters ought to be selected carefully.
+                          <--------------------ESCAPES------------------------>
+                          Examples:
+                          --escape space:_ --metadata X:Value_with_spaces
+                          -E space:SP -E quot:Q -v var:QhelloSPworldQ
+ -A --argumentfile path *  Text file to read more arguments from. Use special
+                          path `STDIN` to read contents from the standard input
+                          stream. File can have both options and data sources
+                          one per line. Contents do not need to be escaped but
+                          spaces in the beginning and end of lines are removed.
+                          Empty lines and lines starting with a hash character
+                          (#) are ignored.
+                          Example file:
+                          |  --include regression
+                          |  --name Regression Tests
+                          |  # This is a comment line
+                          |  my_tests.html
+                          |  path/to/test/directory/
+                          Examples:
+                          --argumentfile argfile.txt --argumentfile STDIN
+ -h -? --help             Print usage instructions.
+ --version                Print version information.
+
+Options that are marked with an asterisk (*) can be specified multiple times.
+For example, `--test first --test third` selects test cases with name `first`
+and `third`. If other options are given multiple times, the last value is used.
+
+Long option format is case-insensitive. For example, --SuiteStatLevel is
+equivalent to but easier to read than --suitestatlevel. Long options can
+also be shortened as long as they are unique. For example, `--logti Title`
+works while `--lo log.html` does not because the former matches only --logtitle
+but the latter matches --log, --loglevel and --logtitle.
+
+Environment Variables
+=====================
+
+ROBOT_OPTIONS             Space separated list of default options to be placed
+                          in front of any explicit options on the command line.
+ROBOT_SYSLOG_FILE         Path to a file where Robot Framework writes internal
+                          information about parsing test case files and running
+                          tests. Can be useful when debugging problems. If not
+                          set, or set to special value `NONE`, writing to the
+                          syslog file is disabled.
+ROBOT_SYSLOG_LEVEL        Log level to use when writing to the syslog file.
+                          Available levels are the same as for --loglevel
+                          command line option and the default is INFO.
+
+
+"""
+
+    return sarf_doc
+
+def dut_is_reachable(dut, timeout=5):
+    cmd = 'ping -c 1 -t %d %s > /dev/null 2>&1' % (timeout, dut)
+    rc = OperatingSystem().run_and_return_rc(cmd)
+    return rc <= 0
+
+# get list of default argument to be passed to the pybot command
+# these arguments can be redefined by the arguments from command line
+def get_arguments_list(options, datasources):
+    arg_list = []
+    duts = options['dut']
+    dut_versions = options['dut-version']
+    if not options['lib-version']:
+        lib_version = None
+    else:
+        lib_version = options['lib-version']
+
+    if not options['sl-cleanup']:
+        sl_cleanup = False
+    else:
+        sl_cleanup = options['sl-cleanup']
+
+    # License mode
+    if not options['license-mode']:
+        license_mode = None
+        user_type = None
+        sl_state = None
+        sl_cleanup = False
+    else:
+        license_mode = options['license-mode']
+        user_type = options['user-type']
+        sl_state = options['sl-state']
+
+    # metadata for engtools
+    dut_models = options['dut-model']
+    # selenium server (grid or rc) support
+    browser = options['browser']
+    dut_type_main = options['dut-type-main'] or None
+    if not options['dut-main']:
+        dut_main = None
+    else:
+        dut_main = options['dut-main'][0]
+
+    # add lab test environment
+    client = socket.gethostname()
+    lab_suffix = client.split(".")[-1]
+    if not options['variablefile']:
+        environment_file = \
+            '%s/variables/environment/%s_lab.py' % (os.environ['SARF_HOME'], lab_suffix)
+        arg_list.extend(['--variablefile', environment_file])
+    else:
+        environment_file = options['variablefile'][0]
+
+    # list of duts under test
+    dut_list = DutList()
+    for i in range(len(duts)):
+        # construct new DUT object
+        dut = Dut(duts[i].strip())
+        # set basic attributes: version & model & browser
+        if dut_versions and len(dut_versions) > i:
+            dut.version = dut_versions[i].strip()
+        if dut_models and len(dut_models) > i:
+            dut.model = dut_models[i].strip()
+        # set browser configuration
+        dut.browser = browser or DEFAULT_BROWSER
+        # update basic dut attributes that depends skip-check parameter
+        # and set additional attributes: type & build
+        dut.update_info(options['skip-check'])
+
+        # add dut to list of duts
+        dut_list.add_dut(dut)
+
+    # dut variables
+    arg_list.extend(dut_list.prepare_variables(dut_type_main,dut_main,lib_version,license_mode,user_type,sl_state,sl_cleanup))
+
+    # added support for easypov mode usage --easypov-mode=*
+    if 'easypov-mode' in options and options['easypov-mode'] == 'enable':
+        print "**** EASY POV MODE : ENABLED ****"
+        easy_pov_mode = 1
+    else:
+        easy_pov_mode = 0
+    arg_list.extend(['--variable', 'EASY_POV_MODE:%s' %easy_pov_mode])
+
+    # python paths
+    arg_list.extend(['--pythonpath', 'resources:testlib:variables'])
+
+    # output directory
+    log_dir = '%s/public_html' % os.environ['HOME']
+    arg_list.extend(['--outputdir', log_dir])
+
+    # test suites and datasources
+    test_suite = ''
+    updated_datasources = []
+    test_folder = Misc(None, None).get_test_folder(duts[0])
+    if test_folder:
+        for i, item in enumerate(datasources):
+            if not os.path.exists(item):
+                full_path = os.path.join(test_folder, item)
+                if os.path.exists(full_path):
+                    datasources[i] = full_path
+
+    for datasource in datasources:
+        test_script = datasource.split('/')
+        test_name = test_script[-1]
+
+        # get name of test suite
+        # skip suffix: .txt
+        test_suite = test_name.split('.')[0]
+
+        if os.path.isdir(datasource):
+            # directory datasource
+            if not test_suite:
+                test_suite = test_script[-2]
+            # do not change datasources list
+            updated_datasources.append(datasource)
+        else:
+            # file datasource
+
+            # skip prefix: \d+__
+            prefix_match = re.match('\d+__(.*)', test_suite)
+            if prefix_match:
+                test_suite = prefix_match.group(1)
+
+            # get test directory
+            if test_name == datasource:
+                #This is incase a single file(say tests.txt) is specified to pybot run. The datasource will be\n
+                #..tests/coeusXX and all files matching tests.txt will be run
+                arg_list.extend(['--suite', test_suite])
+                test_dir = test_folder
+            else:
+                #Intead of going with the top level directory which causes duplicate runs ins ome instances\n
+                #we add the file path itself as the datasource
+                test_dir = datasource
+
+            # add arguments to the list
+            updated_datasources.append(test_dir)
+    # remove duplicate entries from datasources
+    updated_datasources = list(set(updated_datasources))
+
+    # sort the Test suites order
+    updated_datasources.sort()
+
+    # get name for report, log and debug files
+    if len(datasources) > 1:
+        # multiple test scripts
+        log_name = 'pybot_run'
+    else:
+        log_name = test_suite
+
+    # add arguments to the list
+    arg_list.extend(
+            ['--output', log_name + '.xml',
+             '--log', log_name + '.log.html',
+             '--report', log_name + '.report.html',
+             '--debugfile', log_name + '.debug',
+             ])
+
+    # add command line and argument file options without datasources
+    ds_num = len(datasources)
+    cmd_args = []
+    # FSM with one state: argumentfile or not
+    is_argument_file = False
+    for arg in sys.argv[1:]:
+        if is_argument_file:
+            # read arguments from the file
+            arg_file = open(arg, 'r')
+            for line in arg_file.readlines():
+                line = line.strip()
+                if not line or line.startswith('#'):
+                    # empty line or comment - ignore them
+                    pass
+                elif line.startswith('-'):
+                    # option
+                    line_args = [a.strip() for a in line.split(' ', 1)]
+                    cmd_args.extend(line_args)
+                else:
+                    # data source
+                    cmd_args.append(line)
+            arg_file.close()
+            # next argument will be not argumetn file
+            is_argument_file = False
+            continue
+
+        if arg == '-A' or arg == '--argumentfile':
+            # next argument will be argument file
+            is_argument_file = True
+            continue
+        else:
+            cmd_args.append(arg)
+
+    # add command line and argument file options
+    arg_list.extend(cmd_args[:-ds_num])
+
+    # add updated list of datasources
+    arg_list.extend(updated_datasources)
+
+    return arg_list
+
+def rerun_failed_tests_arguments(args):
+    """ Parse list of failed test cases from output.xml file and
+        extend arguments list to include failed tests.
+    """
+
+    # get path to output.xml
+    path_to_output = ''
+    for path_param in ['--outputdir', '--output']:
+        prev_item = ''
+        for item in args[::-1]:
+            if item == path_param:
+                if prev_item == '':
+                    raise ValueError("Got empty value for %s parameter! "
+                            "Check list of arguments you specified." %
+                            (path_param,))
+                path_to_output = os.path.join(path_to_output, prev_item)
+                break
+            prev_item = item
+
+    if robot.__version__ <= '2.6.3':
+        from robot.output import TestSuite
+
+        # internal recursive function for finding failed test cases
+        def get_failed_tests(suite):
+            test_args = []
+            if suite.all_stats.failed == 0:
+                return []
+            for test in suite.tests:
+                if test.status == 'FAIL':
+                    test_args.extend(['--test', str(test.longname)])
+            for subsuite in suite.suites:
+                test_args.extend(get_failed_tests(subsuite))
+            return test_args
+
+        # extend args with list of failed test cases
+        if os.path.exists(path_to_output):
+
+
+            suite = TestSuite(path_to_output)
+            failed_tests = get_failed_tests(suite)
+
+            if len(failed_tests) > 0:
+                # insert list of failed tests before last option
+                pos = len(args)
+                for arg in args[::-1]:
+                    pos -= 1
+                    if arg.startswith('--') or pos == 0: break
+                args = args[:pos] + failed_tests + args[pos:]
+            else:
+                print "There is no failed tests"
+                return []
+        else:
+            raise IOError("Could not determine list of failed test cases. "
+                    "Expected Robot output file: %s does not exist" %
+                    (path_to_output,))
+
+    else:  # robot.__version__ > '2.6.3'
+
+        # use pybot standard
+        # -R --rerunfailed output
+
+        rerun_arg = ['--rerunfailed', path_to_output]
+
+        # insert list of failed tests before last option
+        pos = len(args)
+        for arg in args[::-1]:
+            pos -= 1
+            if arg.startswith('--') or pos == 0: break
+        args = args[:pos] + rerun_arg + args[pos:]
+
+
+    # update names of Robot output files in args
+    suffix = '_rerun'
+    for path_param in ['--output', '--log', '--report', '--debugfile']:
+        # iterate over all arguments from the end to the start
+        for i in range(len(args)-1, -1, -1):
+            if args[i] == path_param:
+                # add suffix to output file names
+                # output.xml -> output_rerun_failed.xml
+                name, ext = args[i+1].split('.', 1)
+                args[i+1] = '.'.join([name + suffix, ext])
+                break
+
+    return args
+
+def check_chrome_drivers(browser):
+      if browser == 'chrome':
+          driver_version  = ''
+          browser_version_match = re.search('\w+\s(\d+.\d+.\d+).\d+', commands.getoutput('google-chrome --version'))
+          driver_version_match = re.search('\w+\s(\d+.\d+.\d+).\d+', commands.getoutput('chromedriver --version'))
+          if browser_version_match:
+              browser_version = browser_version_match.group(1)
+              if driver_version_match:
+                  driver_version = driver_version_match.group(1)
+              if browser_version != driver_version:
+                  print "BROWSER:%s DRIVER:%s"%(browser_version, driver_version)
+                  os.chdir('%s/tools/drivers' %os.environ['SARF_HOME'])
+                  try:
+                      os.system('unlink chromedriver')
+                  except Exception as error:
+                      print "ERROR:",error
+                  os.system('ln -s chromedriver.%s* chromedriver' %browser_version)
+                  os.chdir(os.environ['SARF_HOME'])
+
+def main():
+    os.system("sudo rm -rf /var/tmp/customProfileDir*")
+    error_message = ""
+
+    if robot.__version__ <= '2.6.3':
+        # current version is 2.8.3
+        ap = utils.ArgumentParser(get_doc(), version='1.0.0-035')
+        try:
+            options, datasources = ap.parse_args(sys.argv[1:],
+                    argfile='argumentfile', unescape='escape', help='help',
+                    version='version')
+
+        except robot.Information, msg:
+            # do no print traceback when --help or --version is used.
+            print robot.utils.encode_output(unicode(msg))
+            return robot.INFO_PRINTED
+        except robot.DataError, err:
+            # properly handle no such option error
+            robot._report_error(unicode(err), help=True)
+            return robot.DATA_ERROR
+    else:
+
+        ap = utils.ArgumentParser(get_doc(), arg_limits=(1,), env_options='ROBOT_OPTIONS')
+        options, datasources = ap.parse_args(sys.argv[1:])
+
+    # dut variables
+    duts = options['dut']
+    dut_versions = options['dut-version']
+    dut_models = options['dut-model']
+    lib_version = options['lib-version']
+    license_mode = options['license-mode']
+    user_type = options['user-type']
+    sl_state = options['sl-state']
+    sl_cleanup = options['sl-cleanup']
+
+    if not options['print-warnings']:
+        warnings.filterwarnings("ignore", category=DeprecationWarning)
+
+    # if no duts is specified
+    if not duts:
+        error_message += "\nHostname of as minimum one "\
+                "appliance under test is required"
+
+    if license_mode == 'smart':
+        if user_type is None or sl_state is None:
+            error_message += "\nSL state and User type "\
+                "values are required"
+
+    for i in range(len(duts)):
+        dut = duts[i].strip()
+        if dut_versions and len(dut_versions) > i:
+            dut_version = dut_versions[i].strip()
+        else:
+            dut_version = None
+        if dut_models and len(dut_models) > i:
+            dut_model = dut_models[i].strip()
+        else:
+            dut_model = None
+
+        # If DUT is not reachable
+        if not options['skip-check'] and not dut_is_reachable(dut):
+            error_message +=  ("\n%s is unreachable"  % dut)
+
+        # If no test script specified
+        if len(datasources) < 1:
+            error_message += "\nNo test script has been specified"
+        else:
+            directory_datasources = []
+            file_datasources = []
+            for ds in datasources:
+                if os.path.isdir(ds):
+                    directory_datasources.append(ds)
+                else:
+                    file_datasources.append(ds)
+            if directory_datasources and file_datasources:
+                error_message += """
+\nRunning test suites specified as directories and files is not allowed in the
+same pybot_run command. Please use separate pybot_run commands for running
+test suites specified as directories and test suits specified as files."""
+                error_message += '\nDirectory test suites:\n- %s' %\
+                        '\n- '.join(directory_datasources)
+                error_message += '\nFile test suites:\n- %s' %\
+                        '\n- '.join(file_datasources)
+        if dut_version and not (re.match(r'\d\.\d\.\d-\d\d\d', dut_version)):
+            error_message += "\nDUT version parameter should be in format "\
+                    "7.5.0-123. Actual value: %s" % (dut_version,)
+        if dut_model and dut_version:
+            dut_type = dut_model[0].upper()
+            if dut_type not in dut_types_map:
+                supported_models = []
+                for key, value in dut_types_map.items():
+                    supported_models.append("'%s' for %s" % (key, value))
+                error_message += "\nDUT model parameter should start with "\
+                        "one of the following letters:\n%s" %\
+                        '\n'.join(supported_models)
+
+    # we do not know what browsers are supported on custom selenium server
+    if options['browser'] :
+        browser = str(options['browser'])
+        check_chrome_drivers(browser)
+        if not browser in SUPPORTED_BROWSERS:
+            error_message += "\nBrowser configuration '%s' is not "\
+                    "currently supported. List of currently supported "\
+                    "browser configuration:\n%s" % (browser,
+                            '\n'.join(SUPPORTED_BROWSERS))
+    else:
+        check_chrome_drivers(DEFAULT_BROWSER)
+    # prepare argument list and check whether all dut are preinstalled with
+    # supported versions of AsyncOS
+    try:
+        if duts:
+            args = get_arguments_list(options, datasources)
+    except ValueError, e:
+        error_message += '\n' + str(e)
+
+    # If at least one error was detected, diagnoze it, print usage, and exit
+    if error_message:
+        sys.stderr.write(error_message + "\n")
+        sys.stderr.write('\nTry --help for usage information.\n')
+        sys.exit()
+
+    # Parameters' validation passed.
+
+    # replace all unicode strings in args to ascii
+    args = [str(item) for item in args]
+
+    if robot.__version__ <= '2.6.3':
+        # Run two pybot_run commands in children processes
+        # Main pybot_run command
+        run_robot(args)
+
+        if options['rerun-failed']:
+            # Rerun failed test cases in another pybot_run command
+            args = rerun_failed_tests_arguments(args)
+            if len(args) > 0:
+                print "Rerun failed tests cases using command:"
+                run_robot(args)
+    else:
+        run_robot_293(args)
+
+        if options['rerun-failed']:
+            # Rerun failed test cases in another pybot_run command
+            args = rerun_failed_tests_arguments(args)
+            if len(args) > 0:
+                print "Rerun failed tests cases using command:"
+                run_robot_293(args)
+
+def run_robot_in_child_process(args):
+    """ Run Robot test cases in child process.
+
+    All libraries will be initialized in child process so paremt will be
+    kept clean in case we need to run another robot command.
+    """
+    cmd = 'pybot ' + ' '.join(args)
+    print cmd.replace(' -', '\n\t-'), '\n'
+
+    pid = os.fork()
+    if pid == 0:
+        # child process
+        try:
+            robot.run_from_cli(args, get_doc())
+        finally:
+            # exit from child process
+            sys.exit()
+    else:
+        # parent process
+        os.wait()
+
+def run_robot(args):
+    """ Run Robot test cases in main process.
+    """
+    cmd = 'pybot ' + ' '.join(args)
+    print cmd.replace(' -', '\n\t-'), '\n'
+    robot.run_from_cli(args, get_doc())
+
+def run_robot_293(args):
+    """ Run Robot for newer version (2.9.3).
+    """
+    from robot.run import RobotFramework, Application, LOGGER
+    cmd = 'robot ' + ' '.join(args)
+    print cmd.replace(' -', '\n\t-'), '\n'
+    print ("="*78)
+    print ("Robot Framework : %s :Python: %s: REPO:%s" %(robot.version.VERSION,\
+            platform.python_version(), os.environ['SARF_HOME']))
+    print ("="*78)
+    # patching RF
+    SARF_USAGE = get_doc()
+    class RF293(RobotFramework):
+        def __init__(self):
+            Application.__init__(self, SARF_USAGE, arg_limits=(1,),
+                         env_options='ROBOT_OPTIONS', logger=LOGGER)
+    # end of patching
+
+    try:
+        # copied from run_cli
+        RF293().execute_cli(args)
+    except SystemExit:
+        print "pybot exited with sys.exit()"
+if __name__ == '__main__':
+    main()

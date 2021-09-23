@@ -1,0 +1,35 @@
+# $Id: //prod/main/sarf_centos/resources/selenium.txt#1 $
+*** Keyword ***
+Selenium Login
+  [Documentation]    Change the FF profile settings,Start Selenium Environment and Login to DUT
+
+  ${firefox_prefs_security.tls.version.max}=  Set Variable  3
+  Set Up Selenium Environment
+  Launch DUT Browser
+  Log Into DUT
+
+Selenium Close
+  [Documentation]    Close Selenium Environment
+  Close Browser
+  Tear Down Selenium Environment
+  Sleep    2
+
+Selenium Handle Failure
+  [Documentation]    Warning: this keyword can be ran only from Teardown section\n
+  ...    If TestCase failed  Close Browser, reopen it, and relog to DUT
+   Run Keyword If Test Failed    Run Keywords
+  ...    Close Browser
+  ...    Launch DUT Browser
+  ...    Log Into DUT
+
+Selenium Relogin
+  [Documentation]  Close and Login Again
+  Selenium Close
+  Selenium Login
+
+Selenium Login With Download Folder
+  [Arguments]  ${download_folder}  ${mime_type}
+  Setup Selenium Environment
+  Configure Autodownload For Browser   ${download_folder}  ${mime_type}
+  Launch DUT Browser  autodownload=True  download_folder=${download_folder}
+  Log Into DUT

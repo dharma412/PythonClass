@@ -1,0 +1,44 @@
+# $Id: //prod/main/sarf_centos/resources/sma/ssw.txt#1 $ $DateTime: 2019/03/22 01:36:06 $ $Author: aminath $
+
+*** Settings ***
+Variables    sma_intf.py    ${SMA}
+Variables    network.py
+Variables    log_files.py
+Library      OperatingSystem
+Library      SSHLibrary
+Library      SmaGuiLibrary
+Library      SmaCliLibrary
+Library      UtilsLibrary   ${SMA}
+
+*** Variables ***
+${ALERT_RCPT}    testuser@mail.qa.sgg.cisco.com
+
+*** Keyword ***
+# Keywords to run System Setup Wizard (SSW)
+
+SSW Run According SSW_MODE
+    [Arguments]   ${force_ssw}=${False}
+    [Documentation]    Run SSW or restore from config file backup according to SSW_MODE
+    ...    /nIf force_ssw=${True}, SSW is launched even when config file exists
+
+    Set Suite Variable    ${SKIP_SSW}     ${False}
+    ${config_exists}=     DUT File Exists     /data/pub/configuration/ssw.xml
+    ${load_config}=       Evaluate        ${config_exists} and not ${force_ssw}
+    Run Keyword If        ${load_config}      SSW Load From Config File
+    Run Keyword Unless    ${SKIP_SSW}         SSW Run And Save Config
+
+SSW Load From Config File
+    [Documentation]    Loads configuration from file ssw.xml
+    ...    /nIf the operation succeeds, set ${True} to ${SKIP_SSW}
+    ${pass_fail}    ${details}    Run Keyword And Ignore Error    Load Config From File    ssw.xml
+    Run Keyword If    '${pass_fail}' == "PASS"    Set Suite Variable    ${SKIP_SSW}     ${True}
+    Run Keyword If    '${pass_fail}' == "PASS"    Commit
+
+SSW Run And Save Config
+    [Documentation]    Run SSW
+
+    System Setup Wizard Run  ${ALERT_RCPT}
+
+    Run On DUT    rm /data/pub/configuration/ssw.xml
+    ${name}=      Save Config
+    Run On DUT    mv /data/pub/configuration/${name} /data/pub/configuration/ssw.xml

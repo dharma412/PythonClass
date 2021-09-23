@@ -1,0 +1,48 @@
+# $Id: //prod/main/sarf_centos/resources/esa/configuredut.txt#1 $
+# $DateTime: 2019/03/22 01:36:06 $
+# $Author: aminath $
+
+*** Settings ***
+Variables    credentials.py
+Library      EsaCliLibrary
+Resource     esa/ssw.txt
+Library      UtilsLibrary
+
+
+*** Keywords ***
+
+Flush Work Queue
+    @{status_msgs}=  Workqueue Status
+    ${msgs}  Set Variable  @{status_msgs}[1]
+    Log  Status: @{status_msgs}[0]
+    Log  Messages: ${msgs}
+    Should Be True  '${msgs}'=='${0}'  There are still ${msgs} messages in work queue!
+
+Deliver Mails to /dev/null
+    Run Keyword And Ignore Error  Smtp Routes Clear
+    Smtp Routes New  domain=ALL  dest_hosts=/dev/null
+    Commit
+    Deliver Now All
+
+Setup Dut Via CLI
+    [Arguments]  ${dut_prefix}=ESA
+    Run Keyword  Suspend
+    Run Keyword  Reset Config
+    ${is_restricted}=  Is Admin Cli Restricted
+    Run Keyword If  ${is_restricted}
+    ...  Passwd
+    ...  old_pwd=${DUT_ADMIN_PASSWORD}
+    ...  new_pwd=${DUT_ADMIN_TMP_PASSWORD}
+    Log  Resuming the work queue if it was paused
+    Run Keyword  Workqueue Resume
+    Deliver Mails to /dev/null
+    Log  Waiting for the work queue to flush...
+    Wait Until Keyword Succeeds  5 min  5 sec  Flush Work Queue
+    Run Keyword And Ignore Error  Smtp Routes Clear
+    Run Keyword  Commit
+    Run Keyword  Reset Counters
+    Run Keyword  Reset Injctl
+    Run Keyword  Resume
+    Run Keyword  Run System Setup Via CLI  ${dut_prefix}
+    Run Keyword  Sync Time
+

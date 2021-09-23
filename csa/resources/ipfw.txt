@@ -1,0 +1,45 @@
+# $Id: //prod/main/sarf_centos/resources/ipfw.txt#1 $ $DateTime: 2019/03/22 01:36:06 $ $Author: aminath $
+
+*** Keywords ***
+Remove Ipfw Rule On Host
+    [Documentation]  Keyword removes ipfw rule <rule_nummber> on given <hostname>.
+    [Arguments]  ${hostname}  ${ruser}  ${rpass}  ${rule_nummber}=00010
+    Open Connection  ${hostname}
+    Login  ${ruser}  ${rpass}
+    ${output}=  Execute Command  ipfw delete ${rule_nummber}
+    Log  ${output}
+    Close Connection
+
+Remove All Ipfw Rules On Host
+    [Documentation]  Keyword removes all ipfw rules except rule
+    ...  "65535 allow ip from any to any" on given <hostname>.
+    [Arguments]  ${hostname}  ${ruser}  ${rpass}
+    Open Connection  ${hostname}
+    Login  ${ruser}  ${rpass}
+    ${rules_before} =  Execute Command  ipfw list
+    ${output}=  Execute Command  ipfw list | awk '{if ($1 != 65535) print $1}' | xargs ipfw delete
+    ${rules_after} =  Execute Command  ipfw list
+    Log Many  Output of delete command:\n ${output}
+    ...  List of IPFW rules before:\n ${rules_before}
+    ...  List of IPFW rules after:\n ${rules_after}
+    Close Connection
+
+Remove Ipfw Rule On Client
+    [Documentation]  Removes IPFW rule with given rule number on client machine.
+    [Arguments]  ${rule_number}=00010
+    Run  sudo ipfw delete ${rule_number}
+
+Remove All Ipfw Rules On Client
+    [Documentation]  Keyword removes all ipfw rules except rule
+    ...  "65535 allow ip from any to any" on given <hostname>.
+    ${rules_before} =  Run  sudo ipfw list
+    ${output}=  Run  sudo ipfw list | awk '{if ($1 != 65535) print $1}' | xargs ipfw delete
+    ${rules_after} =  Run  sudo ipfw list
+    Log Many  Output of delete command:\n ${output}
+    ...  List of IPFW rules before:\n ${rules_before}
+    ...  List of IPFW rules after:\n ${rules_after}
+
+Remove All Ipfw Rules On FTP Server
+    [Documentation]  Removes all ipfw rules except rule
+    ...  "65535 allow ip from any to any" on FTP Server
+    Remove All Ipfw Rules On Host  ${FTP_SERVER}  ${RTESTUSER}  ${RTESTUSER_PASSWORD}

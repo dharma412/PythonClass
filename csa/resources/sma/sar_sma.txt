@@ -1,0 +1,498 @@
+*** Settings ***
+Resource     esa/global.txt
+Resource     esa/logs_parsing_snippets.txt
+Resource     esa/injector.txt
+Resource     regression.txt
+Resource     sma/global_sma.txt
+Resource     sma/esasma.txt
+
+*** Variables ***
+${ACCOUNT_PROFILE_NAME}=  testing_o365
+${PROFILE_TYPE_ONPREM}=  Exchange On Premise
+${EMAIL_ADDRESS}=  user5@scale.com
+${THIRDPARTY_MAILBOX_DATA_CONFIG_PATH}  /data/db/config/thirdparty.mailbox
+${SESSION_TIMEOUT}=  1440 
+${batch_name}=  test
+${remediation_status}=  Remediated
+${remediation_status_fail}=  Failed
+${forward_mail_addr}=  user6@${SAR_DOMAIN}
+${delete_mail_addr}=  user5@${SAR_DOMAIN}
+${forward_mail_addr1}=  user7@${SAR_DOMAIN}
+${forward_action_log}=  Message forwarded successfully
+${delete_action_log}=  Message deleted successfully
+${GETDTIME_FMT_LOCAL} =  %a %b %d %H:%M:%S %Y
+
+*** Keywords ***
+Sar Suite Setup
+
+    Set Aliases For Appliance Libraries
+    Set Appliance Under Test to ESA
+
+    DefaultTestSuiteSetup
+    ${ESA_PUB_LISTENER}=  Get ESA Listener
+    Set Suite Variable  ${ESA_PUB_LISTENER}
+    ${ESA_PUB_LISTENER_IP}=  Get ESA Public IP
+    Set Suite Variable  ${ESA_PUB_LISTENER_IP}
+    ${ESA_PR_LISTENER_IP}=  Get ESA Private IP
+    Set Suite Variable  ${ESA_PR_LISTENER_IP}
+
+    Update Config Dynamic Host  dynamic_host=${STAGING_UPDATE_SERVER_FOR_VIRTUAL}
+    Update Config Validate Certificates  validate_certificates=No
+    Commit
+    Roll Over Now  logname=updater
+    Update Now  force=True
+    Reporting Config Setup  enable=yes
+    Commit
+
+    Message Tracking Enable  tracking=centralized
+    Commit Changes
+
+    Interfaceconfig Edit  Management
+    ...  api_http=yes  api_https=yes
+    commit
+
+    RAT Recipient Edit  InBoundMail   All  action=Accept
+
+    Admin Access Config Timeout
+    ...  timeout_webui=1440
+    ...  timeout_cli=1440
+    Commit
+
+    Account Profile Setup
+    ...  ${ACCOUNT_PROFILE_NAME}
+    ...  ${ACCOUNT_PROFILE_NAME}_description
+    ...  ${SAR_DOMAIN}
+
+    Copy And Replace Mailbox Data Config
+
+    Account Profile Test Connection  ${EMAIL_ADDRESS}  ${ACCOUNT_PROFILE_NAME}
+
+    Diagnostic Tracking Delete DB  confirm=Yes
+    Commit Changes
+    Outbreak Config Setup  log_urls=yes
+    Websecurity Config  url_enable=yes
+    Commit
+    Null Smtpd Start
+
+     ###### SMA CONFIG ######
+    Set Appliance Under Test to SMA
+    global_sma.DefaultTestSuiteSetup
+
+    ${SMA_CONFIG_FILE}=  Configuration File Save Config
+    Set Suite Variable  ${SMA_CONFIG_FILE}
+
+    Admin Access Config Timeout   timeout_webui=1440  timeout_cli=1440
+    Commit
+    Diagnostic Reporting Delete DB  confirm=yes
+    Diagnostic Tracking Delete DB  confirm=yes
+    Commit
+    Centralized Email Reporting Enable
+    Centralized Email Message Tracking Enable
+
+    Security Appliances Add Email Appliance
+    ...  ${ESA}
+    ...  ${ESA_IP}
+    ...  reporting=${True}
+    ...  ssh_credentials=${DUT_ADMIN}:${DUT_ADMIN_SSW_PASSWORD}
+    Commit Changes
+
+    Network Access Edit Settings  ${SESSION_TIMEOUT}
+    Commit Changes
+    Esaapiconfig Validate  validate_certificate=N
+    Commit
+
+    Set Appliance Under Test to SMA
+    SMANGGuiLibrary.Launch Dut Browser
+    SMANGGuiLibrary.Login Into Dut  ${DUT_ADMIN}  ${DUT_ADMIN_SSW_PASSWORD} 
+    SMANGGuiLibrary.View Data For Appliance  ${ESA}
+
+    Set Appliance Under Test to ESA
+
+Sar Suite Teardown
+
+    Null Smtpd Stop
+    Set Appliance Under Test to ESA
+    Message Tracking Disable
+
+    Revert Mailbox Data Config
+
+    Delete Domain Mapping  ${SAR_DOMAIN}
+    Delete Account Profile  ${ACCOUNT_PROFILE_NAME}
+    Disable Mailbox Remediation in Account Settings
+    DefaultTestSuiteTeardown
+
+    Set Appliance Under Test to SMA
+    Run Keyword And Ignore Error  Start CLI Session If Not Open
+    Suspend  0
+    Reset Config
+    Configure SSL For GUI
+    Selenium Login
+    Configuration File Load Config  ${SMA_CONFIG_FILE}
+    Sleep  5
+    Commit Changes
+    SMANGGuiLibrary.Close Browser
+
+    DefaultTestSuiteTeardown
+
+Do Common Testcase Setup
+    Set Appliance Under Test to ESA
+    DefaultTestCaseSetup
+
+    EsaCliLibrary.Smtp Routes New
+    ...  domain=${SAR_DOMAIN}
+    ...  dest_hosts=${SAR_IP}
+    commit
+
+    Roll Over Now  mail_logs
+    Roll Over Now  logname=remediation
+
+Do Common Testcase Teardown
+
+    Set Appliance Under Test to ESA
+    Start CLI Session
+    ${smtproute_delete_status}=  Run keyword and return status  EsaCliLibrary.Smtp Routes Delete  domain=${SAR_DOMAIN}
+    Run keyword if  '${smtproute_delete_status}'=='False'  EsaCliLibrary.Smtp Routes Clear
+    Commit
+
+    SMANGGuiLibrary.Clear Tracking Search
+    DefaultTestCaseTeardown
+
+Copy And Replace Mailbox Data Config
+    Set Suite variable  ${original}  ${THIRDPARTY_MAILBOX_DATA_CONFIG_PATH}/data.cfg
+    Set Suite variable  ${backup}  ${THIRDPARTY_MAILBOX_DATA_CONFIG_PATH}/data_bkp.cfg
+    Run On Dut  cp ${original} ${backup}
+    Run On Dut  rm ${original}
+    Run On Dut  sed 's/"verify_server_cert":1/"verify_server_cert":0/g' ${backup} >> ${original}
+    Run On Dut  more ${THIRDPARTY_MAILBOX_DATA_CONFIG_PATH}/data.cfg
+
+    Restart Service And Check Status  thirdparty
+    Restart Service And Check Status  mailbox_remediator
+
+Revert Mailbox Data Config
+    Run On Dut  rm ${original}
+    Run On Dut  cp ${backup} ${original}
+    Run On Dut  rm ${backup}
+
+Account Profile Setup
+    [Arguments]  ${profile_name}  ${profile_description}  ${domain}
+    ${account_settings_enabled}=  Account Settings Mailbox Remediation Is Enabled
+    Run Keyword If  not ${account_settings_enabled}
+    ...  Enable Mailbox Remediation in Account Settings With Default Values
+
+    Create OnPrem Account Profile
+    ...  ${profile_name}
+    ...  ${profile_description}
+    ...  ${SAR_ONPREM_USER}
+    ...  ${SAR_ONPREM_PASSWORD}
+    ...  ${SAR_IP}
+
+    Create Domain Mapping  ${profile_name}  ${domain}
+
+Enable Mailbox Remediation in Account Settings With Default Values
+
+    ${account_settings_enabled}=  Account Settings Mailbox Remediation Is Enabled
+    Should Not Be True  ${account_settings_enabled}
+    ...  Account Settings is already enabled
+
+    Account Settings Mailbox Remediation Enable
+    Commit Changes
+
+Create OnPrem Account Profile
+    [Arguments]  ${account_profile_name}
+    ...  ${account_profile_description}
+    ...  ${onprem_username}
+    ...  ${onprem_password}
+    ...  ${onprem_host}
+
+    ${settings}=  Create Dictionary
+    ...  Profile Name                ${account_profile_name}
+    ...  Description                 ${account_profile_description}
+    ...  Profile Type                ${PROFILE_TYPE_ONPREM}
+    ...  Username                    ${SAR_ONPREM_USER}
+    ...  Password                    ${SAR_ONPREM_PASSWORD}
+    ...  Host                        ${SAR_IP}
+    Account Settings Account Profile Create  ${settings}
+    Commit Changes
+
+Create Domain Mapping
+    [Arguments]  ${profile_name}  ${domain}
+
+    ${settings}=  Create Dictionary
+    ...  Domain Name        ${domain}
+    ...  Mapped Profile     ${profile_name}
+    Account Settings Domain Mapping Create  ${settings}
+    Commit Changes
+
+Account Profile Test Connection
+    [Arguments]  ${email_address}  ${profile_name}
+    ${settings}=  Create Dictionary
+    ...  Email Address  ${EMAIL_ADDRESS}
+    ${results}=  Account Settings Account Profile Test Connection
+    ...  ${profile_name}  ${settings}
+    Log  ${results}
+
+    Should Contain  ${results}  Connection Successful.
+    Should Contain  ${results}  The appliance is able to read the user's mailbox.
+
+Delete Domain Mapping
+    [Arguments]  ${domain}
+
+    Account Settings Domain Mapping Delete  ${domain}
+    Commit Changes
+
+Delete Account Profile
+    [Arguments]  ${account_profile_name}
+    Account Settings Account Profile Delete  ${account_profile_name}
+    Commit Changes
+
+Disable Mailbox Remediation in Account Settings
+    Account Settings Mailbox Remediation Disable
+    ${account_settings_enabled}=  Account Settings Mailbox Remediation Is Enabled
+    Should Not Be True  ${account_settings_enabled}
+    ...  Could not disable account settings
+    Commit Changes
+
+Verify Logs For Remediation Action For Delete OR Forward
+    [Arguments]  ${mid}
+    ...  ${user_name}
+    ...  ${batch_name}
+    ...  ${action}
+    ...  ${action_log_pattern}
+    ...  ${remediation_status}
+    ...  ${profile_name}
+    ...  ${mail_addr1}
+    ...  ${mail_addr}=${EMAIL_ADDRESS}
+
+    Verify Log Contains Records
+    ...  search_path=mail
+    ...  timeout=90
+    ...  Message ${mid} was initiated for '${action}' remedial action by '${user_name}' from source '${SMA}' in batch '${batch_name}' >= 1
+    ...  Message ${mid} was processed with '${action}' remedial action for recipient '${mail_addr}' in batch '${batch_name}'. Remediation status: ${remediation_status}. >= 1
+
+    Verify Log Contains Records
+    ...  search_path=remediation
+    ...  timeout=60
+    ...  MID: ${mid} ${action_log_pattern} .* ${mail_addr1}.* >= 1
+    ...  MID: ${mid} Remediation succeeded with \\`${ACCOUNT_PROFILE_NAME}\\` profile for recipient .* >= 1
+
+Verify Logs For Remediation Action For Forward And Delete
+    [Arguments]  ${mid}
+    ...  ${user_name}
+    ...  ${batch_name}
+    ...  ${action}
+    ...  ${action_log_pattern1}
+    ...  ${action_log_pattern2}
+    ...  ${remediation_status}
+    ...  ${profile_name}
+    ...  ${mail_addr1}
+    ...  ${mail_addr2}
+
+    Verify Log Contains Records
+    ...  search_path=mail
+    ...  timeout=90
+    ...  Message ${mid} was initiated for '${action}' remedial action by '${user_name}' from source '${SMA}' in batch '${batch_name}' >= 1
+    ...  Message ${mid} was processed with '${action}' remedial action for recipient '${mail_addr2}' in batch '${batch_name}'. Remediation status: ${remediation_status}. >= 1
+
+    Verify Log Contains Records
+    ...  search_path=remediation
+    ...  timeout=90
+    ...  MID: ${mid} ${action_log_pattern1} to ${mail_addr1}. >= 1
+    ...  MID: ${mid} ${action_log_pattern2} from ${mail_addr2} .* >= 1
+    ...  MID: ${mid} Remediation succeeded with \\`${profile_name}\\` profile for recipient ${mail_addr2}. >= 1
+
+Configure Time Zone
+    Set Time Zone Setup  continent=Asia
+    ...  country=India
+    ...  zone=Kolkata
+    commit
+
+Unconfigure Time Zone
+    Set Time Zone Setup  continent=America
+    ...  country=United States
+    ...  zone=Los_Angeles
+    commit
+
+Add Content Filter
+    [Arguments]  ${Content_filter_name}  ${actions}
+
+    Content Filter Add  Incoming  ${Content_filter_name}
+    ...  ${Content_filter_name}  ${actions}
+    Commit Changes
+
+    ${settings}=  Create Dictionary
+    ...  Content Filters  Enable Content Filters (Customize settings)
+    ...  Enable All  ${True}
+    Mail Policies Edit Content Filters  incoming  default  ${settings}
+    Commit Changes
+
+Remove Content Filter 
+    [Arguments]  ${Content_filter_name}
+    Content Filter Delete  Incoming  ${Content_filter_name}
+    commit Changes
+
+Disable URL Filtering
+    ${URL_status}=  Url Filtering Is Enabled
+    Run Keyword If  ${URL_status}
+    ...  Url Filtering Disable
+    Commit Changes
+
+Add Url Content Filter
+    [Arguments]  ${Content_filter_name}
+
+    Url Filtering Enable  url_click_tracking=${True}
+    Outbreak Filters Enable
+    Commit Changes
+
+    ${result}  ${msg}  Run Keyword And Ignore Error  Verify URL Filtering Status As Connected
+    Run Keyword If   '${result}' == 'FAIL'
+    ...  Verify Engine Is Updated  enrollment_client
+    Verify URL Filtering Status As Connected
+
+    ${action_value}=  Create Dictionary
+    ...  CustomRange Reputation URL Min value  -10.00
+    ...  CustomRange Reputation URL Max value  +10.00
+    ...  Scan Type  All
+    ...  Defang Reputation URL  None
+
+    ${actions}=  Content Filter Create Actions
+    ...  URL Reputation Action  ${action_value}
+
+    Content Filter Add  Incoming  ${Content_filter_name}
+    ...  ${Content_filter_name}  ${actions}
+    Commit Changes
+
+    ${settings}=  Create Dictionary
+    ...  Content Filters  Enable Content Filters (Customize settings)
+    ...  ${Content_filter_name}  ${True}
+    Mail Policies Edit Content Filters  incoming  default  ${settings}
+    Commit Changes
+
+Remove Url Content Filter
+    [Arguments]  ${Content_filter_name}
+
+    Disable URL Filtering
+    Outbreak Filters Disable
+
+    Content Filter Delete  Incoming  ${Content_filter_name}
+    commit Changes
+
+Get Batch Id
+    ${result}=  Run On Dut  /data/bin/runas pgsql psql -d msgsdb -c "Select batch_id from mor_details_table where batch_id like 'admin_%';"
+    ${batch_id}=  Get Regexp Matches  ${result}  admin_.*
+    ${batch_id}=  Set Variable  ${batch_id[0]}
+    [return]  ${batch_id}
+
+Get Format Date Time
+    [Arguments]  ${date_time}
+
+    ${Formatted_datetime}=  Evaluate  datetime.datetime.strptime('${date_time[:-4]}', '${GETDTIME_FMT_LOCAL}')  datetime
+    [return]  ${Formatted_datetime}
+
+Get Search Date And Time
+    Restart CLI Session
+    ${current_datetime_str}=  Set Time Get
+    ${current_datetime}=  Get Format Date Time  ${current_datetime_str}
+
+    ${current_min}=  Set Variable  ${current_datetime.minute}
+    ${current_hour}=  Set Variable  ${current_datetime.hour}
+    ${day}=  Set Variable  ${current_datetime.day}
+    ${month}=  Set Variable  ${current_datetime.month}
+    ${year}=  Set Variable  ${current_datetime.year}
+
+    ${next_hour_expr}=  Catenate
+    ...  datetime.datetime.strptime('${current_datetime_str[:-4]}', '${GETDTIME_FMT_LOCAL}')+
+    ...  datetime.timedelta(hours=1)
+
+    ${next_hour_datetime}=  Evaluate  ${next_hour_expr}  datetime
+    ${next_hour}=  Set Variable  ${next_hour_datetime.hour}
+    ${next_min}=  Set Variable  ${next_hour_datetime.minute}
+
+    ${next_hour}=  Run Keyword If  '${current_hour}' == '23'  Set Variable  ${current_hour}
+    ...  ELSE  Set Variable  ${next_hour}
+    ${next_min}=  Run Keyword If  '${current_hour}' == '23'  Set Variable  59
+    ...  ELSE  Set Variable  ${next_min}
+
+    ${date}=  Catenate  SEPARATOR=/  ${month}  ${day}  ${year}
+    ${from_time}=  Catenate  SEPARATOR=:  ${current_hour}  ${current_min}
+    ${to_time}=  Catenate  SEPARATOR=:  ${next_hour_datetime.hour}  ${next_hour_datetime.minute}
+
+    Log Many  ${date}
+    Log Many  ${from_time}
+    Log Many  ${to_time}
+    Log Many  ${current_hour}
+    [Return]  ${date}  ${from_time}  ${to_time}
+
+Verify Logs For Messages Remediation Action For Delete OR Forward
+    [Arguments]  ${user_name}
+    ...  ${batch_name}
+    ...  ${action}
+    ...  ${action_log_pattern}
+    ...  ${remediation_status}
+    ...  ${profile_name}
+    ...  ${mail_addr1}
+    ...  ${num_msg}
+    ...  ${mail_addr}=${EMAIL_ADDRESS}
+
+    Verify Log Contains Records
+    ...  search_path=mail
+    ...  timeout=90
+    ...  Message .* was initiated for '${action}' remedial action by '${user_name}' from source '${SMA}' in batch '${batch_name}' >= ${num_msg}
+    ...  Message .* was processed with '${action}' remedial action for recipient '${mail_addr}' in batch '${batch_name}'. Remediation status: ${remediation_status}. >= ${num_msg}
+
+    Verify Log Contains Records
+    ...  search_path=remediation
+    ...  timeout=60
+    ...  MID: .* ${action_log_pattern} .* ${mail_addr1}.* >= ${num_msg}
+    ...  MID: .* Remediation succeeded with \\`${profile_name}\\` profile for recipient .* >= ${num_msg}
+
+Verify Logs For Messages Remediation Action For Forward And Delete
+    [Arguments]  ${user_name}
+    ...  ${batch_name}
+    ...  ${action}
+    ...  ${action_log_pattern1}
+    ...  ${action_log_pattern2}
+    ...  ${remediation_status}
+    ...  ${profile_name}
+    ...  ${mail_addr1}
+    ...  ${mail_addr2}
+    ...  ${num_msg}
+
+    Verify Log Contains Records
+    ...  search_path=mail
+    ...  timeout=90
+    ...  Message .* was initiated for '${action}' remedial action by '${user_name}' from source '${SMA}' in batch '${batch_name}' >= ${num_msg}
+    ...  Message .* was processed with '${action}' remedial action for recipient '${mail_addr2}' in batch '${batch_name}'. Remediation status: ${remediation_status}. >= ${num_msg}
+
+    Verify Log Contains Records
+    ...  search_path=remediation
+    ...  timeout=90
+    ...  MID: .* ${action_log_pattern1} to ${mail_addr1}. >= ${num_msg}
+    ...  MID: .* ${action_log_pattern2} from ${mail_addr2} .* >= ${num_msg}
+    ...  MID: .* Remediation succeeded with \\`${profile_name}\\` profile for recipient ${mail_addr2}. >= ${num_msg}
+
+Edit Mailbox Remediation in Account Settings With Custom Values
+    [Arguments]
+    ...  ${number_of_attempts}=2
+    ...  ${hybrid_setup_timeout}=30
+    ...  ${onprem_setup_timeout}=30
+
+    ${settings}=  Create Dictionary
+    ...  Maximum number of attempts    ${number_of_attempts}
+    ...  Timeout for Hybrid Setup      ${hybrid_setup_timeout}
+    ...  Timeout for On Premise Setup  ${onprem_setup_timeout}
+    Account Settings Mailbox Remediation Edit Settings  ${settings}
+    Commit Changes
+
+Check Remediated Status
+    [Arguments]  ${mid}
+
+    SMANGGuiLibrary.Message Tracking Search  cisco_hosts=${ESA}
+    ...  sender_envelope_option=Envelope Sender
+    ...  sender_data=${TEST_ID}
+    ...  sender_comparator=Begins with
+
+    ${details}=  SMANGGuiLibrary.Message Tracking Get Message Details
+    ...  mid=${mid}
+    ${status}=  Set Variable  ${details['${mid}']['status']}
+    Should Contain  ${status}  Remediated
+

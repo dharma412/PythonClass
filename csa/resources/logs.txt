@@ -1,0 +1,370 @@
+# $Id: //prod/main/sarf_centos/resources/logs.txt#2 $ $DateTime: 2019/06/03 22:56:07 $ $Author: revlaksh $
+
+*** Settings ***
+Variables  error_log.py    ${DUT_IDS}
+Library    UtilsLibrary
+Library    Collections
+Library    String
+
+*** Variables ***
+${GUI_LOGS}                 /data/pub/gui_logs/gui.current
+${CLI_LOGS}                 /data/pub/cli_logs/cli.current
+${EXT_AUTH_LOGS}            /data/pub/external_auth_logs/external_auth_logs.current
+${HEIMDALL_LOG_LOCATION}    /data/log/heimdall/heimdall/heimdall.current
+${PROXY_LOG_LOCATION}       /data/pub/proxylogs/proxyerrlog.current
+${FEEDBACK_LOG_LOCATION}    /data/pub/feedback_logs/feedback_log.current
+${HTTPS_LOG_LOCATION}       /data/pub/httpslog/httpslog.current
+
+*** Keywords ***
+Filter Access Log Check
+    [Documentation]  This keyword checks access log for correct entry.
+    [Arguments]  ${baseline}  ${pattern}  ${no_entry}=1  ${timeout}=60  ${log_count_check}=True
+    ${access_log}  ${access_count}=  Filter Log  ${ACCESS_LOGS}
+    ...  baseline=${baseline}  timeout=${timeout}
+    ...  match_patterns=-E '${pattern}'
+    ...  skip_patterns=safebrowsing, tools.eng.ironport.com, autopwd.ironport.com
+    Log  ${access_log}
+
+    ${status}  ${value}=  Run Keyword And Ignore Error
+    ...  Should Be Equal As Numbers  ${access_count}  ${no_entry}
+    ${status}=  Set Variable If  "${log_count_check}"=="True"  ${status}   PASS
+    ${access_log_entries}  ${access_count}=  Filter Log  ${ACCESS_LOGS}
+    ...  baseline=${baseline}  timeout=1
+
+    ${err_msg}=  Catenate  SEPARATOR=\n
+    ...  Access Log entry matching pattern '${pattern}' has not been found!
+    ...  Entries that have been checked:
+    ...  ${access_log_entries}
+    Run Keyword And Continue On Failure   Run Keyword If  '${status}' == 'FAIL'  Fail  msg=${err_msg}
+
+    # log access log entries on DEBUG level when verification passed
+    Log  ${access_log_entries}  level=DEBUG
+    [Return]  ${access_log}
+
+Check IDS_Dataloss Log
+    [Documentation]  This keyword checks ids_dataloss log for correct entry.
+    [Arguments]  ${baseline}  ${pattern}
+    ${ids_dataloss_log}  ${ids_dataloss_count}=  Filter Log  ${IDSDATALOSS_LOGS}
+    ...  baseline=${baseline}  timeout=30
+    ...  match_patterns=-E '${pattern}'
+    Run Keyword And Continue On Failure   Should Be Equal As Numbers  ${ids_dataloss_count}  1
+    ...  msg=IDS_Dataloss Log entry matching pattern has not been found!
+
+Append Excluded Patterns To Default List
+    [Arguments]  ${default_patterns}  ${exclude_patterns}
+    @{exclude_list}=  Split String  ${exclude_patterns}  ,${SPACE}
+    :FOR  ${pattern}  IN  @{exclude_list}
+    \  Append To List  ${default_patterns}  -v "${pattern}"
+
+Find Log Errors
+  [Documentation]
+  ...  Find log errors in access log files
+  ...
+  ...  *Parameters:*
+  ...  - `duts`: list of DUTs from which access logs are used.
+  ...     Default value is a list with all devices that are used in test.
+  ...  - `exclude_pattern`: pattern which is excluded from default list.
+  ...     Default value is empty.
+  ...
+  ...  *Return:*
+  ...   For each device, that is in variable ${duts},
+  ...   following variables will be generated:
+  ...   `${${dut}_LOG_ERRORS}` - errors from access log of ${dut}
+  ...   `${${dut}_LOG_ERRORS_COUNT}` - count of errors from access log of ${dut}
+  ...
+  ...  *Exceptions:*
+  ...  None
+  ...
+  ...  *Example:*
+  ...  | Find Log Errors | duts=SMA |
+  ...  | Find Log Errors | duts=WSA,WSA2 |
+  ...  | Find Log Errors | duts=SMA,WSA |
+  ...  | Find Log Errors |  |
+  ...
+  [Arguments]  ${duts}=${DUT_IDS}  ${exclude_pattern}=${EMPTY}
+  @{devices}=  Split String  ${duts}  ,
+  FOR  ${dut}  IN  @{devices}
+     Log  ${${dut}}
+     ${patterns}=  Copy List  ${${dut}_ERROR_PATTERNS}
+     Run Keyword If  '${exclude_pattern}' != '${EMPTY}'  Append Excluded Patterns To Default List  ${patterns}  ${exclude_pattern}
+     ${_filtered}    ${_filtered_count}=    Filter Data
+     ...    /data/pub/, /data/log
+     ...    match_patterns=${patterns}
+     ...    limit_return=${None}
+     ...    dut=${${dut}}
+     ...    dut_version=${${dut}_LIB_VERSION}
+     Set Global Variable    ${${dut}_LOG_ERRORS}    ${_filtered}
+     Set Global Variable    ${${dut}_LOG_ERRORS_COUNT}    ${_filtered_count}
+  END
+
+Find New Log Errors
+  [Documentation]
+  ...  Find log errors that appeared from the last check
+  ...
+  ...  *Parameters:*
+  ...  - `duts`: list of DUTs from which access logs are used.
+  ...     Default value is a list with all devices that are used in test.
+  ...
+  ...  *Return:*
+  ...  None
+  ...
+  ...  *Exceptions:*
+  ...  in case a new error has been detected.
+  ...
+  ...  *Example:*
+  ...  | Find Log Errors | duts=SMA |
+  ...  | Find Log Errors | duts=WSA,WSA2 |
+  ...  | Find Log Errors | duts=SMA,WSA |
+  ...  | Find Log Errors |  |
+  ...
+  [Arguments]  ${duts}=${DUT_IDS}
+  @{devices}=  Split String  ${duts}  ,
+
+  FOR  ${dut}  IN  @{devices}
+     ${_previous_errors}=    Set Variable    ${${dut}_LOG_ERRORS}
+     Find Log Errors
+     ...    exclude_pattern=${EXCLUDE_PATTERNS}
+     ...    duts=${dut}
+     ${_new_entries}    ${_new_entries_count}=    Filter Data Compare
+     ...    ${${dut}_LOG_ERRORS}
+     ...    ${_previous_errors}
+     Log    ${_new_entries}
+     Run Keyword And Continue On Failure   Should Be Equal As Integers    ${_new_entries_count}    0    New log errors are detected: ${_new_entries}
+  END
+
+Access Log Get
+  [Documentation]    Waits for new record(s) in Access Log and creates new baseline\n
+  ...    number of new records is assigned to ${access_count}\n
+  ...    new records are returned in  ${access_log}\n
+  ...    if ${fail_on_mismatch}=${True}, fails when number of expected new records\n
+  ...    in access log does not match with actual ones
+  [Arguments]
+  ...    ${number_of_matches}=1
+  ...    ${timeout}=30
+  ...    ${fail_on_mismatch}=${True}
+  ${_access_log}    ${_access_count}=    Filter Log    ${ACCESS_LOGS}
+  ...    baseline=${baseline_accesslog}    timeout=${timeout}    skip_patterns=safebrowsing, tools.eng.ironport.com, autopwd.ironport.com
+  ...    number_of_matches=${number_of_matches}
+  Log    ${_access_log}
+  ${match}    ${out2}    Run Keyword And Ignore Error    Should Be Equal As Numbers    ${access_count}    ${number_of_matches}
+  Run Keyword And Continue On Failure   Run Keyword If    '${match}' == 'FAIL' and '${fail_on_mismatch}' == '${True}'
+  ...    Fail    Got ${access_count} new records in access_log instead of expected ${number_of_matches}
+  ${_baseline_accesslog}=    Filter Log Create Baseline    ${ACCESS_LOGS}
+  Set Test Variable    ${access_log}    ${_access_log}
+  Set Test Variable    ${baseline_accesslog}    ${_baseline_accesslog}
+
+Filter Access Log Create Baseline
+  [Documentation]    Creates baseline for access_log\n
+  ${_baseline_accesslog}=    Filter Log Create Baseline    ${ACCESS_LOGS}
+  Set Test Variable    ${baseline_accesslog}    ${_baseline_accesslog}
+
+Filter Gui Log Create Baseline
+  [Documentation]    Creates baseline for gui logs\n
+  ${_baseline_guilog}=    Filter Log Create Baseline    ${GUI_LOGS}
+  Set Test Variable    ${baseline_guilog}    ${_baseline_guilog}
+
+Filter Cli Log Create Baseline
+  [Documentation]    Creates baseline for cli logs\n
+  ${_baseline_clilog}=    Filter Log Create Baseline    ${CLI_LOGS}
+  Set Test Variable    ${baseline_clilog}    ${_baseline_clilog}
+
+Filter External Log Create Baseline
+  [Documentation]    Creates baseline for external auth logs\n
+  ${_baseline_extauthlog}=    Filter Log Create Baseline    ${EXT_AUTH_LOGS}
+  Set Test Variable    ${baseline_extauthlog}    ${_baseline_extauthlog}
+
+Filter Gui Log Check
+    [Documentation]  This keyword checks gui log for correct entry.
+    [Arguments]  ${baseline}  ${pattern}  ${timeout}=30  ${no_of_entries}=1  ${log_count_check}=True
+    ${gui_log}  ${gui_count}=  Filter Log  ${GUI_LOGS}
+    ...  baseline=${baseline}  timeout=${timeout}
+    ...  match_patterns=-E '${pattern}'
+    ...  skip_patterns=safebrowsing, tools.eng.ironport.com, autopwd.ironport.com
+    Log  ${gui_log}
+
+    ${status}  ${value}=  Run Keyword And Ignore Error
+    ...  Should Be Equal As Numbers  ${gui_count}  ${no_of_entries}
+
+    ${status}=  Set Variable If  "${log_count_check}"=="True"  ${status}   PASS
+
+    ${gui_log_entries}  ${gui_count}=  Filter Log  ${GUI_LOGS}
+    ...  baseline=${baseline}  timeout=1
+
+    ${err_msg}=  Catenate  SEPARATOR=\n
+    ...  Gui Log entry matching pattern '${pattern}' has not been found!
+    ...  Entries that have been checked:
+    ...  ${gui_log_entries}
+    Run Keyword And Continue On Failure   Run Keyword If  '${status}' == 'FAIL'  Fail  msg=${err_msg}
+
+    # log gui log entries on DEBUG level when verification passed
+    Log  ${gui_log_entries}  level=DEBUG
+    [Return]  ${gui_log}
+
+Filter Cli Log Check
+    [Documentation]  This keyword checks cli log for correct entry.
+    [Arguments]  ${baseline}  ${pattern}  ${no_entry}=1  ${timeout}=30
+    ${cli_log}  ${cli_count}=  Filter Log  ${CLI_LOGS}
+    ...  baseline=${baseline}  timeout=${timeout}
+    ...  match_patterns=-E '${pattern}'
+    ...  skip_patterns=safebrowsing, tools.eng.ironport.com, autopwd.ironport.com
+    Log  ${cli_log}
+
+    ${status}  ${value}=  Run Keyword And Ignore Error
+    ...  Should Be Equal As Numbers  ${cli_count}  ${no_entry}
+    ${cli_log_entries}  ${cli_count}=  Filter Log  ${CLI_LOGS}
+    ...  baseline=${baseline}  timeout=1
+
+    ${err_msg}=  Catenate  SEPARATOR=\n
+    ...  Cli Log entry matching pattern '${pattern}' has not been found!
+    ...  Entries that have been checked:
+    ...  ${cli_log_entries}
+    Run Keyword And Continue On Failure   Run Keyword If  '${status}' == 'FAIL'  Fail  msg=${err_msg}
+
+    # log cli log entries on DEBUG level when verification passed
+    Log  ${cli_log_entries}  level=DEBUG
+    [Return]  ${cli_log}
+
+Filter External Log Check
+    [Documentation]  This keyword checks extauth log for correct entry.
+    [Arguments]  ${baseline}  ${pattern}  ${no_entry}=1  ${timeout}=30
+    ${extauth_log}  ${extauth_count}=  Filter Log  ${EXT_AUTH_LOGS}
+    ...  baseline=${baseline}  timeout=${timeout}
+    ...  match_patterns=-E '${pattern}'
+    ...  skip_patterns=safebrowsing, tools.eng.ironport.com, autopwd.ironport.com
+    Log  ${extauth_log}
+
+    ${status}  ${value}=  Run Keyword And Ignore Error
+    ...  Should Be Equal As Numbers  ${extauth_count}  ${no_entry}
+    ${extauth_log_entries}  ${extauth_count}=  Filter Log  ${EXT_AUTH_LOGS}
+    ...  baseline=${baseline}  timeout=1
+
+    ${err_msg}=  Catenate  SEPARATOR=\n
+    ...  External Log entry matching pattern '${pattern}' has not been found!
+    ...  Entries that have been checked:
+    ...  ${extauth_log_entries}
+    Run Keyword And Continue On Failure   Run Keyword If  '${status}' == 'FAIL'  Fail  msg=${err_msg}
+
+    # log extauth log entries on DEBUG level when verification passed
+    Log  ${extauth_log_entries}  level=DEBUG
+    [Return]  ${extauth_log}
+
+Filter Heimdall Log Create Baseline
+    [Documentation]    Creates baseline for Heimdall logs\n
+    ${_baseline_heimdalllog}=    Filter Log Create Baseline    ${HEIMDALL_LOG_LOCATION}
+    Set Test Variable    ${baseline_heimdalllog}    ${_baseline_heimdalllog}
+
+Filter Heimdall Log Check
+    [Documentation]  This keyword checks the heimdhall log for the entry\n
+    [Arguments]  ${baseline}  ${pattern}  ${no_of_entries}=1   ${log_count_check}=True
+
+    ${heimdall_log}  ${heimdall_log_count}=  Filter Log  ${HEIMDALL_LOG_LOCATION}
+    ...  baseline=${baseline}  timeout=300
+    ...  match_patterns=-E '${pattern}'
+    ...  skip_patterns=safebrowsing, tools.eng.ironport.com, autopwd.ironport.com
+    Log  ${heimdall_log}
+
+    ${status}  ${value}=  Run Keyword And Ignore Error
+    ...  Should Be Equal As Numbers  ${heimdall_log_count}  ${no_of_entries}
+
+    ${status}=  Set Variable If  "${log_count_check}"=="True"  ${status}   PASS
+
+    ${heimdall_log_entries}  ${heimdall_log_count}=  Filter Log  ${HEIMDALL_LOG_LOCATION}
+    ...  baseline=${baseline}  timeout=1
+
+    ${err_msg}=  Catenate  SEPARATOR=\n
+    ...  Heimdall Log entry matching pattern '${pattern}' has not been found!
+    ...  Entries that have been checked:
+    ...  ${heimdall_log_entries}
+    Run Keyword And Continue On Failure   Run Keyword If  '${status}' == 'FAIL'  Fail  msg=${err_msg}
+    # log access log entries on DEBUG level when verification passed
+    Log  ${heimdall_log_entries}  level=DEBUG
+    [Return]  ${heimdall_log}  ${heimdall_log_count}
+
+Filter Proxy Log Create Baseline
+    [Documentation]    Creates baseline for Proxy logs\n
+    ${_baseline_proxylog}=    Filter Log Create Baseline    ${PROXY_LOG_LOCATION}
+    Set Test Variable    ${baseline_proxylog}    ${_baseline_proxylog}
+
+Filter Proxy Log Check
+    [Documentation]  This keyword checks the proxy log for the entry\n
+    [Arguments]  ${baseline}  ${pattern}  ${no_of_entries}=1
+    ${proxy_log}  ${proxy_log_count}=  Filter Log  ${PROXY_LOG_LOCATION}
+    ...  baseline=${baseline}  timeout=300
+    ...  match_patterns=-E '${pattern}'
+    ...  skip_patterns=safebrowsing, tools.eng.ironport.com, autopwd.ironport.com
+    Log  ${proxy_log}
+
+    ${status}  ${value}=  Run Keyword And Ignore Error
+    ...  Should Be Equal As Numbers  ${proxy_log_count}  ${no_of_entries}
+
+    ${proxy_log_entries}  ${proxy_log_count}=  Filter Log  ${PROXY_LOG_LOCATION}
+    ...  baseline=${baseline}  timeout=1
+
+    ${err_msg}=  Catenate  SEPARATOR=\n
+    ...  proxy Log entry matching pattern '${pattern}' has not been found!
+    ...  Entries that have been checked:
+    ...  ${proxy_log_entries}
+    Run Keyword And Continue On Failure   Run Keyword If  '${status}' == 'FAIL'  Fail  msg=${err_msg}
+    # log proxy log entries on DEBUG level when verification passed
+    Log  ${proxy_log_entries}  level=DEBUG
+    [Return]  ${proxy_log}   ${proxy_log_count}
+
+Filter Feedback Log Create Baseline
+    [Documentation]    Creates baseline for feedback logs\n
+    ${_baseline_feedbacklog}=    Filter Log Create Baseline  ${FEEDBACK_LOG_LOCATION}
+    Set Test Variable    ${baseline_feedbacklog}    ${_baseline_feedbacklog}
+
+Filter Feedback Log Check
+    [Documentation]  This keyword checks the Feedback log for the entry\n
+    [Arguments]  ${baseline}  ${pattern}  ${no_of_entries}=1
+    ${feedback_log}  ${feedback_log_count}=  Filter Log  ${FEEDBACK_LOG_LOCATION}
+    ...  baseline=${baseline}  timeout=300
+    ...  match_patterns=-E '${pattern}'
+    ...  skip_patterns=safebrowsing, tools.eng.ironport.com, autopwd.ironport.com
+    Log  ${feedback_log}
+
+
+    ${status}  ${value}=  Run Keyword And Ignore Error
+    ...  Should Be Equal As Numbers  ${feedback_log_count}  ${no_of_entries}
+
+
+    ${feedback_log_entries}  ${feedback_log_count}=  Filter Log  ${FEEDBACK_LOG_LOCATION}
+    ...  baseline=${baseline}  timeout=1
+
+    ${err_msg}=  Catenate  SEPARATOR=\n
+    ...  Feedback Log entry matching pattern '${pattern}' has not been found!
+    ...  Entries that have been checked:
+    ...  ${feedback_log_entries}
+    Run Keyword And Continue On Failure   Run Keyword If  '${status}' == 'FAIL'  Fail  msg=${err_msg}
+    # log access log entries on DEBUG level when verification passed
+    Log  ${feedback_log_entries}  level=DEBUG
+    [Return]  ${feedback_log}
+
+Filter HTTPS Log Create Baseline
+    [Documentation]    Creates baseline for HTTPS logs\n
+    ${_baseline_httpslog}=    Filter Log Create Baseline  ${HTTPS_LOG_LOCATION}
+    Set Test Variable    ${baseline_httpslog}    ${_baseline_httpslog}
+
+Filter HTTPS Log Check
+    [Documentation]  This keyword checks the  HTTPS log for the entry\n
+    [Arguments]  ${baseline}  ${pattern}  ${no_of_entries}=1
+    ${https_log}  ${https_log_count}=  Filter Log  ${HTTPS_LOG_LOCATION}
+    ...  baseline=${baseline}  timeout=300
+    ...  match_patterns=-E '${pattern}'
+    ...  skip_patterns=safebrowsing, tools.eng.ironport.com, autopwd.ironport.com
+    Log  ${https_log}
+
+    ${status}  ${value}=  Run Keyword And Ignore Error
+    ...  Should Be Equal As Numbers  ${https_log_count}  ${no_of_entries}
+
+    ${https_log_entries}  ${https_log_count}=  Filter Log  ${HTTPS_LOG_LOCATION}
+    ...  baseline=${baseline}  timeout=1
+
+    ${err_msg}=  Catenate  SEPARATOR=\n
+    ...  HTTPS Log entry matching pattern '${pattern}' has not been found!
+    ...  Entries that have been checked:
+    ...  ${https_log_entries}
+    Run Keyword And Continue On Failure   Run Keyword If  '${status}' == 'FAIL'  Fail  msg=${err_msg}
+    # log access log entries on DEBUG level when verification passed
+    Log  ${https_log_entries}  level=DEBUG
+    [Return]  ${https_log}   ${https_log_count}

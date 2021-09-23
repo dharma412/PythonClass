@@ -1,0 +1,176 @@
+*** Settings ***
+Library      Telnet  15
+Library      String
+Library      SSHLibrary
+
+*** Variables ***
+${server}        ad2.cs3
+${server_1}      ad1.cs3
+${username}      administrator
+${password}      Cisco1234$
+
+*** Keywords ***
+Open telnet Connection
+    Telnet.Open Connection  ${server}
+    Set Prompt  >
+    Telnet.Login  ${username}  ${password}  password_prompt=password:
+
+Open telnet Connection for ad1
+    Telnet.Open Connection  ${server_1}
+    Set Prompt  >
+    Telnet.Login  ${username}  ${password}  password_prompt=password:
+
+
+Get Win2012 Smb1 Status
+    Open telnet Connection
+
+    ${out}=  Telnet.Execute Command  powershell "Get-SmbServerConfiguration | Select EnableSmb1Protocol"
+    Log  ${out}
+    ${match}=  Should Match Regexp  ${out}  .*EnableSmb1Protocol\\s+------------------\\s+(False|True)
+	Log  ${match[1]}
+
+    Telnet.Close Connection
+    [Return]  ${match[1]}
+
+Set Win2012 Smb1 Status
+    [Documentation]  Sets status of smb1 protocol
+	[Arguments]
+	...  ${status}=false
+    Open telnet Connection
+
+    ${out}=  Telnet.Execute Command  powershell "Set-SmbServerConfiguration -EnableSMB1Protocol $${status} -Force"
+    Telnet.Close Connection
+
+Get Win2012 Smb2 Status
+    Open telnet Connection
+
+    ${out}=  Telnet.Execute Command  powershell "Get-SmbServerConfiguration | Select EnableSmb2Protocol"
+    Log  ${out}
+    ${match}=  Should Match Regexp  ${out}  .*EnableSmb2Protocol\\s+------------------\\s+(False|True)
+	Log  ${match[1]}
+
+    Telnet.Close Connection
+    [Return]  ${match[1]}
+
+Set Win2012 Smb2 Status
+    [Documentation]  Sets status of smb2 protocol
+	[Arguments]
+	...  ${status}=false
+    Open telnet Connection
+
+    ${out}=  Telnet.Execute Command  powershell "Set-SmbServerConfiguration -EnableSMB2Protocol $${status} -Force"
+    Telnet.Close Connection
+
+Enable smb1 for Win2012
+    Set Win2012 Smb1 Status  true
+    ${out}=  Get Win2012 Smb1 Status
+    Should Contain  ${out}  True
+    Log  ${out}
+
+
+Enable smb2 for Win2012
+    Set Win2012 Smb2 Status  true
+    ${out}=  Get Win2012 Smb2 Status
+    Should Contain  ${out}  True
+    Log  ${out}
+
+Disable Smb1 for Win2012
+    Set Win2012 Smb1 Status  false
+    ${out}=  Get Win2012 Smb1 Status
+    Should Contain  ${out}  False
+    Log  ${out}
+
+Disable Smb2 for Win2012
+    Set Win2012 Smb2 Status  false
+    ${out}=  Get Win2012 Smb2 Status
+    Should Contain  ${out}  False
+    Log  ${out}
+
+Enable smb1 for 2008
+	Open telnet Connection for ad1
+    ${out}=  Telnet.Execute Command  powershell "Set-ItemProperty -Path HKLM:\SYSTEM\\CurrentControlSet\\Services\\LanmanServer\\Parameters SMB1 -Type DWORD -Value 1 -Force"
+    Telnet.Close Connection
+Enable smb2 for 2008
+	Open telnet Connection for ad1
+    ${out}=  Telnet.Execute Command  powershell "Set-ItemProperty -Path HKLM:\SYSTEM\\CurrentControlSet\\Services\\LanmanServer\\Parameters SMB2 -Type DWORD -Value 1 -Force"
+    Telnet.Close Connection
+
+Disable smb1 for 2008
+	Open telnet Connection for ad1
+    ${out}=  Telnet.Execute Command  powershell "Set-ItemProperty -Path HKLM:\SYSTEM\\CurrentControlSet\\Services\\LanmanServer\\Parameters SMB1 -Type DWORD -Value 0 -Force"
+    Telnet.Close Connection
+
+Disable smb2 for 2008
+	Open telnet Connection for ad1
+    ${out}=  Telnet.Execute Command  powershell "Set-ItemProperty -Path HKLM:\SYSTEM\\CurrentControlSet\\Services\\LanmanServer\\Parameters SMB2 -Type DWORD -Value 0 -Force"
+    Telnet.Close Connection
+
+Get Win2016 Smb1 Status
+    SSHLibrary.Open Connection  ${AD3_SERVER}  timeout=60
+    ${out}  SSHLibrary.Login  ${AD3_JOIN_USER}  ${AD3_JOIN_PW}
+    Log  ${out}
+    ${out}=  SSHLibrary.Execute Command  powershell "Get-SmbServerConfiguration | Select EnableSmb1Protocol"
+    Log  ${out}
+    ${match}=  Should Match Regexp  ${out}  .*EnableSmb1Protocol\\s+------------------\\s+(False|True)
+	Log  ${match[1]}
+	SSHLibrary.Close Connection
+	[Return]  ${match[1]}
+
+Set Win2016 Smb1 Status
+    [Documentation]  Sets status of smb1 protocol
+	[Arguments]
+	...  ${status}=false
+
+    SSHLibrary.Open Connection  ${AD3_SERVER}  timeout=60
+    ${out}  SSHLibrary.Login  ${AD3_JOIN_USER}  ${AD3_JOIN_PW}
+    Log  ${out}
+    ${out}=  SSHLibrary.Execute Command  powershell "Set-SmbServerConfiguration -EnableSMB1Protocol $${status} -Force"
+    Log  ${out}
+    SSHLibrary.Close Connection
+
+Get Win2016 Smb2 Status
+    SSHLibrary.Open Connection  ${AD3_SERVER}  timeout=60
+    ${out}  SSHLibrary.Login  ${AD3_JOIN_USER}  ${AD3_JOIN_PW}
+    Log  ${out}
+    ${out}=  SSHLibrary.Execute Command  powershell "Get-SmbServerConfiguration | Select EnableSmb2Protocol"
+    Log  ${out}
+    ${match}=  Should Match Regexp  ${out}  .*EnableSmb2Protocol\\s+------------------\\s+(False|True)
+	Log  ${match[1]}
+	SSHLibrary.Close Connection
+	[Return]  ${match[1]}
+
+Set Win2016 Smb2 Status
+    [Documentation]  Sets status of smb2 protocol
+	[Arguments]
+	...  ${status}=false
+
+    SSHLibrary.Open Connection  ${AD3_SERVER}  timeout=60
+    ${out}  SSHLibrary.Login  ${AD3_JOIN_USER}  ${AD3_JOIN_PW}
+    Log  ${out}
+    ${out}=  SSHLibrary.Execute Command  powershell "Set-SmbServerConfiguration -EnableSMB2Protocol $${status} -Force"
+    Log  ${out}
+    SSHLibrary.Close Connection
+
+Enable smb1 for Win2016
+    Set Win2016 Smb1 Status  true
+    ${out}=  Get Win2016 Smb1 Status
+    Should Contain  ${out}  True
+    Log  ${out}
+
+Enable smb2 for Win2016
+    Set Win2016 Smb2 Status  true
+    ${out}=  Get Win2016 Smb2 Status
+    Should Contain  ${out}  True
+    Log  ${out}
+
+Disable Smb1 for Win2016
+    Set Win2016 Smb1 Status  false
+    ${out}=  Get Win2016 Smb1 Status
+    Should Contain  ${out}  False
+    Log  ${out}
+
+Disable Smb2 for Win2016
+    Set Win2016 Smb2 Status  false
+    ${out}=  Get Win2016 Smb2 Status
+    Should Contain  ${out}  False
+    Log  ${out}

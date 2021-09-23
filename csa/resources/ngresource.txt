@@ -1,0 +1,139 @@
+*** Settings ***
+Documentation     A resource file with reusable keywords and variables.
+Library           SeleniumLibrary
+Library           AngularJSLibrary
+Library           OperatingSystem
+
+*** Variables ***
+${BROWSER}    Firefox
+${DELAY}    0.25
+${LOGIN_ADMIN_USER}   admin
+${LOGIN_ADMIN_PASSWORD}    Cisco123$
+${PORT}           43583
+${LOGIN_URL}      https://${DUT}:${PORT}/ng-login
+${WELCOME URL}    https://${DUT}:${PORT}/reporting/overview-report
+${USERNAME_XPATH}       id:username
+${PASSWORD_XPATH}       id:password
+${LOGIN_BUTTON_XPATH}    //*[@type='submit' and text()='Log in']
+${TITLE_CONTENT}           Email Security Appliance
+${USERNAME_NG}       ng-model=$ctrl.formData.username
+${PASSWORD_NG}       ng-model=$ctrl.formData.password
+${MONITOR_XPATH}     //a[text()='Monitoring']
+${MENU_XPATH}        $ctrl.toggle()
+${MAIL_FLOW_POLICY_XPATH}     //a[text()='Mail Flow Summary']
+${INCOMING_MSG_XPATH}         ng-binding=$ctrl.ovalBlockData[$ctrl.ovalBlockConfig.totalCounter.param]| number
+${QUARANTINE_LINK}                  //a[text()='Quarantine']
+${THREAT_DETECT_SUMMARY_SPAM_DETECTION}        //div[@class='ribbon-card__title']/h3[text()='Spam Detection']
+${LOGOUT_MENU}       //ul[contains(@class, 'dropdown-menu')]
+${LOGOUT_ICON}       $ctrl.logout()
+${CONTENT_SUMMARY}      //div[@class='ribbon-card__container ribbon-card__greymail']
+${EMAIL_SPOOFING}       //div[@class='ribbon-card__container ribbon-card__emailSpoofing']
+${OUTGOING_MAIL_SUMMARY_TAB}        {\'ngsma-tabs__text-underline\' : $ctrl.isStateActive('outgoing')}
+${OUTGOING_MAIL_MESSAGE_PROCESS}     $ctrl.selectRibbon(ribbon.id)
+${LOGOUT_MENU_OLD}         xpath:/html/body/div[2]/header/nav/div/div[3]/header-menu/div[1]/div[1]
+${LOGOUT_ICON_OLD}         xpath:/html/body/div[2]/header/nav/div/div[3]/header-menu/div[1]/div[1]/ul/li/a
+
+
+*** Keywords ***
+Open Browser To Login Page
+    Open Browser    ${LOGIN_URL}    ${BROWSER}
+    Maximize Browser Window
+    Set Selenium Speed    ${DELAY}
+    Login Page Should Be Open
+
+Login Page Should Be Open
+    Title Should Be     ${TITLE_CONTENT}
+
+Go To Login Page
+    Go To    ${LOGIN URL}
+    Login Page Should Be Open
+
+Input Username
+    [Arguments]   ${xpath}     ${username}
+    Log        ${xpath} ::: ${username}
+    Input Text    ${xpath}     ${username}
+
+Input Password
+    [Arguments]   ${xpath}     ${password}
+    Input Text    ${xpath}     ${password}
+
+Submit Credentials
+    Click Button    ${LOGIN_BUTTON_XPATH}
+
+Welcome Page Should Be Open
+    Location Should Be    ${WELCOME URL}
+    Title Should Be    ${TITLE_CONTENT}
+
+Login to DUT
+    Open Browser To Login Page
+    Input Username     ${USERNAME_XPATH}     ${LOGIN_ADMIN_USER}
+    Input Password    ${PASSWORD_XPATH}      ${LOGIN_ADMIN_PASSWORD}
+    Submit Credentials
+    Welcome Page Should Be Open
+
+Login to DUT Angular
+    Open Browser To Login Page
+    Input Username     ${USERNAME_NG}     ${LOGIN_ADMIN_USER}
+    Input Password     ${PASSWORD_NG}     ${LOGIN_ADMIN_PASSWORD}
+    Submit Credentials
+    Wait for Angular
+    Welcome Page Should Be Open
+
+Get Incoming Number of Messages
+    Click Link     ${MONITOR_XPATH}
+    Wait for Angular
+    Click Ng Button       ${MENU_XPATH}
+    Click Link     ${MAIL_FLOW_POLICY_XPATH}
+    ${count}=    Get Text       ${INCOMING_MSG_XPATH}
+
+Navigate to Quarantine
+    Click Link        ${QUARANTINE_LINK}
+    Wait for Angular
+    Page Should Contain       Spam Quarantine Search
+
+Click on Threat Summary
+    Click Element      ${THREAT_DETECT_SUMMARY_SPAM_DETECTION}
+    Wait for Angular
+
+Logout of DUT
+    Mouse Over          ${LOGOUT_MENU_OLD}
+    Click Element       ${LOGOUT_MENU_OLD}
+    Click Element       ${LOGOUT_ICON_OLD}
+
+Click on Content Summary
+    Click Element     ${CONTENT_SUMMARY}
+    Wait for Angular
+
+Click on Email Spoofing
+    Click Element     ${EMAIL_SPOOFING}
+    Wait for Angular
+
+Click on Outgoing Mail Summary
+    Click Ng Button       $ctrl.onSelect(tab.label)     Outgoing
+    Wait for Angular
+    Click Ng Button       ${OUTGOING_MAIL_MESSAGE_PROCESS}     Message Processing
+    Click Ng Button       ${OUTGOING_MAIL_MESSAGE_PROCESS}     Encryption
+    Wait for Angular
+
+Select Time Range
+    Click Ng Button       $select.toggle($event)      Day
+    Click Ng Button       $select.select(range,$select.skipFocusser,$event)      Week
+
+Search Matches
+    Click Ng Button       $select.activate()      Domain
+    Click Ng Button       $select.select(option,$select.skipFocusser,$event)      Network Owner
+
+Click on Case Menu
+    Click Element         //*[@id="ats-casebook-button"]
+    Click Element         //input[@type='radio' and @value='apjc']
+    Input Username       ng-model=$ctrl.ctrClientCreds.clientId     admin
+    Input Password       ng-model=$ctrl.ctrClientCreds.clientSecret      ironport
+    Click Ng Button      $ctrl.ctrAuthenticate($ctrl.ctrClientCreds)      Authenticate
+
+Select Custom Range
+     Click Ng Button       $select.toggle($event)      Day
+     Click Ng Button       $select.select(range,$select.skipFocusser,$event)      Custom Range...
+     Wait for Angular
+     Input Username        //input[@name='fromField']    8/22/2019
+     Input Username        //input[@name='toField']    9/2/2019
+    Click Ng Button        $ctrl.confirmCustomRange()     Submit

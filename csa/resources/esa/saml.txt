@@ -1,0 +1,83 @@
+# $Id: //prod/main/sarf_centos/resources/esa/saml.txt#1 $
+# $DateTime: 2019/09/16 10:11:05 $
+# $Author: saurgup5 $
+
+*** Settings ***
+Resource     esa/global.txt
+Variables    esa/saml_constants.py
+
+
+*** Variables ***
+${ASSERTION_CONSUMER_URL}             http://${DUT}:83/acs
+
+*** Keywords ***
+Setup Firefox Preferences
+    DefaultTestSuiteSetup
+    Close All Browsers
+    Selenium Close
+    ${firefox_prefs_browser.download.folderList}=  Set Variable  2
+    ${firefox_prefs_browser.download.dir}=  Set Variable  %{SARF_HOME}/tmp/
+    ${firefox_prefs_browser.helperApps.neverAsk.openFile}=  Set Variable  text/xml
+    ${firefox_prefs_browser.helperApps.neverAsk.saveToDisk}=  Set Variable  text/xml
+    Selenium Login
+
+SAML Add SP And IDP Profile For Customer
+    ${settings}=  Create Dictionary
+    ...  User Role                          ${USER_ROLE}
+    ...  SP Profile Name                    ${TEST_SP_PROFILE}
+    ...  SP Entity ID                       ${SP_ENTITY_ID}
+    ...  Assertion Consumer URL             ${ASSERTION_CONSUMER_URL}
+    ...  SP Certificate                     ${CERT_FILE}
+    ...  Private Key                        ${CERT_KEY}
+    ...  Certificate Passphrase             ${CERTIFICATE_PASSPHRASE}
+    ...  Sign Requests                      ${SIGN_REQUEST}
+    ...  Organization Name                  ${ORGANIZATION_NAME}
+    ...  Organization Display Name          ${ORGANIZATION_DISPLAY_NAME}
+    ...  Organization URL                   ${ORGANIZATION_URL}
+    ...  Organization Technical Contact     ${ORGANIZATION_TECHNICAL_CONTACT}
+    ...  IDP Profile Name                   ${TEST_IDP_PROFILE}
+    ...  Configuration Mode                 ${CONFIGURATION_MODE}
+    ...  Import IDP Metadata                ${IDP_METADATA}
+    SAML Add SP And IDP  ${TEST_SP_PROFILE}  ${TEST_IDP_PROFILE}  ${settings}
+    Commit Changes
+
+SAML Add SP And IDP Profile For Devops
+    ${settings}=  Create Dictionary
+    ...  User Role                          ${USER_ROLE_DEVOPS}
+    ...  SP Entity ID                       ${SP_ENTITY_ID}
+    ...  Assertion Consumer URL             ${ASSERTION_CONSUMER_URL}
+    ...  SP Certificate                     ${CERT_FILE}
+    ...  Private Key                        ${CERT_KEY}
+    ...  Certificate Passphrase             ${CERTIFICATE_PASSPHRASE}
+    ...  Sign Requests                      True
+    ...  Organization Name                  ${ORGANIZATION_NAME}
+    ...  Organization Display Name          ${ORGANIZATION_DISPLAY_NAME}
+    ...  Organization URL                   ${ORGANIZATION_URL}
+    ...  Organization Technical Contact     ${ORGANIZATION_TECHNICAL_CONTACT}
+    ...  Configuration Mode                 ${CONFIGURATION_MODE_MANUAL}
+    ...  IDP Entity ID                      ${IDP_ENTITY_ID}
+    ...  SSO URL                            ${SSO_URL}
+    ...  Certificate                        ${CERT_FILE}
+    SAML ADD SP AND IDP  ${TEST_SP_DEVOPS_PROFILE}  ${TEST_IDP_DEVOPS_PROFILE}  ${settings}
+    Commit Changes
+
+Delete SP IDP For Customer
+    [Arguments]  ${sp_name}  ${idp_name}
+    SAML Delete SP IDP  sp_name=${sp_name}  idp_name=${idp_name}
+    Commit Changes
+
+Delete SP IDP For Devops
+    [Arguments]  ${sp_name}  ${idp_name}
+    SAML Delete SP IDP  sp_name=${sp_name}  idp_name=${idp_name}  user_role=devops
+    Commit Changes
+
+Download Metadata
+    [Arguments]  ${sp_profile}=test_sp1_customer  ${user_role}=admin
+    ${download_file}   Catenate  SEPARATOR=  ${sp_profile}  _metadata.xml
+    Log   ${download_file}
+    SAML Download SP Metadata        ${user_role}
+    Wait Until Keyword Succeeds  1 minute  5s  OperatingSystem.File Should Exist  %{SARF_HOME}/tmp/${download_file}
+    File Should Not Be Empty         %{SARF_HOME}/tmp/${download_file}
+    ${sp_metadata}=  OperatingSystem.Get File  %{SARF_HOME}/tmp/${download_file}
+    Log  ${sp_metadata}
+

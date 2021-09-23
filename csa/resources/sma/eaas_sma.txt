@@ -1,0 +1,174 @@
+*** Settings ***
+Resource     esa/global.txt
+Resource     esa/logs_parsing_snippets.txt
+Resource     esa/injector.txt
+Resource     regression.txt
+Resource     sma/global_sma.txt
+Resource     sma/esasma.txt
+
+*** Variables ***
+${eaas_registration_config}  eaas_reg_latest.xml
+${eaas_registration_config_path}  %{SARF_HOME}/tests/testdata/esa/eaas/${eaas_registration_config}
+${SESSION_TIMEOUT}=  1440
+
+
+*** Keywords  ***
+Eaas Suite Setup
+
+    Set Aliases For Appliance Libraries
+    Set Appliance Under Test to ESA
+
+    DefaultTestSuiteSetup
+
+    Copy And Load Eaas Config
+    Eaas Config Enable
+    ...  eaas_enable_app=Yes
+
+    Policyconfig Edit Advanced Phishing Protection Enable
+    ...  Incoming
+    ...  DEFAULT
+    ...  enable_email_forwarding=Yes
+    Commit
+
+    Initialize Spoof
+
+    ${ESA_PUB_LISTENER}=  Get ESA Listener
+    Set Suite Variable  ${ESA_PUB_LISTENER}
+    ${ESA_PUB_LISTENER_IP}=  Get ESA Public IP
+    Set Suite Variable  ${ESA_PUB_LISTENER_IP}
+    ${ESA_PR_LISTENER_IP}=  Get ESA Private IP
+    Set Suite Variable  ${ESA_PR_LISTENER_IP}
+
+    Reporting Config Setup  enable=yes
+    Commit
+
+    Message Tracking Enable  tracking=centralized
+    Commit Changes
+
+    Interfaceconfig Edit  Management
+    ...  api_http=yes  api_https=yes
+    commit
+
+    RAT Recipient Edit  InBoundMail   All  action=Accept
+    Commit Changes
+
+    Admin Access Config Timeout
+    ...  timeout_webui=1440
+    ...  timeout_cli=1440
+    Commit
+
+    Null Smtpd Start
+
+    ###### SMA CONFIG ######
+    Set Appliance Under Test to SMA
+    global_sma.DefaultTestSuiteSetup
+
+    ${SMA_CONFIG_FILE}=  Configuration File Save Config
+    Set Suite Variable  ${SMA_CONFIG_FILE}
+
+    Admin Access Config Timeout
+    ...  timeout_webui=1440
+    ...  timeout_cli=1440
+    Commit
+    Diagnostic Reporting Delete DB  confirm=yes
+    Diagnostic Tracking Delete DB  confirm=yes
+    Commit
+    Centralized Email Reporting Enable
+    Centralized Email Message Tracking Enable
+
+    Security Appliances Add Email Appliance
+    ...  ${ESA}
+    ...  ${ESA_IP}
+    ...  reporting=${True}
+    ...  ssh_credentials=${DUT_ADMIN}:${DUT_ADMIN_SSW_PASSWORD}
+    Commit Changes
+
+    Network Access Edit Settings  ${SESSION_TIMEOUT}
+    Commit Changes
+
+    Set Appliance Under Test to ESA
+
+Eaas Suite Teardown
+
+    Null Smtpd Stop
+    Set Appliance Under Test to ESA
+    eaas_sma.Uninitialize Spoof
+    Message Tracking Disable
+
+    Eaas Config Disable  eaas_disable_app=Yes
+    Commit
+
+    DefaultTestSuiteTeardown
+
+    Set Appliance Under Test to SMA
+    Run Keyword And Ignore Error  Start CLI Session If Not Open
+    Suspend  0
+    Reset Config
+    Configure SSL For GUI
+    Selenium Login
+    Configuration File Load Config  ${SMA_CONFIG_FILE}
+    Commit Changes
+
+    DefaultTestSuiteTeardown
+
+Do Common Testcase Setup
+    DefaultTestCaseSetup
+
+    EsaCliLibrary.Smtp Routes New
+    ...  domain=ALL
+    ...  dest_hosts=/dev/null
+    commit
+    Roll Over Now  mail_logs
+    Roll Over Now  eaas
+
+    Set Appliance Under Test to SMA
+    SMANGGuiLibrary.Launch Dut Browser
+    SMANGGuiLibrary.Login Into Dut
+    SMANGGuiLibrary.Wait For Angular
+
+    Set Appliance Under Test to ESA
+
+Do Common Testcase Teardown
+
+    Set Appliance Under Test to ESA
+    EsaCliLibrary.Smtp Routes Delete
+    ...  domain=ALL
+    Commit
+
+    Set Appliance Under Test to SMA
+    SMANGGuiLibrary.Close Browser
+    Set Appliance Under Test to ESA
+    DefaultTestCaseTeardown
+
+Copy And Load Eaas Config
+    SCP
+    ...  from_location=${eaas_registration_config_path}
+    ...  to_location=/data/pub/configuration/
+    ...  to_host=${ESA}
+    ${version_output}=  Version
+    ${ESA_SERIAL_VAL}=  Get Lines Matching Pattern  ${version_output}  Serial \#:*
+    ${ESA_SERIAL_VAL}=  Fetch From Right  ${ESA_SERIAL_VAL}  :
+    ${ESA_SERIAL_VAL}=  Evaluate  '''${ESA_SERIAL_VAL}'''.strip()
+    Run On Dut  sed -i -e 's/42155BF723C4ED405E9C-68C898B3BB54/${ESA_SERIAL_VAL}/g' /data/pub/configuration/${eaas_registration_config}
+    Load Config From File  ${eaas_registration_config}
+    Commit
+
+    Restart Service And Check Status  eaas
+    Restart Service And Check Status  hermes
+
+Initialize Spoof
+    SCP
+    ...  from_location=%{SARF_HOME}/tests/testdata/esa/eaas/charter.ips
+    ...  to_location=/data/pub/configuration/
+    ...  to_host=${ESA}
+    @{set_spoof_script}=  Create List
+    ...  import spoof_smtp_session as M
+    ...  M.read_ips("","charter.ips")
+    ...  M.install()
+    Backdoor Run  hermes  ${set_spoof_script}
+
+Uninitialize Spoof
+    @{set_spoof_script}=  Create List
+    ...  import spoof_smtp_session as U
+    ...  U.remove_ips()
+    Backdoor Run  hermes  ${set_spoof_script}

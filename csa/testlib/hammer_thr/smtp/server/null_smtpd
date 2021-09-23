@@ -1,0 +1,10 @@
+#!/usr/bin/env bash
+SUDO_OUTPUT=`sudo -l -U $USER`
+if [[ "$SUDO_OUTPUT" =~ "is not allowed to run" ]]; then
+    echo "ERROR::Currrent user does not have sudo permission\n";
+    echo "ERROR::Failed to start the null smtpd server\n"
+    exit 1
+else
+    sudo /usr/bin/env python  $SARF_HOME/testlib/hammer_thr/smtp/server/null_smtpd.py "$@"
+fi
+

@@ -1,0 +1,375 @@
+# $Id: //prod/main/sarf_centos/resources/sma/global_sma.txt#2 $
+# $DateTime: 2019/05/29 01:29:05 $
+# $Author: sarukakk $
+
+*** Variables ***
+${TEST_CONNECTION_LEAKAGE}    ${FALSE}
+${CONFIG_DIR} =  /data/pub/configuration
+${LICENSE_FILE_PATH}  %{SARF_HOME}/tests/testdata/virtual
+${LICENSE_FILE_NAME}  smalicense.xml
+
+*** Settings ***
+Library    SSHLibrary
+Library    SmaGuiLibrary
+Library    SmaCliLibrary
+Library    UtilsLibrary   ${SMA}
+Library    OperatingSystem
+Library    String
+Variables    log_files.py
+Variables    sma_intf.py    ${SMA}
+Variables    network.py
+Variables    constants.py
+Variables    sma/constants.py
+Variables    credentials.py
+Resource    sma/ssw_sma.txt
+Resource    testfiles.txt
+Resource    logs.txt
+Resource    selenium.txt
+Resource    ipfw.txt
+Resource    set_sshlib_prompt.txt
+Resource    licensesmart_common.robot
+
+*** Keywords ***
+DefaultTestCaseSetup
+    [Documentation]    That keyword implements actions that should be included in Setup of every TestCase
+
+    # Checking CLI access to DUT. If cli session was closed, trying to reopen it
+    ${ready}    ${out2}    Run Keyword And Ignore Error
+    ...    Start CLI Session If Not Open
+    Run Keyword If   '${ready}' == 'FAIL'
+    ...   Fatal Error    Cli session is not available and can not be reopened!
+
+    Set Test Variable  ${EXCLUDE_PATTERNS}  ${EMPTY}
+    Set SSHLib Prompt  ${EMPTY}
+    Find Log Errors
+    Create Test Timestamp
+    Filter Access Log Create Baseline
+
+DefaultTestCaseTeardown
+    [Documentation]    That keyword implements actions that should be included in Teardown of every TestCase
+    Run Keyword If Test Failed  Restart CLI Session
+    Set SSHLib Prompt  ${EMPTY}
+    Pass Fail Criteria
+    SSHLibrary.Close All Connections
+    Find New Log Errors
+
+DefaultTestSuiteSetup
+    [Documentation]    That keyword implements actions that should be included in Setup of every TestSuite
+
+    Log Variables
+    Remove All Ipfw Rules On FTP Server
+    Remove All Ipfw Rules On Client
+    # Checking GUI access to DUT (a crash or a reboot could happen)
+    ${ready}    ${out2}    Run Keyword And Ignore Error
+    ...    Wait until DUT Is Accessible    wait_for_ports=${DUT_PORT}    timeout=360
+    Run Keyword If   '${ready}' == 'FAIL'
+    ...   Fatal Error    Gui became unavailable
+
+    # Checking CLI access to DUT. If cli session was closed, trying to reopen it
+    ${ready}    ${out2}    Run Keyword And Ignore Error
+    ...    Start CLI Session If Not Open
+    Run Keyword If   '${ready}' == 'FAIL'
+    ...   Fatal Error    Cli session is not available and can not be reopened!
+    ${is_restricted}=  Is Admin Cli Restricted
+    Run Keyword If  ${is_restricted}
+    ...  Passwd
+    ...  old_pwd=${DUT_ADMIN_PASSWORD}
+    ...  new_pwd=${DUT_ADMIN_TMP_PASSWORD}
+    Start Cli Session If Not Open
+    Load DUT License
+    Revert DUT To Initial State
+
+    Run Keyword If  ${USE_SMART_LICENSE} == 1
+    ...  Enable Smart License On Appliance
+
+    Run Keyword If  ${SMART_LICENSE_REGISTERED_STATE} == 1
+    ...  Register DUT With SSM
+
+    #Returns -1 when no entitlements available for activation
+    ${entl_available}=  Run Keyword If  ${USE_SMART_LICENSE} == 1
+    ...  Entitlements Not Activated
+
+    Run Keyword If  ${USE_SMART_LICENSE} == 1 and ${entl_available} != -1
+    ...  Request All Entitlements
+
+    #Restarting the CLI session is recommended after activation of features
+    #in smart license. Also verifies that all entitlements are activated in SL.
+    Run Keyword If  ${USE_SMART_LICENSE} == 1  Run Keywords
+    ...  Verify All Entitlements Are Activated
+    ...  Restart CLI Session
+
+    Run   sudo cp %{SARF_HOME}/testlib/hammer/smtp/client/smtp_spam /usr/local/bin/smtp_spam
+
+DefaultTestSuiteTeardown
+    [Documentation]    That keyword implements actions that should be included in Teardown of every TestSuite
+    Run Keyword If  ${USE_SMART_LICENSE} == 1 and ${SMART_LICENSE_CLEANUP_CONFIG} == 1  Run Keywords
+    ...  Release All Entitlements
+    ...  Deregister Appliance From SSM
+    ...  Suspend
+    ...  Reset Config
+
+    SSHLibrary.Close All Connections
+    Selenium Close
+
+Revert DUT To Initial State
+    [Documentation]    Reset configuration and run System Setup Wizard
+    Suspend
+    Reset Config
+    Configure SSL For GUI
+    Selenium Login
+    SSW Run According SSW_MODE
+
+Wait For Prox Restarted
+     Log    "Waiting for proxy to get ready..."
+     # Create baseline
+     ${baseline_proxlog}=   Filter Log Create Baseline  ${PROXY_LOGS}
+     # search pattern
+     ${proxy_log}   ${proxy_count}=   Filter Log
+     ...  ${PROXY_LOGS}
+     ...  baseline=${baseline_proxlog}
+     ...  timeout=30
+     ...  match_patterns= -E ".*Proxy's outgoing IP address = 0.0.0.0"
+     # check for 1 new entry appears in proxylog
+     ${status}   ${value} =   Run Keyword And Ignore Error
+     ...   Should Be Equal As Integers  ${proxy_count}  1
+     # Wait 5 sec after getting log entry
+     Run Keyword If   '${status}' == 'PASS'   Sleep   5s
+     Run Keyword Unless   '${status}' == 'PASS'
+     ...   Log  "Waited for 30 secs. proxy should be ready now"
+
+Pass Fail Criteria
+    [Documentation]    Additional verifications to be performed at the end of Test Case
+    Core Files Check
+    Run Keyword If    ${TEST_CONNECTION_LEAKAGE}    Connection Leakage Test
+
+Get Host IP By Name
+    [Documentation]    This keyword returns IP address of specified hostname.
+    [Arguments]    ${hostname}
+    ${ip}=  Evaluate  socket.gethostbyname('${hostname}')  socket
+    [Return]    ${ip}
+
+Get Current Timestamp
+    [Documentation]    This keyword gets current timestamp from specified hostname.
+    [Arguments]    ${hostname}    ${username}    ${password}
+    ${address} =  Get Host IP By Name  ${hostname}
+    SSHLibrary.Open Connection    ${address}
+    SSHLibrary.Login    ${username}    ${password}
+    ${out}=    SSHLibrary.Execute Command    date "+%Y%m%d%H%M"
+    SSHLibrary.Close Connection
+    [Return]    ${out}
+
+Get Date Time Offset
+   [Documentation]  Calculates resulting date with given offset.\n
+   ...  The datetime format should look like "Wed Jul 11 07:03:12 2012 PDT"\n
+   ...  (the same format as `settime` cli command returns).\n
+   ...  *Arguments:*\n
+   ...  - `current_datetime`: The datetime as it is returned by `settime`\n
+   ...  CLI command, format like "Wed Jul 11 07:03:12 2012 PDT"\n
+   ...  - `offset_days`: Offset for days.\n
+   ...  - `offset_hours`: Offset for hours.\n
+   ...  - `offset_minutes`: Offset for minutes.\n
+   ...  - `offset_seconds`: Offset for seconds.\n
+   ...  All offset arguments are optional. Accepts same values as python's datetime.timedelta.
+   ...  *Return:*\n
+   ...  Date and time as string suitable for CLI `settime` command.
+   [Arguments]  ${current_datetime}
+   ...  ${offset_days}=0
+   ...  ${offset_hours}=0
+   ...  ${offset_minutes}=0
+   ...  ${offset_seconds}=0
+   ${result_dt}=  Evaluate
+   ...  datetime.datetime.strptime('${current_datetime}'[:-4], '%a %b %d %H:%M:%S %Y') + datetime.timedelta(days=int(${offset_days}), hours=int(${offset_hours}), minutes=int(${offset_minutes}), seconds=int(${offset_seconds}))
+   ...  datetime
+   ${result_as_str}=  Evaluate  datetime.datetime.strptime('${result_dt}', '%Y-%m-%d %H:%M:%S').strftime('%m/%d/%Y %H:%M:%S')
+   ...  datetime
+   [Return]  ${result_as_str}
+
+Configure SSL For GUI
+    [Arguments]    ${admin_password}=${DUT_ADMIN_TMP_PASSWORD}
+    Log  ${admin_password}
+    ${is_restricted}=  Is Admin Cli Restricted
+    Run Keyword If  ${is_restricted}
+    ...  Passwd
+    ...  old_pwd=${DUT_ADMIN_PASSWORD}
+    ...  new_pwd=${admin_password}
+    Start Cli Session If Not Open
+    ${out}=  Version
+    ${CURRENT_DUT_VERSION}=  Evaluate
+    ...  re.search(r'Version: (\\d+\.\\d+\.\\d+-\\d+)', '''${out}''').groups()[0]  re
+    Log  ${CURRENT_DUT_VERSION}
+    Run Keyword if   '${CURRENT_DUT_VERSION}' >= '12.0.0-400'
+    ...  SSL Config Gui  versions=All Services  ssl_method=TLSv1.0  confirm=Enable for all services
+    #SSL Config Gui  versions=WebUI  ssl_method=TLSv1.1  confirm=Yes
+    #SSL Config Gui  versions=WebUI  ssl_method=TLSv1.2  confirm=Yes
+    #SSL Config Gui  versions=WebUI  ssl_method=SSLv3.0  confirm=Yes
+    Commit
+
+Execute And Log
+    [Documentation]    This keyword executes command and logs stdout.
+    [Arguments]    ${arg}
+    ${out}=    SSHLibrary.Execute Command    ${arg}
+    Log    ${out}
+    [Return]    ${out}
+
+Check Core Files Newer Than Time
+    [Documentation]    This keyword checks core files that are newer than specified\n
+    ...    timestamp, runs them against gdb and logs results.
+    [Arguments]    ${hostname}    ${username}    ${password}    ${timestamp}
+    ${address} =  Get Host IP By Name  ${hostname}
+    SSHLibrary.Open Connection    ${address}
+    SSHLibrary.Login    ${username}    ${password}
+    SSHLibrary.Execute Command    touch -t ${timestamp} /tmp/timestamp
+    ${out}=    SSHLibrary.Execute Command    find /data/cores/ -name "*.core" -newer /tmp/timestamp
+    ${subcmd1}=  Set Variable
+    ...  printf "set pagination off\\nbt\\nt 2\\nbt\\n" > /tmp/gdb_commands.txt
+	${gdb_command}=  Set Variable
+	...  gdb /usr/local/prox/libexec/prox '{}' -x /tmp/gdb_commands.txt --batch
+    ${subcmd2}=  Set Variable
+    ...  find /data/cores/ -name "*.core" -newer /tmp/timestamp -exec ${gdb_command} ';'
+    ${subcmd3}=  Set Variable
+    ...  rm /tmp/gdb_commands.txt
+    ${cmd}=    Set Variable  ${subcmd1} && ${subcmd2} && ${subcmd3}
+    Run Keyword Unless    '${out}' == '${EMPTY}'    Sleep    1m
+    Run Keyword Unless    '${out}' == '${EMPTY}'    Execute And Log    ${cmd}
+    SSHLibrary.Close Connection
+    Run Keyword Unless    '${out}' == '${EMPTY}'    Log    ${out}
+    Run Keyword Unless    '${out}' == '${EMPTY}'    Fail    msg=crash detected.
+
+Delete Files At Location
+    [Documentation]    This keyword deletes all files at specified location.
+    [Arguments]    ${hostname}    ${username}    ${password}    ${location}
+    ${address} =  Get Host IP By Name  ${hostname}
+    SSHLibrary.Open Connection     ${address}
+    SSHLibrary.Login    ${username}    ${password}
+    ${out}=    SSHLibrary.Execute Command    rm -rf ${location}/*
+    Log    ${out}
+    SSHLibrary.Close Connection
+
+Core Files Check
+    [Documentation]    This keyword performs core files check.
+    Check Core Files Newer Than Time    ${DUT}    ${RTESTUSER}
+    ...    ${RTESTUSER_PASSWORD}    ${timestamp}
+
+Create Test Timestamp
+    [Documentation]    This keyword creates test variable with timestamp value.
+    ${tmstmp}=    Get Current Timestamp    ${DUT}
+    ...    ${RTESTUSER}    ${RTESTER_PASSWORD}
+    Set Test Variable    ${timestamp}    ${tmstmp}
+
+Get DUT Connections Status
+    [Documentation]  Returns DUT connections status.
+    [Arguments]    ${hostname}    ${username}    ${password}
+    ${address} =  Get Host IP By Name  ${hostname}
+    SSHLibrary.Open Connection    ${address}
+    SSHLibrary.Login    ${username}    ${password}
+    ${out}=    SSHLibrary.Execute Command    status detail
+    ${connections}=    Get Lines Containing String    ${out}    connections    case-insensitive
+    [Return]    ${connections}
+
+Run Command On FTP Server
+    [Documentation]    Runs specified command on FTP server ${FTP_SERVER}.
+    [Arguments]    ${command}
+    ${address} =  Get Host IP By Name  ${FTP_SERVER}
+    SSHLibrary.Open Connection    ${address}
+    SSHLibrary.Login    ${FTPUSER}    ${FTPUSER_PASSWORD}
+    ${out}=  SSHLibrary.Execute Command    ${command}
+    SSHLibrary.Close Connection
+    [Return]  ${out}
+
+Run Command On FTP Client
+    [Documentation]    Runs specified command on FTP client ${CLIENT_HOSTNAME}.
+    [Arguments]    ${command}
+    ${address} =  Get Host IP By Name  ${CLIENT_HOSTNAME}
+    SSHLibrary.Open Connection    ${address}
+    SSHLibrary.Login    ${TESTUSER}    ${TESTUSER_PASSWORD}
+    ${out}=  SSHLibrary.Execute Command    ${command}
+    SSHLibrary.Close Connection
+    [Return]  ${out}
+
+Start TCPDump On Host
+    [Documentation]  Starts tcpdump session on specified host.
+    [Arguments]  ${hostname}  ${username}  ${password}  ${tcpdump_args}
+    ${address} =  Get Host IP By Name  ${hostname}
+    SSHLibrary.Open Connection  ${address}
+    SSHLibrary.Login  ${username}  ${password}
+    SSHLibrary.Start Command  tcpdump ${tcpdump_args} > /tmp/session.log
+    Sleep  3s
+    SSHLibrary.Close Connection
+
+Get TCPDump Session Results From Host
+    [Documentation]  Gets tcpdump session results from host.
+    [Arguments]  ${hostname}  ${username}  ${password}
+    ${address} =  Get Host IP By Name  ${hostname}
+    SSHLibrary.Open Connection  ${address}
+    SSHLibrary.Login  ${username}  ${password}
+    ${result}=  SSHLibrary.Execute Command  ps aux | grep tcpdump | awk '{print $2}' | xargs kill
+    ${out}=  SSHLibrary.Execute Command  sleep 3 && cat /tmp/session.log && rm -f /tmp/session.log
+    SSHLibrary.Close Connection
+    [Return]  ${out}
+
+Connection Leakage Test    [Arguments]    ${timeout}=60
+     [Documentation]  Run Status CLI command &  check for no connection leakage \n
+     Sleep    5
+     :FOR   ${index}   IN RANGE    ${timeout}
+     \    ${out}=  Status
+
+     \    ${total_server}    ${out2}    Run Keyword And Ignore Error
+     ...    Should Contain  ${out.connections['total_server'][0]}  0
+
+     \    ${idle_client}    ${out2}    Run Keyword And Ignore Error
+     ...    Should Contain  ${out.connections['idle_client'][0]}  0
+
+     \    ${total_client}    ${out2}    Run Keyword And Ignore Error
+     ...    Should Contain  ${out.connections['total_client'][0]}  0
+
+     \    ${idle_server}    ${out2}    Run Keyword And Ignore Error
+     ...    Should Contain  ${out.connections['idle_server'][0]}  0
+
+     \    Run Keyword If    '${total_server}' == 'PASS' and '${idle_client}' == 'PASS' and '${total_client}' == 'PASS' and '${idle_server}' == 'PASS'
+     ...    Exit For Loop
+     \    Sleep    1
+
+    Log    ${out}
+    Run Keyword Unless    '${total_server}' == 'PASS'
+    ...    Fail    msg=Possible Connection Leakage:'total_server' counter is not 0
+    Run Keyword Unless    '${idle_client}' == 'PASS'
+    ...    Fail    msg='Possible Connection Leakage:'idle_client' counter is not 0
+    Run Keyword Unless    '${total_client}' == 'PASS'
+    ...    Fail    msg='Possible Connection Leakage:'total_client' counter is not 0
+    Run Keyword Unless    '${idle_server}' == 'PASS'
+    ...    Fail    msg='Possible Connection Leakage:'idle_server' counter is not 0
+
+Enable Testing Connection Leakage
+    Set Suite Variable    ${TEST_CONNECTION_LEAKAGE}    ${TRUE}
+
+Add Cert Exception For Quarantine Page
+   ${ff_profile}=  Get Firefox Profile Directory
+   ${certline}=  Run  grep ${DUT} ${ff_profile}/cert_override.txt
+   ${newline}=  Set Variable  ${certline.replace('${DUT}:443', '${DUT}:83')}
+   ${cmd}=  Catenate  echo '' >> ${ff_profile}/cert_override.txt &&
+   ...  echo '${newline}' >> ${ff_profile}/cert_override.txt &&
+   ...  echo '' >> ${ff_profile}/cert_override.txt
+
+   Run  ${cmd}
+
+Load DUT License
+    ${output}=  Show License
+    ${status}  ${value}  Run Keyword And Ignore Error  Should Contain  ${output}  No License Installed
+
+    Run Keyword If  '${status}' == 'PASS'
+    ...  Load License From File
+
+Load License From File
+   Copy File To DUT  ${LICENSE_FILE_PATH}/${LICENSE_FILE_NAME}  ${CONFIG_DIR}/
+
+   #Checking CLI access to DUT. If cli session was closed, trying to reopen it
+   ${ready}  ${out2}  Run Keyword And Ignore Error
+   ...  Start CLI Session If Not Open
+
+   Run Keyword If  '${ready}' == 'FAIL'
+   ...  Fatal Error  Cli session is not available and can not be reopened!
+
+   ${output}=  Load License  conf=file  conf_file=${LICENSE_FILE_NAME}
+
+   Should Not Contain  ${output}  No License Installed
+   Should Contain  ${output}  Feature keys added

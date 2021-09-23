@@ -1,0 +1,181 @@
+# $Id: //prod/main/sarf_centos/resources/sma/esasma.txt#1 $ $DateTime: 2019/03/22 01:36:06 $ $Author: aminath $
+
+*** Settings ***
+Resource   esa/ssw.txt
+Resource   regression.txt
+Resource   esa/global.txt
+Resource   esa/injector.txt
+Resource   backdoor_snippets.txt
+Variables  esa/mbox.py
+
+*** Variables ***
+${LDAP_MAILATTR}=  mail,mailLocalAddress,mailRoutingAddress
+${UID}=  sma_bat
+${MAIL_LOCAL_ADDRESS}=  ${UID}@test.com
+${MAIL_ROUTING_ADDRESS}=  ${UID}@ironport.com
+${MAIL}=  ${UID}@mail.qa
+${PASSWORD}=  ironport
+${ISQ_USER}=  ${UID}-isq
+${ISQ_USER_MAIL}=  ${ISQ_USER}@${CLIENT_HOSTNAME}
+${ALERTS_HOST}=  ${CLIENT_HOSTNAME}
+
+*** Keywords ***
+Init BAT Common Variables
+    Set Global Variable  ${ALERT_RCPT}  dev_null@${ALERTS_HOST}
+
+Add LDAP Users
+    LDAP Client Connect  ${LDAP_AUTH_SERVER}
+    ...  ldap_server_type=${LDAP_SERVER_TYPE}
+    ...  port=${LDAP_AUTH_PORT}
+    ...  basedn=${LDAP_BASEDN}
+    ...  binddn=${LDAP_BINDDN}
+    ...  password=${LDAP_PASSWORD}
+    LDAP Client Create User  uid=${UID}  password=${PASSWORD}
+    ...  objectclass=inetOrgPerson,inetLocalMailRecipient
+    ...  posixAccount=${True}  mail=${MAIL}
+    ...  mail_local_address=${MAIL_LOCAL_ADDRESS}
+    ...  mail_routing_address=${MAIL_ROUTING_ADDRESS}
+    LDAP Client Create User  uid=${ISQ_USER}  password=${PASSWORD}
+    ...  objectclass=inetOrgPerson,inetLocalMailRecipient
+    ...  posixAccount=${True}  mail=${ISQ_USER_MAIL}
+    ...  mail_local_address=${ISQ_USER}@mail.${CLIENT_HOSTNAME}
+    ...  mail_routing_address=dev_null@${CLIENT_HOSTNAME}
+
+Remove LDAP Users
+    LDAP Client Delete User  ${UID}
+    LDAP Client Delete User  ${ISQ_USER}
+    LDAP Client Disconnect
+
+Save Config From DUT
+    ${name}=      Save Config
+    Run On DUT    chmod 777 /data/pub/configuration/${name}
+    Copy File From Dut To Remote Machine
+    ...  remote_host=${CLIENT_IP}
+    ...  from_loc=/data/pub/configuration/${name}
+    ...  to_loc=${TEMPDIR}/${DUT}_${name}
+    Run On DUT    rm /data/pub/configuration/${name}
+    [Return]  ${DUT}_${name}
+
+Load Config On DUT
+    [Arguments]   ${name}  ${delete_config}=${True}
+    Copy File To DUT  ${TEMPDIR}/${name}  /data/pub/configuration/
+    Load Config From File  ${name}
+    Run Keyword If  ${delete_config}  Run On DUT  rm /data/pub/configuration/${name}
+    Commit
+
+Send MBOX Msg
+    [Arguments]  ${mbox_path}  ${listener_addr}
+    Inject Messages
+    ...  rcpt-host-list=${CLIENT_IP}
+    ...  mail-from=dev_null@${CLIENT_IP}
+    ...  mbox-filename=${mbox_path}  num-msgs=1
+    ...  inject-host=${listener_addr}  log_dir=/tmp/%{LOGNAME}
+
+Generate Email Data
+    ${pub_listener} =  Get ESA Listener
+    ${pr_listener} =  Get ESA Listener  scope=Private
+    ${ESA_PUB} =   Set Variable   ${pub_listener.ipv4}
+    ${ESA_PRIV} =  Set Variable   ${pr_listener.ipv4}
+
+    FOR  ${msg}  IN  ${mbox.CLEAN}  ${mbox.SPAM}  ${mbox.SPAM_SUSPECT}    ${mbox.MARKETING}  ${mbox.EICAR_COM_ZIP}
+        Send MBOX Msg  ${msg}  ${ESA_PUB}
+    END
+    # DLP
+    Send MBOX Msg  ${mbox.CLEAN}  ${ESA_PRIV}
+
+Go To Euq Gui
+    [Arguments]  ${user}  ${password}
+
+    Run Keyword And Ignore Error  Log Out Of Dut
+    Close Browser
+    Add Cert Exception For Quarantine Page
+    Launch Dut Browser
+    Go To  https://${DUT}:83
+    Log Into Dut  ${user}  ${password}
+
+Go To Main Gui
+    Run Keyword And Ignore Error  Log Out Of Dut
+    Go To  https://${DUT}
+    Log Into Dut
+
+Turn SLBL Entries
+    [Documentation]  Performs action against default SLBL entries for BAT. ${action} can be
+    ...  either Add or Delete.
+    [Arguments]  ${action}
+
+    FOR  ${entry}  IN  dev_null@${CLIENT}  dev_null@[${CLIENT_IP}]  dev_null@[ipv6:${CLIENT_IPV6}]
+        Run Keyword  BlockList ${action}  ${entry}
+    END
+
+Get DateTime Converted
+    [Documentation]  Converts datetime got from Get Time to\n
+    ...  Set Time acceptable format\n
+    ...  current_datetime format should look like "Wed Jul 11 07:03:12 2012 PDT"
+    [Arguments]  ${current_datetime}
+    ${result_date_str} =  Evaluate
+    ...  datetime.datetime.strptime('${current_datetime}'[:-4], '%a %b %d %H:%M:%S %Y').strftime('%m/%d/%Y %H:%M:%S')
+    ...  datetime
+    [Return]  ${result_date_str}
+
+Shift ESA Datetime By Days
+    [Documentation]  *DEPRECATED* Use keyword `Calculate Shifted Datetime` instead.
+    ...  Shifts current ESA datetime\n
+    ...  to ${sec_offset} days with ${offset_operator} operand from ${cur_time} timestamp
+    [Arguments]  ${sec_offset}=1  ${offset_operator}=-  ${cur_time}=${None}
+    ...  ${offset_with}=days  ${set_time}=True
+    ${function_cur_time} =  Set Time
+    ${cur_time}=  Set Variable If  '${cur_time}' == 'None'  ${function_cur_time}  ${cur_time}
+    ${datetime_to_set}=  Calculate Shifted Datetime  ${sec_offset}  ${offset_operator}  ${cur_time}
+    ...  ${offset_with}
+    Run Keyword If  '${set_time}'=='True'
+    ...  Set Time  ${datetime_to_set}
+    [Return]  ${datetime_to_set}
+
+Calculate Shifted Datetime
+    [Documentation]  Calculate datetime in ${sec_offset}\n
+    ...  with ${offset_operator} operand from ${cur_time} timestamp
+    [Arguments]  ${sec_offset}=1  ${offset_operator}=-  ${cur_time}=${None}
+    ...  ${offset_with}=days
+    ${eval_string}=  Catenate  SEPARATOR=  (datetime.datetime.strptime('${cur_time}',
+    ...  '${GETDTIME_FMT}') ${offset_operator} datetime.timedelta(${offset_with}=${sec_offset}))
+    ...  .strftime('${SETDTIME_FMT}')
+    ${datetime_to_set} =  Evaluate  ${eval_string}
+    ...  datetime
+    [Return]  ${datetime_to_set}
+
+Generate Generic Email Reporting Data
+    [Documentation]  Generates reporting data for incoming and outgoing tables
+
+    ${mboxes}=  Catenate  SEPARATOR=  ${mbox.CLEAN},${mbox.SPAM},
+    ...  ${mbox.EICAR_COM_ZIP},${mbox.MARKETING},${mbox.SPAM_SUSPECT}
+    ${spam_msgs_count}=  Set Variable  10
+    FOR  ${esa_listener}  IN  ${PUBLIC_LISTENER.ipv4}  ${PRIVATE_LISTENER.ipv4}
+        Inject Messages
+        ...  mbox-filename=${mboxes}
+        ...  num-msgs=${spam_msgs_count}
+        ...  inject-host=${esa_listener}
+    END
+    Inject Messages
+    ...  mbox-filename=${mbox.CLEAN}
+    ...  num-msgs=1
+    ...  inject-host=${PUBLIC_LISTENER.ipv4}
+    ...  rcpt-host-list=example.org
+
+Check Summary Table Column Value
+    [Documentation]   Verifies ${col_name} value contains ${expected_val}\n
+    ...  with ${table_params} in ${col_category_descr} additional column
+    [Arguments]  ${table_name}  ${col_name}  ${expected_val}
+    ...  ${col_category_descr}=Message Category
+    ...  ${table_params}=${None}  ${should_navigate_to_table}=${True}
+
+    ${table_data}=  Email Report Table Get Data  ${table_name}
+    ...  table_parameters=${table_params}
+    ...  should_navigate_to_table=${should_navigate_to_table}
+    @{col_values} =  Get From Dictionary  ${table_data}  ${col_category_descr}
+    @{col_percent_values} =  Get From Dictionary  ${table_data}  %
+    @{col_amount_values} =  Get From Dictionary  ${table_data}  Messages
+    ${index}=  Get Index From List  ${col_values}  ${col_name}
+    ${column_value}=  Get From List  ${col_amount_values}  ${index}
+    ${column_percent_value}=  Get From List  ${col_percent_values}  ${index}
+    Should Be Equal As Integers  ${column_value}  ${expected_val}
+    [Return]  ${column_value}  ${column_percent_value}

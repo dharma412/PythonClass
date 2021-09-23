@@ -1,0 +1,216 @@
+# $Id: //prod/main/sarf_centos/resources/generate_sign_server_certificate.txt#1 $ $DateTime: 2019/03/22 01:36:06 $ $Author: aminath $
+*** Settings ***
+Library       OperatingSystem
+Variables     credentials.py
+
+
+*** Keywords ***
+Generate Private Key
+    [Documentation]  Generate a key for future certificate creation.
+    ...  Return a path to generated key. The key will be saved to a temporary
+    ...  directory having ".key" extension in case ${key_path} is omitted.\n
+    ...  ${numbits} is the size of the private key to generate in bits.
+    ...  The default value is 1024.\n
+    [Arguments]  ${key_path}=${EMPTY}  ${numbits}=1024
+    ${tmp_key_path}=  Evaluate  tempfile.mkstemp(suffix='.key')[1]  tempfile
+    ${key_path}=  Set Variable If  '${key_path}' == ''
+    ...  ${tmp_key_path}  ${key_path}
+    ${filename}=  Evaluate  os.path.basename('${key_path}')  os
+
+    ${cmd}=  Set Variable  openssl genrsa -out "${key_path}" ${numbits}
+    ${rc}  ${output}=  Run And Return Rc And Output  ${cmd}
+    Run Keyword If  ${rc} != 0  Fail  ${output}
+
+    [Return]  ${key_path}
+
+Generate Certificate
+    [Documentation]  Generate a certificate based on a private key.
+    ...  Return path to generated certificate. The certificate will be saved to
+    ...  a .crt file located in temporary folder in case ${cert_path} is omitted.\n
+    ...  ${private_key_path} is a path to exiting private key file.\n
+    ...  ${cert_path} is a path to certificate that has to be created.
+    ...  The certificate will be saved to temporary directory in case
+    ...  this parameter is omitted.\n
+    ...  ${days_valid} is number of days while this certificate is valid\n
+    ...  ${subj} is a string containing subj attrbute for request file.
+    ...  Replaces subject field of input request with specified data and outputs modified
+    ...  request. The arg must be formatted as /type0=value0/type1=value1/type2=...,
+    ...  characters may be escaped by \\ (backslash), no spaces are skipped.
+    ...  Read http://www.openssl.org/docs/apps/req.html for more detais.\n
+    ...  ${serial} is certificate serial.
+    ...  ${ca_cert_path} is path to CA certificate. Default certificate will be taken
+    ...  if ommited\n
+    ...  ${ca_key_path} is path to CA private key. Default private key will be taken
+    ...  if ommited\n
+    ...  ${ca_password} is CA private key password (if present)\n
+    [Arguments]  ${private_key_path}  ${cert_path}=${EMPTY}  ${days_valid}=365
+    ...  ${subj}=${EMPTY}  ${serial}=02
+    ...  ${ca_cert_path}=%{SARF_HOME}/tests/testdata/ca.crt
+    ...  ${ca_key_path}=%{SARF_HOME}/tests/testdata/ca.key
+    ...  ${ca_password}=${EMPTY}
+    ${tmp_cert_path}=  Evaluate  tempfile.mkstemp(suffix='.crt')[1]  tempfile
+    ${cert_path}=  Set Variable If  '${cert_path}' == ''
+    ...  ${tmp_cert_path}  ${cert_path}
+    ${filename}=  Evaluate  os.path.basename('${cert_path}')  os
+    ${csr_path}=  Evaluate  tempfile.mkstemp(suffix='.csr')[1]  tempfile
+    ${csr_name}=  Evaluate  os.path.basename('${csr_path}')  os
+
+    ${default_subj}=  Catenate  SEPARATOR=/
+    ...  ${EMPTY}  C=US  ST=CA  L=San Bruno  O=Cisco Systems
+    ...  OU=SARF  CN=${DUT}  emailAddress=test@test.com
+    ${subj}=  Set Variable If  """${subj}""" == ''
+    ...  ${default_subj}  ${subj}
+    OperatingSystem.Run
+    ...  openssl req -new -key "${private_key_path}" -subj "${subj}" -out "${csr_path}"
+
+    ${cmd}=  Catenate  openssl x509
+    ...  -req -days ${days_valid} -in "${csr_path}"
+    ...  -CA "${ca_cert_path}" -CAkey "${ca_key_path}"
+    ...  -set_serial ${serial} -out "${cert_path}"
+    ${cmd}=  Set Variable If  """${ca_password}""" == ''
+    ...  ${cmd}  ${cmd} -passin "pass:${ca_password}"
+    ${rc}  ${output}=  Run And Return Rc And Output  ${cmd}
+    OperatingSystem.Run  rm -f "${csr_path}"
+    Run Keyword If  ${rc} != 0  Fail  ${output}
+
+    [Return]  ${cert_path}
+
+Generate CA Private Key And Certificate
+    [Documentation]  Export key and certificate to PEM file\n
+    ...  ${private_key_path} is a path to resulting private key. The keyfile
+    ...  will be created in temporary dir if this parameter is ommited\n
+    ...  ${cert_path} is a path to resulting CA certificate. The certifcate
+    ...  file will be created in temporary dir if this parameter is ommited\n
+    ...  ${days_valid} is count of days while this certificate is valid\n
+    ...  ${numbits} is key cipher strength\n
+    ...  ${subj} is a string containing subj attrbute for request file.
+    ...  Replaces subject field of input request with specified data and outputs modified
+    ...  request. The arg must be formatted as /type0=value0/type1=value1/type2=...,
+    ...  characters may be escaped by \\ (backslash), no spaces are skipped.
+    ...  Read http://www.openssl.org/docs/apps/req.html for more detais.\n
+    ...  ${serial} is certificate serial. Usually equals 01 for root certificates\n
+    ...  ${password} is private key and certificate password. Minimum password length
+    ...  is 4 chars.
+    [Arguments]  ${private_key_path}=${EMPTY}  ${cert_path}=${EMPTY}  ${days_valid}=365
+    ...  ${numbits}=1024  ${subj}=${EMPTY}  ${serial}=01  ${password}=${DUT_ADMIN_PASSWORD}
+    ${tmp_key_path}=  Evaluate  tempfile.mkstemp(suffix='.key')[1]  tempfile
+    ${private_key_path}=  Set Variable If  '${private_key_path}' == ''
+    ...  ${tmp_key_path}  ${private_key_path}
+    ${tmp_cert_path}=  Evaluate  tempfile.mkstemp(suffix='.crt')[1]  tempfile
+    ${cert_path}=  Set Variable If  '${cert_path}' == ''
+    ...  ${tmp_cert_path}  ${cert_path}
+
+    ${default_subj}=  Catenate  SEPARATOR=/
+    ...  ${EMPTY}  C=US  ST=CA  L=San Bruno  O=Cisco Systems
+    ...  OU=SARF  CN=Authority  emailAddress=authority@example.com
+    ${subj}=  Set Variable If  """${subj}""" == ''
+    ...  ${default_subj}  ${subj}
+
+    ${cmd}=  Catenate  openssl req
+    ...  -x509 -days ${days_valid} -subj "${subj}"
+    ...  -newkey rsa:${numbits} -keyout "${private_key_path}"
+    ...  -passout "pass:${password}" -passin "pass:${password}"
+    ...  -set_serial ${serial} -out "${cert_path}"
+    ${rc}  ${output}=  Run And Return Rc And Output  ${cmd}
+    Run Keyword If  ${rc} != 0  Fail  ${output}
+
+    [Return]  ${private_key_path}  ${cert_path}
+
+Export Private Key And Certificate To PEM
+    [Documentation]  Export key and certificate to PEM file\n
+    ...  ${key_path} is a path to previously generated private key\n
+    ...  ${cert_path} is a path to previously generated x509-certificate\n
+    ...  ${out_path} is a path to result PEM file. If ommited then result
+    ...  file will be created in tempdir
+    [Arguments]  ${private_key_path}  ${cert_path}  ${out_path}=${EMPTY}
+    ${tmp_out_path}=  Evaluate  tempfile.mkstemp(suffix='.pem')[1]  tempfile
+    ${out_path}=  Set Variable If  '${out_path}' == ''
+    ...  ${tmp_out_path}  ${out_path}
+
+    ${key_content}=  OperatingSystem.Get File  ${private_key_path}  encoding=ASCII
+    ${cert_content}=  OperatingSystem.Get File  ${cert_path}  encoding=ASCII
+    ${pem_content}=  Catenate  SEPARATOR=${EMPTY}
+    ...  ${key_content}  ${cert_content}
+    OperatingSystem.Create File  ${out_path}  ${pem_content}  encoding=ASCII
+
+    [Return]  ${out_path}
+
+Generate PKCS12 File
+    [Documentation]  Generate a file in PKCS#12 format from given certificate.
+    ...  Generated file can be used for future import on ironport appliances.
+    ...  Return path to generated file or temporary file if ${pk12_path} is
+    ...  is omitted.\n
+    ...  *Arguments:*
+    ...  - `key_path`: is a path to previously generated private key\n
+    ...  - `cert_path`: is a path to previously generated x509-certificate\n
+    ...  - `pk12_path`: is a path to generated file, may be omitted\n
+    ...  - `password`: is an export password, ${DUT_ADMIN_PASSWORD} by default\n
+    ...  - `name`: is the name of the corresponding section in PKCS#12 file.
+    ...  Will be the same as file name in ${pk12_path} if omitted\n
+    ...  - `key_password`: is key file password (if present). Minimum password
+    ...  length should be 4 chars.
+    ...  - `fips_compliant`: Use only FIPS-compliant cipher algorithms. Bollean. False by default.
+    [Arguments]
+    ...  ${key_path}
+    ...  ${cert_path}
+    ...  ${pk12_path}=${EMPTY}
+    ...  ${password}=${DUT_ADMIN_PASSWORD}
+    ...  ${name}=${EMPTY}
+    ...  ${key_password}=${EMPTY}
+    ...  ${fips_compliant}=${False}
+    ${tmp_pk12_path}=  Evaluate  tempfile.mkstemp(suffix='.p12')[1]  tempfile
+    ${pk12_path}=  Set Variable If  """${pk12_path}""" == ''
+    ...  ${tmp_pk12_path}  ${pk12_path}
+
+    ${tmp_name}=  Evaluate  os.path.splitext(os.path.basename('${pk12_path}'))[0]  os
+    ${name}=  Set Variable If  '${name}' == ''
+    ...  ${tmp_name}  ${name}
+
+    ${cmd}=  Catenate  openssl pkcs12 -export
+    ...  -inkey "${key_path}" -in "${cert_path}" -out "${pk12_path}" -name "${name}"
+    ...  -password "pass:${password}"
+    ${cmd}=  Set Variable If  """${key_password}""" == ''
+    ...  ${cmd}  ${cmd} -passin "pass:${key_password}"
+    ${cmd}=  Set Variable If  ${fips_compliant}
+    ...  ${cmd} -keypbe PBE-SHA1-3DES -certpbe PBE-SHA1-3DES  ${cmd}
+    ${rc}  ${output}=  Run And Return Rc And Output  ${cmd}
+    Run Keyword If  ${rc} != 0  Fail  ${output}
+    [Return]  ${pk12_path}
+
+Generate Sign Server Certificate
+    [Documentation]    This keyword will generate and sign the default certificate for DUT.
+    ...  The result key file and certificate file will be saved to temporary .key and .csr
+    ...  files within the temporary directory and returned as a tuple in the listed order.
+    ${key_path}=  Generate Private Key
+    ${cert_path}=  Generate Certificate  ${key_path}
+    [Return]  ${key_path}  ${cert_path}
+
+Generate CA and Self Signed Certificate
+    [Documentation]  Generates both certificates and return proper path to them.\n
+    ...  *Arguments*:
+    ...  - `ca_pem_file_name`: Filename to use for the CA certificate.\n
+    ...  - `p12_file_name`: Filename to use for the certificate in PKCS12 format.\n
+    ...  - `fips_compliant`: Use FIPS-compliant cipher encryption algorithms.
+    ...  *Return*:
+    ...  Full path to the files.
+    [Arguments]  ${tmp_dir}  ${ca_pem_file_name}  ${p12_file_name}  ${fips_compliant}=${False}
+    ${ca_pem_path}=  Join Path  ${tmp_dir}  ${ca_pem_file_name}
+    ${p12_file_path}=  Join Path  ${tmp_dir}  ${p12_file_name}
+    ${ca_key_path}  ${ca_cert_path}=  Generate CA Private Key And Certificate
+    ...  password=${DUT_ADMIN_PASSWORD}
+    Export Private Key And Certificate To PEM
+    ...  ${ca_key_path}  ${ca_cert_path}  out_path=${ca_pem_path}
+    ${key_path}=  Generate Private Key
+    ${cert_path}=  Generate Certificate
+    ...  ${key_path}
+    ...  ca_key_path=${ca_key_path}
+    ...  ca_cert_path=${ca_cert_path}
+    ...  ca_password=${DUT_ADMIN_PASSWORD}
+
+    ${pkcs_path}=  Generate PKCS12 File
+    ...  ${key_path}
+    ...  ${cert_path}
+    ...  pk12_path=${p12_file_path}
+    ...  fips_compliant=${fips_compliant}
+    OperatingSystem.Remove Files  ${key_path}  ${cert_path}  ${ca_key_path}  ${ca_cert_path}
+    [Return]  ${ca_pem_path}  ${pkcs_path}

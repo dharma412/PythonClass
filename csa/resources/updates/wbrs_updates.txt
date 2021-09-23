@@ -1,0 +1,109 @@
+# $Id: //prod/main/sarf_centos/resources/updates/wbrs_updates.txt#3 $
+# $DateTime: 2019/06/12 01:54:47 $
+# $Author: revlaksh $
+
+*** Settings ***
+Variables  constants.py
+Resource   wsa/global.txt
+Resource   updates/updater.txt
+
+*** Variables ***
+${WBRS_UPDATE_FILES_URL}    http://install.eng.sgg.cisco.com/pub/wbrsd_tmp/
+${WBRS_UPDATE_PATH}         wbrs/3.0.0/engine/freebsd6-i386
+
+*** Keywords ***
+Get WBRS Updates From Server
+    [Documentation]  Get updates from http://install.eng.sgg.cisco.com/pub/wbrsd_tmp/
+    [Arguments]  ${update_file_name}
+    Login To Updater  ${update_server_address}  ${update_server_user}  ${update_server_pass}
+    Write To CLI And Return Output  cd /tmp
+    Write To CLI And Return Output  wget ${WBRS_UPDATE_FILES_URL}${update_file_name}
+    ${out}=  Write To CLI And Return Output  ls
+    Should Contain  ${out}  ${update_file_name}
+    ${out}  Write To CLI And Return Output  md5sum ${update_file_name}
+    ${WBRS_UPDATE_FILE_MD5}  Fetch From Left  ${out}  \ \ ${update_file_name}
+    Set Suite Variable  ${WBRS_UPDATE_FILE_MD5}
+
+Generate WBRS Update
+    [Documentation]  Generate update on update server
+    [Arguments]  ${file}  ${update_uid}  ${updater_cli_user}  ${updater_cli_pass}
+    ${update}=  Run  date "+%s"
+    Set Suite Variable  ${MY_TIMESTAMP}  ${update}
+    Login To Updater CLI  ${updater_cli_user}  ${updater_cli_pass}
+    Write To CLI And Return Output  files.upload_nfs
+    Write To CLI And Return Output  ${update_uid}
+    Write To CLI And Return Output  ${MY_TIMESTAMP}
+    Write To CLI And Return Output  ${WBRS_UPDATE_FILE_MD5}
+    Write To CLI And Return Output  /tmp/${file}
+    Write To CLI And Return Output  ${WBRS_UPDATE_NAME}
+    Print Newline Characters  3
+    Set SSHLib Prompt  \$
+    Write To CLI And Return Output  exit
+
+Generate And Update WBRS
+    [Documentation]  Generate AVC update and waint until update applied\n
+    # The ${UPDATE_FILE_NAME} variable - is a name of file with updates.
+    # The ${UPDATE_NAME} variable will be displayed on Acceptable Use Controls page as
+    # number of "Current Version". You need to pass both of these variables as parameters of `pybot_run`
+    [Arguments]  ${update_file_name}=${WBRS_UPDATE_FILE_NAME}
+    ...  ${update_server_address}=${UPDATE_SERVER}
+    ...  ${update_server_user}=${TESTUSER}
+    ...  ${update_server_pass}=${TESTUSER_PASSWORD}
+    ...  ${updater_cli_user}=${DUT_ADMIN}
+    ...  ${updater_cli_pass}=${DUT_ADMIN_PASSWORD}
+    ...  ${update_uid}=${WBRS_UPDATE_PATH}
+    Update Settings Edit  enable_auto_update=${False}
+    Run Keyword And Ignore Error  Commit Changes
+    Update Config Dynamic Host  dynamic_host=${UPDATE_SERVER}:443
+    Commit
+    ${update}=  Run  date "+%s"
+    Set Suite Variable  ${MY_TIMESTAMP}  ${update}
+    Get WBRS Updates From Server  ${update_file_name}
+    Generate WBRS Update  ${update_file_name}  ${update_uid}  ${updater_cli_user}  ${updater_cli_pass}
+
+Remove Files
+    [Documentation]  Remove test update files
+    Write To CLI And Return Output  rm -f /tmp/${WBRS_UPDATE_FILE_NAME}
+    Remove Update From Updater  ${WBRS_UPDATE_PATH}  ${DUT_ADMIN}  ${DUT_ADMIN_PASSWORD}
+    Close Connection
+
+Verify Generate and Update WBRS
+     [Documentation]  Generate AVC update and waint until update applied\n
+    # The ${UPDATE_FILE_NAME} variable - is a name of file with updates.
+    # The ${UPDATE_NAME} variable will be displayed on Acceptable Use Controls page as
+    # number of "Current Version". You need to pass both of these variables as parameters of `pybot_run`
+    [Arguments]  ${update_file_name}=${WBRS_UPDATE_FILE_NAME}
+    ...  ${update_server_address}=${UPDATE_SERVER}
+    ...  ${update_server_user}=${TESTUSER}
+    ...  ${update_server_pass}=${TESTUSER_PASSWORD}
+    ...  ${updater_cli_user}=${DUT_ADMIN}
+    ...  ${updater_cli_pass}=${DUT_ADMIN_PASSWORD}
+    ...  ${update_uid}=${WBRS_UPDATE_PATH}
+    #Update Settings Edit  enable_auto_update=${False}
+    Run Keyword And Ignore Error  Commit Changes
+    Update Config Dynamic Host  dynamic_host=${UPDATE_SERVER_NEW}:443
+    Commit
+    Update Config Validate Certificates  validate=no
+	Commit
+    ${update}=  Run  date "+%s"
+    Set Suite Variable  ${MY_TIMESTAMP}  ${update}
+    Filter Updater Log Create Baseline
+    Run keyword if  '${UPDATE_PROVISIONING}' == 'Y'
+    ...  Get WBRS Updates From Server  ${update_file_name}
+    Set SSHLib Prompt  ${EMPTY}
+    Wait Until Keyword Succeeds  60s  10s  Anti Malware And Reputation Update Now
+    Navigate To   Security Services  Anti-Malware and Reputation
+    Wait Until Keyword Succeeds  1200s  10s  Verify WBRS Updates Successful
+
+Create Heimdall Log Baseline
+    [Documentation]  Create baseline for updater log
+    ${_baseline_heimdalllog}=    Filter Log Create Baseline    ${HEIMDALL_LOG_LOCATION}
+    Set Suite Variable    ${baseline_heimdalllog}    ${_baseline_heimdalllog}
+
+Verify Updates Being Downloaded
+    Open Connection   ${DUT}  timeout=60
+	Login  ${RTESTUSER}  ${RTESTUSER_PASSWORD}
+    Execute Command  cd /data/tmp/wbrs
+    ${file_name} =  Execute Command  ls
+    Should Not Be Empty  ${file_name}
+    Close Connection

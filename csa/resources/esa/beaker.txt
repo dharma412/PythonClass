@@ -1,0 +1,277 @@
+*** Settings ***
+Resource  esa/global.txt
+
+*** Variables ***
+${BEAKER_CONNECTOR_CONF_FILE}=  /data/etc/heimdall/beaker_connector.conf
+${BEAKER_CONNECTOR_CONF_BACKUP_FILE}=  /data/etc/heimdall/beaker_connector.conf.orig
+
+*** Keywords ***
+Beaker Start Gripmock Docker Service
+	${check_docker_command}=  Set Variable  sudo docker ps | tail -1 | awk '{ print $2 }'
+	${start_docker_command}=  Set Variable  bash ${GRIPMOCK_BASE_DIR}/start_gripmock.sh
+
+	${result}=  Run On Host
+	...  ${GRIPMOCK_SERVER}
+	...  ${GRIPMOCK_USERNAME}
+	...  ${GRIPMOCK_PASSWORD}
+	...  ${check_docker_command}
+	Log  ${result}
+
+	Run Keyword If  "${GRIPMOCK_DOCKER_CONTAINER}" in "${result}"
+	...  Fail  Gripmock Container is already running
+
+	Run Keyword If  "${GRIPMOCK_DOCKER_CONTAINER}" not in "${result}"
+	...  Run On Host
+	...  ${GRIPMOCK_SERVER}
+	...  ${GRIPMOCK_USERNAME}
+	...  ${GRIPMOCK_PASSWORD}
+	...  ${start_docker_command}
+
+Beaker Stop Gripmock Docker Service
+	${container_id_command}=  Set Variable  sudo docker ps | tail -1 | awk '{ print $1 }'
+	${check_docker_command}=  Set Variable  sudo docker ps | tail -1 | awk '{ print $2 }'
+	${stop_docker_command}=  Set Variable  sudo docker kill
+
+	${result}=  Run On Host
+	...  ${GRIPMOCK_SERVER}
+	...  ${GRIPMOCK_USERNAME}
+	...  ${GRIPMOCK_PASSWORD}
+	...  ${check_docker_command}
+	Log  ${result}
+
+	Run Keyword If  "${GRIPMOCK_DOCKER_CONTAINER}" not in "${result}"
+	...  Fail  Gripmock Container is not running
+
+	${container_id}=  Run Keyword If  "${GRIPMOCK_DOCKER_CONTAINER}" in "${result}"
+	...  Run On Host
+	...  ${GRIPMOCK_SERVER}
+	...  ${GRIPMOCK_USERNAME}
+	...  ${GRIPMOCK_PASSWORD}
+	...  ${container_id_command}
+
+	Run Keyword If  "${container_id}" is not "${None}"
+	...  Run On Host
+	...  ${GRIPMOCK_SERVER}
+	...  ${GRIPMOCK_USERNAME}
+	...  ${GRIPMOCK_PASSWORD}
+	...  ${stop_docker_command} ${container_id}
+
+Beaker Restart Gripmock Docker Service
+	${container_id_command}=  Set Variable  sudo docker ps | tail -1 | awk '{ print $1 }'
+	${check_docker_command}=  Set Variable  sudo docker ps | tail -1 | awk '{ print $2 }'
+	${restart_container_command}=  Set Variable  sudo docker restart
+
+	${result}=  Run On Host
+	...  ${GRIPMOCK_SERVER}
+	...  ${GRIPMOCK_USERNAME}
+	...  ${GRIPMOCK_PASSWORD}
+	...  ${check_docker_command}
+	Log  ${result}
+
+	Run Keyword If  "${GRIPMOCK_DOCKER_CONTAINER}" not in "${result}"
+	...  Fail  Gripmock Container is not running
+
+	${initial_uptime}=  Get Docker Container Uptime
+	${container_id}=  Run Keyword If  "${GRIPMOCK_DOCKER_CONTAINER}" in "${result}"
+	...  Run On Host
+	...  ${GRIPMOCK_SERVER}
+	...  ${GRIPMOCK_USERNAME}
+	...  ${GRIPMOCK_PASSWORD}
+	...  ${container_id_command}
+
+	Run Keyword If  "${container_id}" is not "${None}"
+	...  Run On Host
+	...  ${GRIPMOCK_SERVER}
+	...  ${GRIPMOCK_USERNAME}
+	...  ${GRIPMOCK_PASSWORD}
+	...  ${restart_container_command} ${container_id}
+	${new_uptime}=  Get Docker Container Uptime
+
+	Should Not Be Equal As Strings  ${initial_uptime}  ${new_uptime}
+
+Is Gripmock Docker Container Running
+	${check_docker_command}=  Set Variable  sudo docker ps | tail -1 | awk '{ print $2 }'
+
+	${result}=  Run On Host
+	...  ${GRIPMOCK_SERVER}
+	...  ${GRIPMOCK_USERNAME}
+	...  ${GRIPMOCK_PASSWORD}
+	...  ${check_docker_command}
+	Log  ${result}
+
+	${status}=  Set Variable If  "${GRIPMOCK_DOCKER_CONTAINER}" in "${result}"  ${True}  ${False}
+	[Return]  ${status}
+
+Beaker Disable Connector Watchdog
+	${disable_command}=  Catenate  SEPARATOR=${SPACE}
+	...  /bin/sh -c 'sed -i .orig
+	...  -e "s/\\$IPDATA\\/bin\\/beaker_connector_wdog//g" ${BEAKER_CONNECTOR_CONF_FILE}'
+	Log  ${disable_command}
+    Run On Dut  ${disable_command}
+    Run On Dut  /data/bin/heimdall_svc -r beaker_connector
+
+Beaker Enable Connector Watchdog
+	${enable_command}=  Catenate  SEPARATOR=${SPACE}
+	...  mv ${BEAKER_CONNECTOR_CONF_BACKUP_FILE}
+	...  ${BEAKER_CONNECTOR_CONF_FILE}
+	Run On Dut  ${enable_command}
+	Run On Dut  /data/bin/heimdall_svc -r beaker_connector
+
+Beaker Get All IP Reputation Scores
+	${get_command}=  Catenate  SEPARATOR= \\\n
+	...  curl
+	...  --request GET
+	...  --silent
+	...  http://${GRIPMOCK_SERVER}:4771/
+	Log  ${get_command}
+	${result}=  Run  ${get_command}
+	[Return]  ${result}
+
+Beaker Clear All IP Reputation Scores
+	${clear_command}=  Catenate  SEPARATOR= \\\n
+	...  curl
+	...  --request GET
+	...  --silent
+	...  --output /dev/null
+	...  --write-out \'\%\{http_code\}\'
+	...  http://${GRIPMOCK_SERVER}:4771/clear
+	Log  ${clear_command}
+	${result}=  Run  ${clear_command}
+	Should Be Equal As Numbers  ${result}  200
+
+Beaker Publish IP Reputation Score
+	[Arguments]  ${ip_address}  ${score}=0
+	${decimal_ip_address}=  Get Decimal IP Address  ${ip_address}
+	${json_data}=  Catenate  SEPARATOR=\n
+	...  '{
+	...  ${SPACE*4}"input": {
+	...  ${SPACE*8}"contains": {
+	...  ${SPACE*12}"endpoint": [
+    ...  ${SPACE*16}{"role": 1, "Address": {"Ipv4Addr": ${decimal_ip_address}}}
+	...  ${SPACE*12}]
+	...  ${SPACE*8}}
+	...  ${SPACE*4}},
+	...  ${SPACE*4}"method": "QueryReputation",
+	...  ${SPACE*4}"service": "IPD",
+	...  ${SPACE*4}"output": {
+	...  ${SPACE*8}"data" : {
+	...  ${SPACE*12}"connectionGuid": [103,104,105,106,100,101,104,101,108,108,111,105,102,109, 108,112],
+	...  ${SPACE*12}"ruleMapVersion": 2586474913,
+	...  ${SPACE*12}"result": [
+	...  ${SPACE*16}{"repRuleId": [528, 533, 539], "spamProbX10000": 7925, "reputationX10": ${score}, "noRvsRate": true}
+	...  ${SPACE*12}]
+	...  ${SPACE*8}}
+	...  ${SPACE*4}}
+	...  }'
+	${publish_command}=  Catenate  SEPARATOR= \\\n
+	...  curl
+	...  --request POST
+	...  --silent
+	...  --output /dev/null
+	...  --write-out \'\%\{http_code\}\'
+	...  --data ${json_data}
+	...  http://${GRIPMOCK_SERVER}:4771/add
+	Log  ${publish_command}
+	${result}=  Run  ${publish_command}
+	Should Be Equal As Numbers  ${result}  200
+
+Beaker Publish IPv6 Reputation Score
+    [Arguments]  ${ip_address}  ${score}=0
+    ${base64_ip_address}=  Get Base64 IP Address  ${ip_address}
+    ${json_data}=  Catenate  SEPARATOR=\n
+    ...  '{
+    ...  ${SPACE*4}"input": {
+    ...  ${SPACE*8}"contains": {
+    ...  ${SPACE*12}"endpoint": [
+    ...  ${SPACE*16}{"role": 1, "Address": {"Ipv6Addr": \"${base64_ip_address}\"}}
+    ...  ${SPACE*12}]
+    ...  ${SPACE*8}}
+    ...  ${SPACE*4}},
+    ...  ${SPACE*4}"method": "QueryReputation",
+    ...  ${SPACE*4}"service": "IPD",
+    ...  ${SPACE*4}"output": {
+    ...  ${SPACE*8}"data" : {
+    ...  ${SPACE*12}"connectionGuid": [103,104,105,106,100,101,104,101,108,108,111,105,102,109, 108,112],
+    ...  ${SPACE*12}"ruleMapVersion": 2586474913,
+    ...  ${SPACE*12}"result": [
+    ...  ${SPACE*16}{"repRuleId": [528, 533, 539], "spamProbX10000": 7925, "reputationX10": ${score}, "noRvsRate": true}
+    ...  ${SPACE*12}]
+    ...  ${SPACE*8}}
+    ...  ${SPACE*4}}
+    ...  }'
+    ${publish_command}=  Catenate  SEPARATOR= \\\n
+    ...  curl
+    ...  --request POST
+    ...  --silent
+    ...  --output /dev/null
+    ...  --write-out \'\%\{http_code\}\'
+    ...  --data ${json_data}
+    ...  http://${GRIPMOCK_SERVER}:4771/add
+    Log  ${publish_command}
+    ${result}=  Run  ${publish_command}
+    Should Be Equal As Numbers  ${result}  200
+
+Beaker Set Use MockServer To True
+	${backdoor_script}=  Create List
+	...  import SenderBase
+	...  SenderBase.use_mockserver=True
+	Backdoor Run  hermes  ${backdoor_script}
+
+	${backdoor_script}=  Create List
+	...  import SenderBase
+	...  SenderBase.use_mockserver
+	${result}=  Backdoor Run  hermes  ${backdoor_script}
+	Should Contain  ${result}  True
+
+Beaker Set Use MockServer To False
+	${backdoor_script}=  Create List
+	...  import SenderBase
+	...  SenderBase.use_mockserver=False
+	Backdoor Run  hermes  ${backdoor_script}
+
+	${backdoor_script}=  Create List
+	...  import SenderBase
+	...  SenderBase.use_mockserver
+	${result}=  Backdoor Run  hermes  ${backdoor_script}
+	Should Contain  ${result}  False
+
+Beaker Copy Pbuf File To Dut
+	[Arguments]  ${destination}=/root/
+	Copy File To Dut
+	...  ${GRIPMOCK_PBUF_FILE}
+	...  ${destination}
+
+Beaker Set Talosconfig Custom Server
+	[Arguments]  ${custom_server_url}
+	Talosconfig Customserver  url=${custom_server_url}
+	Commit
+
+Get Decimal IP Address
+	[Arguments]  ${ip_address}
+	${result}=  Run On Host
+	...  ${GRIPMOCK_SERVER}
+	...  ${GRIPMOCK_USERNAME}
+	...  ${GRIPMOCK_PASSWORD}
+	...  python -c 'import ipaddress; print int(ipaddress.IPv4Address(u\"${ip_address}\"))'
+	Log  ${result}
+	[Return]  ${result}
+
+Get Base64 IP Address
+    [Arguments]  ${ip_address}
+    ${result}=  Run On Host
+    ...  ${GRIPMOCK_SERVER}
+    ...  ${GRIPMOCK_USERNAME}
+    ...  ${GRIPMOCK_PASSWORD}
+    ...  python -c 'import base64; import netaddr; print(base64.b64encode(netaddr.IPAddress(\"${ip_address}\").packed));'
+    Log  ${result}
+    [Return]  ${result}
+
+Get Docker Container Uptime
+	${up_time_command}=  Set Variable  sudo docker ps | tail -1 | rev | awk '{ print $3" "$4" "$5 }' | rev
+	${result}=  Run On Host
+	...  ${GRIPMOCK_SERVER}
+	...  ${GRIPMOCK_USERNAME}
+	...  ${GRIPMOCK_PASSWORD}
+	...  ${up_time_command}
+	Log  ${result}
+	[Return]  ${result}

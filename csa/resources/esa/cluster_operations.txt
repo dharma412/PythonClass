@@ -1,0 +1,51 @@
+*** Settings ***
+Library      EsaCliLibrary
+Library      EsaGuiLibrary
+Library      UtilsLibrary
+
+*** Keywords ***
+Select Cluster On Web UI
+    [Arguments]  ${name}
+    Select From List  xpath=//select[@name='mode']  Cluster: ${name}
+    Wait Until Page Loaded
+
+Select Machine On Web UI
+    [Arguments]  ${machine_name}
+    Select From List  xpath=//select[@name='mode']  ... ... Machine: ${machine_name}
+    Wait Until Page Loaded
+
+Select Group On Web UI
+    [Arguments]  ${group_name}
+    Select From List  xpath=//select[@name='mode']  ... Group: ${group_name}
+    Wait Until Page Loaded
+
+Cluster Setup
+    [Arguments]  ${cluster_name}
+    Set Appliance Under Test To ESA
+    Cluster Config Setup
+    ...  cluster_action=create
+    ...  cluster_name=${cluster_name}
+    ...  communication_method=IP address
+    ...  communication_ip=${ESA_IP}
+
+    Set Appliance Under Test To ESA2
+    Cluster Config Setup
+    ...  cluster_action=ssh_join
+    ...  ssh_admin_password=${DUT_ADMIN_SSW_PASSWORD}
+    ...  remote_cluster_ip=${ESA_IP}
+
+Cluster Teardown
+    Set Appliance Under Test To ESA
+    Cluster Mode    level=cluster
+    Cluster Config Remove Machine  machine=${ESA2}  confirm=yes
+    Cluster Config Remove Machine  machine=${ESA}  confirm=yes
+
+Override Settings Inherited From Cluster Mode
+    [Arguments]  ${timeout_short}=10
+    Click Link  Override Settings
+    Wait Until Keyword Succeeds  ${timeout_short}  1  Click Button  //input[@class='submit']
+
+Select Mode On Cluster Web UI By Index
+    [Arguments]  ${index}
+    Select From List By Index       xpath=//select[@name='mode']    ${index}
+    Wait Until Page Loaded

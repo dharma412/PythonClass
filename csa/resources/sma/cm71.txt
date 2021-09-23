@@ -1,0 +1,87 @@
+# $Id: //prod/main/sarf_centos/resources/sma/cm71.txt#1 $
+$DateTime: 2019/03/22 01:36:06 $
+$Author: aminath $
+
+*** Settings ***
+Library      SmaGuiLibrary
+Library	     OperatingSystem
+Resource     selenium.txt
+Variables    credentials.py
+Variables    constants.py
+Variables    sma/constants.py
+
+*** Variables ***
+# Identity
+${IDENT}    i2
+
+# Custom URLs
+${URL_CAT1}    testCustomUrlCat1
+${URL_CAT2}    testCustomUrlCat2
+
+# Time Ranges
+${TR1}      testCustomTR1
+${TR2}      testCustomTR2
+${TR3}      holidays
+
+# Realms
+${LDAP}     myLdapRealm
+${NTLM}     myNtlmRealm
+
+*** Keyword ***
+GUI CM71 Testsuite Setup Basic
+    [Documentation]      Setup of GUI CM testing:
+    ...    \nOpen Selenium
+    ...    \nEnable CM
+    ...    \nInitialize CM
+
+    Selenium Login
+    Centralized Web Configuration Manager Enable
+    ${init}    ${reason}    Run Keyword And Ignore Error    Configuration Masters Initialize
+    ...    ${sma_config_masters.CM71}    ${True}
+    Run Keyword If    '${init}' == 'FAIL'    Should Contain    ${reason}    config master is already initialized
+
+	CM71 Identities Add Policy  ${IDENT}  subnet=1.2.3.0/24
+
+	CM71 Time Ranges Add  ${TR1}  Monday,Tuesday
+	CM71 Time Ranges Add  ${TR2}  Saturday,Sunday
+
+	CM71 Custom Url Categories Add  ${URL_CAT1}  google.com
+	CM71 Custom Url Categories Add  ${URL_CAT2}  yahoo.com
+
+
+
+GUI CM71 Testsuite Setup with WSA
+    [Documentation]      Setup of GUI CM testing
+    ...    \nPrecondition: WSA test should be executed first on ${WSA} to configure WSA appliance
+    ...    \nand prepare configuration file to be imported
+    ...    \nThat WSA test name is:tests/coeus71/unittests/gui/sma_preparation.txt
+    ...    \nSetup steps:
+    ...    \n\tOpen Selenium
+    ...    \n\tEnable CM
+    ...    \n\tInitialize CM
+    ...    \n\tLoad config file
+    ...    \n\tAdd WSA appliance
+
+    GUI CM71 Testsuite Setup Basic
+	Import CM Config
+	Add WSA
+
+
+Import CM Config
+	File Should Exist  ${sma_config_source.WSA_CONFIG_FILE}
+	...  msg=Run pybot --dut <WSA> tests/zeus82/unittests/resources/sma_preparation.txt to create WSA config
+
+    Configuration Masters Import Config
+    ...    ${sma_config_masters.CM71}
+    ...    ${sma_config_source.CONFIG_FILE}
+    ...    filepath=${sma_config_source.WSA_CONFIG_FILE}
+
+Add WSA
+    Security Appliances Add Web Appliance
+    ...    WSA
+    ...    ${WSA}
+    ...    ssh_credentials=admin:ironport
+    ...    config_master=${sma_config_masters.CM71}
+
+GUI CM71 Testsuite Teardown
+	Selenium Close

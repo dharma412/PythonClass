@@ -1,0 +1,287 @@
+# $Id: //prod/main/sarf_centos/resources/regression.txt#2 $
+# $DateTime: 2019/06/03 22:56:07 $
+# $Author: revlaksh $
+
+*** Variables ***
+${ALERT_RCPT}    testuser@mail.sma.sgg.cisco.com
+${DEFAULT_CONFIG}  ssw.xml
+${TEMP_DIR}  /tmp
+
+*** Settings ***
+Library    String
+Library    Collections
+Resource   utils.txt
+
+*** Keywords ***
+Switch DUT
+    [Documentation]  Switches current set of global variable values
+    ...  having the DUT_ prefix in their names to the proper values for
+    ...  ${dest_appliance}. ${dest_appliance} is the string having same
+    ...  syntax as in the 'Set Appliance Under Test to ${appliance}'
+    ...  keyword.\n
+    [Arguments]  ${dest_appliance}
+    Set Suite Variable    ${DUT}                  ${${dest_appliance}}
+    ${global_vars_dict}=  Get Variables
+    @{var_names}=  Call Method  ${global_vars_dict}  keys
+    ${dest_prefix}=  Set Variable  \${DUT_
+    ${dest_prefix_len}=  Get Length  ${dest_prefix}
+    FOR  ${var_name}  IN  @{var_names}
+        ${is_dut_var}=  Evaluate  '${var_name}'.startswith('${dest_prefix}')
+        ${suffix}=  Evaluate    '${var_name}'[${dest_prefix_len}:].rstrip('}') if ${is_dut_var} else ''
+        ${is_common_dut_var}=  Evaluate    '\${${dest_appliance}_${suffix}}' not in ${var_names}
+        Run Keyword If  ${is_dut_var} and not ${is_common_dut_var}   Set Suite Variable    ${var_name}  ${${dest_appliance}_${suffix}}
+    END
+    # Variables which are neither defined for named appliances nor are common
+    ${type}=  Get Substring   ${dest_appliance}  0   3
+    Set Suite Variable  ${DUT_TYPE}  ${type}
+    ${DUT_PORT}=  Set Variable If
+    ...  '${type}' == 'WSA' and '${DUT_PROTOCOL}' == 'http'            8080
+    ...  '${type}' == 'WSA' and '${DUT_PROTOCOL}' == 'https'           8443
+    ...  '${type}' in ('ESA', 'SMA') and '${DUT_PROTOCOL}' == 'http'   80
+    ...  '${type}' in ('ESA', 'SMA') and '${DUT_PROTOCOL}' == 'https'  443
+    Set Suite Variable    ${DUT_PORT}
+    ${DUT_ROOT}=  Catenate  SEPARATOR=${EMPTY}
+    ...  ${DUT_PROTOCOL}  ://  ${DUT}  :  ${DUT_PORT}
+    Set Suite Variable  ${DUT_ROOT}
+
+Set Appliance Under Test to ${appliance}
+    [Documentation]  Sets the appropriate library order and
+    ...  switches corresponding DUT_-prefixed suite variables for the given appliance\n
+    ...  ${appliance} is string containing ESA/WSA/SMA part plus machine
+    ...  index if there are more than one machine of same type, for
+    ...  example: ESA2, SMA6, etc.
+    ${type}  Get Substring   ${appliance}  0   3
+    ${product}=   Set Variable If  '${type}'=='SMA'  _sma   ${EMPTY}
+
+    Set Library Search Order  ${appliance}GuiLibrary  ${appliance}CliLibrary
+    ...  ${appliance}UtilsLibrary  global${product}  ssw${product}
+    ...  OperatingSystem  SSHLibrary  EsaApiLibrary
+
+    Switch DUT  ${appliance}
+
+Library Order ${appliance}
+    ${type}  Get Substring   ${appliance}  0   3
+    ${product}=   Set Variable If  '${type}'=='SMA'  _sma   ${EMPTY}
+
+    ${out}  Set Library Search Order  ${appliance}GuiLibrary  ${appliance}CliLibrary
+    ...  ${appliance}UtilsLibrary  global${product}  ssw${product}  SSHLibrary
+    ...  EsaApiLibrary
+
+    ${DUT_PORT}=   Set Variable If  '${type}'=='WSA'  8080   80
+    Set Suite Variable    ${DUT_PORT}
+
+    Set Suite Variable    ${DUT}   ${${appliance}}
+    Set Suite Variable  ${DUT_TYPE}  ${type}
+
+Import SMA Libraries
+    [Arguments]  ${appliance}
+
+    ${length}  Get Length  ${appliance}
+    Run Keyword If  ${length}>3  import Library    SmaGuiLibrary    ${${appliance}}    WITH NAME    ${appliance}GuiLibrary
+    Run Keyword If  ${length}>3  import Library    SmaCliLibrary    ${${appliance}}    WITH NAME    ${appliance}CliLibrary
+    Import Library    NGGuiLibrary        ${${appliance}}    WITH NAME    ${appliance}NGGuiLibrary
+    import Library    SmaUtilsLibrary     ${${appliance}}    WITH NAME    ${appliance}UtilsLibrary
+    Run Keyword If  ${length}>3  import Variables  sma_intf.py      ${${appliance}}
+    Run Keyword If  ${length}<4  import Resource   sma/global_sma.txt
+
+Import WSA Libraries
+    [Arguments]  ${appliance}
+
+    ${length}  Get Length  ${appliance}
+    Run Keyword If  ${length}>3  import Library   WsaGuiLibrary    ${${appliance}}   WITH NAME    ${appliance}GuiLibrary
+    Run Keyword If  ${length}>3  import Library   WsaCliLibrary    ${${appliance}}   WITH NAME    ${appliance}CliLibrary
+    import Library   WsaUtilsLibrary    ${${appliance}}    WITH NAME    ${appliance}UtilsLibrary
+    Run Keyword If  ${length}<4  import Resource    wsa/global.txt
+
+Import ESA Libraries
+    [Arguments]  ${appliance}
+
+    ${length}  Get Length  ${appliance}
+    Run Keyword If  ${length}>3  import Library   EsaGuiLibrary    ${${appliance}}    WITH NAME    ${appliance}GuiLibrary
+    Run Keyword If  ${length}>3  import Library   EsaCliLibrary    ${${appliance}}    WITH NAME    ${appliance}CliLibrary
+    Import Library    NGGuiLibrary    ${${appliance}}    WITH NAME   NGGuiLibrary
+    Import Library    EsaApiLibrary   ${${appliance}}    WITH NAME   EsaApiLibrary
+    Import Library    UtilsLibrary    ${${appliance}}    WITH NAME   ${appliance}UtilsLibrary
+    Run Keyword If  ${length}>3  import Variables   esa_intf.py      ${${appliance}}
+    Run Keyword If  ${length}<4  import Resource    esa/global.txt
+
+Set Aliases For Appliance Libraries
+    [Documentation]  Parses all DUTs for the current test suite(s)
+    ...  and loads corresponding appliance keyword libraries with
+    ...  appropriate aliases, for example for ESA2 library aliases
+    ...  will be ESA2CliLibrary, ESA2GuiLibrary, etc.
+    @{all_appliances}=  Split String  ${DUT_IDS}  ,
+    FOR  ${appliance}  IN  @{all_appliances}
+      ${type}=  Get Substring   ${appliance}  0   3
+      Run Keyword If  '${type}' == 'SMA'  Import SMA Libraries  ${appliance}
+      Run Keyword If  '${type}' == 'WSA'  Import WSA Libraries  ${appliance}
+      Run Keyword If  '${type}' == 'ESA'  Import ESA Libraries  ${appliance}
+    END
+
+Save Default Config
+    Run On DUT    rm /data/pub/configuration/${DEFAULT_CONFIG}
+    ${name}=      Save Config
+    Run On DUT    mv /data/pub/configuration/${name} /data/pub/configuration/${DEFAULT_CONFIG}
+    Run On DUT    chmod 777 /data/pub/configuration/${DEFAULT_CONFIG}
+    Log  ${TEMPDIR}/${${appliance}}_${DEFAULT_CONFIG}
+    Copy File From Dut To Remote Machine
+    ...  remote_host=${CLIENT_IP}
+    ...  from_loc=/data/pub/configuration/${DEFAULT_CONFIG}
+    ...  to_loc=${TEMPDIR}/${appliance}_${DEFAULT_CONFIG}
+
+Load Default Config
+    [Arguments]   ${type}
+    Copy File To DUT  ${TEMPDIR}/${${appliance}}_${DEFAULT_CONFIG}  /data/pub/configuration/
+    Run On DUT  mv /data/pub/configuration/${${appliance}}_${DEFAULT_CONFIG} /data/pub/configuration/${DEFAULT_CONFIG}
+    Run Keyword If  '${type}'=='SMA'   Load Config From File  ${DEFAULT_CONFIG}
+    Run Keyword If  '${type}'=='WSA'   Load Config  ${DEFAULT_CONFIG}
+    Commit
+
+########################################
+DefaultRegressionSuiteSetup
+    [Arguments]  ${reset_appliances}=${True}
+    ${SSW}=   Set Variable  ${TRUE}
+    ${duts}=  Set Variable  ${DUT_IDS}
+    @{appliances}=  Split String  ${duts}  ,
+
+    ${sma_duts}=  Set Variable  ${SMA_IDS}
+    @{sma_appliances}=  Split String  ${sma_duts}  ,
+
+    ${wsa_duts}=  Set Variable  ${WSA_IDS}
+    @{wsa_appliances}=  Split String  ${wsa_duts}  ,
+
+    ${esa_duts}=  Set Variable  ${ESA_IDS}
+    @{esa_appliances}=  Split String  ${esa_duts}  ,
+
+    Set Suite Variable  ${SSW}
+    Set Suite Variable  @{appliances}
+    Set Suite Variable  @{sma_appliances}
+    Set Suite Variable  @{wsa_appliances}
+    Set Suite Variable  @{esa_appliances}
+
+    Set Aliases For Appliance Libraries
+
+    Run Keyword If  ${reset_appliances} and '${SMA_IDS}'!='${EMPTY}'  DefaultRegressionSmaSuiteSetup
+
+    Run Keyword If  ${reset_appliances} and '${WSA_IDS}'!='${EMPTY}'  DefaultRegressionWsaSuiteSetup
+
+    Run Keyword If  ${reset_appliances} and '${ESA_IDS}'!='${EMPTY}'  DefaultRegressionEsaSuiteSetup
+    
+
+DefaultRegressionSuiteTeardown
+    FOR  ${appliance}  IN  @{appliances}
+       Library Order ${appliance}
+       DefaultTestSuiteTeardown
+    END
+#########################################
+DefaultRegressionTestCaseSetup
+    FOR  ${appliance}  IN  @{appliances}
+       Library Order ${appliance}
+       DefaultTestCaseSetup
+       ${type}  Get Substring   ${appliance}  0   3
+       Run Keyword If   '${SSW}'=='${True}'   Load Default Config   ${type}
+    END
+DefaultRegressionTestCaseTeardown
+    FOR  ${appliance}  IN  @{appliances}
+       Library Order ${appliance}
+       DefaultTestCaseTeardown
+    END
+
+DefaultRegressionEsaSuiteSetup
+    FOR  ${appliance}  IN  @{esa_appliances}
+       Set Suite Variable  ${appliance}
+       Library Order ${appliance}
+       DefaultTestSuiteSetup  dut_prefix=${appliance}
+       Save Default Config
+    END
+#####################################
+DefaultRegressionSmaSuiteSetup
+    FOR  ${appliance}  IN  @{sma_appliances}
+       Set Suite Variable  ${appliance}
+       Library Order ${appliance}
+       DefaultTestSuiteSetup
+       Save Default Config
+    END
+
+DefaultRegressionWsaSuiteSetup
+    ${WSA1_LIB_VERSION}=  Set Variable  ${WSA_LIB_VERSION}
+    FOR  ${appliance}  IN  @{wsa_appliances}
+       ${WSA_LIB_VERSION}=  Set Variable  ${${appliance}_LIB_VERSION}
+       Library Order ${appliance}
+       Run Keyword Unless  '${appliance}' == 'WSA'  Import Variables  wsa_intf.py  ${${appliance}}
+       DefaultTestSuiteSetup  dut_prefix=${appliance}
+       Save Default Config
+    END
+    ${WSA_LIB_VERSION}=  Set Variable  ${WSA1_LIB_VERSION}
+
+#########################################
+Netinstall Appliances To Target Builds
+    # Netinstall will have a place in case ${BUILD_APPLIANCE} are specified.
+    # Otherwise netinstall will be skipped.
+    # For exampls: --BUILD_SMA=zeus-8-0-0-080 --BUILD_WSA=coeus-7-5-1-006
+    FOR  ${appliance}  IN  @{appliances}
+        Library Order ${appliance}
+        ${status}  ${value}=  Run Keyword And Ignore Error  Variable Should Exist  ${BUILD_${dut}}
+        Run Keyword If  '${status}' == 'PASS'  Netinstall  build_id_regex=${BUILD_${dut}}  wait_for_ports=80
+    END
+
+Assign Appliances To Variables
+    [Arguments]  @{variable_names}
+    [Documentation]  This keyword finds and assigns names of appliances to specified names of variables.
+    ...  This keyword should be called before DefaultRegressionSuiteSetup (to avoid importing libraries and reseting appliances if no needed duts).
+    ...  Arguments should be names for suite variables (like "WSA_75_1  WSA_75_2  SMA_78_1 SMA_78_2").
+    ...  Variable name for first appliance with some version can be indicated without sufix "_1" (like "WSA_75" instead of "WSA_75_1").
+    ...  Created variables will contain names of appliance (like "SMA", "WSA", "WSA2"). So hostnames should be obtained by format: "${${SMA_78_1}}".
+    ...  Example:
+    ...   pybot_run variables:  --dut sma_with_78_version.wga --dut wsa1_with_75_version.wga --dut wsa2_with_75_version.wga --dut wsa3_with_71_version.wga
+    ...
+    ...   suite setup:
+    ...      Assign Appliances  SMA_78  WSA_71  WSA_75  WSA_75_2
+    ...      DefaultRegressionSuiteSetup
+    ...
+    ...   result: ${SMA_78}='SMA', ${WSA_71}='WSA3', ${WSA_75}='WSA'  ${WSA_75_2}='WSA2'
+
+    ${APPLIANCES_BY_VERSIONS}=  Get Appliances By Versions
+    FOR  ${variable_name}  IN  @{variable_names}
+       @{var_params}=  Split String  ${variable_name}  _
+       ${appliance_version}=  Set Variable  ${var_params[0]}_${var_params[1]}
+       Dictionary Should Contain Key  ${APPLIANCES_BY_VERSIONS}  ${appliance_version}
+       ...  No ${var_params[0]} appliance for version ${var_params[1]}.
+       @{appliance_list}=  Get From Dictionary  ${APPLIANCES_BY_VERSIONS}  ${appliance_version}
+       ${var_params_len}=  Get Length  ${var_params}
+       ${appliance_number}=  Set Variable If  ${var_params_len}>2  ${var_params[2]}  1
+       ${appliance_number}=  Convert To Integer  ${appliance_number}
+       ${appliance_list_len}=  Get Length  ${appliance_list}
+       Should Be True  ${appliance_list_len}>=${appliance_number}
+       ...  No needed number of ${var_params[0]} appliances with version ${var_params[1]}.
+       Set Suite Variable  ${${variable_name}}  ${appliance_list[${${appliance_number}-1}]}
+    END
+
+Get Appliances By Versions
+    [Documentation]  This keyword returns dictionary of versions with lists of related appliances like
+    ...  {u'SMA_78': [u'SMA'], u'WSA_71': [u'WSA'], u'WSA_75': [u'WSA2', u'WSA3']}
+
+    import Library    Collections
+    ${APPLIANCES_BY_VERSIONS}=  Create Dictionary
+    @{appliances}=  Split String  ${DUT_IDS}  ,
+    FOR  ${appliance_name}  IN  @{appliances}
+       @{build_attributes}=  Split String  ${${appliance_name}_BUILD}  -
+       ${main_version}=  Set Variable  ${build_attributes[1]}${build_attributes[2]}
+       ${appliance_version}=  Set Variable  ${appliance_name[:3]}_${main_version}
+       ${status}  ${out}  Run Keyword And Ignore Error  Dictionary Should Contain Key  ${APPLIANCES_BY_VERSIONS}  ${appliance_version}
+       Run Keyword If   '${status}'=='PASS'  Append Version  ${APPLIANCES_BY_VERSIONS}  ${appliance_version}  ${appliance_name}
+       Run Keyword Unless  '${status}'=='PASS'  Add Version  ${APPLIANCES_BY_VERSIONS}  ${appliance_version}  ${appliance_name}
+    END
+    Set Global Variable  ${APPLIANCES_BY_VERSIONS}
+    [Return]  ${APPLIANCES_BY_VERSIONS}
+
+Append Version
+    [Arguments]  ${APPLIANCES_BY_VERSIONS}  ${appliance_version}  ${appliance_name}
+    ${existed_list}=  Get From Dictionary  ${APPLIANCES_BY_VERSIONS}  ${appliance_version}
+    Append To List  ${existed_list}  ${appliance_name}
+    Set To Dictionary  ${APPLIANCES_BY_VERSIONS}  ${appliance_version}  ${existed_list}
+
+Add Version
+    [Arguments]  ${APPLIANCES_BY_VERSIONS}  ${appliance_version}  ${appliance_name}
+    @{appliance_list}=  Create List  ${appliance_name}
+    Set To Dictionary  ${APPLIANCES_BY_VERSIONS}  ${appliance_version}  ${appliance_list}

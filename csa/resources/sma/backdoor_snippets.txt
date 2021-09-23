@@ -1,0 +1,35 @@
+# $Id: //prod/main/sarf_centos/resources/sma/backdoor_snippets.txt#1 $ $DateTime: 2019/03/22 01:36:06 $ $Author: aminath $
+
+*** Keywords ***
+Sync Disk Quotas
+    [Arguments]  ${source_dut}  ${destination_dut}
+    [Documentation]  Synchronizes disk quotas for all DB's available for backup.
+    ...  Values for mentioned quotas are taken from ${source_dut} and applied to
+    ...  ${destination_dut}. ${source_dut} and ${destination_dut} are expected to
+    ...  contain VARIABLE NAMES (e.g. ESA, SMA2) but NOT their VALUES (e.g. ${ESA}, ${SMA2}).
+
+    @{var_names}=  Create List  euq.euq.db_total_size  hermes.quarantine.max_db_size
+    ...  slbl.db.max_size  reportd.db.db_environment_actual_size
+    ...  tracking.global.max_db_size  reporting.haystack.max_space_in_mb
+    @{code_list}=  Create List
+    ...  import command_client
+    ...  import variable_store
+    ...  cc = command_client.command_client()
+    ...  cc.connect()
+    ...  varstore = variable_store.variable_store(cc)
+    ${code_lines_count}=  Get Length  ${code_list}
+    ${var_count}=  Get Length  ${var_names}
+    FOR  ${var}  IN  @{var_names}
+        Append To List  ${code_list}  varstore.read_var("${var}")
+    END
+    ${output}=  Run Keyword  ${source_dut}UtilsLibrary.Backdoor Run  gui  ${code_list}
+    ${output}=  Get Lines Matching Regexp  ${output}  ^[^>]*$
+    @{var_values}=  Split To Lines  ${output}  -${var_count}
+    ${code_list}=  Get Slice From List  ${code_list}  0  ${code_lines_count}
+    FOR  ${i}  IN RANGE  ${var_count}
+        Append To List  ${code_list}
+        ...  varstore.change_var("@{var_names}[${i}]", @{var_values}[${i}])
+    END
+    Append To List  ${code_list}  varstore.commit_changes("admin", "")
+    Run Keyword  ${destination_dut}UtilsLibrary.Backdoor Run  gui  ${code_list}
+

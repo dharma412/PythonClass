@@ -1,0 +1,130 @@
+# $Id:
+# $DateTime:
+# $Author:
+
+*** Settings ***
+Resource  esa/injector.txt
+Library   SeleniumLibrary
+
+*** Variables ***
+
+*** Keywords ***
+
+Fetch Mail Content Using Drain
+    ${MAIL_CONTENT}=  Wait Until Keyword Succeeds
+    ...  3 min
+    ...  0 sec
+    ...  Verify And Wait For Mail In Drain  ${CLIENT}
+         ...  Subject  ${SPAM_NOTIF_SUBJ}
+    Log   ${MAIL_CONTENT}
+    [Return]  ${MAIL_CONTENT}
+
+Release Message Through Email Links
+    [Arguments]  ${url}
+    @{original_url}=  Split String    ${url}  '
+    Log  @{original_url}[1]
+    Go To  @{original_url}[1]
+    ${current_url}=  Get Location
+    Run Keyword And Ignore Error  Capture Page Screenshot
+    Log  ${current_url}
+    ${sub_string}=  Set Variable   https://${SMA}:83/Message?action=Release
+    Should Contain  ${current_url}  ${sub_string}
+    Should Contain  ${current_url}  ${CLIENT_HOSTNAME}
+
+Search and Delete Message Through Email links
+    [Arguments]  ${search_url}
+    @{original_url}=  Split String  ${search_url}  '
+    Log  @{original_url}[1]
+    Go To  @{original_url}[1]
+    ${current_url}=  Get Location
+    Run Keyword And Ignore Error  Capture Page Screenshot
+    Log  ${current_url}
+    ${sub_string}=  Set Variable   https://${SMA}:83/Search
+    Should Contain  ${current_url}  ${sub_string}
+    Should Contain  ${current_url}  ${CLIENT_HOSTNAME}
+    Spam Quarantine Delete Messages  is_admin=${False}
+    Run Keyword And Ignore Error  Capture Page Screenshot
+    #Page Should Contain  Success
+
+Message Delete
+    Spam Quarantine Delete Messages
+    ...  is_admin=${False}
+    ...  date_range=today
+    ...  header_cmp=contains
+    ...  header_value=danel
+    Page Should Contain  Success
+    Run Keyword And Ignore Error  Capture Page Screenshot
+
+Message Release
+    Spam Quarantine Release Messages
+    ...  is_admin=${False}
+    ...  date_range=today
+    ...  header_cmp=contains
+    ...  header_value=test
+    Page Should Contain  Success
+    Run Keyword And Ignore Error  Capture Page Screenshot
+
+Message Release Safelist
+    [Arguments]  ${type}=SAML  ${ldap_user}=None   ${ldap_pw}=None
+    Spam Quarantine Release safelist Messages
+    ...  is_admin=${False}
+    ...  date_range=week
+    ...  header_cmp=contains
+    ...  header_value=me
+    Run Keyword And Ignore Error  Capture Page Screenshot
+    Run keyword If  '${type}'=='SAML'
+    ...  Do Azure Login To Dut  ${SAML_AZUR_USER}  ${SAML_AZUR_USER_PASSWORD}
+    ...  ELSE  Login To Dut  ${ldap_user}  ${ldap_pw}
+    Run Keyword And Ignore Error  Capture Page Screenshot
+    Page Should Contain  added to your Safelist
+    Run Keyword And Ignore Error  Capture Page Screenshot
+
+Search Action Message Through Email links
+    [Arguments]  ${search_url}  ${action}  ${type}=SAML  ${ldap_user}=None
+    ...  ${ldap_pw}=None
+    @{original_url}=  Split String  ${search_url}  '
+    Log  @{original_url}[1]
+    Go To  @{original_url}[1]
+    ${current_url}=  Get Location
+    Run Keyword And Ignore Error  Capture Page Screenshot
+    Log  ${current_url}
+    ${sub_string}=  Set Variable   https://${SMA}:83/Search
+    Should Contain  ${current_url}  ${sub_string}
+    Should Contain  ${current_url}  ${CLIENT_HOSTNAME}
+    Log  ${action}
+    Run Keyword If  '${action}' == 'Release'
+    ...  Message Release
+    Run Keyword If  '${action}' == 'Delete'
+    ...  Message Delete
+    Run Keyword If  '${action}' == 'Release Safelist'
+    ...  Message Release Safelist  ${type}  ${ldap_user}  ${ldap_pw}
+
+Verify Detail Spam Message
+    [Arguments]  ${frm_value}  ${to_value}
+    ${details}=  Quarantines Spam Message Get Details  go_back=${False}
+    Log Dictionary  ${details}
+    Should Be Equal  ${details['from']}  ${frm_value}
+    Should Be Equal  ${details['to']}  ${to_value}
+
+Verify Spam Details
+    ${status}  ${msg}=  Run Keyword And Ignore Error
+    ...  Verify Detail Spam Message  danel  danielyeung@mail.qa
+    Run Keyword If  '${status}' == 'FAIL'
+    ...  Verify Detail Spam Message  me@${CLIENT}  user@${CLIENT}
+
+Check Detail Message Through Email Links
+    [Arguments]  ${url}
+    @{original_url}=  Split String    ${url}  '
+    Log  @{original_url}[1]
+    Go To  @{original_url}[1]
+    ${current_url}=  Get Location
+    Run Keyword And Ignore Error  Capture Page Screenshot
+    Log  ${current_url}
+    ${status}  ${msg}=  Run Keyword And Ignore Error
+    ...  Verify Detail Spam Message
+         ...  test <test@test.com>  suspectspam@suspectspam.com
+    Run Keyword If  '${status}' == 'FAIL'
+    ...  Verify Spam Details
+    ${sub_string}=  Set Variable   https://${SMA}:83/Message?action=Detail
+    Should Contain  ${current_url}  ${sub_string}
+    Should Contain  ${current_url}  ${CLIENT_HOSTNAME}

@@ -1,0 +1,110 @@
+# $Id: //prod/main/sarf_centos/resources/updates/avc-updates.txt#2 $ $DateTime: 2019/06/03 22:56:07 $ $Author: revlaksh $
+*** Settings ***
+Resource   updates/updater.txt
+*** Variables ***
+${UPDATER_LOG}               updater_log
+${AVC_LOG}                   avc_log
+${HEIMDALL_LOG}              heimdall
+${UPDATER_LOG_LOCATION}      /data/pub/updater_logs/${UPDATER_LOG}.current
+${AVC_LOG_LOCATION}          /data/pub/avc_logs/${AVC_LOG}.current
+${HEIMDALL_LOG_LOCATION}     /data/log/heimdall/heimdall/${HEIMDALL_LOG}.current
+${UPDATE_FILE_NAME}          avc_signatures-multi-${UPDATE_NAME}
+
+*** Keywords ***
+#commented below keyword as it is available in avc safe search suite
+#Perform Search On Google
+#    [Documentation]  Perform safe search on Google with current date to avoid entering captcha.\n
+#    ${safe_search_date}=  Run  date
+#    Input Text  xpath=//*[@name='q']  ${safe_search_date} sex
+#    Click Element  xpath=//*[@name='btnG']  dont_wait=yes
+#    Sleep  5s
+
+Start Update And Check It
+    [Documentation]  Checks that update is started after clicking on "Update Now" button\n
+    Avc Update Now
+    Element Should Contain  xpath=//*[@id='status']  Updates in progress
+
+Generate And Update AVC Signatures
+    [Documentation]  Generate AVC update and waint until update applied\n
+    # The ${UPDATE_FILE_NAME} variable - is a name of file with updates.
+    # The ${UPDATE_NAME} variable will be displayed on Acceptable Use Controls page as
+    # number of "Current Version". You need to pass both of these variables as parameters of `pybot_run`
+    [Arguments]  ${update_file_name}=${UPDATE_FILE_NAME}
+    ...  ${update_server_address}=${UPDATE_SERVER}
+    ...  ${update_server_user}=testuser
+    ...  ${update_server_pass}=ironport
+    ...  ${updater_cli_user}=admin
+    ...  ${updater_cli_pass}=ironport
+    ...  ${update_uid}=${AVC_SIGNATURES_UPDATE_PATH}
+    Update Settings Edit  enable_auto_update=${False}
+    Run Keyword And Ignore Error  Commit Changes
+    Update Config Dynamic Host  dynamic_host=${UPDATE_SERVER}:443
+    Commit
+    ${update}=  Run  date "+%s"
+    Set Suite Variable  ${MY_TIMESTAMP}  ${update}
+    Filter Updater Log Create Baseline
+    Run keyword if  '${UPDATE_PROVISIONING}' == 'Y'
+    ...  Check Update Version On Update Server And Generate If Needed
+    Set SSHLib Prompt  ${EMPTY}
+    Wait Until Keyword Succeeds  60s  10s  Avc Update Now
+    Go To Services Acceptable Use Controls
+#    Wait Until Keyword Succeeds  600s  10s  Filter Updater Log Check  ${baseline_updaterlog}  .*avc verifying applied files.*
+    Wait Until Keyword Succeeds  1200s  10s  Verify AVC Updates Successful
+    #Wait Until Keyword Succeeds  2400s  10s  Verify Application Numbers Updated
+
+Verify AVC Updates Successful
+    Go To Services Acceptable Use Controls
+    Page Should Contain  ${UPDATE_NAME}
+
+Verify Application Numbers Updated
+   # get app number from UI
+    Go To Web Security Manager Access Policies
+    ${source}=  Get Source
+    ${match}   ${app_number_ui}=  Should Match Regexp  ${source}  .*avc\\S+Monitor: (\\d+).*
+   # get app number from cli
+    ${app_number_cli}=  Run On DUT  python -c "import ConfigParser; config = ConfigParser.RawConfigParser(); config.read('/data/db/avc/signatures/avc_taxonomy.conf'); print len([item for item in config.sections() if config.get(item,'entry_type') == 'app' and config.has_option(item,'feature_avc') and config.get(item,'feature_avc') == '1' and config.get(item,'app_type') != '3'])"
+   # compare app numbers got from cli and ui
+    Should Be Equal  ${app_number_ui}  ${app_number_cli}
+
+Filter Updater Log Check
+    [Documentation]  filter updater log from baseline
+    [Arguments]  ${baseline}  ${pattern}
+    ${updater_log}  ${updater_log_count}=  Filter Log  ${UPDATER_LOG_LOCATION}
+    ...  baseline=${baseline}  timeout=600
+    ...  match_patterns=-E '${pattern}'
+    Log  ${updater_log}
+    Should Not Be Equal As Numbers  ${updater_log_count}  0
+    [Return]  ${updater_log}
+
+Filter Updater Log Create Baseline
+    [Documentation]  Create baseline for updater log
+    ${_baseline_updaterlog}=    Filter Log Create Baseline    ${UPDATER_LOG_LOCATION}
+    Set Suite Variable    ${baseline_updaterlog}    ${_baseline_updaterlog}
+
+Filter Avc Log Check
+    [Documentation]  filter updater log for AVC from baseline
+    [Arguments]  ${baseline}  ${pattern}
+    ${avc_log}  ${avc_log_count}=  Filter Log  ${AVC_LOG_LOCATION}
+    ...  baseline=${baseline}  timeout=300
+    ...  match_patterns=-E '${pattern}'
+    Log  ${avc_log}
+    Should Not Be Equal As Numbers  ${avc_log_count}  0
+    [Return]  ${avc_log}
+
+Filter Avc Log Create Baseline
+    [Documentation]  Create baseline for updater log
+    ${_baseline_avclog}=    Filter Log Create Baseline    ${AVC_LOG_LOCATION}
+    Set Suite Variable    ${baseline_avclog}    ${_baseline_avclog}
+
+Create Heimdall Log Baseline
+    [Documentation]  Create baseline for updater log
+    ${_baseline_heimdalllog}=    Filter Log Create Baseline    ${HEIMDALL_LOG_LOCATION}
+    Set Suite Variable    ${baseline_heimdalllog}    ${_baseline_heimdalllog}
+
+Verify Updates Being Downloaded
+    Open Connection   ${DUT}
+	Login  ${RTESTUSER}  ${RTESTUSER_PASSWORD}
+    Execute Command  cd /data/tmp/avc
+    ${file_name} =  Execute Command  ls
+    Should Not Be Empty  ${file_name}
+    Close Connection

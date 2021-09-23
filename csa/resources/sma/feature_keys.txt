@@ -1,0 +1,154 @@
+# $Id: //prod/main/sarf_centos/resources/sma/feature_keys.txt#1 $ $DateTime: 2019/03/22 01:36:06 $ $Author: aminath $
+
+*** Settings ***
+Resource  regression.txt
+
+*** Variables  ***
+
+${FK_UPDATES_SERVER}  qa10.qa
+${UP_BASE_PATH}       /home/upgrades/fkey/data
+${UPDATES_CFG_FILE}   /data/db/config/system.updates/data.cfg
+
+*** Keywords ***
+
+Get Feature Remaining Time
+    [Documentation]  This keyword returns feature remaining time number from\n
+    ...  page Feature Keys.\n
+    ...  Possible 'feature' argument values are:\n
+    ...  \t* Cisco IronPort Spam Quarantine\n
+    ...  \t* Cisco IronPort Centralized Email Reporting\n
+    ...  \t* Cisco IronPort Centralized Web Configuration Manager\n
+    ...  \t* Cisco IronPort Centralized Email Message Tracking\n
+    ...  \t* Cisco IronPort Centralized Web Reporting\n
+    ...  \t* Cloud Admin\n
+    [Arguments]  ${feature}
+    Navigate To  Management Appliance  System Administration  Feature Keys
+    ${time}=  Get Text  //tr[td[contains(text(), '${feature}')]]/td[3]
+    [Return]  ${time}
+
+Run Command On Updates Server
+    [Documentation]    Runs specified command on feature keys updates server.
+    [Arguments]    ${command}
+    SSHLibrary.Open Connection    ${FK_UPDATES_SERVER}
+    SSHLibrary.Login    ${RTESTUSER}    ${RTESTUSER_PASSWORD}
+    ${out}=  SSHLibrary.Execute Command    ${command}
+    SSHLibrary.Close Connection
+    [Return]  ${out}
+
+Add Feature Key Update On Updates Server
+    [Arguments]  ${fk}
+    ${sn}=  Get DUT Serial Number
+    ${upd_path}=  Set Variable  ${UP_BASE_PATH}/${sn[-2]}/${sn[-1]}
+    Run Command On Updates Server  mkdir -p ${upd_path} && echo -n "${fk}" >> ${upd_path}/${sn} && echo >> ${upd_path}/${sn}
+
+Clear Feature Key Update File On Updates Server
+    ${sn}=  Get DUT Serial Number
+    ${upd_path}=  Set Variable  ${UP_BASE_PATH}/${sn[-2]}/${sn[-1]}
+    Run Command On Updates Server  rm ${upd_path}/${sn}
+
+Get Feature Status
+    [Documentation]  This keyword returns feature status from page Feature Keys.\n
+    ...  Possible 'feature' argument values are:\n
+    ...  \t* Cisco IronPort Spam Quarantine\n
+    ...  \t* Cisco IronPort Centralized Email Reporting\n
+    ...  \t* Cisco IronPort Centralized Web Configuration Manager\n
+    ...  \t* Cisco IronPort Centralized Email Message Tracking\n
+    ...  \t* Cisco IronPort Centralized Web Reporting\n
+    ...  \t* Cloud Admin\n
+    [Arguments]  ${feature}
+    Navigate To  Management Appliance  System Administration  Feature Keys
+    ${status}=  Get Text  //tr[td[contains(text(), '${feature}')]]/td[2]
+    [Return]  ${status}
+
+Get Feature Status From Cli
+    [Documentation]  This keyword returns feature status from page Feature Keys.\n
+    ...  Possible 'feature' argument values are:\n
+    ...  \t* Cisco IronPort Spam Quarantine\n
+    ...  \t* Cisco IronPort Centralized Email Reporting\n
+    ...  \t* Cisco IronPort Centralized Web Configuration Manager\n
+    ...  \t* Cisco IronPort Centralized Email Message Tracking\n
+    ...  \t* Cisco IronPort Centralized Web Reporting\n
+    ...  \t* Cloud Admin\n
+    [Arguments]  ${feature}
+    ${feature_keys_info}=  Feature Key List
+    ${feature_key_info}=  Get Lines Containing String
+    ...  ${feature_keys_info}
+    ...  ${feature}
+    ${status}=  Get Substring  ${feature_key_info}  53  62
+    [Return]  ${status}
+
+Get DUT Serial Number
+    ${ver}=  Run On DUT  env
+    ${match}  ${serial}=  Should Match Regexp  ${ver}  SERIAL_NUMBER=(\\w*-\\w*)
+    [Return]  ${serial}
+
+Generate Feature Key
+    [Arguments]  ${component}
+    ...  ${duration}=2592000
+    ${key}=  Feature Key Generate Key  ${component}  ${duration}
+    [Return]  ${key}
+
+Restore All Features
+    Feature Key Set Key  c_web_rep_processing  duration=2592000
+    Feature Key Set Key  iccm_processing  duration=2592000
+    Feature Key Set Key  master_isq  duration=2592000
+    Feature Key Set Key  cloud  duration=2592000
+    Feature Key Set Key  c_rep_processing  duration=2592000
+    Feature Key Set Key  c_track_processing  duration=2592000
+
+Restore Feature
+    [Arguments]  ${feature}
+    Feature Key Set Key  ${feature}  duration=2592000
+
+Renew Non Expired Feature Key
+    [Arguments]  ${feature}  ${feature_id}
+
+    ${status}=  Get Feature Status  ${feature}
+    Should Be Equal  ${status}  Active
+
+    ${key}=  Generate Feature Key  ${feature_id}  1123800
+    Navigate To  Management Appliance  System Administration  Feature Keys
+    Input Text  enter_fk  ${key}
+    Click Button  Submit Key
+
+    Page Should Contain  Feature key accepted for host "${DUT}".
+    ${remaining_time}=  Get Feature Remaining Time  ${feature}
+    Should Be Equal  ${remaining_time}  13 days
+
+Verify EULA After Renewal Non Expired Key
+    [Arguments]  ${feature_id}
+
+    ${key}=  Generate Feature Key  ${feature_id}
+    Navigate To  Management Appliance  System Administration  Feature Keys
+    Input Text  enter_fk  ${key}
+    Click Button  Submit Key
+
+    Page Should Not Contain  To apply the feature key(s), please review and accept the license agreement below
+    Page Should Not Contain  CISCO IRONPORT SYSTEMS, LLC SOFTWARE LICENSE AGREEMENT
+    Page Should Contain  Feature key accepted for host "${DUT}".
+
+Renew Expired Feature Key
+    [Arguments]  ${feature}  ${feature_id}
+
+    Feature Key Expire Key  ${feature_id}
+    ${status}=  Get Feature Status  ${feature}
+    Should Be Equal  ${status}  Expired
+
+    Restore Feature  ${feature_id}
+    ${status}=  Get Feature Status  ${feature}
+    Should Be Equal  ${status}  Active
+
+Verify EULA After Renewal Expired Key
+    [Arguments]  ${feature}  ${feature_id}
+
+    Feature Key Expire Key  ${feature_id}
+    ${status}=  Get Feature Status  ${feature}
+    Should Be Equal  ${status}  Expired
+
+    ${key}=  Generate Feature Key  ${feature_id}
+    Navigate To  Management Appliance  System Administration  Feature Keys
+    Input Text  enter_fk  ${key}
+    Click Button  Submit Key
+
+    Page Should Contain  To apply the feature key(s), please review and accept the license agreement below
+    Click Button  Accept

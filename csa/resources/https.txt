@@ -1,0 +1,31 @@
+# $Id: //prod/main/sarf_centos/resources/https.txt#1 $DateTime: $Author:
+*** Settings ***
+Variables  constants.py
+Resource   wsa/global.txt
+*** Variables ***
+${CUSTOM_HTTPS_SERVER}     vm10bsd0187.wga
+*** Keywords ***
+Check custom https services
+    [Documentation]  Check if custom https services are started.\n
+    [Arguments]  ${REMOTE_SERVER}
+    Open Connection   ${REMOTE_SERVER}
+    Login  ${RTESTUSER}  ${RTESTUSER_PASSWORD}
+    Execute Command  apachectl restart
+    Sleep  10
+    ${out}=  Execute Command  sockstat -4 -l | grep 443
+
+    ${EXPIRED_HTTPS_IP}=   Get Host IP By Name  ${EXPIRED_HTTPS}
+    ${NOCN_HTTPS_IP}=      Get Host IP By Name  ${NOCN_HTTPS}
+    ${NULLINCN_HTTPS_IP}=  Get Host IP By Name  ${NULLINCN_HTTPS}
+
+    Run Keyword And Continue On Failure  Should Contain   ${out}  ${EXPIRED_HTTPS_IP}
+    Run Keyword And Continue On Failure  Should Contain   ${out}  ${NOCN_HTTPS_IP}
+    Run Keyword And Continue On Failure  Should Contain   ${out}  ${NULLINCN_HTTPS_IP}
+    Close Connection
+
+Install WSA Certificate
+    ${current_cert}=  Run On DUT  grep 'generated_cert_name = .*' ${PROX_CFG}
+    ${current_cert}=  Set Variable  ${current_cert.split('"')[-2]}
+    ${ff_profile}=  Get Firefox Profile Directory
+    Copy File From DUT To Remote Machine  ${CLIENT_HOSTNAME}  /data/db/certd/${current_cert}.crt.pem  ${CERT_LOC}
+    ${out}=  Run  certutil -A -n "ironport.com - QA Automation" -d ${ff_profile} -t "CTu,," -u "c" -a -i ${CERT_LOC}

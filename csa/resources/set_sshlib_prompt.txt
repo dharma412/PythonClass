@@ -1,0 +1,80 @@
+# $Id: //prod/main/sarf_centos/resources/set_sshlib_prompt.txt#1 $
+# $DateTime: 2019/03/22 01:36:06 $
+# $Author: aminath $
+
+*** Settings ***
+Library    SSHLibrary
+
+*** Keyword ***
+Get SSH Version
+    [Documentation]    Returns version of SSHLibrary
+
+    ${ssh_lib_version}=    Evaluate
+    ...    SSHLibrary.SSHLibrary.ROBOT_LIBRARY_VERSION
+    ...    modules=SSHLibrary
+
+    [Return]    ${ssh_lib_version}
+
+Wrapped New Set Prompt
+    [Documentation]    Wrapper that simulates old Set Prompt
+    [Arguments]    ${prompt}
+
+    ${conn}=    Get Connections
+    ${old_prompt}=    Set Variable If
+    ...    "${conn}" != "" and "${conn}" != "[]"
+    ...    ${conn[0].prompt}
+    ...    ${EMPTY}
+    Set Default Configuration    prompt=${prompt}
+    Run Keyword If    "${conn}" != "" and "${conn}" != "[]"
+    ...    Run Keyword And Ignore Error
+    ...    Set Client Configuration    prompt=${prompt}
+
+    [Return]    ${old_prompt}
+
+Set SSHLib Prompt
+    [Documentation]    Universal replacement for Set Prompt
+    [Arguments]    ${prompt}
+
+    ${ssh_lib_version}=    Get SSH Version
+    ${p1}=    Run Keyword If    '${ssh_lib_version}' >= '1.1'
+    ...    Wrapped New Set Prompt    ${prompt}
+    ${p2}=    Run Keyword If    '${ssh_lib_version}' < '1.1'
+    ...    Set Prompt    ${prompt}
+    ${old_prompt}=    Set Variable If
+    ...    '${ssh_lib_version}' >= '1.1'
+    ...    ${p1}
+    ...    ${p2}
+
+    [Return]    ${old_prompt}
+
+Wrapped New Set Timeout
+    [Documentation]    Wrapper that simulates old Set Timeout
+    [Arguments]    ${timeout}
+
+    ${conn}=    Get Connections
+    ${old_timeout}=    Set Variable If
+    ...    "${conn}" != "" and "${conn}" != "[]"
+    ...    ${conn[0].timeout}
+    ...    ${EMPTY}
+    Set Default Configuration    timeout=${timeout}
+    Run Keyword If    "${conn}" != "" and "${conn}" != "[]"
+    ...    Run Keyword And Ignore Error
+    ...    Set Client Configuration    timeout=${timeout}
+
+    [Return]    ${old_timeout}
+
+Set SSHLib Timeout
+    [Documentation]    Universal replacement for Set Timeout
+    [Arguments]    ${timeout}
+
+    ${ssh_lib_version}=    Get SSH Version
+    ${p1}=    Run Keyword If    '${ssh_lib_version}' >= '1.1'
+    ...    Wrapped New Set Timeout    ${timeout}
+    ${p2}=    Run Keyword If    '${ssh_lib_version}' < '1.1'
+    ...    Set Timeout    ${timeout}
+    ${old_timeout}=    Set Variable If
+    ...    '${ssh_lib_version}' >= '1.1'
+    ...    ${p1}
+    ...    ${p2}
+
+    [Return]    ${old_timeout}

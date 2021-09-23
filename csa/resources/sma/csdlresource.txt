@@ -1,0 +1,346 @@
+# $Date: 2020/09/08 $
+# $Author: cballa $
+
+*** Settings ***
+Library      Collections
+Resource     sma/global_sma.txt
+Resource     sma/esasma.txt
+Resource     regression.txt
+Variables    sma/saml_constants.py
+
+*** Variables ***
+@{default_password_change_options}      Cisco12#  Cisco12!  Cisco12@  Cisco12$
+${error_msg_morelink}                   //span[text()='more']
+${error_message_more_popup}             //div[@class='bd']
+${nmap_install_command}                 sudo yum -y install nmap
+${nmap_command_host_timeout}            1200
+${nmap_yum_list_installed}              sudo yum list installed |grep nmap
+${user_agent_ff}                        Mozilla/5.0 (X11; Linux x86_64; rv:38.0) Gecko/20100101 Firefox/38.0
+${user_agent_chrome}                    Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/76.0.3809.100 Safari/537.36
+@{set_cookie_attributes}                httponly  Path  SameSite  secure
+${spam_quarantine_link}     //a[@title='Spam Quarantine (open in new window)']
+${spam_quarantine_message_xpath}    //div[@class='pager-bar'][1]//following::tr[5]//a
+${threat_summary_xpath}   //span[text()='Threat Summary']//following::span[text()='Threat Category']//following::a[1]
+${threat_summary_error_xpath}  //div[@id='mga_virus_outbreaks_threat_summary-errors']
+@{pvo_quarantines}      virus  policy  outbreak
+${pvo_virus_xpath}      //form[@name='form']//following::a[text()='Virus']//following::td[2]/a[1]
+${pvo_policy_xpath}     //form[@name='form']//following::a[text()='Policy']//following::td[2]/a[1]
+${pvo_outbreak_xpath}   //form[@name='form']//following::a[text()='Outbreak']//following::td[2]/a[1]
+${mail_view_xpath}     //tbody//following::dt[contains(text(),'Messages in Quarantine:')]//following::tr[5]/td[11]/div
+${mail_outbreak_view_xpath}    //tbody//following::dt[contains(text(),'Messages in Quarantine:')]//following::tr[6]//td[4]/div
+${AUTHENTICATION_LOGS}         /data/pub/authentication/authentication.current
+${INVALID_ADMIN}               admin1
+${INVALID_ADMIN_PASSWORD}      Ironport12$
+${SMAD_LOGS}                   /data/pub/smad_logs/smad.current
+${TEST_USER_PSW}=              Ironport159$
+${CISCO_AD}=                   cisco_ad
+${LDAP_SERVER_PROFILE}=        ldap_profile
+
+
+*** Keywords ***
+CSDL Suite Setup
+    Set Appliance Under Test to SMA
+    global_sma.DefaultTestSuiteSetup
+    Run keyword and ignore error  Log Out Of Dut
+    ${SMA_IP}=  Get Host IP By Name   ${SMA}
+    Set Suite variable  ${SMA_IP}
+    Set Suite variable  ${SQ_USER}  ${DUT_ADMIN}
+    Set Suite variable  ${SQ_USER_PASSWORD}  ${DUT_ADMIN_SSW_PASSWORD}
+
+CSDL Suite Teardown
+    DefaultTestSuiteTeardown
+
+Connect to SMA
+    [Arguments]  ${user}  ${password}
+    Open Connection  ${SMA}
+    Set SSHLib Timeout  60s
+    Run keyword if  '${user}' == '${RTESTUSER}'  Set SSHLib Prompt  ]
+    ...  ELSE
+    ...  Set SSHLib Prompt  >
+    Login  ${user}  ${password}
+
+Enter option ${option} and read
+    Write  ${option}
+    Sleep  1
+    ${out}=  Read
+    [Return]  ${out}
+
+#This keyword shall be available for now. To be removed later if not used -As discussed with Shini.
+Enter option and wait for prompt
+    [Arguments]  ${option}  ${prompt}
+    Write  ${option}
+    ${out}=  Read Until Prompt
+    [Return]  ${out}
+
+#This keyword shall be available for now. To be removed later if not used -As discussed with Shini.
+Enter option and wait till expected condition
+    [Arguments]   ${option}  ${expected}
+    Write  ${option}
+    ${out}=  Read Until  expected=${expected}
+    [Return]  ${out}
+
+Enable Spam Quarantine On SMA
+    [Arguments]  ${commit}=${True}
+    Spam Quarantine Enable
+    ...  interface=Management
+    ...  port=6025
+    Run Keyword If  ${commit}  Commit Changes
+
+Launch SPAM Quarantine portal
+    [Arguments]  ${user}  ${password}
+    Go To Euq Gui  ${user}  ${password}
+    Run keyword and ignore error  Log Out Of Dut
+
+Login To Spam Quarantine
+    [Arguments]  ${user}=${SQ_USER}
+    ...  ${password}=${SQ_USER_PASSWORD}
+    Log Into DUT  user=${user}  password=${password}
+
+Login to DUT with invalid password and check wrong password error
+     [Arguments]  ${user}  ${password}  ${attempt}
+     FOR    ${count}    IN RANGE  0  ${attempt}
+       Run keyword and ignore error  Login To DUT  ${user}  ${password}
+       Page Should Contain  Invalid username or passphrase.
+     END
+
+Login to SPAM Quarantine with invalid password and check wrong password error
+     [Arguments]   ${user}  ${password}  ${attempt}
+     Log  ${attempt}
+     FOR    ${count}    IN RANGE  0  ${attempt}
+       Run keyword and ignore error  Login To Spam Quarantine  user=${user}  password=${password}
+       Page Should Contain  Invalid username or passphrase.
+     END
+     
+Login to DUT with invalid password and check multiple login attempt error
+     [Arguments]   ${user}  ${password}
+     Run keyword and ignore error  Login To DUT  ${user}   ${password}
+     Page Should Contain  Too many login attempts. Please try after sometime.
+
+Login to DUT with valid password and check multiple login attempt error
+     [Arguments]  ${user}  ${password}
+     Run keyword and ignore error  Login To DUT  ${user}   ${password}
+     Page Should Contain  Too many login attempts. Please try after sometime.
+
+Login to SPAM Quarantine with invalid password and check multiple login attempt error
+    [Arguments]  ${user}  ${wrongpassword}
+    Run keyword and ignore error  Login To Spam Quarantine  user=${user}  password=${wrongpassword}
+    Page Should Contain  Too many login attempts. Please try after sometime.
+
+Login to SPAM quarantine with valid password and check multiple login attempt error
+    [Arguments]  ${user}  ${valid_password}
+    Run keyword and ignore error  Login To Spam Quarantine  user=${SQ_USER}  password=${SQ_USER_PASSWORD}
+    Page Should Contain  Too many login attempts. Please try after sometime
+
+Wait for ${seconds} seconds for the password expiration time
+    Sleep  ${seconds}
+
+Login to DUT and check login is successful
+    [Arguments]   ${username}   ${password}
+    Login To DUT   ${username}  ${password}
+    Log Out Of Dut
+
+Login to SPAM Qurantine and check login is successful
+    [Arguments]  ${user}  ${passwrd}
+    Login To Spam Quarantine  user=${user}  password=${passwrd}
+    Log Out Of Dut
+
+Clear log
+    [Arguments]  ${log_file}
+    Run keyword and ignore error  Run On DUT  rm -rf ${log_file}
+
+Verify logs
+    [Arguments]  ${search_path}  ${pattern}
+
+    Log  ${search_path}
+    ${output} =  Log Search  ${pattern}
+    ...  search_path=${search_path}
+    ${count}=  Get From List  ${output}  0
+    Should Be True  ${count} >= 1
+
+Login to DUT with new user and invalid password and check wrong password error
+    [Arguments]  ${user_admin}  ${wrong_password}  ${pasword_attempt}
+    FOR    ${count}    IN RANGE  0  ${${pasword_attempt}-1}
+      Run keyword and ignore error  Login To DUT  ${user_admin}  ${wrong_password}
+      Page Should Contain  Invalid username or passphrase. Attempts Left: ${${pasword_attempt}-1-${count}}
+    END
+    
+Login to DUT with new user and valid password and check account error
+    [Arguments]  ${user_admin}  ${pass}  ${error_message}
+    Run keyword and ignore error  Login To DUT  ${user_admin}  ${pass}
+    Page Should Contain  ${error_message}
+
+Verify user status is
+    [Arguments]  ${user}  ${required_status}
+    ${users_list}=  Users Get List
+    Dictionary Should Contain Key  ${users_list}  ${user}
+    ${status}=  Get From Dictionary  ${users_list}  ${user}
+    Should Contain  ${status}  ${required_status}
+
+Update login attempts per minute via CLI
+    [Arguments]  ${attempts_minute}
+    User Config Policy Account
+     ...  login_attempts_minute=${attempts_minute}
+
+Add user in SMA
+    [Arguments]   ${user}  ${name}  ${password}  ${role}
+    Run keyword and ignore error  Log Out Of Dut
+    Login To DUT  ${DUT_ADMIN}  ${DUT_ADMIN_SSW_PASSWORD}
+    Users Add User  ${user}  ${name}  ${password}  user_role=${role}
+    Commit Changes
+    Run keyword and ignore error  Log Out Of Dut
+
+Update Account locking attempts
+    [Arguments]  ${lock_attempt}
+    Login To DUT  ${DUT_ADMIN}  ${DUT_ADMIN_SSW_PASSWORD}
+    Users Edit Account Locking  lock_failed_login=${lock_attempt}
+    Commit Changes
+    Run keyword and ignore error  Log Out Of Dut
+
+Login to SMA and update Account login attempts
+    [Arguments]  ${admin}  ${password}  ${attempt}
+    Run keyword and ignore error  Log Out Of Dut
+    Login To DUT  ${admin}  ${password}
+    Users edit account locking    login_attempt=${attempt}
+    Commit Changes
+    Log Out Of Dut
+
+Establish SSH Connection To
+    [Arguments]  ${hostname}  ${user}  ${password}  ${prompt}
+    Open Connection  ${hostname}
+    Set SSHLib Timeout  60s
+    Set SSHLib Prompt  ${prompt}
+    Login  ${user}  ${password}
+
+Change password via CLI
+    [Arguments]  ${old_password}  ${new_password}
+    Passwd   old_pwd=${old_password}  new_pwd=${new_password}
+
+Clear and Roll over logs
+    [Arguments]  ${logfile}  ${logname}
+    Clear log  ${logfile}
+    Run Keyword And Ignore Error  Start CLI Session If Not Open
+    Roll Over Now  logname=${logname}
+
+Login to SMA via GUI
+    [Arguments]  ${sma_username}  ${sma_password}
+    Run keyword and ignore error  Log Out Of Dut
+    Login To DUT  ${sma_username}  ${sma_password}
+
+Reset password to default
+    [Arguments]  ${dut_password}
+    ${password_list_size}=  get length  ${default_password_change_options}
+    FOR    ${count}  IN RANGE  ${password_list_size}
+      ${previous_password}  set variable  ${count-1}
+      Run keyword if  ${count}==0   Change password via CLI  ${dut_password}  @{default_password_change_options}[${count}]
+      Run keyword if  ${count}>0    Change password via CLI  @{default_password_change_options}[${previous_password}]  @{default_password_change_options}[${count}]
+    END
+Set inactivity timeout
+    [Arguments]  ${gui_timeout}=30  ${cli_timeout}=30
+    Run keyword and ignore error  Log Out Of Dut
+    Login To DUT  ${DUT_ADMIN}  ${DUT_ADMIN_SSW_PASSWORD}
+    Network Access Edit Settings  timeout=${gui_timeout}  cli_timeout=${cli_timeout}
+    Commit Changes
+
+Verify password change error message
+    [Arguments]  ${error_message}
+
+    Sleep  1
+    Click Element  ${error_msg_morelink}
+    ${text} =  Get Text  ${error_message_more_popup}
+    should match regexp   ${text}  ${error_message}
+
+Verify and install nmap package
+    ${nmap_install_status}=  Check status of nmap package
+    Run keyword if  '${nmap_install_status}'=='False'  Run On Host  ${CLIENT_IP}  ${TESTUSER}  ${TESTUSER_PASSWORD}   ${nmap_install_command}
+    ${nmap_post_install_status}=  Check status of nmap package
+    Should be True  ${nmap_post_install_status}
+
+Check status of nmap package
+    ${nmap_status}=  Run On Host  ${CLIENT_IP}  ${TESTUSER}  ${TESTUSER_PASSWORD}   ${nmap_yum_list_installed}
+    ${nmap_install_information_status}=  Run keyword and return status  Should match regexp  ${nmap_status}  .*nmap.x86_64.*
+    [Return]  ${nmap_install_information_status}
+
+Verify Set Cookie contents in Response and Request Header
+    [Arguments]  ${url}  ${user_agent}=${user_agent_ff}
+
+    # Send request and get response and request header
+    ${response_header}  ${request_header}=  UtilsLibrary.Get header response and request  ${url}  ${user_agent}
+
+    # Get request header session id
+    ${request_header_session_id}=  Get From Dictionary  ${request_header}  Cookie
+
+    # Get response header Set cookie attributes
+    ${response_header_set_cookie_attributes}=  Get From Dictionary  ${response_header}  set-cookie
+
+    # Verify cookie sid value in the Request Header matches the sid value generated in the Response header .
+    Should Contain  ${response_header_set_cookie_attributes}  ${request_header_session_id}
+
+    # Verify response header set cookie session attributes does not contain 'expires'
+    Should Not Contain  ${response_header_set_cookie_attributes}  .*expires.*
+
+    # Verify response set cookie contents contains  httponly, Path , SameSite , secure attributes
+    FOR  ${attribute}  IN  @{set_cookie_attributes}
+      Should Contain  ${response_header_set_cookie_attributes}  ${attribute}
+    END
+    
+Initialize Users
+    FOR    ${user}    IN RANGE    1   23
+        Set Suite Variable  ${TEST_USER${user}}  testuser${user}
+    END
+
+Check User Login
+    [Arguments]  ${user}=${DUT_ADMIN}  ${password}=${DUT_ADMIN_SSW_PASSWORD}
+    Reload Page
+    Sleep  5s  msg=Wait for reload complete
+    ${current_url}=  Get Location
+    Run Keyword If  'login' in '${current_url}'  Log Into Dut  ${user}  ${password}
+
+Edit External Authentication LDAP User Role
+    [Arguments]  ${ldap_query}  ${ldap_group}  ${user_role}
+    Users Edit External Authentication  LDAP
+    ...  ldap_query=${ldap_query}.externalauth
+    ...  group_mapping=${ldap_group}:${user_role}
+    Commit Changes
+
+Add Cisco Ad As LDAP
+    LDAP Add Server Profile  ${CISCO_AD}   ${CISCO_AD_SERVER}
+    ...  auth_method=${CISCO_TEST_USER_MAIL}:${CISCO_TEST_PASSWORD}
+    ...  server_type=Active Directory
+    ...  port=${CISO_AD_PORT}
+    ...  base_dn=${CISCO_AD_BASEDN}
+    ...  use_ssl=${TRUE}
+    Commit Changes
+    LDAP Edit External Authentication Queries  ${CISCO_AD}
+    ...  user_base_dn=${CISCO_AD_BASEDN}
+    ...  group_base_dn=${CISCO_AD_BASEDN}
+    Commit Changes
+
+Edit External Authentication Radius User Role
+    [Arguments]  ${user_role}
+    Users Edit External Authentication  RADIUS
+    ...  radius_servers=${RADIUS_SERVER}:${RADIUS_PORT}:${RADIUS_SECRET}:10
+    ...  auth_cache_timeout=20
+    ...  group_mapping=${RADIUS_CLASS_ATTRIBUTE}:${user_role}
+    Run Keyword And Ignore Error  Commit Changes
+
+Add Customer SAML Config Azure
+    ${settings}=  Create Dictionary
+    ...  User Role                          ${USER_ROLE}
+    ...  SP Entity ID                       ${SP_ENTITY_ID_Azure}
+    ...  SP Certificate                     ${CERT_FILE_SP_Azure}
+    ...  Private Key                        ${CERT_FILE_KEY_SP_Azure}
+    ...  Organization Name                  ${ORGANIZATION_NAME}
+    ...  Organization Display Name          ${ORGANIZATION_DISPLAY_NAME}
+    ...  Organization URL                   ${ORGANIZATION_URL}
+    ...  Organization Technical Contact     ${ORGANIZATION_TECHNICAL_CONTACT}
+    ...  Configuration Mode                 ${CONFIGURATION_MODE}
+    ...  Import IDP Metadata                ${IDP_Metadata_Azure}
+    SAML ADD SP AND IDP  ${TEST_SP_PROFILE}  ${TEST_IDP_PROFILE}  ${settings}
+
+Enable Externalauth SAML
+    Userconfig External Setup Saml
+    ...  cache_time=0
+    ...  group_name=${SAML_GROUP_Azure}
+    ...  role=${SAML_GROUP_ROLE_ADMIN}
+    Commit
+

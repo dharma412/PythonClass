@@ -1,0 +1,79 @@
+*** Settings ***
+Resource   updates/updater.txt
+*** Variables ***
+${UPDATER_LOG}               updater_log
+${HEIMDALL_LOG}              heimdall
+${UPDATER_LOG_LOCATION}      /data/pub/updater_logs/${UPDATER_LOG}.current
+${HEIMDALL_LOG_LOCATION}     /data/log/heimdall/heimdall/${HEIMDALL_LOG}.current
+${UPDATE_FILE_NAME}          avc_signatures-multi-${UPDATE_NAME}
+
+*** Keywords ***
+
+Generate And Update Time Zone
+    [Documentation]  Generate time zone update and waint until update applied\n
+    # The ${UPDATE_FILE_NAME} variable - is a name of file with updates.
+    # The ${UPDATE_NAME} variable will be displayed on Acceptable Use Controls page as
+    # number of "Current Version". You need to pass both of these variables as parameters of `pybot_run`
+    [Arguments]  ${update_file_name}=${UPDATE_FILE_NAME}
+    ...  ${update_server_address}=${UPDATE_SERVER_NEW}
+    ...  ${update_server_user}=testuser
+    ...  ${update_server_pass}=ironport
+    ...  ${updater_cli_user}=admin
+    ...  ${updater_cli_pass}=ironport
+    ...  ${update_uid}=${TIMEZONES_UPDATE_PATH}
+    Update Settings Edit  enable_auto_update=${False}
+    Run Keyword And Ignore Error  Commit Changes
+    Update Config Dynamic Host  dynamic_host=${UPDATE_SERVER_NEW}:443
+    Commit
+    Update Config Validate Certificates  validate=no
+	Commit
+    ${update}=  Run  date "+%s"
+    Set Suite Variable  ${MY_TIMESTAMP}  ${update}
+    Filter Updater Log Create Baseline
+    Run keyword if  '${UPDATE_PROVISIONING}' == 'Y'
+    ...  Check Update Version On Update Server And Generate If Needed
+    Set SSHLib Prompt  ${EMPTY}
+    Wait Until Keyword Succeeds  60s  10s  Time Zone Update Now
+    Go To System Administration Time Settings
+    Wait Until Keyword Succeeds  1200s  10s  Verify Time Zone Updates Successful
+
+Go To System Administration ${setting}
+    [Documentation]  Open reports
+    Mouse Over  xpath=//a[@href="#system_administration"]
+    Click Link  xpath=//div[@id="system_administration"]//a[text()="${setting}"]
+
+Time Zone Update Now
+    Go To System Administration Time Settings
+    Click Element  xpath=//input[@name='action:UpdateNow']
+
+Verify Time Zone Updates Successful
+    Go To System Administration Time Settings
+    Page Should Contain  ${UPDATE_NAME}
+
+Filter Updater Log Check
+    [Documentation]  filter updater log from baseline
+    [Arguments]  ${baseline}  ${pattern}
+    ${updater_log}  ${updater_log_count}=  Filter Log  ${UPDATER_LOG_LOCATION}
+    ...  baseline=${baseline}  timeout=600
+    ...  match_patterns=-E '${pattern}'
+    Log  ${updater_log}
+    Should Not Be Equal As Numbers  ${updater_log_count}  0
+    [Return]  ${updater_log}
+
+Filter Updater Log Create Baseline
+    [Documentation]  Create baseline for updater log
+    ${_baseline_updaterlog}=    Filter Log Create Baseline    ${UPDATER_LOG_LOCATION}
+    Set Suite Variable    ${baseline_updaterlog}    ${_baseline_updaterlog}
+
+Create Heimdall Log Baseline
+    [Documentation]  Create baseline for updater log
+    ${_baseline_heimdalllog}=    Filter Log Create Baseline    ${HEIMDALL_LOG_LOCATION}
+    Set Suite Variable    ${baseline_heimdalllog}    ${_baseline_heimdalllog}
+
+Verify Updates Being Downloaded
+    Open Connection   ${DUT}
+	Login  ${RTESTUSER}  ${RTESTUSER_PASSWORD}
+    Execute Command  cd /data/tmp/timezones
+    ${file_name} =  Execute Command  ls
+    Should Not Be Empty  ${file_name}
+    Close Connection

@@ -1,0 +1,24 @@
+*** Keywords ***
+Verify URLs In Message Tracking Show Details
+    [Arguments]  ${show_details_link}  @{urls}
+
+    Go To  ${show_details_link}
+    Page Should Contain  URL Details
+
+    Click Link  URL Details
+    FOR  ${url}  IN  @{urls}
+        Page Should Contain  ${url}
+    END
+
+Get Show Details Url
+    ${show_details_href}=  Get Element Attribute
+    ...  //tr[@id='result_1']//a[normalize-space()='Show Details']  href
+    ${show_details_link}=  Evaluate
+    ...  re.search(r"'(https://.*)'", """${show_details_href}""").groups()[0]  re
+    [return]  ${show_details_link}
+
+Verify Message Tracking Show Details Content
+    [Arguments]   ${show_details_link}  ${pattern}
+    Go To  ${show_details_link}
+    Page Should Contain  ${pattern}
+

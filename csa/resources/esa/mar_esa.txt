@@ -1,0 +1,231 @@
+*** Settings ***
+Resource     esa/backdoor_snippets.txt
+Resource     esa/injector.txt
+Resource     esa/global.txt
+Resource     esa/logs_parsing_snippets.txt
+Resource     regression.txt
+
+*** Variables ***
+${ESA_TESTDATA_PATH}=  %{SARF_HOME}/tests/testdata/esa
+${SMTP_ROUTE_DOMAIN}=  outbound.cisco.com
+${DOMAIN}=  mar-esa.com
+${POLICY}=  DEFAULT
+${ATTACHMENT}=  %{SARF_HOME}/mar/automation_attachment.txt
+${ATTACHMENT_PDF}=  %{SARF_HOME}/mar/automation_pdf.pdf
+${ADDRESS_LIST}=  ${ESA_TESTDATA_PATH}/mar/mail/maraddresslist_singlerecipient.txt
+${TG_REGISTRATION_SCRIPT}=  ${ESA_TESTDATA_PATH}/advancedmalware/TG_Registration.py
+${DOMAINS_SUFFIX}=  .com
+${MAIL_FROM_CLOUD}=  kriths@mar-esa.com
+${TEST_CONNECTION}=  krithscloud@mar-esa.com
+${SUBJECT}=  Testing
+${GMAIL_DOMAIN}=  gmail.com
+${MICROSOFT_DOMAIN}=  maresa.onmicrosoft.com
+${SUBDOMAIN}=  test.mar-esa.com
+${PROFILE_TYPE_HYBRID}=  Office 365 / Hybrid (Graph API)
+${PROFILE_TYPE_ONPREM}=  Exchange On Premise
+${CHAINED_PROFILE_NAME}=  chained
+${CHAINED_PROFILE_DESCRIPTION}=  chained Profile Description
+${PROFILE_TYPE_HYBRID_LOGS}=  Office 365 or Hybrid exchange
+${PROFILE_TYPE_ONPREM_LOGS}=  On Premises exchange
+${CONFIG_FILE}=  /data/db/config/thirdparty.mailbox/data.cfg
+${ACCOUNT_PROFILE_NAME}=  test_account_profile
+${CLIENT_ID}=  fb461318-f95f-474f-9451-ad6b9952a5fe
+${THUMBPRINT}=  uwvQDDvN0MRH3UbBCriH1MrDlh0=
+${PRIVATE_KEY}=  ${ESA_TESTDATA_PATH}/mar/o365_pk.pem
+${TENANT_ID}=  ea6064aa-d6fc-48d3-abb8-1728e1f39e0b
+${CLIENT_ID_CS}=  f3abf573-dd9a-4499-9c8c-a291269b70fa
+${CLIENT_SECRET}=  5E1~.PxTo_HaCVbATnLJn1Lu4_F0KCtOom
+${CLIENT_CRED_CERT}=  Client Certificate
+${CLIENT_CRED_SECRET}=  Client Secret
+${INVALID_CLIENT_SECRET}=  HaCVbATnLJn1L
+${CLIENT_SECRET_MULTIPLE}=  zXp_U3V11toc57z_cNFIvLS_Oq1JV49-B7
+${DEST_FILE}=  /tmp/automation_attachment.txt
+
+*** Keywords ***
+Ampconfig Filetypes Add Or Delete Action
+     [Arguments]  ${file_type_list}  ${group}  ${action}
+     Ampconfig case setup
+     ...  use_malware_protection=yes
+     ...  use_malware_file_analysis=yes
+     ...  processing_timeout=200
+     ...  modify_filetypes=yes
+     ...  select_file_group=${group}
+     ...  select_filetypes=${file_type_list}
+     ...  select_file_action=${action}
+     Commit
+
+Retry Timeout Change In Data Config File
+     ${original}=  Set Variable  "retry_interval":15
+     ${new}=  Set Variable  "retry_interval":2
+     ${cmd}=  Set Variable  sed -i '' 's/${original}/${new}/g' ${CONFIG_FILE}
+     Run On DUT  ${cmd}
+
+     Restart Service And Check Status  thirdparty
+     Restart Service And Check Status  mailbox_remediator
+
+MAR Enable With Delete Action
+     [Arguments]  ${mail_policy}
+
+     ${amp_state}=  Advancedmalware Is Enabled
+     Run Keyword If  not ${amp_state}  Advancedmalware Enable
+     ${settings}=    Create Dictionary
+     ...  Advanced Malware Protection                             Yes
+     ...  Enable File Analysis                                    ${True}
+     ...  Messages with File Analysis Pending Archive Original    No
+     ...  Messages with File Analysis Pending Modify Subject      No
+     ...  Enable Mailbox Auto Remediation                         ${True}
+     ...  Mailbox Auto Remediation Action To Be Taken On Mailbox  Delete
+
+     Mail Policies Edit Advanced Malware Protection  incoming  ${mail_policy}  ${settings}
+     Commit Changes
+
+Get Timestamp
+    ${timestamp}=  Run On Dut  date + "%m-%d-%Y %H:%M:%S"
+    Log  ${timestamp}
+    [Return]  ${timestamp}
+
+MAR Disable
+    [Arguments]  ${mail_policy}
+
+    ${amp_state}=  Advancedmalware Is Enabled
+    Run Keyword If  not ${amp_state}  Advancedmalware Enable
+    ${settings}=    Create Dictionary
+    ...  Advanced Malware Protection                             Yes
+    ...  Enable File Analysis                                    ${True}
+    ...  Enable Mailbox Auto Remediation                         ${False}
+    Mail Policies Edit Advanced Malware Protection  incoming  ${mail_policy}  ${settings}
+    Commit Changes
+
+Edit Domain Mapping
+    [Arguments]  ${profile_name}  ${domain}  ${profile_to_map}
+
+    ${settings}=  Create Dictionary
+     ...  Domain Name         ${domain}
+     ...  Mapped Profile      ${profile_name}
+     ...  New Profile To Map  ${profile_to_map}
+     Account Settings Domain Mapping Edit  ${settings}
+     Commit Changes
+
+Account Test Connection
+   [Arguments]  ${email_address}  ${profile}
+
+   ${settings}=  Create Dictionary
+   ...  Email Address  ${email_address}
+   ${results}=  Account Settings Account Profile Test Connection
+   ...  ${profile}  ${settings}
+   Log  ${results}
+   [Return]  ${results}
+
+Inject and Verify Log With Amp
+    [Arguments]  ${mail_from}  ${address_list}  ${subject}  ${attachment}
+    ${dest}=  Set Variable  /tmp/
+    Run  cp -f ${attachment} ${dest}
+    ${random}=  Generate Random String
+    Log  ${random}
+    Convert To String  ${random}
+    Run  echo "${random}" >> ${DEST_FILE}
+    
+    Roll Over Now  logname=mail_logs
+    Roll Over Now  logname=amp
+    Roll Over Now  logname=remediation
+    Inject Messages
+    ...  attach-filename=${DEST_FILE}
+    ...  inject-host=${ESA_PUB_LISTENER_IP}
+    ...  address-list=${address_list}
+    ...  mail-from=${mail_from}
+    ...  subject=${subject}
+
+    ${mid}=  Get Mid Value  MID .* From: <${mail_from}>
+
+    Verify And Wait For Log Records
+    ...  search_path= mail
+    ...  timeout=60
+    ...  MID ${mid} AMP file reputation verdict >= 1
+    ...  MID .* Message accepted for delivery >= 1
+    Verify And Wait For Log Records
+    ...  search_path= amp_logs
+    ...  timeout=60
+    ...  File reputation query initiating. File Name .* >= 1
+    ...  Response received for file reputation query from Cloud. File Name .* MID = .* sha256 .* >= 1
+    [Return]  ${mid}
+
+Obtain SHA From Amp Logs
+    ${search_this}=  Set Variable  sha256
+    ${matches}  ${output}=  Log Search  ${search_this}  search_path=amp_logs  timeout=120
+    Log  ${output}
+    ${matching_log_line}=  Get From List  ${output}  0
+    @{log_line_split}=  Split String  ${matching_log_line}  sha256 =
+    Log  ${log_line_split}
+
+    ${log_line_split1}=  Get From List  ${log_line_split}  1
+    @{log_line_split2}=  Split String  ${log_line_split1}  ,
+    Log  ${log_line_split2}
+
+    ${sha_1}=  Get From List  ${log_line_split2}  0
+    ${sha}=  Replace String  ${sha_1}  ${SPACE}  ${EMPTY}
+    Log  ${sha}
+    [Return]  ${sha}
+
+Insert Into Amp Retro Table
+    [Arguments]  ${sha}
+    Run On DUT  /data/bin/runas pgsql psql -d msgsdb -c "delete from amp_retro_table where sha='${sha}'"
+    Run On DUT  /data/bin/runas pgsql psql -d msgsdb -c "insert into amp_retro_table values ('${sha}','f','{}')"
+
+Delete From Amp Retro Table
+    Run On DUT  /data/bin/runas pgsql psql -d msgsdb -c "delete from amp_retro_table where o365_status='f'"
+    Run On DUT  /data/bin/runas pgsql
+
+Create Hybrid Account Profile
+    [Arguments]  ${account_profile_name}
+    ...  ${account_profile_description}
+    ...  ${client_id}
+    ...  ${tenant_id}
+    ...  ${thumbprint}
+    ...  ${private_key}
+
+    ${settings}=  Create Dictionary
+    ...  Profile Name                  ${account_profile_name}
+    ...  Description                   ${account_profile_description}
+    ...  Profile Type                  ${PROFILE_TYPE_HYBRID}
+    ...  Client ID                     ${client_id}
+    ...  Tenant ID                     ${tenant_id}
+    ...  Client credentials            Client Certificate
+    ...  Thumbprint                    ${thumbprint}
+    ...  Certificate Private Key       ${private_key}
+    Account Settings Account Profile Create  ${settings}
+    Commit Changes
+
+Create Chained Profile
+    [Arguments]  ${CHAINED_PROFILE_NAME}
+    ...  ${CHAINED_PROFILE_DESCRIPTION}
+    ...  ${ACCOUNT_PROFILE_LIST}
+
+    ${settings}=  Create Dictionary
+    ...  Profile Name   ${CHAINED_PROFILE_NAME}
+    ...  Description    ${CHAINED_PROFILE_DESCRIPTION}
+    ...  Mar Profiles   ${ACCOUNT_PROFILE_LIST}
+    Account Settings Chained Profile Create  ${settings}
+    Commit Changes
+
+Delete Chained Profile
+    [Arguments]  ${chained_profile_name}
+    Account Settings Chained Profile Delete  ${chained_profile_name}
+    Commit Changes
+
+Create Hybrid Account Profile With Client Secret
+    [Arguments]  ${account_profile_name}
+    ...  ${account_profile_description}
+    ...  ${client_id}
+    ...  ${tenant_id}
+    ...  ${client_secret}
+
+    ${settings}=  Create Dictionary
+    ...  Profile Name                  ${account_profile_name}
+    ...  Description                   ${account_profile_description}
+    ...  Profile Type                  ${PROFILE_TYPE_HYBRID}
+    ...  Client ID                     ${client_id}
+    ...  Tenant ID                     ${tenant_id}
+    ...  Client credentials            Client Secret
+    ...  Client Secret                 ${client_secret}
+    Account Settings Account Profile Create  ${settings}
+    Commit Changes

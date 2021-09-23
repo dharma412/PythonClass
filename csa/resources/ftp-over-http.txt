@@ -1,0 +1,114 @@
+# $Id: //prod/main/sarf_centos/resources/ftp-over-http.txt#1 $
+# $DateTime: 2019/03/22 01:36:06 $
+# $Author: aminath $
+
+*** Settings ***
+Resource    ftp.txt
+Resource    antimalware.txt
+
+*** Keywords ***
+FTP-Over-HTTP Testcase Setup
+    [Documentation]  Default setup for FTP-Over-HTTP test cases.\n
+    DefaultTestCaseSetup
+
+FTP-Over-HTTP Testcase Teardown
+    [Documentation]  Default teardown for FTP-Over-HTTP test cases.\n
+    Set SSHLib Prompt  ${EMPTY}    # restore ssh library prompt to default value
+    Test Files Cleanup
+    Stop All Processes
+    DefaultTestCaseTeardown
+
+
+FTP-Over-HTTP Wsa Configuration Setup
+    [Documentation]  Setting up WSA configuration for FTP-Over-HTTP test cases.\n
+    Identities Add Policy   ${IDENTITY}  protocol=http
+    Access Policies Add     ${POLICY}  identity=${IDENTITY}
+    Commit Changes
+
+# TODO: Depricated: http.Send HTTP Request should be used instead
+Send HTTP Request
+    [Documentation]  Sends http request
+    [Arguments]  ${uri}=ftp://${FTP_SERVER}/
+    ...          ${interface}=${DUT_P1}
+    ...          ${proxy_auth}=${None}
+    ...          ${output}=/dev/null
+    ...          ${additional}=${None}
+    ...          ${timeout}=60
+    ${curl_output}=  Set Variable If  '${output}' != '${None}'  -o ${output}${SPACE}
+    ...  ${EMPTY}
+    ${curl_proxy_auth}=  Set Variable If  '${proxy_auth}' != '${None}'
+    ...  --proxy-user ${proxy_auth}${SPACE}
+    ...  ${EMPTY}
+    ${curl_additional}=  Set Variable If  '${additional}' != '${None}'
+    ...  ${additional}${SPACE}
+    ...  ${EMPTY}
+    ${curl_timeout}=  Set Variable  -m ${timeout}${SPACE}
+
+    ${out}=  Run Command On FTP Client
+    ...    curl -vvv ${IPV_PARAM} -x ${interface}:${DUT_HTTP_PROXY_PORT} ${curl_timeout}${curl_output}${curl_proxy_auth}${curl_additional}${uri} 2>&1
+
+    Log  ${out}
+    [Return]  ${out}
+
+# TODO: Depricated: http.Send HTTP Request And Check Logs should be used instead
+Send Request And Check Logs
+    [Documentation]  Keyword that sends request using curl
+    [Arguments]
+    ...  ${uri}=ftp://${FTP_SERVER}/
+    ...  ${proxy_auth}=${None}
+    ...  ${additional}=${EMPTY}
+    ...  ${output}=/dev/null
+    ...  ${pattern}=.*
+    ...  ${timeout}=60
+    ...  ${interface}=${DUT_P1}
+    Filter Access Log Create Baseline
+    ${out}=  ftp-over-http.Send HTTP Request  uri=${uri}  proxy_auth=${proxy_auth}  interface=${interface}
+    ...  additional=${additional}  output=${output}  timeout=${timeout}
+    ${log}=  Filter Access Log Check    ${baseline_accesslog}  ${pattern}
+    [Return]  ${out}  ${log}
+
+# TODO: should be moved to resources.http
+Upload File And Check Logs
+    [Documentation]  Keyword that uploads file onto ftp server via curl
+    [Arguments]
+    ...  ${file}=${DIR_WITH_FILES_FOR_UPLOAD}/${TEST_FILE}
+    ...  ${pattern}=.*(${CLIENT_IP}| ${CLIENT_IPV6}).*200.*PUT ftp://${FTP_SERVER}/${DIR_FOR_UPLOADS}/${TEST_FILE}.*
+    ...  ${timeout}=600
+    Filter Access Log Create Baseline
+    ${out}=  ftp-over-http.Send HTTP Request  uri=ftp://${FTP_SERVER}/uploads/  additional=-T ${file}  timeout=${timeout}
+    # curl sends file name encoded so it should be changed in access log check pattern
+    # NOTE: this should be removed when bug 80285 is fixed
+    ${match}  ${filename}=
+    ...         Should Match Regexp     ${out}
+    ...         .*>\\sPUT\\sftp://${FTP_SERVER}.*/(\\S+)\\sHTTP/1.1.*
+    ${pattern}=  Replace String  ${pattern}  ${TEST_FILE}  ${filename}
+
+    ${log}=  Filter Access Log Check    ${baseline_accesslog}  ${pattern}
+    [Return]  ${out}  ${log}
+
+Set Up FTP-Over-HTTP LDAP Auth
+    [Documentation]  WSA configuration with LDAP auth for ftp-over-http.
+    Set Up WSA Configuration LDAP Auth  protocol=http
+
+Set Up FTP-Over-HTTP NTLM Auth
+    [Documentation]  WSA configuration with NTLM auth for ftp-over-http.
+    Set Up WSA Configuration NTLM Auth  auth_scheme=Basic  protocol=http
+
+Set Up FTP-Over-HTTP NTLM SSP Auth
+    [Documentation]  WSA configuration with NTLM auth for ftp-over-http.
+    Set Up WSA Configuration NTLM Auth  auth_scheme=NTLMSSP  protocol=http
+
+Set Up FTP-Over-HTTP NTLM SSP or Basic Auth
+    [Documentation]  WSA configuration with NTLM auth for ftp-over-http.
+    Set Up WSA Configuration NTLM Auth  auth_scheme=Basic or NTLMSSP  protocol=http
+
+Set Up FTP-Over-HTTP Upstream Proxy
+    [Documentation]  WSA configuration with upstream proxy for ftp-over-http.
+    FTP-Over-HTTP Wsa Configuration Setup
+    Upstream Proxy Add Group    ${UPSTREAM_GROUP}
+    ...                         ${UPSTRM_PROX1}:3128:${RECONNECTIONS}
+    ...                         failure_handling=drop
+    Routing Policies Add    ${R_POLICY}
+    ...                     identities=${IDENTITY}
+    Routing Policies Edit Destination  ${R_POLICY}  ${UPSTREAM_GROUP}
+    Commit Changes

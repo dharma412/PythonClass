@@ -1,0 +1,39 @@
+import os
+
+Certificate                     =     os.environ['SARF_HOME'] + '/tests/testdata/esa/saml/sample_cert.pem'
+USER_ROLE                       =      'admin'
+USER_ROLE_DEVOPS                =      'devops'
+SP_ENTITY_ID                    =      'sp_123'
+ASSERTION_CONSUMER_URL          =      'http://${DUT}:80'
+CERT_FILE                       =     os.environ['SARF_HOME'] + '/tests/testdata/esa/saml/sample_cert.pem'
+CERT_KEY                        =     os.environ['SARF_HOME'] + '/tests/testdata/esa/saml/sample_key.key'
+CERTIFICATE_PASSPHRASE          =      'ironport'
+SIGN_REQUEST                    =      str(1)
+ORGANIZATION_NAME               =      'cisco'
+ORGANIZATION_DISPLAY_NAME       =      'TESTORG'
+ORGANIZATION_URL                =      'http://torg.org/'
+ORGANIZATION_TECHNICAL_CONTACT  =      'test@cisco.com'
+CONFIGURATION_MODE              =      'Import IDP Metadata'
+IDP_METADATA                    =      os.environ['SARF_HOME'] + '/tests/testdata/esa/saml/sample_idp_metadata.xml'
+IDP_ENTITY_ID                   =      'idp_123'
+CONFIGURATION_MODE_MANUAL       =      'Configure Keys Manually'
+SSO_URL                         =      'http://mus.cisco.com/SSOURL/ESA'
+TEST_SP_PROFILE                 =      'test_sp1_customer'
+TEST_IDP_PROFILE                =      'test_idp_customer'
+TEST_SP_DEVOPS_PROFILE          =      'test_sp1_devops'
+TEST_IDP_DEVOPS_PROFILE         =      'test_idp_devops'
+CERT_FILE_OTH_FORMAT            =     os.environ['SARF_HOME'] + '/tests/testdata/esa/saml/test_certificate_ext.txt'
+CERT_KEY_OTH_FORMAT             =     os.environ['SARF_HOME'] + '/tests/testdata/esa/saml/test_cert_key_format.txt'
+IDP_METADATA_OTH_FORMAT         =     os.environ['SARF_HOME'] + '/tests/testdata/esa/saml/test_format_metadata.txt'
+IDP_METADATA_ACTION_PASTE       =      'PASTE'
+IDP_METADATA_ACTION_ENTER       =      'ENTER'
+SAML_GROUP                      =      'my_group'
+SAML_GROUP_NEW                  =      'samlgroup_new'
+SAML_GROUP_ATTRIB               =      'memberof'
+SAML_GROUP_ROLE_ADMIN           =      1
+SAML_GROUP_ROLE_OPERATOR        =      2
+SAML_GROUP_ROLE_CLOUD           =      4
+SAML_GROUP_ROLE_READONLY        =      3
+
+AZURE_USER_NAME                 =      'testuser@maresa.onmicrosoft.com'
+AZURE_PASSWORD                  =      'Ironport123$'
