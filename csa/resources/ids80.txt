@@ -1,7 +1,0 @@
-# $Id: //prod/main/sarf_centos/resources/ids80.txt#1 $
-
-*** Settings ***
-Resource        ids.txt
-*** Variables ***
-${IDS_LINK}     Cisco Data Security
-${WEBIMGE_CAT}  filetypes.WEB_IMAGE80

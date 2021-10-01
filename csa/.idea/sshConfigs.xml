@@ -1,8 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<project version="4">
-  <component name="SshConfigs">
-    <configs>
-      <sshConfig authType="PASSWORD" host="u32c01p27-vrouter.cisco.com" id="df464210-304b-4174-87d5-5b136e38ce5e" port="21081" nameFormat="DESCRIPTIVE" username="testuser" />
-    </configs>
-  </component>
-</project>

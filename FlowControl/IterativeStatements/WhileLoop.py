@@ -31,3 +31,31 @@ x=1
 while x<=10:
     print(x,end=',')
     x=x+1
+
+n=100
+while n>=0:
+    print(n,end=',')
+    n=n-1
+
+# sum of digits
+n=123
+sum1=0
+
+
+n=123345
+sum1=0
+while n>0:
+    rem=n%10
+    print(rem)
+    sum1=sum1+rem
+    n=n//10
+    #print(n)
+print(sum1)
+
+
+
+
+
+
+
+

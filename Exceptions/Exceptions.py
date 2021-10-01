@@ -11,12 +11,42 @@ from  customExceptions import *
 import sys
 
 #except will execute when try does not throw any error
+try:
+    with open(r"C:\Users\dhchaluv\Learning\PythonLearnings\Exceptions\file.txt", 'w') as f:
+        f.write("thisis python")
+except FileNotFoundError as e:
+    print(e)
+else:
+    print("I dont see any exception")
+finally:
+    print("This is finally block")
+
+a=[1,3,4,5,6]
+print(a[8])
+
+try:
+    a=[1,3,4,5,6]
+    print(a[8])
+except ArithmeticError as e:
+    print(e)
+except FileNotFoundError as e:
+    print(e)
+except IndexError as e:
+    print(e)
+except Err as e:
+    print(e)
+finally:
+    print("I execute always")
+
+print(6+"pythom")
 
 try:
     with open("hhsdh.txt",'r') as f:
         f.read()
 except IndexError as e:
     print("This error is due to "+ str(e))
+print("This is python")
+print("verison is 3.9")
 
 from customExceptions import *
 

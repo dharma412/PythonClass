@@ -1,2 +1,0 @@
-#!/usr/bin/env bash
-python  $SARF_HOME/testlib/hammer/smtp/client/lightsmtpclient.py "$@"

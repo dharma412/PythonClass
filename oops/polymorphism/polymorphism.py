@@ -10,6 +10,13 @@
 print(2+3)
 print("hell0"+"python")
 
+# Product two numbers
+print(3 * 4)
+
+# Repeat the String
+print("Geeks" * 4)
+
+
 # function polymorphism in python.
 # len() function can work with different data types in python
 print(len("stringstring"))

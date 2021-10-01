@@ -1,16 +1,10 @@
-#
-
-var1=(input("Enter the var1 value :"))
-print(var1)
+var1=int(input("enter the value if var1"))# it will conisder input as as string  '243'
 print(type(var1))
 
+n = int(input("enter the value of number of elemenets"))
+list1 = []
+for i in range(0,n):
+    ele = int(input())
+    list1.append(ele)
+print(list1)
 
-var=list(input("enter the vales"))
-print(var)
-for i in var:
-    print(i, end=' ')
-
-
-x=input("enter the x value :")
-y=input("enter the y value :")
-print(int(x)+int(y))
