@@ -212,15 +212,6 @@ def postivecase(n):
     assert fact(n) == 121
 postivecase(5)
 
-scp
-vim
-cp
-mv
-rm
-chmod
-ls
-
-ssh connecting
 
 def negavtivetest(n):
     assert fact(n)==0
