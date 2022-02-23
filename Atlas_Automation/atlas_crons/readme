@@ -1,2 +1,0 @@
-#Running Inventory creation in Atlas Machine in every 10 minutes.
-#*/10 * * * * /root/flip_inventory_conf.py > /root/cronjob.log 2>&1
