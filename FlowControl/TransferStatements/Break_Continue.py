@@ -1,15 +1,20 @@
-#
-a=[1,2,3,5,6,64,64,35,4]
-for i in a:
-    if i==64:
-        continue
-    else:
-        print(i,end=',')
 
-#Break
-a=[1,2,6,3,5,6,64,35,4]
-for i in a:
+list1=[1,2,4,5,6,7,4,6]
+
+for i in list1:
     if i==6:
         break
     else:
-        print(i,end=',')
+        print(i)
+
+list1=[1,2,4,5,6,7,4,6]
+
+for i in list1:
+    if i==6:
+        continue
+    else:
+        print(i)
+
+# list1=[1,2,3,4,5,1,3,4,5,1,3,45,1]
+
+# {1:4,2:1,3:3,4:2,5:2,45:1}
