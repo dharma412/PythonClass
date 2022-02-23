@@ -1,4 +1,0 @@
-import smtplib
-
-
-#loginto smtp

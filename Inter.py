@@ -12,12 +12,3 @@ for i , j in zip(tuple(str1),tuple(str2)):
     if val>10:
         q=val//10
     print(val)
-
-
-
-for i in str1:
-    lis1.append(int(i))
-print(lis1)
-
-a.__add__(3)
-print(a)

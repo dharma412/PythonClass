@@ -1,6 +1,3 @@
-
-
-
 class employee:
     EMP_ID = 0
     def __init__(self,firstname,secodnname,role):

@@ -26,7 +26,7 @@ class Notebook(Laptop):
         super().displayDetails()
         super().disp()
         super().
-        print("The config details are")
+        print("The Config details are")
 
 n=Notebook('hp','i6')  # new __init_
 n.displayDetails()

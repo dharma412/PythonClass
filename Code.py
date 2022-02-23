@@ -1,24 +1,5 @@
 
 
-class baseClass(object):
-
-    def __init__(self, x, y):
-        self.x = x
-        self.y = y
-
-    def display(self):
-        print(self.x,self.y)
-
-
-class childclass(baseClass):
-    pass
-
-    #def display(self):
-     #   print("python child")
-
-
-obj1 = childclass('value1', 'value2')
-print(obj1.display())
 
 
 
@@ -33,21 +14,6 @@ print(obj1.display())
 
 
 
-
-
-def maxmium(list1):
-
-    maxincrrse=0
-    for i in range(len(list1)):
-        diff = 0
-        for j in range(i+1,len(list1)):
-            diff=list1[j]-list1[i]
-            if 0<=maxincrrse<diff:
-                maxincrrse=diff
-    return maxincrrse
-
-list1=[5,10,8,9,10,6]
-print(maxmium(list1))
 
 L1=[9,11,8,5,7,10]
 
@@ -67,7 +33,6 @@ L=[5,10,8,9,10,6]
 print(Max(L))
 
 
-print(10//2)
 
 
 

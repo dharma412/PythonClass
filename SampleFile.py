@@ -39,16 +39,6 @@ else:
 
 
 
-var = 10
-
-n=11
-if n%2==0:
-    print("even number")
-else:
-    print("odd number")
-
-
-
 
 
 
