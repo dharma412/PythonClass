@@ -1,64 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="8ea8c9c3-6e06-4f09-8bb3-8b11276b9b55" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/Programms/MaxDifferenceBetweenElementsInList.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/RobotLearning.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/RobotLearning.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Code.py" beforeDir="false" afterPath="$PROJECT_DIR$/Code.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/File23.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/FileClass.py" beforeDir="false" afterPath="$PROJECT_DIR$/FileClass.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Inter.py" beforeDir="false" afterPath="$PROJECT_DIR$/Inter.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Interview.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/InterviewFile.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Interviewfile.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Interviw.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Programms/dictionary/__init__.py" beforeDir="false" afterPath="$PROJECT_DIR$/Config/__init__.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Programms/geeksList/CombinationofDigits.py" beforeDir="false" afterPath="$PROJECT_DIR$/Programms/CombinationofDigits.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Programms/geeksList/InterChangeFirstandLastElementsofList.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Programms/geeksList/SwapTwoNumbersInList.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Programms/geeksList/__init__.py" beforeDir="false" afterPath="$PROJECT_DIR$/Programms/ConvertUpperToLower_LowerToUpper.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/RobotPoints/APIROBOT/API.robot" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/RobotPoints/APIROBOT/log.html" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/RobotPoints/APIROBOT/output.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/RobotPoints/APIROBOT/practice.robot" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/RobotPoints/APIROBOT/report.html" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/RobotPoints/APIROBOT/runif.robot" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/RobotPoints/List.robot" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/RobotPoints/Variables.robot" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/RobotPoints/dictionary.robot" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/RobotPoints/forloop.robot" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/RobotPoints/log.html" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/RobotPoints/output.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/RobotPoints/report.html" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/SMTP/smtp_MailReceiver.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/SMTPMails/__init__.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/SMTPMails/send_mail.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/SampleFile.py" beforeDir="false" afterPath="$PROJECT_DIR$/SampleFile.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Tests/ExceptionFileDuringTheRunning" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Tests/LoginTest.robot" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Tests/MouseOperations.robot" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Tests/Newfileadedd.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Tests/ScrollingPage.robot" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Tests/log.html" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Tests/output.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Tests/report.html" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Tests/selenium-screenshot-1.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Tests/selenium-screenshot-2.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Tests/selenium-screenshot-3.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/UnitTestModule/UnitTest.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/UnitTestModule/__init__.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/config/AtlasTestConstants.py" beforeDir="false" afterPath="$PROJECT_DIR$/Config/AtlasTestConstants.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/config/__init__.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/config/atlas_constants.conf" beforeDir="false" afterPath="$PROJECT_DIR$/Config/atlas_constants.conf" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/config/atlas_customer.json" beforeDir="false" afterPath="$PROJECT_DIR$/Config/atlas_customer.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/config/atlas_filepath.json" beforeDir="false" afterPath="$PROJECT_DIR$/Config/atlas_filepath.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/config/atlas_servers.json" beforeDir="false" afterPath="$PROJECT_DIR$/Config/atlas_servers.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/config/jenkins_config.json" beforeDir="false" afterPath="$PROJECT_DIR$/Config/jenkins_config.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/error.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/oops/Inheritance/SuperMethod.py" beforeDir="false" afterPath="$PROJECT_DIR$/oops/Inheritance/SuperMethod.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/sample.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/sort.py" beforeDir="false" />
-    </list>
+    <list default="true" id="8ea8c9c3-6e06-4f09-8bb3-8b11276b9b55" name="Changes" comment="" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
