@@ -1,6 +1,0 @@
-atlas_home=/usr/local/ironport/atlas
-atlas_user=atlas
-atlas_group=atlas
-log_directory=/data/var/log/atlas
-tmp_directory=/data/var/tmp/atlas
-allocator_log_level=DEBUG

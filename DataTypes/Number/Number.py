@@ -1,11 +1,23 @@
 a=10
+
 print(type(a))
+typeofvaribales=type(a)
+print(typeofvaribales)
 
 d='a'
 print(type(d))
 
-b='mani'
+b="""
+This is python
+class starts in june
+we are learing python list
+"""
+print(b)
+
 print(type('b'))
+
+
+
 
 c='100'
 

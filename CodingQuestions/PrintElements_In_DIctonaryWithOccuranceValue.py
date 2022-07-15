@@ -6,9 +6,7 @@ for i in str:
     else:
         st[i]=1
 print(st)
-for key in st:
-    if st[key]>2:
-        print(key,st[key],end=' ')
+
 
 
 

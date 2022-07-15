@@ -1,8 +1,14 @@
 import json
 list=[]
 
-a = ['foo', 'bar', 'baz', 'qux', 'quux', 'corge']
-b=a[::]
+prudvu=[2,34,43,5,3,5,34,35,3]
+
+a = ['foo', 'bar', 'baz', 'qux', 'quux', 'corge'] # homogenous elements inside a list.
+b= ['foo', 45, 'baz', -88 , 'quux', 'corge',2.6,2.887887]  # Hetro genous elements.
+
+list1=[1,243,65]
+print(type(list1))
+
 print(id(b))
 print(id(a))
 print(a[::] is a)
@@ -237,11 +243,10 @@ print(list2)
 
 
 #print(list2)
+a=8        #
+b='33433'  # string
 
-
-print(10%2)
-
-
+list2=[1,2,3,4]
 
 
 

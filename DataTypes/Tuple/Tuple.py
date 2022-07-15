@@ -1,12 +1,17 @@
 #hetrogenous elements
-# tuple supports index
+#tuple supports index
 #tuple is immutable i.e we cant modify the tuple once we declare.
 
 #empty tuple
 tuple2=() # empty declaration
-tuple2=('python',)
-tuple3=(1,3,5,2,'python',3,'kik','oiuh',3)
-print(type(tuple2))
+
+# immuatble data type
+
+list1=(1,3,5,2,'python',3,'kik','oiuh',3,2,5,34.8)
+print(list1[-1])
+list1.index(5)
+tuple21=(2,)
+print(type(tuple21))
 
 list1=[1]
 print(type(list1))

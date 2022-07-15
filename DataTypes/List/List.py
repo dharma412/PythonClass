@@ -1,5 +1,24 @@
 import json
-list=[]
+list1=[]   # empty list
+list34=[1]
+print(type(list34))
+        #-8      -7      -6    -5    -4  -3 -2  -1
+basket=['str3','str4','str1',333.89,97,789,978,933]  #
+         #0       1      2     3     4   5   6   7
+print(type(basket))
+#print(basket[0:6])
+#list1[start:end-1]  -5 , -1-1 =-2
+
+print(basket[0:-7])  # -5 : -2
+
+
+list2 = (12,34,56,89,'tyy') #
+
+a3='str1'
+
+list3 = ("Teja","prudvi","prsanth","chatnya","898",56,89,7.8,9.8,-98)
+
+print(list3)
 
 a = ['foo', 'bar', 'baz', 'qux', 'quux', 'corge']
 b=a[::]
@@ -73,15 +92,30 @@ for var34 in range(0,100):
 
 #list , tuple, string --- iterable objcet s
 
-
-list1=[2,1,4,3,5,134,8,3,166,7537,75273,8,3,26,3,6,'python']
-list1.sort()
+# mutable data type
+list1=[2,1,4,3,5,134,8,3,166,7537,75273,8,3,26,3,9]
 print(list1)
+indexvalue=list1.index(134)
+print(indexvalue)
+list1.reverse()
+print(list1)
+#list1.clear()
+#print(list1)
+#list1.pop(6)
+# list1.remove(3)
+print(list1)
+# list1.sort()
+# print(list1[-1])
 
-#list1.append(878) #last add
-#list1.extend([23,56])
-#list1.insert(4,454)
-#print(list1.count(3456))
+# list1.extend([2,3,4,4,4])
+# print(list1)
+# list1.append([2,3,4,4,4]) #last add
+# print(list1)
+
+# list1.insert(4,454)
+# print(list1)
+# countofthree=(list1.count(3))
+# print(countofthree)
 #print(list1.index(3,6,11))
 #list1.pop(2)
 #list1.remove(8)
