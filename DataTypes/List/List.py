@@ -224,25 +224,3 @@ list1=[1,2,3,65,2,457,2,9,8,62,87]
 list2=[]
 for i in list1:
     list2.append(i*i)
-
-print(list2)
-
-
-
-
-
-
-
-
-
-
-#print(list2)
-
-
-print(10%2)
-
-
-
-
-
-
