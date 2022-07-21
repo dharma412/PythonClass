@@ -2,18 +2,17 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="8ea8c9c3-6e06-4f09-8bb3-8b11276b9b55" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/Variables/__init__.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/CodingQuestions/PrintElements_In_DIctonaryWithOccuranceValue.py" beforeDir="false" afterPath="$PROJECT_DIR$/CodingQuestions/PrintElements_In_DIctonaryWithOccuranceValue.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/CodingQuestions/UAEProgramme.py" beforeDir="false" afterPath="$PROJECT_DIR$/CodingQuestions/UAEProgramme.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/DataTypes/File" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/DataTypes/List.py" beforeDir="false" afterPath="$PROJECT_DIR$/DataTypes/List.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/DataTypes/List/List.py" beforeDir="false" afterPath="$PROJECT_DIR$/DataTypes/List/List.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/DataTypes/Literals.py" beforeDir="false" afterPath="$PROJECT_DIR$/DataTypes/Literals.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/DataTypes/Number/Number.py" beforeDir="false" afterPath="$PROJECT_DIR$/DataTypes/Number/Number.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/DataTypes/Tuple/Tuple.py" beforeDir="false" afterPath="$PROJECT_DIR$/DataTypes/Tuple/Tuple.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/DataTypes/dumy2.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/DataTypes/file.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/DataTypes/Strings/Strings.py" beforeDir="false" afterPath="$PROJECT_DIR$/DataTypes/Strings/Strings.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/FlowControl/ConditionalStatements/if_else.py" beforeDir="false" afterPath="$PROJECT_DIR$/FlowControl/ConditionalStatements/if_else.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/FlowControl/IterativeStatements/ForLoop.py" beforeDir="false" afterPath="$PROJECT_DIR$/FlowControl/IterativeStatements/ForLoop.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/FlowControl/IterativeStatements/NestedLoop.py" beforeDir="false" afterPath="$PROJECT_DIR$/FlowControl/IterativeStatements/NestedLoop.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/FlowControl/IterativeStatements/WhileLoop.py" beforeDir="false" afterPath="$PROJECT_DIR$/FlowControl/IterativeStatements/WhileLoop.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/FlowControl/TransferStatements/Break_Continue.py" beforeDir="false" afterPath="$PROJECT_DIR$/FlowControl/TransferStatements/Break_Continue.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/operators/AirthimeticOperators.py" beforeDir="false" afterPath="$PROJECT_DIR$/operators/AirthimeticOperators.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/operators/AssignmentOperators.py" beforeDir="false" afterPath="$PROJECT_DIR$/operators/AssignmentOperators.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/operators/ComparisionOperators.py" beforeDir="false" afterPath="$PROJECT_DIR$/operators/ComparisionOperators.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/operators/LogicalOperators.py" beforeDir="false" afterPath="$PROJECT_DIR$/operators/LogicalOperators.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -30,6 +29,10 @@
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
+  <component name="HighlightingSettingsPerFile">
+    <setting file="file://$PROJECT_DIR$/operators/AirthimeticOperators.py" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/operators/AssignmentOperators.py" root0="FORCE_HIGHLIGHTING" />
+  </component>
   <component name="MarkdownSettingsMigration">
     <option name="stateVersion" value="1" />
   </component>
@@ -41,7 +44,7 @@
   <component name="PropertiesComponent">
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/../../Project/mobilysanitytestautomation" />
   </component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
@@ -55,59 +58,41 @@
       <recent name="D:\RobotLearning\Programms" />
     </key>
   </component>
-  <component name="RunManager" selected="Python.List">
+  <component name="RunManager" selected="Python.ForLoop">
+    <configuration name="ForLoop" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
+      <module name="RobotLearning" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/FlowControl/IterativeStatements" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/FlowControl/IterativeStatements/ForLoop.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
     <configuration name="List" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
       <module name="RobotLearning" />
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
       <option name="SDK_HOME" value="" />
       <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/DataTypes/List" />
       <option name="IS_MODULE_SDK" value="true" />
       <option name="ADD_CONTENT_ROOTS" value="true" />
       <option name="ADD_SOURCE_ROOTS" value="true" />
       <option name="SCRIPT_NAME" value="$PROJECT_DIR$/DataTypes/List/List.py" />
-      <option name="PARAMETERS" value="" />
-      <option name="SHOW_COMMAND_LINE" value="false" />
-      <option name="EMULATE_TERMINAL" value="false" />
-      <option name="MODULE_MODE" value="false" />
-      <option name="REDIRECT_INPUT" value="false" />
-      <option name="INPUT_FILE" value="" />
-      <method v="2" />
-    </configuration>
-    <configuration name="PrintElements_In_DIctonaryWithOccuranceValue" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
-      <module name="RobotLearning" />
-      <option name="INTERPRETER_OPTIONS" value="" />
-      <option name="PARENT_ENVS" value="true" />
-      <envs>
-        <env name="PYTHONUNBUFFERED" value="1" />
-      </envs>
-      <option name="SDK_HOME" value="" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/CodingQuestions" />
-      <option name="IS_MODULE_SDK" value="true" />
-      <option name="ADD_CONTENT_ROOTS" value="true" />
-      <option name="ADD_SOURCE_ROOTS" value="true" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/CodingQuestions/PrintElements_In_DIctonaryWithOccuranceValue.py" />
-      <option name="PARAMETERS" value="" />
-      <option name="SHOW_COMMAND_LINE" value="false" />
-      <option name="EMULATE_TERMINAL" value="false" />
-      <option name="MODULE_MODE" value="false" />
-      <option name="REDIRECT_INPUT" value="false" />
-      <option name="INPUT_FILE" value="" />
-      <method v="2" />
-    </configuration>
-    <configuration name="PrintMaximumRepeatingElement" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
-      <module name="RobotLearning" />
-      <option name="INTERPRETER_OPTIONS" value="" />
-      <option name="PARENT_ENVS" value="true" />
-      <envs>
-        <env name="PYTHONUNBUFFERED" value="1" />
-      </envs>
-      <option name="SDK_HOME" value="" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/CodingQuestions" />
-      <option name="IS_MODULE_SDK" value="true" />
-      <option name="ADD_CONTENT_ROOTS" value="true" />
-      <option name="ADD_SOURCE_ROOTS" value="true" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/CodingQuestions/PrintMaximumRepeatingElement.py" />
       <option name="PARAMETERS" value="" />
       <option name="SHOW_COMMAND_LINE" value="false" />
       <option name="EMULATE_TERMINAL" value="false" />
@@ -129,6 +114,27 @@
       <option name="ADD_CONTENT_ROOTS" value="true" />
       <option name="ADD_SOURCE_ROOTS" value="true" />
       <option name="SCRIPT_NAME" value="$PROJECT_DIR$/CodingQuestions/UAEProgramme.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
+    <configuration name="if_else" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
+      <module name="RobotLearning" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/FlowControl/ConditionalStatements" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/FlowControl/ConditionalStatements/if_else.py" />
       <option name="PARAMETERS" value="" />
       <option name="SHOW_COMMAND_LINE" value="false" />
       <option name="EMULATE_TERMINAL" value="false" />
@@ -160,11 +166,11 @@
     </configuration>
     <recent_temporary>
       <list>
+        <item itemvalue="Python.ForLoop" />
+        <item itemvalue="Python.if_else" />
         <item itemvalue="Python.List" />
         <item itemvalue="Python.UAEProgramme" />
         <item itemvalue="Python.wordFrequencyInstring" />
-        <item itemvalue="Python.PrintMaximumRepeatingElement" />
-        <item itemvalue="Python.PrintElements_In_DIctonaryWithOccuranceValue" />
       </list>
     </recent_temporary>
   </component>

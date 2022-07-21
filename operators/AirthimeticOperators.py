@@ -7,18 +7,19 @@ a=10-9
 print(a)
 print('python'-'version') #
 
-a=4*5
+a=4*5 #
 print(a)
 print('python'*3) # operator overloading
 
 # Exponentiation
-print(4**2)
+print(4**3)
+
 
 #division always return quotient
 
-print(10/2) # normal division return float
+print(10/3) # normal division return float
 
-print(10//2)  # floor division
+print(10//3)  # floor division
 
 #modulus  -returns reminder
 

@@ -27,9 +27,10 @@ if marks:
 else:
     print("plase give proper input value")
 
+# print sum of numbers from 1 to 10
 x=1
-while x<=10:
-    print(x,end=',')
+while x<=100:
+    #
     x=x+1
 
 n=100

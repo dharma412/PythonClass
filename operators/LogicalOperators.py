@@ -2,10 +2,14 @@
 # AND - return true if all conditions return True else return False
 # OR  -return true if any one condition return True
 
+3+5
 
 #AND
 x=34
-print(x>=15 and x<=20 )
+if x>=15 or x<=20:
+    print("Number is between 15 and 20")
+else:
+    print("Number is not between 15 and 20")
 
 # OR
 x=5

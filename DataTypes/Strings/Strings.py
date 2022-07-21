@@ -4,11 +4,31 @@
 #conversion of character to numbers is called encoding , and the reverse process is decoding.
 #ASCII and unicode or the popular encodings used.
 
-str1="hello"
-str2='hell1'
+list1=[1,2,3,4,5,56,4]
+print(list1[0])
+
+str1="!!!!!!!!hello hellohe sdsdudcdhcuSDFDFFFR!!!!!!!!"
+#print(str1.lstrip('!'))
+print(str1.swapcase())
+print(str1.index('h'))
+print(str1.count('h'))
+print(str1.title())
+print(str1.capitalize())
+print(str1.upper())
+out=str1.split(" ")
+print(out)
+print(" ".join(out))
+
+
+
+print((str1[-5:-1]))
+
+
+
+str2='hello'
 print(type(str2))
 
-str3='''string can be write in multipe
+str3='''string 46436 can be write in multipe
     lines using the 
     triple quotes 
     bgyftfyhb'''
