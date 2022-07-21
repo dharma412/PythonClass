@@ -23,7 +23,7 @@ print(" ".join(out))
 
 print((str1[-5:-1]))
 
-
+print((str1[-5:-1]))
 
 str2='hello'
 print(type(str2))
