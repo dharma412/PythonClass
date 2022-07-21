@@ -20,6 +20,8 @@ print(out)
 print(" ".join(out))
 
 
+print((str1[-5:-1]))
+
 
 print((str1[-5:-1]))
 
