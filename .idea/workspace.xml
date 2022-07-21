@@ -2,7 +2,10 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="8ea8c9c3-6e06-4f09-8bb3-8b11276b9b55" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/CodingQuestions/PrintAllPossibleCombinationsofaList.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/CodingQuestions/FindCombinationofElementswhichgiveSUm0.py" beforeDir="false" afterPath="$PROJECT_DIR$/CodingQuestions/FindCombinationofElementswhichgiveSUm0.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/CodingQuestions/From1to10PrintEvenIfisevenoroaddnumber.py" beforeDir="false" afterPath="$PROJECT_DIR$/CodingQuestions/From1to10PrintEvenIfisevenoroaddnumber.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/DataTypes/Strings/Strings.py" beforeDir="false" afterPath="$PROJECT_DIR$/DataTypes/Strings/Strings.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/FlowControl/ConditionalStatements/if_else.py" beforeDir="false" afterPath="$PROJECT_DIR$/FlowControl/ConditionalStatements/if_else.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/FlowControl/IterativeStatements/ForLoop.py" beforeDir="false" afterPath="$PROJECT_DIR$/FlowControl/IterativeStatements/ForLoop.py" afterDir="false" />
@@ -58,7 +61,28 @@
       <recent name="D:\RobotLearning\Programms" />
     </key>
   </component>
-  <component name="RunManager" selected="Python.ForLoop">
+  <component name="RunManager" selected="Python.FindCombinationofElementswhichgiveSUm0">
+    <configuration name="FindCombinationofElementswhichgiveSUm0" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
+      <module name="RobotLearning" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/CodingQuestions" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/CodingQuestions/FindCombinationofElementswhichgiveSUm0.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
     <configuration name="ForLoop" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
       <module name="RobotLearning" />
       <option name="INTERPRETER_OPTIONS" value="" />
@@ -80,28 +104,7 @@
       <option name="INPUT_FILE" value="" />
       <method v="2" />
     </configuration>
-    <configuration name="List" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
-      <module name="RobotLearning" />
-      <option name="INTERPRETER_OPTIONS" value="" />
-      <option name="PARENT_ENVS" value="true" />
-      <envs>
-        <env name="PYTHONUNBUFFERED" value="1" />
-      </envs>
-      <option name="SDK_HOME" value="" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/DataTypes/List" />
-      <option name="IS_MODULE_SDK" value="true" />
-      <option name="ADD_CONTENT_ROOTS" value="true" />
-      <option name="ADD_SOURCE_ROOTS" value="true" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/DataTypes/List/List.py" />
-      <option name="PARAMETERS" value="" />
-      <option name="SHOW_COMMAND_LINE" value="false" />
-      <option name="EMULATE_TERMINAL" value="false" />
-      <option name="MODULE_MODE" value="false" />
-      <option name="REDIRECT_INPUT" value="false" />
-      <option name="INPUT_FILE" value="" />
-      <method v="2" />
-    </configuration>
-    <configuration name="UAEProgramme" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
+    <configuration name="From1to10PrintEvenIfisevenoroaddnumber" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
       <module name="RobotLearning" />
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
@@ -113,7 +116,28 @@
       <option name="IS_MODULE_SDK" value="true" />
       <option name="ADD_CONTENT_ROOTS" value="true" />
       <option name="ADD_SOURCE_ROOTS" value="true" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/CodingQuestions/UAEProgramme.py" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/CodingQuestions/From1to10PrintEvenIfisevenoroaddnumber.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
+    <configuration name="Pattern1" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
+      <module name="RobotLearning" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/CodingQuestions" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/CodingQuestions/Pattern1.py" />
       <option name="PARAMETERS" value="" />
       <option name="SHOW_COMMAND_LINE" value="false" />
       <option name="EMULATE_TERMINAL" value="false" />
@@ -143,34 +167,13 @@
       <option name="INPUT_FILE" value="" />
       <method v="2" />
     </configuration>
-    <configuration name="wordFrequencyInstring" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
-      <module name="RobotLearning" />
-      <option name="INTERPRETER_OPTIONS" value="" />
-      <option name="PARENT_ENVS" value="true" />
-      <envs>
-        <env name="PYTHONUNBUFFERED" value="1" />
-      </envs>
-      <option name="SDK_HOME" value="" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/CodingQuestions" />
-      <option name="IS_MODULE_SDK" value="true" />
-      <option name="ADD_CONTENT_ROOTS" value="true" />
-      <option name="ADD_SOURCE_ROOTS" value="true" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/CodingQuestions/wordFrequencyInstring.py" />
-      <option name="PARAMETERS" value="" />
-      <option name="SHOW_COMMAND_LINE" value="false" />
-      <option name="EMULATE_TERMINAL" value="false" />
-      <option name="MODULE_MODE" value="false" />
-      <option name="REDIRECT_INPUT" value="false" />
-      <option name="INPUT_FILE" value="" />
-      <method v="2" />
-    </configuration>
     <recent_temporary>
       <list>
+        <item itemvalue="Python.FindCombinationofElementswhichgiveSUm0" />
+        <item itemvalue="Python.Pattern1" />
+        <item itemvalue="Python.From1to10PrintEvenIfisevenoroaddnumber" />
         <item itemvalue="Python.ForLoop" />
         <item itemvalue="Python.if_else" />
-        <item itemvalue="Python.List" />
-        <item itemvalue="Python.UAEProgramme" />
-        <item itemvalue="Python.wordFrequencyInstring" />
       </list>
     </recent_temporary>
   </component>
