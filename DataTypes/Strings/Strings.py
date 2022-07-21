@@ -29,6 +29,13 @@ print((str1[-5:-1]))
 print((str1[-5:-1]))
 
 
+print((str1[-5:-1]))
+
+
+print((str1[-5:-1]))
+
+print((str1[-5:-1]))
+print((str1[-5:-1]))
 
 print((str1[-5:-1]))
 
