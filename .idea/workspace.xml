@@ -3,7 +3,6 @@
   <component name="ChangeListManager">
     <list default="true" id="8ea8c9c3-6e06-4f09-8bb3-8b11276b9b55" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/DataTypes/Strings/Strings.py" beforeDir="false" afterPath="$PROJECT_DIR$/DataTypes/Strings/Strings.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/FlowControl/ConditionalStatements/if_else.py" beforeDir="false" afterPath="$PROJECT_DIR$/FlowControl/ConditionalStatements/if_else.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/FlowControl/IterativeStatements/ForLoop.py" beforeDir="false" afterPath="$PROJECT_DIR$/FlowControl/IterativeStatements/ForLoop.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/FlowControl/IterativeStatements/NestedLoop.py" beforeDir="false" afterPath="$PROJECT_DIR$/FlowControl/IterativeStatements/NestedLoop.py" afterDir="false" />
