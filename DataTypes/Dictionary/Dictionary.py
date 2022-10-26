@@ -7,6 +7,7 @@ import json
 # declaration
 dic1={'key':'value','key2':'value','key3':'value3'}
 
+dictonary1= {"name":"leela","add"}
 dic13={2:2,'name':'version'}
 
 dic_={2:2,'name':'version',1:[1,2,4,6,3]}

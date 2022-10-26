@@ -8,6 +8,10 @@ tuple2=() # empty declaration
 # immuatble data type
 
 list1=(1,3,5,2,'python',3,'kik','oiuh',3,2,5,34.8)
+
+print(list1[3])
+
+
 print(list1[-1])
 list1.index(5)
 tuple21=(2,)
