@@ -1,4 +1,5 @@
-#Aithmetic operators :  + ,- ,* ,/,//,%,**,
+#Aithmetic operators :  +(addition) ,-(subtraction) ,*(multification) ,/(divison),//(floor division),%(Modulus),**(Exponentiation)
+
 a=5+7 # additions
 print(a)
 print('python'+'version') # concatenation # operator overloading
@@ -17,11 +18,10 @@ print(4**3)
 
 #division always return quotient
 
-print(10/3) # normal division return float
+print(10/6)  # normal division return float
 
-print(10//3)  # floor division
+print(10//8)  # floor division
 
 #modulus  -returns reminder
 
 print(10%3)
-

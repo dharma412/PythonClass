@@ -19,3 +19,8 @@ if set(text).difference(ascii_letters+digits):
     print("has special charcater")
 
 from itertools import combinations
+
+# Differnce between is and ==
+'''The Equality operator (==) is a comparison operator in Python that compare values of both the 
+operands and checks for value equality. Whereas the ‘is’ operator is the  
+identity operator that checks whether both the operands refer to the same object or not (present in the same memory location).'''

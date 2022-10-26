@@ -1,4 +1,3 @@
-
 list1=[1,2,4,5,6,7,4,6]
 
 for i in list1:
@@ -11,13 +10,14 @@ print("I come out of loop")
 list1=[1,2,4,5,6,7,4,6]
 
 for i in list1:
-    if i==6:
+    if i==6 or i==2or i==4:
         continue
     else:
-        print(i)
+        print(i,end='')
 
-# list1=[1,2,3,4,5,1,3,4,5,1,3,45,1]
+def functionaname():
+    pass
 
-# {1:4,2:1,3:3,4:2,5:2,45:1}
 
-#
+functionaname()
+

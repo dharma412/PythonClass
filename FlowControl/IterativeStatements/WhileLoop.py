@@ -11,11 +11,20 @@ if a:
 else:
     print("I am null")
 
+a=0
+if a:
+    print("I amnot null")
+else:
+    print("I amnull")
 
-a=5
+a=10
 while a:
     a=a-1
-    print(a)
+    print(a,end=",")
+
+
+
+
 
 
 marks=0

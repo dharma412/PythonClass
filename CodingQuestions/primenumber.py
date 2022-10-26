@@ -9,3 +9,4 @@ def prime(lower,upper):
             else:
                 print(num)
 prime(1,89)
+

@@ -6,7 +6,7 @@
 
 #AND
 x=34
-if x>=15 or x<=20:
+if x>=15 and x<=33:
     print("Number is between 15 and 20")
 else:
     print("Number is not between 15 and 20")
@@ -15,9 +15,8 @@ else:
 x=5
 print(x>3 or x<4)
 
-#not
 x=15
-print(not(x>3 and x<10))
+print(not(x>3 and x>45))
 
 
 x=[10,23,56,4,64,564,2]
