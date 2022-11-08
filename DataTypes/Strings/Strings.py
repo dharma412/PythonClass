@@ -3,6 +3,7 @@
 # string order collection.
 #conversion of character to numbers is called encoding , and the reverse process is decoding.
 #ASCII and unicode or the popular encodings used.
+import codecs
 
 str1="This is p'ython"
 print((str1))
@@ -172,7 +173,7 @@ print('He said, "What\\ there?\"')
 #2.create string and print each elements twice and separtaed by $ ex:python o/p:pp$yy$tt$hh$oo$nn$
 #note use only for and if loop
 
-# string methods
+# string methods start from here
 # capitalize--It will change the first letter of string into upper case.
 str1="ello world to email academy"
 result=str1.capitalize()
@@ -231,10 +232,6 @@ print(b)
 result=" ".join(b)
 print(result)
 
-
-
-
-
 #join --- it joines the given data with some seprator
 
 list1=['this','is','python']
@@ -247,8 +244,6 @@ print(result)
 str1="AmuLS ACADEmY"
 result=str1.lower()
 print(result)
-
-
 
 
 # upper - it will conver all letters into upper case letter
@@ -296,21 +291,24 @@ print(str2)
 #{[index]:[width][.precision][type]}
 var ="class"
 str4=f"This is python {var}"
-
 print(str4)
 
 # strip - removes extra characters left and right side of string
-str1="!!!hello !!!!!!!!python&&&"
-result=str1.strip("!") # strip only removes extra characters from left and right not from the middle.
+str1="   hello !!!!!!!!python&&&  "
+print(str1)
+result=str1.strip(" ") # strip only removes extra characters from left and right not from the middle.
+print(result)
 
 str1="!!!hello !!!!!!!!python!!!!"
-result=str1.lstrip('&')
+result=str1.lstrip("!")
+print(result)
+
 
 str1="!!!hello !!!!!!!!python!!!!!!"
 result=str1.rstrip('!')
+print(result)
 
-
-#casefold-
+#casefold- it converts all charecters into lower case
 
 str1="helloiamlDFGDGDGearningpython"
 result=str1.casefold()
@@ -319,7 +317,7 @@ print(result)
 #center  - method will center align the string using specified character , space is default
 
 str1="g"
-result=str1.center(30,'O')
+result=str1.center(6,'O')
 print((result))
 
 #isalnum---
@@ -362,17 +360,37 @@ str1="66868    979"
 result=str1.isspace()
 print(result)
 
-#isidentifier----  check if the strign is identifier
-str1="Demo343"
+#isidentifier----  check if the strign is identifier or variables
+str1="22Demo343"
 result=str1.isidentifier()
 print(result)
 
 
 #splitlines --
-str1='This is python  this is python\n     jsdadcsdjsd ncjdhjd\n     wdhasjkdhjk jdhjs'
+str1='This is python  this is python\n    jsdadcsdjsd ncjdhjd\n  wdhasjkdhjk jdhjs'
+
+
 result=str1.splitlines()
 print(result)
 #reverse method---- it retunrs the given string.
+
+#Encode
+str1='This is python  this is python'
+result=str1.encode('ASCII')
+result.decode()
+
+str1.expandtabs()
+str1.format_map()
+str1.partition()
+str1.ljust()
+str1.isprintable()
+str1.zfill()
+str1.removeprefix()
+str1.removesuffix()
+str1.startswith()
+str1.rindex()
+str1.rfind()
+str1.rjust()
 
 
 # traslate --
@@ -406,67 +424,3 @@ print(t)
 
 print(ord('u '))
 print(chr(147))
-
-
-# *************************** Problem **********************
-# palindrome : reverse == original
-# madam = madam --
-#malayalam  = malayalam
-#reverse the given string
-str1="helloworld"
-result=str1[::-1]
-print(result)
-
-str2=""
-for var in str1:
-    str2=var+str2  #e+h=eh=olleh
-print(str2)
-
-
-
-# find if string is palindrome or not
-
-str1="madam"
-str2=str1[::-1]
-
-str1='python'
-print(str1[::-1])
-
-
-
-
-str1='madam'
-str2=""
-for i in str1:
-    #print(i)
-    str2=i+str2
-    #print(str2)
-#print(str2)
-if str1==str2:
-    print("This is palindorme")
-else:
-    print("Not palindrome")
-
-
-
-
-dict={}
-with open(r'/DataTypes/file.txt') as f:
-    for i in f.readlines():
-        (key,val)=i.split('=')
-        dict[key]=val
-print(dict)
-
-
-
-str2='''aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa\
-bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb\
-ccccccccccccccccccccccccccccccccccc\
-ddddddddddddddddddddddddddddddddddd'''
-print(str2)
-print(str2.splitlines())
-
-
-print(34<<5)
-
-print((3*6+18//3+18%3+18/4+4**5*10&2))

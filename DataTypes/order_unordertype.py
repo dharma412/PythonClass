@@ -7,8 +7,11 @@ letters = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ'
 #print(string_letters)
 
 lists_letters = list(letters)
+print(lists_letters)
 tuples_letters = tuple(letters)
+print(tuples_letters)
 sets_letters = set(letters)
+print(sets_letters)
 
 print(letters)
 print(lists_letters)
