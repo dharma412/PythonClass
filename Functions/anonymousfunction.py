@@ -1,9 +1,22 @@
-#anonymous function is a function without name.
+# anonymous function is a function without name.
 # anonymous function we define with lamda keyword.
 
 # lambda arguments:expression
 # lambda function can have any number of arguments but only one expression , The expression is eval and returned.
 # Lambda functions can be used wherever function objects are required.
+
+def addone(x,y):
+   print(x,y)
+
+print(addone(5,7))
+
+result=lambda x,y:print(x+y)
+print(result(5,7))
+
+
+#
+list1=[1,2,3,4,5,6]
+output=[1,4,9,16,25,36]
 
 #syntax
 va=lambda x:x*x

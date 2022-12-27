@@ -1,3 +1,5 @@
+import time
+
 from selenium import webdriver
 from selenium.webdriver.common.action_chains import  ActionChains
 from selenium.webdriver.common.by import By
@@ -5,11 +7,11 @@ from selenium.webdriver.common.keys import  Keys
 from webdriver_manager.chrome import ChromeDriverManager
 driver = webdriver.Chrome(ChromeDriverManager().install())
 
-driver.get("http://www.dhtmlgoodies.com/scripts/drag-drop-custom/demo-drag-drop-3.html")
+driver.get("http://www.uitestpractice.com/")
 driver.maximize_window()
-
-sourceelemt=driver.find_element(By.XPATH,"//*[contains(text(),'Rome')][2]")
-target=driver.find_element(By.XPATH,"//*[contains(text(),'Italy')][1]")
-
-act=ActionChains(driver)
-act.drag_and_drop(sourceelemt,target).perform()
+# create action chain object
+action = ActionChains(driver)
+time.sleep(10)
+# move the cursor
+ele=driver.find_element(By.ID,"draggable")
+action.drag_and_drop_by_offset(ele,50, 150).perform()

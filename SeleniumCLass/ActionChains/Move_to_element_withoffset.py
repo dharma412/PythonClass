@@ -2,6 +2,7 @@ import time
 
 from selenium import webdriver
 from selenium.webdriver.common.action_chains import  ActionChains
+from selenium.webdriver.common.by import By
 from selenium.webdriver.common.keys import  Keys
 from webdriver_manager.chrome import ChromeDriverManager
 driver = webdriver.Chrome(ChromeDriverManager().install())
@@ -11,7 +12,9 @@ driver.get("https://www.rahulshettyacademy.com/AutomationPractice/")
 
 driver.maximize_window()
 # get element
-element = driver.find_element_by_xpath("//button[@id='mousehover']")
+element = driver.find_element(By.XPATH,"//button[@id='mousehover']")
+
+time.sleep(10)
 
 # create action chain object
 action = ActionChains(driver)

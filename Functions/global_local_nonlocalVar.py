@@ -7,15 +7,15 @@ import datetime
 
 a=10  # global variable
 def display():      #local variable
-    global a
-    a=a+1
+    #global a
+    #a=a+1
     print(a)
-    a=8
-    print(a)
-    a=a+1
-    print(a)
+    # a=8
+    # print(a)
+    # a=a+1
+    # print(a)
 display()
-print(a)
+# print(a)
 
 
 
@@ -86,7 +86,12 @@ inner()
 y=10
 def outter():
     z=8  # here z is neither local nor global to inner function so it is called non local variable or elclosing variable
+    global y
+    y=y+1
+    print(y)
     def inner():
+        global y
+        y=y+1
         x=4
         print("x:",x)
         print("inside the function y:",y)
@@ -97,6 +102,15 @@ def outter():
     print("z:",z)
 outter()
 
+
+
+def out():
+
+    def inner():
+        print("I am inner")
+    inner()
+    print("I am outer")
+out()
 
 
 #LEGB rule

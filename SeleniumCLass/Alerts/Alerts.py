@@ -1,20 +1,21 @@
 #alert with dismiss
 from selenium import webdriver
+from selenium.webdriver.common.by import By
 from webdriver_manager.chrome import ChromeDriverManager
 from selenium.webdriver.common.alert import Alert
-# create webdriver object
-driver = webdriver.Chrome(ChromeDriverManager().install())
-# get ide.geeksforgeeks.org
-driver.get("http://demo.automationtesting.in/Alerts.html")
-driver.maximize_window()
-driver.find_element_by_xpath("//a[contains(text(),'Alert with OK & Cancel ')]").click()
-driver.find_element_by_xpath("//button[@class='btn btn-primary']").click()
-# create alert object
-#driver.switch_to_alert()
-alert = Alert(driver)
-# get alert text
-print(alert.text)
-alert.dismiss()
+# # create webdriver object
+# driver = webdriver.Chrome(ChromeDriverManager().install())
+# # get ide.geeksforgeeks.org
+# driver.get("http://demo.automationtesting.in/Alerts.html")
+# driver.maximize_window()
+# driver.find_element(By.XPATH,"//a[contains(text(),'Alert with OK & Cancel ')]").click()
+# driver.find_element(By.XPATH,"//button[@class='btn btn-primary']").click()
+# # create alert object
+# #driver.switch_to_alert()
+# alert = Alert(driver)
+# # get alert text
+# print(alert.text)
+# alert.dismiss()
 
 # alter with Text Box
 from selenium import webdriver
@@ -25,15 +26,15 @@ driver = webdriver.Chrome(ChromeDriverManager().install())
 # get ide.geeksforgeeks.org
 driver.get("http://demo.automationtesting.in/Alerts.html")
 driver.maximize_window()
-driver.find_element_by_xpath("//a[contains(text(),'Alert with Textbox ')]").click()
-driver.find_element_by_xpath("//button[@class='btn btn-info']").click()
+driver.find_element(By.XPATH,"//a[contains(text(),'Alert with Textbox ')]").click()
+driver.find_element(By.XPATH,"//button[@class='btn btn-info']").click()
 # create alert object
 #driver.switch_to_alert()
 alert = Alert(driver)
 # get alert text
 print(alert.text)
 alert.send_keys("Automation Testing using python")
-alert.dismiss()
+alert.accept()
 
 # accept the alert
 alert.accept()
