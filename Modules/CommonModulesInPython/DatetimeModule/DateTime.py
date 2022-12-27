@@ -5,10 +5,15 @@
 #datetime Class
 #timedelta Class
 
-import datetime
+
+from datetime import datetime
 #print(datetime.date.today())
-time=datetime.datetime.now()
+time=datetime.today()
+time1=datetime.now()
 print(time)
+print(time1)
+
+
 
 
 

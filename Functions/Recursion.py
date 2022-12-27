@@ -12,8 +12,14 @@ def fac(x):
        result=x*fac(x-1)
        #print(result)
     return result
-result=fac(4)
+result=fac(3)
 print(result)
+
+
+def recursor():
+    recursor()
+recursor()
+
 
 
 

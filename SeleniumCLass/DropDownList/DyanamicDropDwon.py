@@ -1,7 +1,7 @@
 import time
 from selenium import webdriver
 from selenium.webdriver.support.select import Select
-driver = webdriver.Chrome(executable_path="../Drivers/chromedriver.exe")
+driver = webdriver.Chrome(ChromeDriverManager().install())
 driver.implicitly_wait(0.5)
 driver.get("https://www.spicejet.com/")
 # identify dropdown with Select class
