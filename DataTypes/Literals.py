@@ -1,4 +1,0 @@
-var="data"
-print(var)
-
-
