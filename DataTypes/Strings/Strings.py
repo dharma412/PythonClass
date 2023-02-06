@@ -203,8 +203,8 @@ print(result)
 
 #find -- it return the index of the given letter or word,it returns -1 if word or char is not presentin string
 str1="amuls acdemy"
-# result=str1.find('a',3)
-# print(result)
+result=str1.find('z',3,9)
+print(result)
 # print(str1.find('a'))
 # print(str1.find("am"))
 print(str1.find('acdemy'))
@@ -264,10 +264,9 @@ str2=str1.replace('o','z')
 print(str2)
 
 
-
 # format--
-str1="Hello {name} world 2 {name3}"
-result=str1.format(name2=2,name3=4,name="taja")
+str1="Hello {name} world 2 {name2}"
+result=str1.format(name2=2,name="teja")
 print(result)
 
 #Formatting string using % Operator
@@ -282,7 +281,7 @@ print("%5.9f" %(result))
 
 # using format() method
 
-str2="{1} {2} {0}".format("Teja","leela","raja")
+str2="{1} {2} {0}".format("Teja0","leela2","raja1")
 print(str2)
 
 str2="{a} {b} {c}".format(a=65,b="leela",c="raja")
@@ -317,7 +316,7 @@ print(result)
 #center  - method will center align the string using specified character , space is default
 
 str1="g"
-result=str1.center(6,'O')
+result=str1.center(7,'O')
 print((result))
 
 #isalnum---
@@ -368,18 +367,25 @@ print(result)
 
 #splitlines --
 str1='This is python  this is python\n    jsdadcsdjsd ncjdhjd\n  wdhasjkdhjk jdhjs'
-
+print(str1)
 
 result=str1.splitlines()
 print(result)
 #reverse method---- it retunrs the given string.
 
-#Encode
-str1='This is python  this is python'
-result=str1.encode('ASCII')
-result.decode()
 
-str1.expandtabs()
+#Encode
+# str1='This is python  this is python'
+# result=str1.encode('ASCII')
+# result.decode()
+
+
+
+str1="H\te\tl\tl\to"
+print(str1)
+print(str1.expandtabs(2))
+
+
 str1.format_map()
 str1.partition()
 str1.ljust()
@@ -421,6 +427,13 @@ t=string1.maketrans(str1,str2,str3)
 print(string1.translate(t))
 print(t)
 
+print(ord('*'))
+print(chr(42))
 
-print(ord('u '))
-print(chr(147))
+
+
+
+
+
+
+

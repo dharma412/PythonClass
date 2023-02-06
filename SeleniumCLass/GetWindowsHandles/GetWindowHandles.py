@@ -15,7 +15,7 @@ def test_1():
     driver.get("https://www.globalsqa.com/demo-site/frames-and-windows/#iFrame")
     driver.maximize_window()
 
-    driver.switch_to.frame("globalSqa");
+    driver.switch_to.frame("globalSqa")
     driver.find_element(By.CSS_SELECTOR,"img[alt='Selenium Online Training']").click()
     driver.switch_to.default_content()
 

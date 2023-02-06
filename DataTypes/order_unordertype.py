@@ -60,5 +60,10 @@ for i in str1:
 # dictinary has pop and popitem, we give key in dict for pop method only and nothing for popitem.
 
 
+list1=[1,2,3,4,4,5,5]
+str1=set(list1)
+print(str1)
 
+a=10
+print(float(a))
 

@@ -20,7 +20,7 @@ print(4**3)
 
 print(10/6)  # normal division return float
 
-print(10//8)  # floor division
+print(10//6)  # floor division
 
 #modulus  -returns reminder
 

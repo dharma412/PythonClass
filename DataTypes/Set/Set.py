@@ -13,12 +13,12 @@
 # creation
     # creating empty with set function
 set1=set()
-print((set1))
+print(type(set1))
     # creating  set with values using set()
 set1=set({1,2,3})
 print((set1))
 
-# creating empty set using flower brackets
+# creating  set using flower brackets
 set3={1}
 print(type(set3))
 
@@ -27,7 +27,7 @@ myset={1,2,3}
 print((myset))
 
 #set hetrogenous elements.
-myset={1.0, "Hello", (1, 2, 3),2.6}
+myset={1.0, "Hello", (1, 2, 3),2.6,2.6}
 print(myset)
 
 
@@ -37,7 +37,7 @@ print(my_set)
 
 #set can not have mutable object.
 #--> set can not has sets , dictionary, list
-my_set = {1, 2, [3, 4]}
+my_set = {1, 2, (3, 4)}
 print(myset)
 
 # type casting
@@ -54,7 +54,7 @@ for i in set1:
 
 # ****************************  set methods *********************************8
 set1={1,2,3,4,5,6,7,8,9}
-set1.add([5,5,6,6])
+set1.add(34)
 print(set1)
 
 #To add more than one value.
@@ -140,11 +140,7 @@ y = {"google", "microsoft", "apple"}
 y.difference_update(x)
 print(x)
 print(y)
-#**************** for loop over the set #########################
-A = {'a','c','g','d'}
-print(type(A))
-for i in A:
-    print(i, end=' ')
+
 
 
 
