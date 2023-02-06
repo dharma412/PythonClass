@@ -68,3 +68,80 @@ except ArithmeticError as e:
 
 
 
+list1=[1,2,3,5,5]
+print(list1[7])
+
+d={"a":23,"b":45,"c":89}
+
+1a="python"
+
+if 1==0:
+    print("I am unable to do it")
+
+
+1.syntax error
+2.runtime error. (excpetion) (1.application or logical )
+
+# try  except finally else
+
+
+
+a=10
+b=0
+print(a/b)
+print("I have done division")
+
+def divi(a,b):
+    try:
+        print(a/b)
+    except ZeroDivisionError:
+        print(" i am hadndled")
+    finally:
+        print("I am doing divison")
+divi(10,2)
+
+Testcas1
+
+# try except finally
+# try except 1..except 2 .. finally
+
+# login
+# new clikc button
+# travt enter username date of mail. c
+#clikc on save
+# logout
+
+from selenium import  webdriver
+#negatuive #
+try:
+    a=10
+    b=2
+    print(a/b)
+    list=[12,2,3,4,5,5,5]
+    print(list[11])
+except:
+    print("I am leeela") # if exception in try excelpt
+else:
+    print("Hey I did not get any exception")  # if no excpetion else will execute
+finally:
+    print(" I am learing exceptions")
+print("I am not in expction block")
+
+
+
+# combinations
+
+try:
+    print("Try")
+except:
+    print("I am except")
+else:
+    print(" I am else")
+
+# try else finally
+# try except else else
+# try except finally finally
+# try execpt print() except
+# try execpt print() finally
+# try except try except
+

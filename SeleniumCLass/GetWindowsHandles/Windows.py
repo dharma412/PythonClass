@@ -2,6 +2,7 @@
 from selenium import webdriver
 
 from selenium.webdriver.common.action_chains import  ActionChains
+from selenium.webdriver.common.by import By
 from selenium.webdriver.common.keys import  Keys
 
 driver=webdriver.Chrome(executable_path="../Drivers/chromedriver.exe")
@@ -13,12 +14,12 @@ handles=driver.window_handles
 size=len(handles)
 
 for i in range(size):
-    driver.switch_to_window(handles[x])
+    driver.switch_to.window(handles[i])
 driver.current_window_handle
 w=driver.window_handles[2]
 
 
-driver.switch_to_window(w)
+driver.switch_to.window(w)
 driver.quit()
 
 
@@ -28,7 +29,7 @@ from selenium import webdriver
 driver = webdriver.Firefox(executable_path="/data/Softwares/BrowserDrivers/geckodriver")
 driver.get("file:///data/WorkArea/Python_Test.html")
 
-driver.find_element_by_id("link").click()
+driver.find_element(By.ID,"link").click()
 
 handles = driver.window_handles
 size = len(handles)
@@ -45,7 +46,7 @@ from selenium import webdriver
 driver = webdriver.Firefox(executable_path="/data/Softwares/BrowserDrivers/geckodriver")
 driver.get("file:///data/WorkArea/Python_Test.html")
 
-driver.find_element_by_id("link").click()
+driver.find_element(By.ID,"link").click()
 
 handles = driver.window_handles
 size = len(handles)
@@ -65,7 +66,7 @@ from selenium import webdriver
 driver = webdriver.Firefox(executable_path="/data/Softwares/BrowserDrivers/geckodriver")
 driver.get("file:///data/WorkArea/Python_Test.html")
 
-driver.find_element_by_id("link").click()
+driver.find_element(By.ID,"link").click()
 
 handles = driver.window_handles
 size = len(handles)
@@ -79,4 +80,4 @@ for x in range(size):
 
 driver.switch_to.window(parent_handle)
 
-driver.find_element_by_id("link").click()
+driver.find_element(By.ID,"link").click()

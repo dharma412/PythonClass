@@ -15,9 +15,3 @@ driver.execute_script("window.scrollBy(0,1000)") # it will scrolldown by 1000 pi
 
 #
 driver.execute_script("window.scrollBy(0,document.body.scrollHeight)")
-
-
-
-
-
-
