@@ -1,26 +1,7 @@
-class Module1:
+from Module2 import sum1,mul
 
-    def display(self):
-        print("This is module")
+result=sum1(9,494,494,56)
+print(result)
 
-    def display2(self):
-        print("This is module2")
-
-
-class Module3:
-
-    def display(self):
-        print("This is module")
-
-    def display2(self):
-        print("This is module2")
-
-
-class Modueele1:
-
-    def display(self):
-        print("This is module")
-
-    def display2(self):
-        print("This is module2")
-
+mulresult=mul(34,5,4,6,45,445)
+print(mulresult)

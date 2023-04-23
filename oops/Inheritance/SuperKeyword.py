@@ -40,8 +40,8 @@ h1=Horese(7373)
 h2=Horese(44)
 
 h3=Horese(455)
+print(h3.ismamal1())
 
-print(Horese.mro())
 # using variales of parent in child init
 # using varibles of parent in chuild methods
 # usinig methdos of parent in child methods

@@ -1,9 +1,14 @@
 import os
 #**************** file rading *****************
-#var1=open(r'C:\Users\dhchaluv\Learning\PythonLearnings\Files\Files.txt')
+# var1=open('Files.txt','r')
+#
+# # var1.re
+#
+# var1.close()
 
-with open(r'C:\Users\dhchaluv\Learning\PythonLearnings\Files\Files.txt') as var1:
-    content = var1.readlines()
+
+with open(r'C:\Users\eachhda\OneDrive - Ericsson\Desktop\p\PythonClass\Files\Files.txt') as var1:
+    content = var1.readable()
     print(content)
 
 
@@ -17,8 +22,8 @@ var1.close()
 with open("Files.txt") as f1:
     pass
 
-with open(r'C:\Users\dhchaluv\Learning\PythonLearnings\Files\Files.txt','w') as var1:
-    var1.write("This is python")
+with open(r'C:\Users\eachhda\OneDrive - Ericsson\Desktop\p\PythonClass\Files\Files.txt','a') as var1:
+    var1.write("This is pythonfdfs")
     #content = var1.readlines()
     #print(content)
 

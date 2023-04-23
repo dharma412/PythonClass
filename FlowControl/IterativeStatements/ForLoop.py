@@ -20,3 +20,18 @@ for var in range(0,100):
 #print values from 1 to 10.
 for i in range(1,11):
     print(i , end=',')
+
+# it wokrs iterable objects or data types ex : list tuple string
+
+list1= [1,2,23,4,4,5]
+#print(list1)
+
+for i in [1,2,23,4,4,5]:
+    print("I am iterating")
+    if i%2==1:
+        print(i)
+# print all od numbers from 0 to 100
+
+for var in range(0,100):
+    if var % 2 != 0:
+        print(var,end=",")

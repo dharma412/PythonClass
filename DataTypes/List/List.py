@@ -1,7 +1,15 @@
 import json
+
+print("This is ")
+
 list1=[]   # empty list
-list34=[1]
-print(type(list34))
+list34=[1,233,3,33,3,3,'uhdh','python','raja','leela',2.4,34.66,2.44444] # herogenous elements
+
+print(list34[::2])
+
+#list methods
+
+
         #-8      -7      -6    -5    -4  -3 -2  -1
 basket=['str3','str4','str1',333.89,97,789,978,933]  #
          #0       1      2     3     4   5   6   7
@@ -80,15 +88,66 @@ for var34 in range(0,100):
 
 #methods in list
 # append
+list1=[2,1,4,3,5,134,8]
+list1.append([67])
+print(list1)
 # extend
+list1=[2,1,4,3,5,134,8]
+list1.extend([67])
+print(list1)
 # insert
+list1=[2,1,4,3,5,134,8]
+list1.insert(2,1000)
+print(list1)
 # count
+list1=[2,1,4,3,5,134,8,1,1]
+result=list1.count(1)
+print(result)
+
 # pop
-# sort
-# index
-# clear
+list1=[2,1,4,3,5,134,8,1,1]
+list1.pop(2)
+print(list1)
+
 # remove --> Value
+list1=[2,1,4,3,5,134,8,1,1,"python"]
+list1.remove("python")
+print(list1)
+
+# sort
+def myFunc(e):
+  return e*e
+list1=[2,1,4,3,5,134,8,1,1]
+list1.sort(reverse=True)
+print(list1)
+#list1.sort(reverse=True, key=myFunc)
+#print(list1)
+# index
+list1=[2,134,4,3,5,134,8,1,1,"python"]
+result=list1.index(134,1,7)
+print(result)
+# clear
+list1=[2,134,4,3,5,134,8,1,1,"python"]
+list1.clear()
+print(list1)
 # copy
+list1=[2,134,4,3,5,134,8,1,1,"python"]
+list2=list1.copy()
+print(list1)
+print(list2)
+
+#reverse
+list1=[2,134,4,3,5,134,8,1,1,"python"]
+list1.reverse()
+print(list1)
+
+
+
+#list comprehensions
+list1=[1,2,3,4,5,6]
+result=[]
+
+
 
 #list , tuple, string --- iterable objcet s
 

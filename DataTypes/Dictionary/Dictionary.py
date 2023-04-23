@@ -7,6 +7,7 @@ import json
 # declaration
 dic1={'key':'value','key2':'value','key3':'value3'}
 
+dictonary1= {"name":"leela","add":"value"}
 dic13={2:2,'name':'version'}
 
 dic_={2:2,'name':'version',1:[1,2,4,6,3]}
@@ -20,6 +21,8 @@ print(my_dictionary12)
 
 # access element and update the values add dictionary.
 dic_={2:2,'name':'version',1:[1,2,4,6,3]}
+print(dic_['name'])
+
 #print(dic_['name2'])  # retun keyerror if key is not there in dictionary.
 #print(dic_.get('name2')) #return none if key is not there in dictionary
 

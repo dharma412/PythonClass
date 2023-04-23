@@ -14,6 +14,7 @@ select.select_by_value('1')
 
 from selenium import webdriver
 from selenium.webdriver.support.select import Select
+from selenium.webdriver.common.by import By
 driver = webdriver.Chrome(executable_path="C:\\chromedriver.exe")
 driver.implicitly_wait(0.5)
 driver.get("https://www.tutorialspoint.com/selenium/selenium_automation_practice.htm")
