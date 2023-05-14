@@ -3,6 +3,32 @@
 # string order collection.
 #conversion of character to numbers is called encoding , and the reverse process is decoding.
 #ASCII and unicode or the popular encodings used.
+import codecs
+
+str1="This is p'ython"
+print((str1))
+
+str1='This is p"ython'
+print((str1))
+
+str1="This is p\"ython"
+print(str1)
+
+str1='This is p\"ython'
+print('This is p\"ython')
+
+str1="This is p\'ython"
+print(str1)
+
+str1='''He said, "What's there?"'''
+print(str1)
+
+str2="either sine"
+str1="either sune"
+print(str1==str2)
+
+
+
 
 str1="This is p'ython"
 print((str1))
@@ -172,7 +198,11 @@ print('He said, "What\\ there?\"')
 #2.create string and print each elements twice and separtaed by $ ex:python o/p:pp$yy$tt$hh$oo$nn$
 #note use only for and if loop
 
+
 # string methods
+
+# string methods start from here
+
 # capitalize--It will change the first letter of string into upper case.
 str1="ello world to email academy"
 result=str1.capitalize()
@@ -202,8 +232,13 @@ print(result)
 
 #find -- it return the index of the given letter or word,it returns -1 if word or char is not presentin string
 str1="amuls acdemy"
+
 # result=str1.find('a',3)
 # print(result)
+
+result=str1.find('z',3,9)
+print(result)
+
 # print(str1.find('a'))
 # print(str1.find("am"))
 print(str1.find('acdemy'))
@@ -232,9 +267,6 @@ result=" ".join(b)
 print(result)
 
 
-
-
-
 #join --- it joines the given data with some seprator
 
 list1=['this','is','python']
@@ -247,6 +279,8 @@ print(result)
 str1="AmuLS ACADEmY"
 result=str1.lower()
 print(result)
+
+
 
 
 
@@ -270,9 +304,112 @@ print(str2)
 
 
 
+
 # format--
 str1="Hello {name} world 2 {name3}"
 result=str1.format(name2=2,name3=4,name="taja")
+
+
+
+# format--
+str1="Hello {name} world 2 {name2}"
+result=str1.format(name2=2,name="teja")
+print(result)
+
+#Formatting string using % Operator
+
+str1="This is python %s and I am paying for %s and cost is %d"%("class","class",25000)
+print(str1)
+
+#floating precision precesion
+result=3.141592
+print(result)
+print("%5.9f" %(result))
+
+# using format() method
+
+str2="{1} {2} {0}".format("Teja0","leela2","raja1")
+print(str2)
+
+str2="{a} {b} {c}".format(a=65,b="leela",c="raja")
+print(str2)
+
+#{[index]:[width][.precision][type]}
+var ="class"
+str4=f"This is python {var}"
+print(str4)
+
+# strip - removes extra characters left and right side of string
+str1="   hello !!!!!!!!python&&&  "
+print(str1)
+result=str1.strip(" ") # strip only removes extra characters from left and right not from the middle.
+print(result)
+
+str1="!!!hello !!!!!!!!python!!!!"
+result=str1.lstrip("!")
+print(result)
+
+
+str1="!!!hello !!!!!!!!python!!!!!!"
+result=str1.rstrip('!')
+print(result)
+
+#casefold- it converts all charecters into lower case
+
+str1="helloiamlDFGDGDGearningpython"
+result=str1.casefold()
+print(result)
+
+#center  - method will center align the string using specified character , space is default
+
+str1="g"
+result=str1.center(7,'O')
+print((result))
+
+#isalnum---
+str1="version32455rfsdf"
+result=str1.isalnum()
+print(result)
+
+# isdigit - return True if string has all digit else False
+str1="123445353&34%$"
+result=str1.isdigit()
+print(result)
+
+#isalpha - retunr True if string has all alphabhates letters
+str1="helloiamlearningpython"
+result=str1.isalpha()
+print(result)
+
+#isnumeric--- check if all characters in string are numaric
+str1="576778.88"
+result=str1.isnumeric()
+print(result)
+
+#istitile --- check if given string in title formate
+str1="HEllo And Welcome"
+result=str1.istitle()
+print(result)
+
+#islower - it will check string in lower caseornot
+str1="AmuLS ACADEmY"
+result=str1.islower()
+print(result)
+
+#isupper -  it will check string in upper case or not
+str1="ACADE"
+result=str1.isupper()
+print(result)
+
+#isspace --- check if all charecters in the strign are whitespaces
+str1="66868    979"
+result=str1.isspace()
+print(result)
+
+#isidentifier----  check if the strign is identifier or variables
+str1="22Demo343"
+result=str1.isidentifier()
+
 print(result)
 
 #Formatting string using % Operator
@@ -298,6 +435,7 @@ var ="class"
 str4=f"This is python {var}"
 
 print(str4)
+
 
 # strip - removes extra characters left and right side of string
 str1="!!!hello !!!!!!!!python&&&"
@@ -375,6 +513,41 @@ print(result)
 #reverse method---- it retunrs the given string.
 
 
+#splitlines --
+str1='This is python  this is python\n    jsdadcsdjsd ncjdhjd\n  wdhasjkdhjk jdhjs'
+print(str1)
+
+result=str1.splitlines()
+print(result)
+#reverse method---- it retunrs the given string.
+
+
+#Encode
+# str1='This is python  this is python'
+# result=str1.encode('ASCII')
+# result.decode()
+
+
+
+str1="H\te\tl\tl\to"
+print(str1)
+print(str1.expandtabs(2))
+
+
+str1.format_map()
+str1.partition()
+str1.ljust()
+str1.isprintable()
+str1.zfill()
+str1.removeprefix()
+str1.removesuffix()
+str1.startswith()
+str1.rindex()
+str1.rfind()
+str1.rjust()
+
+
+
 # traslate --
 
 # maketrans --
@@ -402,6 +575,7 @@ str3="($&"
 t=string1.maketrans(str1,str2,str3)
 print(string1.translate(t))
 print(t)
+
 
 
 print(ord('u '))
@@ -432,20 +606,13 @@ str2=str1[::-1]
 str1='python'
 print(str1[::-1])
 
+print(ord('*'))
+print(chr(42))
 
 
 
-str1='madam'
-str2=""
-for i in str1:
-    #print(i)
-    str2=i+str2
-    #print(str2)
-#print(str2)
-if str1==str2:
-    print("This is palindorme")
-else:
-    print("Not palindrome")
+
+
 
 
 

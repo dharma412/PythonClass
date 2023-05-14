@@ -20,8 +20,16 @@ print(4**3)
 
 print(10/6)  # normal division return float
 
+<<<<<<< HEAD
 print(10//8)  # floor division
 
 #modulus  -returns reminder
 
 print(10%3)
+=======
+print(10//6)  # floor division
+
+#modulus  -returns reminder
+
+print(10%3)
+>>>>>>> 6c4a2aacb6a4d51b30fc808c15c3240350bd8d85

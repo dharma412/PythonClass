@@ -1,5 +1,6 @@
 
 
+
 str1="aabbcc"
 str2=""
 cnt=1
@@ -16,6 +17,8 @@ print(str2)
 
 
 s="aabbcc"
+
+
 out=""
 cnt=1
 
@@ -24,5 +27,9 @@ for i in range(len(s)):
         cnt=cnt+1
     else:
         out=out+s[i]+str(cnt)
+
         cnt=1
 print(out)
+
+print(out)
+

@@ -6,7 +6,7 @@ driver = webdriver.Chrome(ChromeDriverManager().install())
 driver.get("http://demo.automationtesting.in/Windows.html")
 driver.maximize_window()
 
-driver.find_element_by_xpath("//button[contains(text(),'    click   ')]").click()
+driver.find_element(By.XPATH,"//button[contains(text(),'    click   ')]").click()
 currentwindow=(driver.current_window_handle)
 
 handles=driver.window_handles

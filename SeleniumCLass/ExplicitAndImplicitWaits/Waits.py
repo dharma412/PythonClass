@@ -20,9 +20,10 @@ driver.maximize_window()
 #An implicit wait instructs Selenium WebDriver to poll DOM for a certain amount of time, this time can be specified,
 # when trying to find an element or elements that are not available immediately. The default setting is 0 seconds which means WebDriver will not wait before any operations on element.
 #Once set, the implicit wait is set for the life of the WebDriver object i.e. all actions will be delayed by given time.
-#driver.implicitly_wait(100)
+driver.implicitly_wait(10)
+driver.find_element()
 #time.sleep(12)
-wait=WebDriverWait(driver,100,poll_frequency=2,ignored_exceptions=[BaseException,Exception])
+wait=WebDriverWait(driver,100,poll_frequency=5,ignored_exceptions=[BaseException,Exception])
 driver.find_element_by_name("checkBoxOption1").click()
 
 #explicit wait
@@ -37,8 +38,9 @@ driver.find_element_by_name("checkBoxOption1").click()
 
 
 wait=WebDriverWait(driver,10)
+ele=driver.find_element(By.XPATH,"//a[@data-tracking-id='men']"))
 #here the driver will wait a maximum of 10 seconds untill the condition is fulfilled.
-menu=wait.until(ec.invisibility_of_element(By.XPATH,"//a[@data-tracking-id='men']"))
+menu=wait.until(ec.element_to_be_clickable(ele))
 ActionChains(driver).move_to_element(menu).perform()
 # wait for Fastrack menu item to appear, then click it
 fastrmenu=WebDriverWait(driver,10).until(ec.invisibility_of_element_located(By.XPATH,"//a[@data-tracking-id='0_Fastrack']" ))

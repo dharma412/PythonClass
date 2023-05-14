@@ -19,6 +19,3 @@ def symetric(str1):
         print("The entered string is symmetrical")
 
 
-
-n=11
-print(n//2)
