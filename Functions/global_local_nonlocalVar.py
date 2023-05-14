@@ -125,6 +125,13 @@ outter()
 # if we have variable with same name in all level of it will LEGB rule.
 
 
+def local():
+    a=10
+    print(a)
+
+local()
+
+
 
 
 

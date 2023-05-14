@@ -112,12 +112,3 @@ def doctsring():
     """
 print(doctsring.__doc__)
 
-# function does not remember the values of value of variable from its previous call.
-
-def my_func():
-	x = 10
-	print("Value inside function:",x)
-
-x = 20
-my_func()
-print("Value outside function:",x)

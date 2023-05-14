@@ -3,6 +3,7 @@ class A:
     def display(self):
         print("This is parent class")
 
+
 class B():
     def display(self):
         print("I am child class")

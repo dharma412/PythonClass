@@ -1,9 +1,27 @@
 
 #**************** file rading *****************
+<<<<<<< HEAD
+# var1=open('Files.txt','r')
+#
+# # var1.re
+#
+# var1.close()
+
+
+with open(r'C:\Users\eachhda\OneDrive - Ericsson\Desktop\p\PythonClass\Files\Files.txt') as var1:
+    content = var1.readable()
+    print(content)
+
+
+#content=var1.read()
+content=var1.readlines()
+#content=var1.readline()
+=======
 
 #way 1
 f=open('Files/sample.txt','r')
 content=f.read()
+>>>>>>> 6c4a2aacb6a4d51b30fc808c15c3240350bd8d85
 print(content)
 f.close()
 
@@ -90,8 +108,8 @@ with open('Files/sample2.txt','rb') as f:
     content=f.read()  #
     print(type(content))
 
-with open(r'C:\Users\dhchaluv\Learning\PythonLearnings\Files\Files.txt','w') as var1:
-    var1.write("This is python")
+with open(r'C:\Users\eachhda\OneDrive - Ericsson\Desktop\p\PythonClass\Files\Files.txt','a') as var1:
+    var1.write("This is pythonfdfs")
     #content = var1.readlines()
     #print(content)
 

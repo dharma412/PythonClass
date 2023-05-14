@@ -10,6 +10,12 @@ driver.get("https://www.rahulshettyacademy.com/AutomationPractice/")
 driver.maximize_window()
 #check Box
 ele=driver.find_element(By.XPATH,"//input[@value='option1']")
+<<<<<<< HEAD
+ele.click()
+elestatus=ele.is_selected()
+#elestatus1=driver.find_element_by_xpath("//input[@value='option1']").is_enabled()
+print(elestatus)
+=======
 
 print(ele.is_displayed())
 # if  ele.is_selected():
@@ -23,4 +29,5 @@ print(ele.is_displayed())
 
 # elestatus1=driver.find_element(By.XPATH,"//input[@value='option1']").is_enabled()
 # print(elestatus1)
+>>>>>>> 6c4a2aacb6a4d51b30fc808c15c3240350bd8d85
 # print(elestatus)

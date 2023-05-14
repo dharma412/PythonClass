@@ -41,16 +41,3 @@ class classname():
 ob=classname()
 ob.display()
 
-
-class A:
-    a=10
-    def __init__(self):
-        self.g=90
-
-class B(A):
-    m=76
-    def __init__(self):
-        super.__init__()
-        self.d=30
-object2=B()
-print(object2.a,object2.d,object2.m)

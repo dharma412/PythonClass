@@ -34,3 +34,8 @@ def maxprofit(list1):
     return list2
 maxprf=maxprofit([9, 11, 8, 5, 7, 10])
 print(max(maxprf))
+
+Tv = {'BreakingBad': 100, 'GameOfThrones': 1292, 'TMKUC': 88}
+
+Keymax = sorted(Tv.items(), key=lambda x: x[1])
+print(Keymax)
