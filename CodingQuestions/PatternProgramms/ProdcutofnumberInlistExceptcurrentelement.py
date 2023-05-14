@@ -1,0 +1,1 @@
+# https://www.tutorialspoint.com/program-to-find-a-list-of-product-of-all-elements-except-the-current-index-in-python
