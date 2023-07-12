@@ -108,3 +108,12 @@ def divide(a, b):
     print(a/b)
 res=divide(2,0)
 print(res)
+
+
+def dec(func):
+	print("I am adding some code")
+
+@dec
+def new():
+	print("This is new function")
+
