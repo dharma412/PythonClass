@@ -27,3 +27,30 @@ def my_gen():
 
 a=my_gen()
 print(next(a))
+
+
+def gen(a,b):
+
+    c=a+b
+    yield c
+
+    c=c+1
+    yield c
+
+
+gen_obj=gen(4,6)
+print(type(gen_obj))
+print(list(gen_obj))
+
+
+
+def generaterange(a,b):
+    while a<=b:
+        yield a
+        a=a+1
+
+
+object_new=generaterange(1,8)
+print(next(object_new))
+print(next(object_new))
+
