@@ -15,24 +15,6 @@ result=check(string)
 print(string, "-", "Balanced"
 	if check(string) else "Unbalanced")
 
-# # Python3 code to Check for
-# # balanced parentheses in an expression
-# def check(my_string):
-# 	brackets = ['()', '{}', '[]']
-# 	while any(x in my_string for x in brackets):
-# 		for br in brackets:
-# 			my_string = my_string.replace(br, '')
-# 			print(my_string)
-# 	return not my_string
-#
-# # Driver code
-# string = "[{}]"
-# result=check(string)
-# print(string, "-", "Balanced"
-# 	if check(string) else "Unbalanced")
-import json
-
-import requests
 
 ip_str = "wipro's 1st round completed"
 #
@@ -51,17 +33,6 @@ ip_str = "wipro's 1st round completed"
 # 	if "I" or "i" in i:
 
 
-# impport requests
-#
-# try:
-# 	respoce=requests.post("URL",headers="")
-# 	assert respoce.status_code==200
-# 	text = respoce.text
-# 	data = json.loads(text)
-# except AssertionError as e:
-# 	print(e)
-
-
 # Given a string str, print reverse all words except the first and last words
 # Examples:
 Input="Given a string str, print reverse"
@@ -69,16 +40,7 @@ words=Input.split(" ")
 output=words[0]+" "+" ".join(word[::-1] for word in words[1:-1])+" "+words[-1]
 print(output)
 
-# for i in range(1,len(words)-1):
-# 	print(words[i])
-#
-#
-# words=words[1:-1]
-# print(words)
-# output=""
-# output=" ".join(word[::-1] for word in words)
-#
-# print(output)
+
 
 
 
