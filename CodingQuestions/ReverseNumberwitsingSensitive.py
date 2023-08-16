@@ -14,3 +14,16 @@ def reverse1(m):
 
 #print(reverse_int(1234))
 print(reverse1(-1234))
+
+
+def reversenumber(num):
+    mul1=0
+    num=int(num)
+    while num>0:
+        rem=num%10
+        mul1=mul1*10+rem
+        num=num//10
+
+    return (mul1)
+
+num=input("4323")
