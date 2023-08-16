@@ -1,3 +1,5 @@
+# convert tuple to dictionary
+
 tuple1=('a',1,'b',2)
 
 dict.setdefault(tuple1)

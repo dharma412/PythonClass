@@ -54,3 +54,6 @@ object_new=generaterange(1,8)
 print(next(object_new))
 print(next(object_new))
 
+
+
+

@@ -1,3 +1,4 @@
+#Let str = "abab". The given is symmetrical as both halves of the string are the same. Thus, the output is "Yes,
 def symetric(str1):
 
     n=len(str1)
@@ -18,4 +19,4 @@ def symetric(str1):
     if flag ==0:
         print("The entered string is symmetrical")
 
-
+symetric("hfyhrff")
