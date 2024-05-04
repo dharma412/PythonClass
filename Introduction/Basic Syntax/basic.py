@@ -1,3 +1,11 @@
+
+a="""this is python
+bhbhjvhhj h
+jjjknjbj"""
+
+print()
+
+
 from keyword import kwlist
 
 print(kwlist)
@@ -23,7 +31,8 @@ this is 2nd line
 this s33rd line
 """
 
-b=True
+b=False
+
 
 c=None
 
