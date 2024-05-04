@@ -3,3 +3,9 @@
 •	Involved testing REST API calls for Work Order Creation, Dispatch and Assigning of Task.
 •	Validated the Response of the API calls using JSON Library.
 •	Identified the locators of Emulator using UI Automator Viewer and Appium Inspector.
+
+
+
+
+
+

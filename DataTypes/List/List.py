@@ -1,4 +1,11 @@
 import json
+                    # -5   -4   -3      -2    -1
+marks_ofstudtent=[25,85,85,"gfgf","grad"]
+
+print(marks_ofstudtent[::3])
+
+#list1[start:end-1:step-1]
+
 
 print("This is ")
 
