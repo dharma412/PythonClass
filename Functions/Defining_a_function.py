@@ -25,25 +25,3 @@ def sumofnum(*var):
 
 result=sumofnum(23,98,78)
 print(result)
-
-
-
-
-
-def sumofnumber(a,b=10):
-
-  print(a,b)
-
-
-result2=sumofnumber(10)
-print(result2)
-
-dic1={}
-print(dic1.fromkeys(result,"python"))
-
-
-
-
-
-
-
