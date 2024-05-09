@@ -1,21 +1,60 @@
-# str2="python"
-# str1=""
+# class tax_onfood:
+#     x=7 #
+#     def __init__(self,processor,ram):
+#         print("I am exeucting")
+#         self.processor=processor  #4
+#         self.ram= ram #7
 #
-# for i in str2:
-#     str1=i+str1
-# print(str1)
-#print(str2[::-1])
+#     def speed(self):
+#         print("laptop ram is ",self.ram)
 #
-# l1=[2,3,4]
-# l2=[1,2,8]
+#     @logging
+#     def  updatevalue(x):
+#         x=x+1
 #
-# result=set(l1).intersection(set(l2))
+#
+#     @classmethod
+
+
+#
+# class Dell(Laptop):
+#
+#     def __init__(self,processor,ram,price):
+#         self.price=price
+#         super.__init__(processor,ram)
+#
+#     def price(self):
+#         print("laptop price is ",self)
+
+
+# object1=Laptop(7,10)
+# object1.speed()
+# object2=Laptop(9,8)
+
+
+# result=[x*x for x in range(10)]
 # print(result)
 
-import re
-str2="1A0@412"
 
-if len(str2)==8:
-    patter='\d|\w|[A-Z]|[0-9]|\W'
-    result=re.findall(patter,str2)
-    if len(result)>5: print("Password is valid")
+def mul(x):
+    return x*x
+
+def mul1(x):
+    return x*x
+
+str1="mul"
+result=eval(str1)
+print(result(5))
+
+# list1=[1,2,3,4,7]
+# result=map(mul,list1)
+# print(list(result))
+
+# dic1={"a":45,"b":78,"c":76}
+# print(dic1)
+#
+# dict={}
+#
+# set1=set()
+
+#
