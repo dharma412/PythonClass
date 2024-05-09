@@ -355,10 +355,12 @@ result=str1.rstrip('!')
 print(result)
 
 #casefold- it converts all charecters into lower case
+#both lower and cascade lower the given string , however , they gives different results when delaing with strings from other languages.
 
-str1="helloiamlDFGDGDGearningpython"
-result=str1.casefold()
-print(result)
+str1="STRAßE"
+print(str1.casefold())
+print(str1.lower())
+
 
 #center  - method will center align the string using specified character , space is default
 

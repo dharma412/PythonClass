@@ -251,3 +251,16 @@ for i in list1:
 
     out.append(i*i)
 print(out,end=" ")
+
+
+dic1_={'name':None,'name1':'anil','name3':'mani','name4':'mani4'}
+print(dic1_.setdefault('name4565','values123'))
+print(dic1_)
+
+# dic1_={}
+# list1=[1,4,5,56,7,9]
+# value="pythoin"
+# res=dic1_.
+# print(res)
+
+

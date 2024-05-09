@@ -1,15 +1,20 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
   <component name="ChangeListManager">
     <list default="true" id="8ea8c9c3-6e06-4f09-8bb3-8b11276b9b55" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/PythonClass.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/PythonClass.iml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_4_23_2023_11_28_AM__Changes_.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_4_23_2023_11_28_AM__Changes_.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/DataTypes/List/List.py" beforeDir="false" afterPath="$PROJECT_DIR$/DataTypes/List/List.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Introduction/Basic Syntax/basic.py" beforeDir="false" afterPath="$PROJECT_DIR$/Introduction/Basic Syntax/basic.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Profile.txt" beforeDir="false" afterPath="$PROJECT_DIR$/Profile.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/newfile.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/DataTypes/Dictionary/Dictionary.py" beforeDir="false" afterPath="$PROJECT_DIR$/DataTypes/Dictionary/Dictionary.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/DataTypes/Strings/Strings.py" beforeDir="false" afterPath="$PROJECT_DIR$/DataTypes/Strings/Strings.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Functions/Defining_a_function.py" beforeDir="false" afterPath="$PROJECT_DIR$/Functions/Defining_a_function.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Introduction/operators/AirthimeticOperators.py" beforeDir="false" afterPath="$PROJECT_DIR$/Introduction/operators/AirthimeticOperators.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Introduction/operators/AssignmentOperators.py" beforeDir="false" afterPath="$PROJECT_DIR$/Introduction/operators/AssignmentOperators.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Introduction/operators/OperatorPrecedence.py" beforeDir="false" afterPath="$PROJECT_DIR$/Introduction/operators/OperatorPrecedence.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -26,6 +31,18 @@
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
+  <component name="GitHubPullRequestSearchHistory"><![CDATA[{
+  "lastFilter": {
+    "state": "OPEN",
+    "assignee": "dharma412"
+  }
+}]]></component>
+  <component name="GithubPullRequestsUISettings"><![CDATA[{
+  "selectedUrlAndAccountId": {
+    "url": "https://github.com/dharma412/PythonClass.git",
+    "accountId": "f09788cd-7127-4fa1-9741-373e8b4732e5"
+  }
+}]]></component>
   <component name="HighlightingSettingsPerFile">
     <setting file="file://$PROJECT_DIR$/CodingQuestions/FibonacciSeries.py" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/CodingQuestions/primenumber.py" root0="FORCE_HIGHLIGHTING" />
@@ -38,17 +55,21 @@
   <component name="MarkdownSettingsMigration">
     <option name="stateVersion" value="1" />
   </component>
+  <component name="ProjectColorInfo">{
+  &quot;associatedIndex&quot;: 4
+}</component>
   <component name="ProjectId" id="2QI1RDla6io0pCD4qrK62hHwHUH" />
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">
-    <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
-    <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
-    <property name="settings.editor.selected.configurable" value="com.jetbrains.python.configuration.PyActiveSdkModuleConfigurable" />
-  </component>
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "git-widget-placeholder": "main",
+    "settings.editor.selected.configurable": "com.jetbrains.python.configuration.PyActiveSdkModuleConfigurable"
+  }
+}]]></component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
       <recent name="C:\Users\eachhda\OneDrive - Ericsson\Desktop\p\PythonClass\CodingQuestions\PatternProgramms" />
@@ -60,6 +81,7 @@
   <component name="RunManager" selected="Python.basic">
     <configuration name="GsPann" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
       <module name="PythonClass" />
+      <option name="ENV_FILES" value="" />
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
       <envs>
@@ -81,6 +103,7 @@
     </configuration>
     <configuration name="Nethrdyne2" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
       <module name="PythonClass" />
+      <option name="ENV_FILES" value="" />
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
       <envs>
@@ -102,6 +125,7 @@
     </configuration>
     <configuration name="SiemenceSecond" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
       <module name="PythonClass" />
+      <option name="ENV_FILES" value="" />
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
       <envs>
@@ -123,6 +147,7 @@
     </configuration>
     <configuration name="basic" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
       <module name="PythonClass" />
+      <option name="ENV_FILES" value="" />
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
       <envs>
@@ -144,6 +169,7 @@
     </configuration>
     <configuration name="kober" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
       <module name="PythonClass" />
+      <option name="ENV_FILES" value="" />
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
       <envs>
@@ -172,6 +198,13 @@
         <item itemvalue="Python.kober" />
       </list>
     </recent_temporary>
+  </component>
+  <component name="SharedIndexes">
+    <attachedChunks>
+      <set>
+        <option value="bundled-python-sdk-babbdf50b680-746f403e7f0c-com.jetbrains.pycharm.community.sharedIndexes.bundled-PC-241.15989.155" />
+      </set>
+    </attachedChunks>
   </component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
