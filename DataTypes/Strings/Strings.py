@@ -359,7 +359,7 @@ print(result)
 
 str1="STRAßE"
 print(str1.casefold())
-print(str1.lower())
+print(str1.lower()) #ascii
 
 
 #center  - method will center align the string using specified character , space is default
@@ -554,18 +554,19 @@ str1.rjust()
 
 # maketrans --
 
-str1="hello guys and welcome"
+str1=""
 dic1={"a":"1","b":"2","c":"3","d":"4"}
 table=str1.maketrans(dic1)
 print(table)
 
 # maketrans with two arguments
-string1="hello guys and welcome"
+string1=""
 str1="abcde"
 str2="12345"
 t=string1.maketrans(str1,str2)
 print(t)
-t1=string1.translate(t)
+str2="aeiuou"
+t1=str2.translate(t)
 print(t1)
 print(t)
 
