@@ -5,16 +5,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="8ea8c9c3-6e06-4f09-8bb3-8b11276b9b55" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/PythonClass.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/PythonClass.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_4_23_2023_11_28_AM__Changes_.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_4_23_2023_11_28_AM__Changes_.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/DataTypes/Dictionary/Dictionary.py" beforeDir="false" afterPath="$PROJECT_DIR$/DataTypes/Dictionary/Dictionary.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/DataTypes/Strings/Strings.py" beforeDir="false" afterPath="$PROJECT_DIR$/DataTypes/Strings/Strings.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Functions/Defining_a_function.py" beforeDir="false" afterPath="$PROJECT_DIR$/Functions/Defining_a_function.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Introduction/operators/AirthimeticOperators.py" beforeDir="false" afterPath="$PROJECT_DIR$/Introduction/operators/AirthimeticOperators.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Introduction/operators/AssignmentOperators.py" beforeDir="false" afterPath="$PROJECT_DIR$/Introduction/operators/AssignmentOperators.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Introduction/operators/OperatorPrecedence.py" beforeDir="false" afterPath="$PROJECT_DIR$/Introduction/operators/OperatorPrecedence.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -31,18 +22,18 @@
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
-  <component name="GitHubPullRequestSearchHistory"><![CDATA[{
-  "lastFilter": {
-    "state": "OPEN",
-    "assignee": "dharma412"
+  <component name="GitHubPullRequestSearchHistory">{
+  &quot;lastFilter&quot;: {
+    &quot;state&quot;: &quot;OPEN&quot;,
+    &quot;assignee&quot;: &quot;dharma412&quot;
   }
-}]]></component>
-  <component name="GithubPullRequestsUISettings"><![CDATA[{
-  "selectedUrlAndAccountId": {
-    "url": "https://github.com/dharma412/PythonClass.git",
-    "accountId": "f09788cd-7127-4fa1-9741-373e8b4732e5"
+}</component>
+  <component name="GithubPullRequestsUISettings">{
+  &quot;selectedUrlAndAccountId&quot;: {
+    &quot;url&quot;: &quot;https://github.com/dharma412/PythonClass.git&quot;,
+    &quot;accountId&quot;: &quot;f09788cd-7127-4fa1-9741-373e8b4732e5&quot;
   }
-}]]></component>
+}</component>
   <component name="HighlightingSettingsPerFile">
     <setting file="file://$PROJECT_DIR$/CodingQuestions/FibonacciSeries.py" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/CodingQuestions/primenumber.py" root0="FORCE_HIGHLIGHTING" />
@@ -66,7 +57,7 @@
   <component name="PropertiesComponent"><![CDATA[{
   "keyToString": {
     "RunOnceActivity.ShowReadmeOnStart": "true",
-    "git-widget-placeholder": "main",
+    "git-widget-placeholder": "master",
     "settings.editor.selected.configurable": "com.jetbrains.python.configuration.PyActiveSdkModuleConfigurable"
   }
 }]]></component>
