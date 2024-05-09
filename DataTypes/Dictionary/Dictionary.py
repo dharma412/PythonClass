@@ -39,14 +39,18 @@ dic_['name']='version100'
 print(dic_)
 
 # remove element : LIFO
-dic_={2:2,'name':'version',1:[1,2,4,6,3],3:[1343]}
+dic_={'2':2,'name':'version',1:[1,2,4,6,3],3:[1343]}
 dic_.clear()
+
+print(dic_)
 #dic_.popitem()
 #dic_.pop('name')
 print(dic_)
 
 # methods
-dic1_={'name':'teja','name1':'anil','name3':'mani','name4':'mani4'}
+dic1_={'name':'teja','name1':'anil','name3':'mani',6:'mani4'}
+dic1_.update(name1='ujujdfd')
+print(dic1_)
 #items
 #for i,j in dic1_.items():
  #   print(i,j)
@@ -72,8 +76,6 @@ print(dict.fromkeys(list1))  # if we dont give value default to None.
 
 
 
-#print(dic1.update()
-print(dic1)
 
 
 dic1['name1']='python1'
@@ -89,8 +91,9 @@ str1='I am teja'
 for i in str1:
     print(i, end=',')
 
-dic3={'name':'jhon',1:'nani','list':[2,4,5,6],'new':'newvalue'}
-print(dic3.update(update1='new value'))
+dic3={'name':'jhon',1:'nani','list':[2,4,5,6],'new':'newvalue','new':'puybdhfd'}
+print(dic3)
+print(dic3.update(name='new value'))
 print(dic3)
 print(dic3.get(4,'nonfound'))
 
@@ -226,7 +229,7 @@ print(dic_)
 dic_={2:2,'name':'version','name1':3434,1:[1,2,4,6,3],3:[1343]}
 
 #dic2=dic_.copy()  deep copy
-dic2=dic_ # shallow copy
+# shallow copy
 dic2.update(new="value")
 print(dic2)
 print(dic_)
