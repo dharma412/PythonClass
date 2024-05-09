@@ -45,7 +45,5 @@ print(dic1.fromkeys(result,"python"))
 
 
 
-def sumof(**var):
-    print(var)
 
 
