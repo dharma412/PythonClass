@@ -612,13 +612,6 @@ print(ord('*'))
 print(chr(42))
 
 
-
-
-
-
-
-
-
 dict={}
 with open(r'/DataTypes/file.txt') as f:
     for i in f.readlines():
