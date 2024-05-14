@@ -1,8 +1,8 @@
 from module import *
+from json import *
 
 
-
-result=sum(8,6)
+result=sum1(8,6)
 print(result)
-result1=subtr(74,25)
+result1= subtr(86,89)
 print(result1)

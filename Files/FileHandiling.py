@@ -1,7 +1,12 @@
 # open()
 ################# Read Mode ##################
-# file1=open('textfile.txt','r')
-#
+# file1=open('Files.txt','r')
+# result=file1.read()
+# print((result))
+# file1.close()
+
+
+
 # for i in file1:
 #     print(i)
 # #textsting=file1.readlines()
@@ -26,6 +31,5 @@
 
 
 ##################### Binaryh file mode ####################
-with open("Lato-Regular.bin", 'r+b') as fileobject:
-    print(fileobject.readline())
+
 
