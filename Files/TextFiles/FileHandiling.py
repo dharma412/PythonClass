@@ -1,28 +1,28 @@
 # open()
+
+
 ################# Read Mode ##################
-# file1=open('Files.txt','r')
+# file1=open('sample.txt','r')
 # result=file1.read()
+# print(file1.tell())
 # print((result))
 # file1.close()
+# file1=open('sample.txt','r')
+# print(file1.tell())
+#
+with open('sample.txt', 'w+') as fi:
+    print(fi.truncate(5))
+    # print(fi.())
+    # print(fi.tell())
+    # print(fi.seek(0))
+    # print(fi.tell())
+    # fi.truncate(2)
 
-
-
-# for i in file1:
-#     print(i)
-# #textsting=file1.readlines()
-# textsting=file1.read()
-# #textsting=file1.readline(7)
-# print((textsting))
-# file1.close()
-
-
-# with open('textfile.txt','r') as fileobject:
-#     print(fileobject.readlines())
 
 
 ##################### write mode ####################
 
-# with open("writetextfile.txt",'a') as fileobject:
+# with open("sample.txt",'a') as fileobject:
 #     fileobject.write("this is python\n")
 #     fileobject.write("this is python class\n")
 #     fileobject.write("this is python learing\n")
