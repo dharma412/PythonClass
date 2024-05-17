@@ -1,0 +1,17 @@
+# when retun is not in json formae we can use r.text
+#httplib, urllib, httplib2, treq,
+
+
+# Into
+# REST API
+# Methods in Rest API with Exampls (GET)
+# postman ()
+# Authentication and Authorsiation
+# basic authetication  username passwprd
+    # API key token
+    # bearer token
+    # ouath
+    # oauth 2.0
+    # json
+# Headers
+# Request

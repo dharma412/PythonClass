@@ -1,0 +1,4 @@
+psutil==5.8.0
+PyGetWindow==0.0.9
+PySimpleGUI==4.45.0
+jsonoath=2.9.0
