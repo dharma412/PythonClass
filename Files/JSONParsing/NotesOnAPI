@@ -5,13 +5,21 @@
 # Into
 # REST API
 # Methods in Rest API with Exampls (GET)
-# postman ()
-# Authentication and Authorsiation
-# basic authetication  username passwprd
-    # API key token
-    # bearer token
-    # ouath
-    # oauth 2.0
-    # json
-# Headers
-# Request
+# postman (Installation)
+# Authentication and Authorsiation (Into)
+    # basic authetication  username passwprd
+        # API key token
+        # bearer token
+        # ouath
+        # oauth 2.0
+        # json
+# Headers (Intro)
+# Request Methods ( Demo wit Example -- manual)
+    # GET  - to retrive the resources
+    # POST  - to create new resource
+    # PATCH  - to update partially
+    # Delete  - Delete resource
+    # PUT   - it is to update compltely , if resource does not exit it will create (only if end point supports put)
+
+
+--Github (repo , branchs , pull push) ,github actions ()
