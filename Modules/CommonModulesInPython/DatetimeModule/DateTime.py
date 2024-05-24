@@ -5,17 +5,19 @@
 #datetime Class
 #timedelta Class
 
-<<<<<<< HEAD
-from datetime import  datetime as dt
-from datetime import  date as dd
 
-# print(dt.today())
-# print(dt.now())
-# print(dd.())
-# import datetime
-# #print(datetime.date.today())
-# time=datetime.datetime.now()
-# print(time)
+from datetime import  datetime as dt
+
+from datetime import  date
+print(dt.today())
+print(date.today())
+
+
+
+import datetime
+#print(datetime.date.today())
+time=datetime.datetime.now()
+print(time)
 
 
 # from datetime import datetime as dt
@@ -26,9 +28,9 @@ from datetime import  date as dd
 
 # import datetime
 # d=datetime.date(2020,5,12)
-#
-# # print(datetime.date.today())
-# print(datetime.date.fromtimestamp(1675751732))
+# print(d)
+# print(datetime.date.today())
+print(datetime.date.fromtimestamp(1691414715))
 #
 # print(datetime.datetime.now())
 # print(datetime.date.today())
@@ -48,7 +50,7 @@ from datetime import  date as dd
 str1="Generally the pythons are better than anything else at killing."
 
 print(str1[::-1])
-=======
+
 
 from datetime import datetime
 #print(datetime.date.today())
@@ -79,5 +81,4 @@ print(datetime.datetime.now())
 print(datetime.date.today())
 
 print(dir(datetime))
->>>>>>> 6c4a2aacb6a4d51b30fc808c15c3240350bd8d85
 
