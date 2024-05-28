@@ -1,4 +1,0 @@
-with open('Files/sample.txt','w') as f:
-with open('Files/sample.txt','w') as f:
-with open('Files/sample.txt','w') as f:
-with open('Files/sample.txt','w') as f:

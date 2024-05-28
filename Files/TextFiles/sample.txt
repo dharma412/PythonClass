@@ -1,0 +1,5 @@
+File descriptors in Python are identifiers that represents the open files in the os kernel and are kept in a table of files. Typically, they have non-negative values. Negative results denote an error or a "no value" condition. They support a variety of file-related operations. In general, descriptors are a special approach Python uses to maintain attributes.
+
+The main things they assist with are accessing files and other input/output devices like network sockets or pipes.
+
+These operations take place on I/O streams identified by following file descriptors −

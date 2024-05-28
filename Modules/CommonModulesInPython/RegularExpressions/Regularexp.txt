@@ -8,7 +8,7 @@ re.search()# it will look for patter at any position in the string.
 #Metacharecter
 # '.'- matches any single character except the newline.
 # '*' - zero or more occurrence of the patter left to it.
-# '+' -one or more occureance of the patter left to it.
+# '+' -one or more occureance of the patter left to +.
 # '?'- zero or one occurreence of patter left to it.
 #'()' - is used to group sub patters ex: (a
 #'^' - is used to check if a string start with a certain character.

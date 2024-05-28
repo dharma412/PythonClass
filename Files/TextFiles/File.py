@@ -1,6 +1,6 @@
 
 #**************** file rading *****************
-<<<<<<< HEAD
+
 # var1=open('Files.txt','r')
 #
 # # var1.re
@@ -16,12 +16,11 @@ with open(r'C:\Users\eachhda\OneDrive - Ericsson\Desktop\p\PythonClass\Files\Fil
 #content=var1.read()
 content=var1.readlines()
 #content=var1.readline()
-=======
+
 
 #way 1
 f=open('Files/sample.txt','r')
 content=f.read()
->>>>>>> 6c4a2aacb6a4d51b30fc808c15c3240350bd8d85
 print(content)
 f.close()
 
@@ -81,7 +80,7 @@ with open('Files/sample.txt','r') as f:
 
 
 #flush
-https://www.geeksforgeeks.org/file-flush-method-in-python/#:~:text=The%20flush()%20method%20in,using%20the%20flush()%20method.
+#https://www.geeksforgeeks.org/file-flush-method-in-python/
 
 #*********************** file modes *******************
 # which is default mode of the file.

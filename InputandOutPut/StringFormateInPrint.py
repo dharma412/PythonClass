@@ -1,14 +1,16 @@
-version=3.9
-print("the current version of python is" + str(version))
+# version=3.9
+# print("the current version of python is" + str(version))
 
-name='python'
+name='input/ouptu'
 version=3
 year=2021
 #print(name,version,year)
 #print("the current version of python is" + str(version)+str(name))
+print("This is python seession and currenlty learning about {}".format(name))
+
 print("The current version of {} is {} in year of {}".format(name,version,year))
 
-print("The current version of {0} is {1} in year of {2}".format(name,version,year))
+print("The current version of {2} is {1} in year of {0}".format(name,version,year))
 
 print("The current version of {name} is {version} in year of {year}".format(name='python',version=3.9,year=2021))
 

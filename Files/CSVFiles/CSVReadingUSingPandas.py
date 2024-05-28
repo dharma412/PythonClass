@@ -15,7 +15,7 @@ import pandas as pd
 
 # if we want to replace different colums with differnt data we can pass dictionary to na_values
 
-df=pd.read_csv('sampleData.csv',na_values={'Year':["not available","2020"],'Variable_code':['Rupees','Dollars (millions)']},nrows=10)
+df=pd.read_csv('sampleData.csv', na_values={'Year':["not available", "2020"], 'Variable_code':['Rupees', 'Dollars (millions)']}, nrows=10)
 
 print((df))
 sys.exit()
