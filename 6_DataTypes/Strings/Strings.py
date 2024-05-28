@@ -614,7 +614,7 @@ print(chr(42))
 
 
 dict={}
-with open(r'/DataTypes/file.txt') as f:
+with open(r'/6_DataTypes/file.txt') as f:
     for i in f.readlines():
         (key,val)=i.split('=')
         dict[key]=val

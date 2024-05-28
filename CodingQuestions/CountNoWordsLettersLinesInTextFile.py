@@ -4,7 +4,7 @@ def counter(str1):
     num_charc=0
     num_space=0
 
-    with open('Files/Files.txt', "r") as file:
+    with open('9_Files/9_Files.txt', "r") as file:
          for line in file:
              num_lines=num_lines+1
 

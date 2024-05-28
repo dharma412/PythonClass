@@ -3,7 +3,7 @@ from selenium import  webdriver
 from selenium.webdriver.common.by import By
 from webdriver_manager.chrome import  ChromeDriverManager
 #from  webdriver_manager.firefox import GeckoDriverManager
-#diver=webdriver.Chrome(executable_path='E:\PythonClass\SeleniumCLass\Driver\chromedriver.exe')
+#diver=webdriver.Chrome(executable_path='E:\PythonClass\17_SeleniumCLass\Driver\chromedriver.exe')
 #driver=webdriver.Firefox(GeckoDriverManager().install())
 driver=webdriver.Chrome(ChromeDriverManager().install())
 driver.get("https://www.facebook.com/login.php")

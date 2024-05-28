@@ -31,7 +31,7 @@ greet(whisper)
 
 #***********************************
 # Python program to illustrate functions
-# Functions can return another function
+# 7_Functions can return another function
 def create_adder(x):
 	def adder(y):
 		return x+y
