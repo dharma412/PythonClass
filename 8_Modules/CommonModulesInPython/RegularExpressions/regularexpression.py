@@ -1,41 +1,9 @@
-# import re
-#
-#
-# #    [] . ^ $ * + ? {} () \ |
-#
-# # sepcial sq  \A,\B,\b,\d,\D,\S,\s,\W,\w,\Z
-#
-#
-#
-# #\b --pending
-#
-# # Program to remove all whitespaces
-#
-#
-# # multiline string
-# string1 = 'abc \$ 12 \n 23  f45 6'
-# print(type(string1))
-#
-# #formaula='^c...m$'
-# #formaula='..'
-# #formaula="\[]"
-# #formaula='(\d+) (\d+)'
-# formula=r'\n'
-# # replace="4"
-# res=re.search(formula,string1)
-# print(res)
-# # res=re.sub(formaula,replace,string)
-# # res1=re.subn(formaula,replace,string)
-#
-# #res=re.match(formaula,str1)
-# # print(res1)
-
 #************ Methods in Re **************8
 #findall method
-# import re
-# str1='hello 12585 hi 89. Howdy 34'
-# pat='\D+'
-# print(re.findall(pat,str1))
+import re
+str1='hello 12585 hi 89. Howdy 34'
+pat='\D+'
+print(re.findall(pat,str1))
 
 #re.match()
 # import re
@@ -76,5 +44,28 @@ result = re.split(pattern, string)
 print(result)
 
 #re.sub()
+#re.sub() # returns string where matched occurrence are replaced with the content of replace variable.
+string = 'Twelve 12 Eighty nine 89.'
+pattern = '\d+'
+result = re.sub(pattern,'eight', string)
+print(result)
 
 #re.subn
+#re.subn() is similar to re.sub() expect it returns a tuple of 2 items containing the new string and the number of substitutions made.
+string = 'Twelve 12 Eighty nine 89 this 87.'
+pattern = '\d+'
+result = re.subn(pattern,'eight', string,2)
+print(result)
+
+
+# string='This is ++++ 4565 ++++'
+# # pat='((\+{4}) (\d{4}) (\+{4}))'
+# # #
+# # result=re.findall(pat,string)
+# # print(result)
+
+string='343This is ++++ 4565 7 88 898_'
+pat=r"[^a-zA-Z0-9_]"
+#pat1='^T'
+result=re.findall(pat,string)
+print(result)

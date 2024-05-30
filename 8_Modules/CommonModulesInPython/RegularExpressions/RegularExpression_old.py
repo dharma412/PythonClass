@@ -1,7 +1,5 @@
 import re
 
-
-
 re.compile() #convert given string into patter.
 re.match() # it will look for patter at the begining of string and return None if it is not found.
 #re.match() it will return
