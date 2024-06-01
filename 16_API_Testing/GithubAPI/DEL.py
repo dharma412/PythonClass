@@ -1,13 +1,7 @@
 import requests
-import Environment
+from Environment import *
 
-
-headers = {
-    "Authorization": f"Bearer {Credentias.token}",
-    "Content-Type": "application/json"
-}
-
-url=f"https://api.github.com/repos/dharma412/{Credentias.repo_name}"
+url=f"{base_url}/repos/dharma412/{repo_name}"
 re=requests.delete(url,headers=headers)
 
 print(re.status_code)
