@@ -4,9 +4,7 @@ from Environment import *
 
 url=f"{base_url}/user/repos"
 
-data={
-    'name':'Test-Repo'
-}
+data={"name":repo_name}
 
 # data_json = json.dumps(data)
 # #converting above dictionary to json string operation but directly converting in post request only
