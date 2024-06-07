@@ -33,3 +33,18 @@
 # .robot we can import in to another .robot .
 # python methods or function we can invoke in robot
 
+
+#
+# robot --test=Testcase2  .\Basic.robot
+#
+# robot --include Smoke --include Sanity  .\Basic.robot
+#
+# https://robotframework.org/robotframework/
+#
+# robot -d result1 .\Basic.robot
+# robot - d result1 - -variable country: Singapore - -test = Testcase4.\Basic.robot
+
+
+
+
+
