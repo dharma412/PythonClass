@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<robot generator="Robot 7.0 (Python 3.9.13 on win32)" generated="2024-06-07T21:12:46.074367" rpa="false" schemaversion="5">
+<suite id="s1" name="Basic" source="C:\mydocuments\PythonClass\RobotFramework\Basic.robot">
+<test id="s1-t1" name="Testcase1" line="14">
+<kw name="Run Keyword And Return" owner="BuiltIn">
+<kw name="Keyword1">
+<kw name="Log To Console" owner="BuiltIn">
+<arg>${value1}</arg>
+<doc>Logs the given message to the console.</doc>
+<status status="PASS" start="2024-06-07T21:12:46.097298" elapsed="0.000000"/>
+</kw>
+<return>
+<value>This is pytbon</value>
+<status status="PASS" start="2024-06-07T21:12:46.097298" elapsed="0.000000"/>
+</return>
+<arg>gfgf</arg>
+<status status="PASS" start="2024-06-07T21:12:46.096337" elapsed="0.000961"/>
+</kw>
+<msg time="2024-06-07T21:12:46.097298" level="INFO">Returning from the enclosing user keyword.</msg>
+<var>${result1}</var>
+<arg>Keyword1</arg>
+<arg>gfgf</arg>
+<doc>Runs the specified keyword and returns from the enclosing user keyword.</doc>
+<status status="PASS" start="2024-06-07T21:12:46.096337" elapsed="0.000961"/>
+</kw>
+<kw name="Log To Console" owner="BuiltIn">
+<arg>${result1}</arg>
+<doc>Logs the given message to the console.</doc>
+<status status="NOT RUN" start="2024-06-07T21:12:46.098299" elapsed="0.000000"/>
+</kw>
+<status status="FAIL" start="2024-06-07T21:12:46.095290" elapsed="0.003009">Invalid 'RETURN' usage.</status>
+</test>
+<status status="FAIL" start="2024-06-07T21:12:46.076310" elapsed="0.022960"/>
+</suite>
+<statistics>
+<total>
+<stat pass="0" fail="1" skip="0">All Tests</stat>
+</total>
+<tag>
+</tag>
+<suite>
+<stat pass="0" fail="1" skip="0" id="s1" name="Basic">Basic</stat>
+</suite>
+</statistics>
+<errors>
+</errors>
+</robot>

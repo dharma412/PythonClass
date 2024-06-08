@@ -73,14 +73,7 @@ print(list1[7])
 
 d={"a":23,"b":45,"c":89}
 
-1a="python"
 
-if 1==0:
-    print("I am unable to do it")
-
-
-1.syntax error
-2.runtime error. (excpetion) (1.application or logical )
 
 # try  except finally else
 
@@ -100,7 +93,7 @@ def divi(a,b):
         print("I am doing divison")
 divi(10,2)
 
-Testcas1
+
 
 # try except finally
 # try except 1..except 2 .. finally
@@ -138,10 +131,11 @@ except:
 else:
     print(" I am else")
 
-# try else finally
+# try else finally possible
 # try except else else
-# try except finally finally
+
 # try execpt print() except
 # try execpt print() finally
 # try except try except
+# try except finally finally
 

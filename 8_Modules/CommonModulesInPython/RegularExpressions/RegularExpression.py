@@ -1,25 +1,9 @@
 import re
 
-
-
 re.compile() #convert given string into patter.
 re.match() # it will look for patter at the begining of string and return None if it is not found.
 #re.match() it will return
 re.search()# it will look for patter at any position in the string.
-
-#Metacharecter
-# '.' period- matches any single character except the newline.
-# '*' - zero or more occurrence of the patter left to it.
-# '+' -one or more occureance of the patter left to it.
-# '?'- zero or one occurreence of patter left to it.
-
-# '[]' - set of characters you wish to match.
-#'()' - is used to group sub patters ex: (a
-#'^' -caret-is used to check if a string start with a certain character.
-# '$' - dollar-is used to check if a string ends with a certain character.
-#'\'- escape character is used to escape various characters including all metacharacters.
-#{} - This means at least n , and at most m repetitions of the pattern left to it. Ex: [0-9]{2,5}
-
 
 #example: []
 import re
@@ -120,34 +104,18 @@ print(matchobj.string)
 if matchobj:
     print(matchobj.groups())
 
-# special Sequences
-# \A - matches if specified characters are at the start of the string.
-# \b - matches if specified characters are at the begining or end of the string.
-# \B - matches if specified characters are not at the begining or end of the string.
-# \d  - matches any decimal digit .Equiwalent to [0-9]
-# \D  - matches any non-decimal digit .Equiwalent to [^0-9]
-# \s  - matches where a string has whitespace. equivalent to [ \t\n\r\f\v].
-# \S  - matches where a string has non-whitespace character. equivalent to [ \t\n\r\f\v].
-# \w  - matches alphanumeric character . equivalent to [a-zA-Z0-9_] , underscore is also consider as alphanumeric character.
-# \W  - matches non-alphanumeric character. equialent to [^a-zA-Z0-9]
-
 pattern='^a...s$'  # any five letter word starting with a and ends with s
 str1="anils"
 print(re.match(pattern,str1))
 
-
-
-
-
-
 # regular expression methods.
-re.findall()
+#re.findall()
 import re
 str1='hello 12 hi 89. Howdy 34'
 pat='\d+'
 print(re.findall(pat,str1))
 
-re.split()
+#re.split()
 
 import re
 string = 'Twelve 12 Eighty nine 89.'
@@ -155,7 +123,7 @@ pattern = '\d+'
 result = re.split(pattern, string)
 print(result)
 
-re.sub() # returns string where matched occurrence are replaced with the content of replace variable.
+#re.sub() # returns string where matched occurrence are replaced with the content of replace variable.
 # Program to remove all whitespaces
 import re
 
@@ -193,44 +161,74 @@ print(new_string)
 #note other methods are
 
 
+#************ Methods in Re **************8
+#findall method
+import re
+str1='hello 12585 hi 89. Howdy 34'
+pat='\D+'
+print(re.findall(pat,str1))
+
+#re.match()
+# import re
+# str1='12585 hi 89. Howdy 34'
+# pat='\D+'
+# print(re.match(pat,str1))
+
+# compile
+# import re
+# str1='12585hi89. Howdy 34'
+# pat=re.compile(r'\w+')
+#
+# print(re.search(pat,str1))
+
+# group
+# import re
+# str1="teja dharma"
+# patter=re.compile('(.*)')
+# matchobj=re.match(patter,str1)
+# print(matchobj)
+# # print(matchobj.re)
+# # print(matchobj.string)
+# if matchobj:
+#     print(matchobj.groups())
+
+# import re
+# sentence = 'we are humans'
+# matched = re.match(r'(.*)', sentence)
+#
+# print(len(matched.groups()))
+
+#re.split()
+
+import re
+string = 'Twelve 12 Eighty nine 89.'
+pattern = '\d+'
+result = re.split(pattern, string)
+print(result)
+
+#re.sub()
+#re.sub() # returns string where matched occurrence are replaced with the content of replace variable.
+string = 'Twelve 12 Eighty nine 89.'
+pattern = '\d+'
+result = re.sub(pattern,'eight', string)
+print(result)
+
+#re.subn
+#re.subn() is similar to re.sub() expect it returns a tuple of 2 items containing the new string and the number of substitutions made.
+string = 'Twelve 12 Eighty nine 89 this 87.'
+pattern = '\d+'
+result = re.subn(pattern,'eight', string,2)
+print(result)
 
 
-def fact(n):
+# string='This is ++++ 4565 ++++'
+# # pat='((\+{4}) (\d{4}) (\+{4}))'
+# # #
+# # result=re.findall(pat,string)
+# # print(result)
 
-    if n <0:
-        return 0
-    elif n==0 or n==1:
-        return 1
-    else:
-        fac=1
-        while n>1:
-            fac=fac*n
-            n=n-1
-        return fac
-#print(fact(5))
-def postivecase(n):
-    assert fact(n) == 121
-postivecase(5)
-
-
-def negavtivetest(n):
-    assert fact(n)==0
-
-def postivecasewithzero(n):
-    assert fact(n)==1
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+string='343This is ++++ 4565 7 88 898_'
+pat=r"[^a-zA-Z0-9_]"
+#pat1='^T'
+result=re.findall(pat,string)
+print(result)
