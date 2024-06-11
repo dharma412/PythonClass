@@ -8,7 +8,7 @@ RunKeywordExpectedErrorKeyword
     ${var} =    set variable    787
     ${var1}=    set variable    333
     ${total} =    evaluate    ${var}+${var1}
-    [Return]    ${total}
+    [Return]        ${total}
 
 *** Test Cases ***
 RunKeywordANDExpectedErrir
