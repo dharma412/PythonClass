@@ -1,1 +1,4 @@
---variable ${input_url}:https://api.github.com
+--variable INPUT_URL:https://api.github.com
+--variable FetchRepo:/users/dharma412/repos
+--variable TOKEN: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
+--variable RepoCreate:/user/repos

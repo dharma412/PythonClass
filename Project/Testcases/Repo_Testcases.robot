@@ -1,12 +1,16 @@
 *** Settings ***
-Resource        Keywords/GithubKeywords.robot
-
-Suite Setup   GithubKeywords.Session Creation
+Resource        ../Keywords/CommonAPI_Keywords.robot
+Resource        ../Keywords/RepoKeyords.robot
+Suite Setup   GITHUB COMMON SETUP
 
 *** Variables ***
-${FetchRepo}    /users/dharma412/repos
 
 *** Test Cases ***
 FetchAllRepos
-    ${resp}=    GET On Session    endpoint    url=${FetchRepo}
+    ${resp}=    FetchRepoDetails
+    log    ${resp}
+
+CreateRepoTest
+    ${resp}=    Create Repo
+    log to console    ${resp}
 
