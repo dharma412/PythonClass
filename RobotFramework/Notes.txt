@@ -1,0 +1,16 @@
+#Type of Variables
+Scalr ${ScalarVariable}
+List  ${ListVariable}
+Dictionary &{DicVariable}
+
+
+
+
+
+
+
+
+
+
+# commands
+
