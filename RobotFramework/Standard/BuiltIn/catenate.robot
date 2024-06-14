@@ -3,9 +3,9 @@
 
 *** Test Cases ***
 catenateMethod
-    ${str1} =	Catenate	Hello	world
+    ${str1} =	Catenate	Python    Version
     log to console    ${str1}
-    ${str2} =	Catenate	SEPARATOR=---	Hello	world
+    ${str2} =	Catenate	SEPARATOR=---	Python	Version
     log to console    ${str2}
-    ${str3} =	Catenate	SEPARATOR=	Hello	world
+    ${str3} =	Catenate	SEPARATOR=	Python	Version
     log to console    ${str3}

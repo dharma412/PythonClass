@@ -7,8 +7,8 @@ Suite Setup   GITHUB COMMON SETUP
 
 *** Test Cases ***
 FetchAllRepos
-    ${resp}=    FetchRepoDetails
-    log    ${resp}
+    ${res}=    FetchRepoDetails
+    log to console    ${res}
 
 CreateRepoTest
     ${resp}=    Create Repo
