@@ -20,3 +20,4 @@ SampleKeyword
     log to console    This is sample keyword
     log to console    This is another one
     log to console    new change
+    log to console    This is v3
