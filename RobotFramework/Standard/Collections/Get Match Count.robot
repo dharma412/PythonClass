@@ -2,11 +2,11 @@
 Library  Collections
 
 *** Variables ***
-@{MY LIST}    item1    item2    item3    item1    item2    item1
+@{MY LIST}    item1    item2    item3    item1    item2    item1     ThisisPython
 
 *** Test Cases ***
 Get Match Count Example
-    ${count1}=    Get Match Count    ${MY LIST}    item1
+    ${count1}=    Get Match Count    ${MY LIST}    *Python
     Log    ${count1}  # Expected output: 3
 
     ${count2}=    Get Match Count    ${MY LIST}    item2

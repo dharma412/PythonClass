@@ -7,7 +7,7 @@ Library  Collections
 *** Test Cases ***
 Get Slice From List Example
     ${slice1}=    Get Slice From List    ${MY LIST}    0    2
-    Log Many    ${slice1}  # Expected output: ['item1', 'item2']
+    Log Many    ${slice1}
 
     ${slice2}=    Get Slice From List    ${MY LIST}    2    5
     Log Many    ${slice2}  # Expected output: ['item3', 'item4', 'item5']

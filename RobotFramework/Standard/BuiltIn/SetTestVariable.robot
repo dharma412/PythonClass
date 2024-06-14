@@ -7,21 +7,22 @@ ${Testcase1_value}      45
 
 
 *** Test Cases ***
-Testcase3
+Testcase1
     Set Suite Variable    ${my_suite_var}    15
     Set Global Variable    ${my_global_var}    1
 
-Test Set Test Variable1
+Testcase2
 
     ${my_suite_var}=    evaluate    ${my_suite_var}+${Testcase1_value}
-    set global variable    ${my_suite_var}
+    Set global variable    ${my_suite_var}
 
     ${my_global_var}=    evaluate    ${my_global_var}+${Testcase1_value}
-    set global variable    ${my_global_var}
+    log to console    ${my_global_var}
+    Set Global Variable    ${my_global_var}
     #Set Global Variable    ${my_global_var}
 
-Testcase2
-    log to console    ${my_suite_var}
+Testcase3
+    log to console
     log to console    ${my_global_var}
 
 

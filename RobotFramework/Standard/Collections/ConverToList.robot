@@ -10,7 +10,7 @@ ${MY STRING}    This is a string
 *** Test Cases ***
 Convert Using BuiltIn Library
     ${list_from_dict}=    Convert To List    ${MY DICTIONARY}
-    Log    ${list_from_dict}    console=True
+    Log    ${list_from_dict}
 
     ${list_from_string}=    Convert To List    ${MY STRING}
     Log    ${list_from_string}    console=True

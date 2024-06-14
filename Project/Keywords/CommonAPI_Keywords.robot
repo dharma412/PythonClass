@@ -4,7 +4,7 @@ Library    RequestsLibrary
 *** Variables ***
 *** Keywords ***
 Set Header For API User
-    [Documentation]
+    [Documentation]    This keyword is to set headers
     [Arguments]    ${token}=${TOKEN}
     &{HEADERS}    Create Dictionary    Authorization=Bearer ${TOKEN}
     set global variable    ${HEADERS}

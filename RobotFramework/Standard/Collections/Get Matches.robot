@@ -6,7 +6,7 @@ Library  Collections
 
 *** Test Cases ***
 Get Matches Example
-    ${matches1}=    Get Matches    ${MY LIST}    item1
+    ${matches1}=    Get Matches    ${MY LIST}    item*
     Log Many    ${matches1}  # Expected output: ['item1', 'item1', 'item1']
 
     ${matches2}=    Get Matches    ${MY LIST}    item2
