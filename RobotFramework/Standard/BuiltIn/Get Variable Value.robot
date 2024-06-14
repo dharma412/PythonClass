@@ -2,7 +2,7 @@
 
 *** Variables ***
 ${y} =    teja
-*** Settings ***
+
 
 
 *** Test Cases ***
