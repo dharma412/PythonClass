@@ -4,7 +4,4 @@
 
 *** Test Cases ***
 ExitforloopTestcase
-    FOR	${var}	IN	@{list1}
-    Run Keyword If	'${var}' == '44'	Exit For Loop
-    log to console    	${var}
-    END
+    Fail	Test not ready

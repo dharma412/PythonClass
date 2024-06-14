@@ -1,15 +1,25 @@
-*** Settings ***
 
+*** Settings ***
 *** Variables ***
+
+${value}    1
 
 *** Keywords ***
 
-*** Test Cases ***
-evaluatetestcase
-    ${nested} =    Evaluate    [['a', 'b', 'c'], {'key': ['x', 'y']}]
-    log to console    ${nested}
-    ${typeof} =    evaluate    type(${nested})
-    log to console    ${typeof}
-    log to console    ${nested}[0]         # Logs 'a', 'b' and 'c'.
-    log to console    ${nested}[1][key]    # Logs 'x' and 'y'.
+Keyword1
 
+    log to console  This is keyword1
+
+    RETURN    This is Return
+
+
+
+*** Test Cases ***
+
+Testcase1
+
+    ${type string}=     Evaluate    type(${value})
+
+    log to console   ${type string}
+
+    run keyword if  ${value}=='1'  Keyword1
