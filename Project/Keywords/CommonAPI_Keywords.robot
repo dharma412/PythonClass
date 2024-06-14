@@ -15,3 +15,7 @@ Create GIT_HUB Creation
 GITHUB COMMON SETUP
     Set Header For API User
     Create GIT_HUB Creation
+
+SampleKeyword
+    log to console    This is sample keyword
+    log to console    This is another one
