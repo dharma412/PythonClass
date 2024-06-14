@@ -18,3 +18,4 @@ GITHUB COMMON SETUP
 
 SampleKeyword
     log to console    This is sample keyword
+    log to console    This is another one
