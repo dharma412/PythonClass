@@ -2,5 +2,5 @@
 --variable FetchRepo:/users/dharma412/repos
 --variable TOKEN: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
 --variable RepoCreate:/user/repos
---variable Repo_Name:TestRepo1113488989898
+--variable Repo_Name:TestRepo70756
 --variable Delete_repo:/repos/dharma412/

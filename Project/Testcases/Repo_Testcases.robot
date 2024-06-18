@@ -15,7 +15,7 @@ CreateRepoTest
 Update Repo
     log to console    Update Repo
 
-#DeleteRepoTest
-#    Delete Repo
+DeleteRepoTest
+    Delete Repo
 
 
