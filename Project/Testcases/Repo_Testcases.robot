@@ -12,5 +12,5 @@ FetchAllRepos
 
 CreateRepoTest
     ${resp}=    Create Repo
+    sleep    180
     log to console    ${resp}
-
