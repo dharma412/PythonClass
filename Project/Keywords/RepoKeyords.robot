@@ -17,7 +17,7 @@ FetchRepoDetails
 Create Repo
     [Tags]    Repo
 
-    ${req_body}    Set Variable    {"name":"TestRepo8008461613"}
+    ${req_body}    Set Variable    {"name":"TestRepo8500"}
     ${fetch_resp}=    POST On Session   endpoint    url=${RepoCreate}    data=${req_body}   headers=${HEADERS}
     should be equal as integers    ${fetch_resp.status_code}    201    msg=codes are ot same
     [Return]    ${fetch_resp}
