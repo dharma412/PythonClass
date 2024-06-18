@@ -12,6 +12,9 @@ CreateRepoTest
     ${resp}=    Create Repo
     log to console    ${resp}
 
+Update Repo
+    log to console    Update Repo
+
 DeleteRepoTest
     Delete Repo
 
