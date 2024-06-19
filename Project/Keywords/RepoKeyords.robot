@@ -2,10 +2,13 @@
 *** Settings ***
 Library    RequestsLibrary
 Resource    CommonAPI_Keywords.robot
+Library    RequestsLibrary
+Resource    CommonAPI_Keywords.robot
+
 
 *** Keywords ***
 FetchRepoDetails
-    [Tags]    Repo
+    [Tags]    Fetch
 #    Create GIT_HUB Creation
     ${fetch_resp}=    GET On Session    endpoint    url=${FetchRepo}
     ${statu_code_value}=  Set Variable    ${fetch_resp.status_code}
@@ -15,16 +18,21 @@ FetchRepoDetails
     RETURN    ${fetch_resp_jsonformate}
 
 Create Repo
-    [Tags]    Repo
-    ${req_body}    Set Variable    {"name":"RepoName12385858"}
+    [Tags]    Create
+    ${req_body}    Set Variable    {"name":"${RepoName}"}
     ${fetch_resp}=    POST On Session   endpoint    url=${RepoCreate}    data=${req_body}   headers=${HEADERS}
-    should be equal as integers    ${fetch_resp.status_code}    201    msg=codes are ot same
+    should be equal as integers    ${fetch_resp.status_code}    201
     RETURN    ${fetch_resp}
 
 
 Update Repo
-    [Tags]    Repo
-    ${req_body}    set variable    {"name":"6/17/2024-updatedreponame","description":"We have updated repository name"}
-    ${fetch_resp2}=  PATCH On Session    endpoint     url=${RepoPatch}    data=${req_body}    headers=${HEADERS}
-    should be equal as integers    ${fetch_resp2.status_code}    200    msg=codes are ot same
+    [Tags]    Update
+    ${req_body}    set variable    {"name":"${UpdatedRepoName}","description":"We have updated repository name","homepage":"https://github.com","private":false,"has_issues":true,"has_projects":true,"has_wiki":true}
+    ${fetch_resp2}=  PATCH On Session    endpoint     url=${RepoUpdate}${RepoName}    data=${req_body}    headers=${HEADERS}
+    should be equal as integers    ${fetch_resp2.status_code}    200
     RETURN    ${fetch_resp2}
+
+Delete Repo
+    [Tags]    Delete
+    ${del_resp}=    DELETE On Session    endpoint   url=${DeleteRepo}${UpdatedRepoName}   headers=${HEADERS}
+    should be equal as integers     ${del_resp.status_code}      204
