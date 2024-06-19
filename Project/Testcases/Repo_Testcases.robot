@@ -10,7 +10,14 @@ FetchAllRepos
     ${res}=    FetchRepoDetails
     log to console    ${res}
 
-CreateRepoTest
-    ${resp}=    Create Repo
-    log to console    ${resp}
+#CreateRepoTest
+#    ${resp}=    Create Repo
+#    log to console    ${resp}
+
+#UpdateRepoTest
+#    ${resp2}=   Update Repo
+#    log to console  ${resp2}
+
+
+
 

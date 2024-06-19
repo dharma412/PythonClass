@@ -1,4 +1,5 @@
 --variable INPUT_URL:https://api.github.com
 --variable FetchRepo:/users/dharma412/repos
---variable TOKEN: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
+--variable TOKEN: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
 --variable RepoCreate:/user/repos
+--variable RepoPatch:/repos/dharma412/{reponametobeupdated}

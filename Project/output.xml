@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<robot generator="Robot 7.0 (Python 3.12.3 on win32)" generated="2024-06-18T16:04:42.147540" rpa="false" schemaversion="5">
+<suite id="s1" name="Repo Testcases" source="C:\Users\vaide\Desktop\Training\Project_Teja\PythonClass\Project\Testcases\Repo_Testcases.robot">
+<kw name="GITHUB COMMON SETUP" owner="CommonAPI_Keywords" type="SETUP">
+<kw name="Set Header For API User" owner="CommonAPI_Keywords">
+<kw name="Create Dictionary" owner="BuiltIn">
+<msg time="2024-06-18T16:04:42.343939" level="INFO">&amp;{HEADERS} = { Authorization=Bearer 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 }</msg>
+<var>&amp;{HEADERS}</var>
+<arg>Authorization=Bearer ${TOKEN}</arg>
+<doc>Creates and returns a dictionary based on the given ``items``.</doc>
+<status status="PASS" start="2024-06-18T16:04:42.342946" elapsed="0.000993"/>
+</kw>
+<kw name="Set Global Variable" owner="BuiltIn">
+<msg time="2024-06-18T16:04:42.344935" level="INFO">${HEADERS} = {'Authorization': 'Bearer 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'}</msg>
+<arg>${HEADERS}</arg>
+<doc>Makes a variable available globally in all tests and suites.</doc>
+<status status="PASS" start="2024-06-18T16:04:42.343939" elapsed="0.000996"/>
+</kw>
+<doc>This keyword is to set headers</doc>
+<status status="PASS" start="2024-06-18T16:04:42.342946" elapsed="0.001989"/>
+</kw>
+<kw name="Create GIT_HUB Creation" owner="CommonAPI_Keywords">
+<kw name="Create Session" owner="RequestsLibrary">
+<msg time="2024-06-18T16:04:42.344935" level="INFO">Creating Session using : alias=endpoint, url=https://api.github.com, headers={},                     cookies={}, auth=None, timeout=None, proxies=None, verify=False,                     debug=0 </msg>
+<arg>endpoint</arg>
+<arg>${INPUT_URL}</arg>
+<doc>Create Session: create a HTTP session to a server</doc>
+<status status="PASS" start="2024-06-18T16:04:42.344935" elapsed="0.000997"/>
+</kw>
+<status status="PASS" start="2024-06-18T16:04:42.344935" elapsed="0.000997"/>
+</kw>
+<status status="PASS" start="2024-06-18T16:04:42.341936" elapsed="0.003996"/>
+</kw>
+<test id="s1-t1" name="FetchAllRepos" line="9">
+<kw name="FetchRepoDetails" owner="RepoKeyords">
+<kw name="GET On Session" owner="RequestsLibrary">
+<msg time="2024-06-18T16:04:42.789531" level="INFO">GET Request : url=https://api.github.com/users/dharma412/repos 
+ path_url=/users/dharma412/repos 
+ headers={'User-Agent': 'python-requests/2.31.0', 'Accept-Encoding': 'gzip, deflate', 'Accept': '*/*', 'Connection': 'keep-alive'} 
+ body=None 
+ </msg>
+<msg time="2024-06-18T16:04:42.790515" level="INFO">GET Response : url=https://api.github.com/users/dharma412/repos 
+ status=200, reason=OK 
+ headers={'Server': 'GitHub.com', 'Date': 'Tue, 18 Jun 2024 21:04:42 GMT', 'Content-Type': 'application/json; charset=utf-8', 'Cache-Control': 'public, max-age=60, s-maxage=60', 'Vary': 'Accept, Accept-Encoding, Accept, X-Requested-With', 'ETag': 'W/"1f48b8bcf174eed0495ac97f7ba4ca896b89656462e19f5720541e28206f8873"', 'X-GitHub-Media-Type': 'github.v3; format=json', 'x-github-api-version-selected': '2022-11-28', 'Access-Control-Expose-Headers': 'ETag, Link, Location, Retry-After, X-GitHub-OTP, X-RateLimit-Limit, X-RateLimit-Remaining, X-RateLimit-Used, X-RateLimit-Resource, X-RateLimit-Reset, X-OAuth-Scopes, X-Accepted-OAuth-Scopes, X-Poll-Interval, X-GitHub-Media-Type, X-GitHub-SSO, X-GitHub-Request-Id, Deprecation, Sunset', 'Access-Control-Allow-Origin': '*', 'Strict-Transport-Security': 'max-age=31536000; includeSubdomains; preload', 'X-Frame-Options': 'deny', 'X-Content-Type-Options': 'nosniff', 'X-XSS-Protection': '0', 'Referrer-Policy': 'origin-when-cross-origin, strict-origin-when-cross-origin', 'Content-Security-Policy': "default-src 'none'", 'Content-Encoding': 'gzip', 'X-RateLimit-Limit': '60', 'X-RateLimit-Remaining': '58', 'X-RateLimit-Reset': '1718747426', 'X-RateLimit-Resource': 'core', 'X-RateLimit-Used': '2', 'Accept-Ranges': 'bytes', 'Transfer-Encoding': 'chunked', 'X-GitHub-Request-Id': 'C7DE:3AEEB7:1692C16:28085F8:6671F66A'} 
+ body=[{"id":816926167,"node_id":"R_kgDOMLFN1w","name":"8525847Test","full_name":"dharma412/8525847Test","private":false,"owner":{"login":"dharma412","id":52806690,"node_id":"MDQ6VXNlcjUyODA2Njkw","avatar_url":"https://avatars.githubusercontent.com/u/52806690?v=4","gravatar_id":"","url":"https://api.github.com/users/dharma412","html_url":"https://github.com/dharma412","followers_url":"https://api.github.com/users/dharma412/followers","following_url":"https://api.github.com/users/dharma412/following{/other_user}","gists_url":"https://api.github.com/users/dharma412/gists{/gist_id}","starred_url":"https://api.github.com/users/dharma412/starred{/owner}{/repo}","subscriptions_url":"https://api.github.com/users/dharma412/subscriptions","organizations_url":"https://api.github.com/users/dharma412/orgs","repos_url":"https://api.github.com/users/dharma412/repos","events_url":"https://api.github.com/users/dharma412/events{/privacy}","received_events_url":"https://api.github.com/users/dharma412/received_events","type":"User","site_admin":false},"html_url":"https://github.com/dharma412/8525847Test","description":null,"fork":false,"url":"https://api.github.com/repos/dharma412/8525847Test","forks_url":"https://api.github.com/repos/dharma412/8525847Test/forks","keys_url":"https://api.github.com/repos/dharma412/8525847Test/keys{/key_id}","collaborators_url":"https://api.github.com/repos/dharma412/8525847Test/collaborators{/collaborator}","teams_url":"https://api.github.com/repos/dharma412/8525847Test/teams","hooks_url":"https://api.github.com/repos/dharma412/8525847Test/hooks","issue_events_url":"https://api.github.com/repos/dharma412/8525847Test/issues/events{/number}","events_url":"https://api.github.com/repos/dharma412/8525847Test/events","assignees_url":"https://api.github.com/repos/dharma412/8525847Test/assignees{/user}","branches_url":"https://api.github.com/repos/dharma412/8525847Test/branches{/branch}","tags_url":"https://api.github.com/repos/dharma412/8525847Test/tags","blobs_url":"https://api.github.com/repos/dharma412/8525847Test/git/blobs{/sha}","git_tags_url":"https://api.github.com/repos/dharma412/8525847Test/git/tags{/sha}","git_refs_url":"https://api.github.com/repos/dharma412/8525847Test/git/refs{/sha}","trees_url":"https://api.github.com/repos/dharma412/8525847Test/git/trees{/sha}","statuses_url":"https://api.github.com/repos/dharma412/8525847Test/statuses/{sha}","languages_url":"https://api.github.com/repos/dharma412/8525847Test/languages","stargazers_url":"https://api.github.com/repos/dharma412/8525847Test/stargazers","contributors_url":"https://api.github.com/repos/dharma412/8525847Test/contributors","subscribers_url":"https://api.github.com/repos/dharma412/8525847Test/subscribers","subscription_url":"https://api.github.com/repos/dharma412/8525847Test/subscription","commits_url":"https://api.github.com/repos/dharma412/8525847Test/commits{/sha}","git_commits_url":"https://api.github.com/repos/dharma412/8525847Test/git/commits{/sha}","comments_url":"https://api.github.com/repos/dharma412/8525847Test/comments{/number}","issue_comment_url":"https://api.github.com/repos/dharma412/8525847Test/issues/comments{/number}","contents_url":"https://api.github.com/repos/dharma412/8525847Test/contents/{+path}","compare_url":"https://api.github.com/repos/dharma412/8525847Test/compare/{base}...{head}","merges_url":"https://api.github.com/repos/dharma412/8525847Test/merges","archive_url":"https://api.github.com/repos/dharma412/8525847Test/{archive_format}{/ref}","downloads_url":"https://api.github.com/repos/dharma412/8525847Test/downloads","issues_url":"https://api.github.com/repos/dharma412/8525847Test/issues{/number}","pulls_url":"https://api.github.com/repos/dharma412/8525847Test/pulls{/number}","milestones_url":"https://api.github.com/repos/dharma412/8525847Test/milestones{/number}","notifications_url":"https://api.github.com/repos/dharma412/8525847Test/notifications{?since,all,participating}","labels_url":"https://api.github.com/repos/dharma412/8525847Test/labels{/name}","releases_url":"https://api.github.com/repos/dharma412/8525847Test/releases{/id}","deployments_url":"https://api.github.com/repos/dharma412/8525847Test/deployments","created_at":"2024-06-18T16:59:22Z","updated_at":"2024-06-18T16:59:22Z","pushed_at":"2024-06-18T16:59:22Z","git_url":"git://github.com/dharma412/8525847Test.git","ssh_url":"git@github.com:dharma412/8525847Test.git","clone_url":"https://github.com/dharma412/8525847Test.git","svn_url":"https://github.com/dharma412/8525847Test","homepage":null,"size":0,"stargazers_count":0,"watchers_count":0,"language":null,"has_issues":true,"has_projects":true,"has_downloads":true,"has_wiki":true,"has_pages":false,"has_discussions":false,"forks_count":0,"mirror_url":null,"archived":false,"disabled":false,"open_issues_count":0,"license":null,"allow_forking":true,"is_template":false,"web_commit_signoff_required":false,"topics":[],"visibility":"public","forks":0,"open_issues":0,"watchers":0,"default_branch":"main"},{"id":196515880,"node_id":"MDEwOlJlcG9zaXRvcnkxOTY1MTU4ODA=","name":"bachhuProject","full_name":"dharma412/bachhuProject","private":false,"owner":{"login":"dharma412","id":52806690,"node_id":"MDQ6VXNlcjUyODA2Njkw","avatar_url":"https://avatars.githubusercontent.com/u/52806690?v=4","gravatar_id":"","url":"https://api.github.com/users/dharma412","html_url":"https://github.com/dharma412","followers_url":"https://api.github.com/users/dharma412/followers","following_url":"https://api.github.com/users/dharma412/following{/other_user}","gists_url":"https://api.github.com/users/dharma412/gists{/gist_id}","starred_url":"https://api.github.com/users/dharma412/starred{/owner}{/repo}","subscriptions_url":"https://api.github.com/users/dharma412/subscriptions","organizations_url":"https://api.github.com/users/dharma412/orgs","repos_url":"https://api.github.com/users/dharma412/repos","events_url":"https://api.github.com/users/dharma412/events{/privacy}","received_events_url":"https://api.github.com/users/dharma412/received_events","type":"User","site_admin":false},"html_url":"https://github.com/dharma412/bachhuProject","description":null,"fork":false,"url":"https://api.github.com/repos/dharma412/bachhuProject","forks_url":"https://api.github.com/repos/dharma412/bachhuProject/forks","keys_url":"https://api.github.com/repos/dharma412/bachhuProject/keys{/key_id}","collaborators_url":"https://api.github.com/repos/dharma412/bachhuProject/collaborators{/collaborator}","teams_url":"https://api.github.com/repos/dharma412/bachhuProject/teams","hooks_url":"https://api.github.com/repos/dharma412/bachhuProject/hooks","issue_events_url":"https://api.github.com/repos/dharma412/bachhuProject/issues/events{/number}","events_url":"https://api.github.com/repos/dharma412/bachhuProject/events","assignees_url":"https://api.github.com/repos/dharma412/bachhuProject/assignees{/user}","branches_url":"https://api.github.com/repos/dharma412/bachhuProject/branches{/branch}","tags_url":"https://api.github.com/repos/dharma412/bachhuProject/tags","blobs_url":"https://api.github.com/repos/dharma412/bachhuProject/git/blobs{/sha}","git_tags_url":"https://api.github.com/repos/dharma412/bachhuProject/git/tags{/sha}","git_refs_url":"https://api.github.com/repos/dharma412/bachhuProject/git/refs{/sha}","trees_url":"https://api.github.com/repos/dharma412/bachhuProject/git/trees{/sha}","statuses_url":"https://api.github.com/repos/dharma412/bachhuProject/statuses/{sha}","languages_url":"https://api.github.com/repos/dharma412/bachhuProject/languages","stargazers_url":"https://api.github.com/repos/dharma412/bachhuProject/stargazers","contributors_url":"https://api.github.com/repos/dharma412/bachhuProject/contributors","subscribers_url":"https://api.github.com/repos/dharma412/bachhuProject/subscribers","subscription_url":"https://api.github.com/repos/dharma412/bachhuProject/subscription","commits_url":"https://api.github.com/repos/dharma412/bachhuProject/commits{/sha}","git_commits_url":"https://api.github.com/repos/dharma412/bachhuProject/git/commits{/sha}","comments_url":"https://api.github.com/repos/dharma412/bachhuProject/comments{/number}","issue_comment_url":"https://api.github.com/repos/dharma412/bachhuProject/issues/comments{/number}","contents_url":"https://api.github.com/repos/dharma412/bachhuProject/contents/{+path}","compare_url":"https://api.github.com/repos/dharma412/bachhuProject/compare/{base}...{head}","merges_url":"https://api.github.com/repos/dharma412/bachhuProject/merges","archive_url":"https://api.github.com/repos/dharma412/bachhuProject/{archive_format}{/ref}","downloads_url":"https://api.github.com/repos/dharma412/bachhuProject/downloads","issues_url":"https://api.github.com/repos/dharma412/bachhuProject/issues{/number}","pulls_url":"https://api.github.com/repos/dharma412/bachhuProject/pulls{/number}","milestones_url":"https://api.github.com/repos/dharma412/bachhuProject/milestones{/number}","notifications_url":"https://api.github.com/repos/dharma412/bachhuProject/notifications{?since,all,participating}","labels_url":"https://api.github.com/repos/dharma412/bachhuProject/labels{/name}","releases_url":"https://api.github.com/repos/dharma412/bachhuProject/releases{/id}","deployments_url":"https://api.github.com/repos/dharma412/bachhuProject/deployments","created_at":"2019-07-12T05:44:37Z","updated_at":"2019-07-12T05:55:13Z","pushed_at":"2019-07-12T05:55:11Z","git_url":"git://github.com/dharma412/bachhuProject.git","ssh_url":"git@github.com:dharma412/bachhuProject.git","clone_url":"https://github.com/dharma412/bachhuProject.git","svn_url":"https://github.com/dharma412/bachhuProject","homepage":null,"size":17969,"stargazers_count":0,"watchers_count":0,"language":"Python","has_issues":true,"has_projects":true,"has_downloads":true,"has_wiki":true,"has_pages":false,"has_discussions":false,"forks_count":0,"mirror_url":null,"archived":false,"disabled":false,"open_issues_count":0,"license":null,"allow_forking":true,"is_template":false,"web_commit_signo... (set the log level to DEBUG or TRACE to see the full content) 
+ </msg>
+<msg time="2024-06-18T16:04:42.790515" level="INFO">C:\Users\vaide\AppData\Local\Programs\Python\Python312\Lib\site-packages\urllib3\connectionpool.py:1103: InsecureRequestWarning: Unverified HTTPS request is being made to host 'api.github.com'. Adding certificate verification is strongly advised. See: https://urllib3.readthedocs.io/en/latest/advanced-usage.html#tls-warnings
+  warnings.warn(</msg>
+<msg time="2024-06-18T16:04:42.790515" level="INFO">${fetch_resp} = &lt;Response [200]&gt;</msg>
+<var>${fetch_resp}</var>
+<arg>endpoint</arg>
+<arg>url=${FetchRepo}</arg>
+<doc>Sends a GET request on a previously created HTTP Session.</doc>
+<status status="PASS" start="2024-06-18T16:04:42.346920" elapsed="0.443595"/>
+</kw>
+<kw name="Set Variable" owner="BuiltIn">
+<msg time="2024-06-18T16:04:42.791675" level="INFO">${statu_code_value} = 200</msg>
+<var>${statu_code_value}</var>
+<arg>${fetch_resp.status_code}</arg>
+<doc>Returns the given values which can then be assigned to a variables.</doc>
+<status status="PASS" start="2024-06-18T16:04:42.791675" elapsed="0.000000"/>
+</kw>
+<kw name="Should Be Equal As Integers" owner="BuiltIn">
+<msg time="2024-06-18T16:04:42.792676" level="INFO">Argument types are:
+&lt;class 'int'&gt;
+&lt;class 'str'&gt;</msg>
+<arg>${statu_code_value}</arg>
+<arg>200</arg>
+<arg>msg=codes are ot same</arg>
+<doc>Fails if objects are unequal after converting them to integers.</doc>
+<status status="PASS" start="2024-06-18T16:04:42.791675" elapsed="0.001001"/>
+</kw>
+<kw name="Set Variable" owner="BuiltIn">
+<msg time="2024-06-18T16:04:42.794669" level="INFO">${fetch_resp_jsonformate} = [{'id': 816926167, 'node_id': 'R_kgDOMLFN1w', 'name': '8525847Test', 'full_name': 'dharma412/8525847Test', 'private': False, 'owner': {'login': 'dharma412', 'id': 52806690, 'node_id': 'MDQ6VXNlcjUyODA...</msg>
+<var>${fetch_resp_jsonformate}</var>
+<arg>${fetch_resp.json()}</arg>
+<doc>Returns the given values which can then be assigned to a variables.</doc>
+<status status="PASS" start="2024-06-18T16:04:42.792676" elapsed="0.001993"/>
+</kw>
+<return>
+<value>${fetch_resp_jsonformate}</value>
+<status status="PASS" start="2024-06-18T16:04:42.794669" elapsed="0.000000"/>
+</return>
+<msg time="2024-06-18T16:04:42.795665" level="INFO">${res} = [{'id': 816926167, 'node_id': 'R_kgDOMLFN1w', 'name': '8525847Test', 'full_name': 'dharma412/8525847Test', 'private': False, 'owner': {'login': 'dharma412', 'id': 52806690, 'node_id': 'MDQ6VXNlcjUyODA...</msg>
+<var>${res}</var>
+<tag>Repo</tag>
+<status status="PASS" start="2024-06-18T16:04:42.346920" elapsed="0.448745"/>
+</kw>
+<kw name="Log To Console" owner="BuiltIn">
+<arg>${res}</arg>
+<doc>Logs the given message to the console.</doc>
+<status status="PASS" start="2024-06-18T16:04:42.796662" elapsed="0.098818"/>
+</kw>
+<status status="PASS" start="2024-06-18T16:04:42.345932" elapsed="0.550628"/>
+</test>
+<status status="PASS" start="2024-06-18T16:04:42.150872" elapsed="0.747787"/>
+</suite>
+<statistics>
+<total>
+<stat pass="1" fail="0" skip="0">All Tests</stat>
+</total>
+<tag>
+</tag>
+<suite>
+<stat pass="1" fail="0" skip="0" id="s1" name="Repo Testcases">Repo Testcases</stat>
+</suite>
+</statistics>
+<errors>
+</errors>
+</robot>
