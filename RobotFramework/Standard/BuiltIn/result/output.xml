@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<robot generator="Robot 7.0.1 (Python 3.9.13 on win32)" generated="2024-06-14T18:32:27.312782" rpa="false" schemaversion="5">
+<suite id="s1" name="Get Variable Value" source="C:\mydocuments\PythonClass\RobotFramework\Standard\BuiltIn\Get Variable Value.robot">
+<test id="s1-t1" name="GetVariableValueTestcase" line="9">
+<kw name="Get Variable Value" owner="BuiltIn">
+<msg time="2024-06-14T18:32:27.328394" level="INFO">${x} = teja</msg>
+<var>${x}</var>
+<arg>${y}</arg>
+<arg>name</arg>
+<doc>Returns variable value or ``default`` if the variable does not exist.</doc>
+<status status="PASS" start="2024-06-14T18:32:27.328394" elapsed="0.000000"/>
+</kw>
+<kw name="Log To Console" owner="BuiltIn">
+<arg>${x}</arg>
+<doc>Logs the given message to the console.</doc>
+<status status="PASS" start="2024-06-14T18:32:27.328394" elapsed="0.000000"/>
+</kw>
+<kw name="Get Variable Value" owner="BuiltIn">
+<msg time="2024-06-14T18:32:27.328394" level="INFO">${x1} = name</msg>
+<var>${x1}</var>
+<arg>${z}</arg>
+<arg>name</arg>
+<doc>Returns variable value or ``default`` if the variable does not exist.</doc>
+<status status="PASS" start="2024-06-14T18:32:27.328394" elapsed="0.000000"/>
+</kw>
+<kw name="Log To Console" owner="BuiltIn">
+<arg>${x1}</arg>
+<doc>Logs the given message to the console.</doc>
+<status status="PASS" start="2024-06-14T18:32:27.328394" elapsed="0.000000"/>
+</kw>
+<status status="PASS" start="2024-06-14T18:32:27.328394" elapsed="0.015637"/>
+</test>
+<status status="PASS" start="2024-06-14T18:32:27.312782" elapsed="0.031249"/>
+</suite>
+<statistics>
+<total>
+<stat pass="1" fail="0" skip="0">All Tests</stat>
+</total>
+<tag>
+</tag>
+<suite>
+<stat pass="1" fail="0" skip="0" id="s1" name="Get Variable Value">Get Variable Value</stat>
+</suite>
+</statistics>
+<errors>
+</errors>
+</robot>
