@@ -1,31 +1,61 @@
 1.Class and object
 2. methods in  class
     1. Instant method  (delcartion syntax, how we do access or calling )
+        Inside the class by with self variable.
+        calling using Objet variable
+
     2. Startic mthod   (delcartion syntax, how we do access or calling )
     3. Class method    (delcartion syntax, how we do access or calling )
 3. Varibles in class
     1. Instant varibles  (delcartion syntax, how we do access or calling )
+        Declaration:
+            inside class:
+            Inside Instant Method:
+        Access:
+            inside Instand method:
+            outside class :
+        Inside the Constructor method by using the self variable.
+        Calling inside the instant method by self variable
+        Call using Object variable outside of the calss.
+
     2. Static Varibles   (delcartion syntax, how we do access or calling )
-
-
-
-
-Methods
-1.Instance method
-2. class method
-3. static method
-
-Variables
-1.Instance variable
-2. Static varibles
 
 
 #instance variables:
 1.Ways to declare the variable
-    Inside the constructor by using self variable.
-    Inside the Instance method by using the self variable.
-    Outside the class by using oject reference variable.
+Inside the constructor by using self variable.
+        Inside the Instance method by using the self variable.
+        Outside the class by using oject reference variable.
 
 # Static Varibles
 1.ways to declare the variable
     Outside of the class
+
+
+# methods,variables
+# instantneous ,
+# static method
+# class method
+
+# Instant variable
+# static varible (class level variable)
+# local variable
+
+# object - Reference varible
+# self -- this always ppoints to the current object
+# constructor  --(to create the object) __init__, run method
+# we can create class with constructor ?
+
+# Instant varoables
+    # Always bound to object , which are delcare in __init__ method.
+    # inside constructor by using self
+    # Inside methods should be access by self.variable
+    # outside of class by using object reference variable.
+
+# static Variable
+    # This value will not be changed
+    # inside the constrictor using class name
+    # it should inside class outside all methods.
+    # Inside Instant method by using class name
+    # ouside of class using class name and object name
+    # modficataion of variable
