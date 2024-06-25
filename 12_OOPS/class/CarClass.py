@@ -26,6 +26,9 @@ i20=Car("blac",2000,15555,"right")   #object
 i20.move_right()
 print(i20.color)
 print(Car.__doc__)
+print(Car.__dict__)
+Car.NewVae=50
+print(Car.__dict__)
 
 # i20sports=Car("whit2",2500,1555,"left")
 # print(i20sports.mo)

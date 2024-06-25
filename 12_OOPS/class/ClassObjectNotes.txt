@@ -1,22 +1,35 @@
 1.Class and object
+
+# Constructor is a special method in python.
+The name of the constructor should be __init__(self)
+Constructor will be executed automatically at the time of object creation.
+The main purpose of constructor is to declare and initialize instance variables.
+Per object constructor will be exeucted only once.
+Constructor can take atleast one argument(atleast self)
+Constructor is optional and if we are not providing any constructor then python will provide
+default constructor.
+
+
 2. methods in  class
     1. Instant method  (delcartion syntax, how we do access or calling )
         Inside the class by with self variable.
         calling using Objet variable
-
     2. Startic mthod   (delcartion syntax, how we do access or calling )
     3. Class method    (delcartion syntax, how we do access or calling )
+
+
+
 3. Varibles in class
-    1. Instant varibles  (delcartion syntax, how we do access or calling )
+    1. Instant Variable  (declaration syntax, how we do access or calling )
         Declaration:
-            inside class:
-            Inside Instant Method:
+            Inside Constructor by using self variable
+            Inside Instance Method by using self variable
+            outside of the class by using Object Reference variable.
+
         Access:
-            inside Instand method:
-            outside class :
-        Inside the Constructor method by using the self variable.
-        Calling inside the instant method by self variable
-        Call using Object variable outside of the calss.
+            inside Instand method: By using Self keyword.
+            outside class : By using Reference Variable
+
 
     2. Static Varibles   (delcartion syntax, how we do access or calling )
 
