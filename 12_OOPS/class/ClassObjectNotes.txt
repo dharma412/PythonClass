@@ -24,11 +24,15 @@ default constructor.
         Declaration:
             Inside Constructor by using self variable
             Inside Instance Method by using self variable
-            outside of the class by using Object Reference variable.
+            Outside of the class by using Object Reference variable.
 
         Access:
             inside Instand method: By using Self keyword.
             outside class : By using Reference Variable
+
+        Delete:
+            Inside Class : del self.variablename
+
 
 
     2. Static Varibles   (delcartion syntax, how we do access or calling )

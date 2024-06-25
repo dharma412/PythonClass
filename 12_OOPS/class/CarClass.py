@@ -22,6 +22,9 @@ class Car:
     def move_reverse(self):
         print("I can travel reverse")
 
+    def deletevariable(self):
+        del self.move
+
 i20=Car("blac",2000,15555,"right")   #object
 i20.move_right()
 print(i20.color)
