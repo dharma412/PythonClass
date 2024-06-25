@@ -1,5 +1,5 @@
 class Car:
-    "This class is about car"
+    ''' documenttation string '''
     wheel = 4   # static variable
     def __init__(self,color,Cu,cost,move):   # intilisation method
         #print("I am executing")
@@ -25,6 +25,7 @@ class Car:
 i20=Car("blac",2000,15555,"right")   #object
 i20.move_right()
 print(i20.color)
+print(Car.__doc__)
 
 # i20sports=Car("whit2",2500,1555,"left")
 # print(i20sports.mo)
