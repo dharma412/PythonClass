@@ -10,7 +10,7 @@ Constructor is optional and if we are not providing any constructor then python 
 default constructor.
 
 
-2. methods in  class
+2. Methods in  class
     1. Instant method  (delcartion syntax, how we do access or calling )
         Inside the class by with self variable.
         calling using Objet variable
@@ -27,52 +27,40 @@ default constructor.
             Outside of the class by using Object Reference variable.
 
         Access:
-            inside Instand method: By using Self keyword.
-            outside class : By using Reference Variable
+            inside Instand method   : By using Self variable.
+            outside class           : By using Reference Variable
 
         Delete:
-            Inside Class : del self.variablename
+            Inside Class  : del Self.VariableName
+            Outside Class : del Object.VariableName
 
 
 
     2. Static Varibles   (delcartion syntax, how we do access or calling )
+        We can access static variables either by class name or by object reference. But recommended to
+        use class name.
 
+        Declaration:
+            1. In general we can declare within the class directly but from out side of any method
+            2. Inside constructor by using class name
+            3. Inside instance method by using class name
+            4. Inside classmethod by using either class name or cls variable
+            5. Inside static method by using class name
 
-#instance variables:
-1.Ways to declare the variable
-Inside the constructor by using self variable.
-        Inside the Instance method by using the self variable.
-        Outside the class by using oject reference variable.
+        Access:
+            1. inside constructor: by using either self or classname
+            2. inside instance method: classname
+            3. inside class method: by using either cls variable or classname
+            4. inside static method: by using classname
+            5. From outside of class: by using either object reference or classnmae
 
-# Static Varibles
-1.ways to declare the variable
-    Outside of the class
+        Modify:
+            Anywhere either with in the class or outside of class we can modify by using classname.
+            But inside class method, by using cls variable.
 
+        Delete
+            We can delete static variables from anywhere by using the following syntax
+            del classname.variablename
+            But inside classmethod we can also use cls variable
+            del cls.variablename
 
-# methods,variables
-# instantneous ,
-# static method
-# class method
-
-# Instant variable
-# static varible (class level variable)
-# local variable
-
-# object - Reference varible
-# self -- this always ppoints to the current object
-# constructor  --(to create the object) __init__, run method
-# we can create class with constructor ?
-
-# Instant varoables
-    # Always bound to object , which are delcare in __init__ method.
-    # inside constructor by using self
-    # Inside methods should be access by self.variable
-    # outside of class by using object reference variable.
-
-# static Variable
-    # This value will not be changed
-    # inside the constrictor using class name
-    # it should inside class outside all methods.
-    # Inside Instant method by using class name
-    # ouside of class using class name and object name
-    # modficataion of variable

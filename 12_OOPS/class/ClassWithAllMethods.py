@@ -39,18 +39,4 @@ lap3.display()
 
 
 
-# class without init
-
-# static varibles
-    #inside instant method  =  by classname.varibles
-    # inside static method   = by classname.varibles
-    # inside class method    = by classname.varibles  or cls keyword
-
-# instant varibles
-    # inside instant method  = by self keyword
-    # inside static method   = Not possible
-    # inside class method    = NOt possible
-
-
-
 
