@@ -58,7 +58,7 @@ for animal in (cat1, dog1):
     animal.info()
     animal.make_sound()
 
-# polymorphism in Inheritance
+# polymorphism in 1_Inheritance
 # when child class and parent calss has same method with same name and attributes is called the method ovverriding
 from math import pi
 
