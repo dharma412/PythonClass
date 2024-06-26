@@ -27,9 +27,3 @@ class mamals(animal,human):
 object=mamals('hhd',9,"jump")
 object.run()
 
-# parent class
-# child class
-# sinle inhertince
-# multiple inherince
-# multi level in
-# hybrid inherictace
