@@ -1,3 +1,12 @@
+# Type of Inheritance
+    # Signle
+    # Multi Level Inheritance
+    # Hierachical Inheritance
+    # Multiple Inheritance
+    # Hybrid Inheritance
+    # Cyclic Inheritance
+    
+
 #Single Inheritance from one parent class to one child class.
 
 #Multiple Inheritance: When a class can be derived from more than one parent class this type of inheritance is called multiple inheritance.
