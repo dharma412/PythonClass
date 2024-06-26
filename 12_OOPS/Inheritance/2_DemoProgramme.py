@@ -29,15 +29,5 @@ class F(M):
 ob2=F("name",7876,"address",986568)
 ob2.childisplay()
 
-
 obj1=C("jjjjj",9899,"hyd",7878878)
 print(obj1.childisplay())
-
-
-
-class classname():
-    def display(self):
-        print("this is classname")
-ob=classname()
-ob.display()
-
