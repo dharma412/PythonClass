@@ -5,17 +5,17 @@ class A:
     def displayA(self):
         print("This is class A")
 
-class B:
+class B(A):
 
     def displayB(self):
         print("This is class B")
 
-class C(A,B):
+class C(B):
 
     def displayC(self):
         print("This is class C")
 
 c=C()
-c.displayA()
 print(c.displayA())
 print(c.displayB())
+print(c.displayC())

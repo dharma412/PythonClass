@@ -28,8 +28,7 @@ class SubChild(Child):
 
 p = Parent('jeee', 777)
 obj1 = SubChild('jhon', 2323, 26, 2232, p)
-print(obj1.__repr__())
-print(obj1.__str__())
+
 obj1.display()
 obj1.subdisplay()
 print(obj1.a)

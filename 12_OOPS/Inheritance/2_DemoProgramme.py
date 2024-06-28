@@ -5,18 +5,20 @@ class P:
         self.salaryofemployee=salary
 
     def disaplayDetails(self):
-        print(self.nameofemployee,self.salaryofemployee)
+        #print(self.nameofemployee,self.salaryofemployee)
+        print("I am displa")
 
 class C(P):   # chid class
-    def dispaly(self):
-        print("child class")
 
     def __init__(self,name,salary,address,cellnumber):
+        self.name=name
+        self.salary=salary
         self.address=address
         self.cellnumber=cellnumber
         super().__init__(name,salary)
     def childisplay(self):
-        print(self.nameofemployee,self.cellnumber,self.address,self.salaryofemployee)
+        #print(self.nameofemployee,self.cellnumber,self.address,self.salaryofemployee)
+        print("I am c class")
 
 class M(C):
     def displayM(self):

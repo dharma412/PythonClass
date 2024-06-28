@@ -7,6 +7,9 @@ class BaseClass():
     def disaply(self):
         print("This is parent method")
 
+    def dispal2(self):
+        print("I am display2")
+
 class Childclass(BaseClass):
 
     def __init__(self,name,salary,address):
@@ -17,4 +20,5 @@ class Childclass(BaseClass):
 
 chidlObj=Childclass("name",8687,"address")
 print(chidlObj.disaply())
+
 

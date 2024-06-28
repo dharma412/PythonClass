@@ -10,9 +10,11 @@ class B(A):
     def displayB(self):
         print("This is class B")
 
+class C(A):
 
+    def displayC(self):
+        print("This is class C")
 
-c=B()
-c.displayA()
+c=C()
 print(c.displayA())
-print(c.displayB())
+print(c.displayC())

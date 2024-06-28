@@ -5,17 +5,25 @@ class A:
     def displayA(self):
         print("This is class A")
 
-class B:
+class B(A):
 
     def displayB(self):
         print("This is class B")
-
 class C(A,B):
 
     def displayC(self):
         print("This is class C")
 
-c=C()
-c.displayA()
+class D(C):
+    def displayD(self):
+        print("Inherit from c")
+
+class E(C):
+
+    def displayE(self):
+        print("I am E inherit from C")
+
+c=E()
 print(c.displayA())
-print(c.displayB())
+print(c.displayC())
+print(c.displayE())

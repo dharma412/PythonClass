@@ -43,9 +43,11 @@ class Kia(Car):
     def movealldirections(self):
         print("I can move any direction")
 
-i20=Car("blac",2000,15555,"right")   #object
-i30=Car("white",202,8525,"left")   #object
+# i20=Car("blac",2000,15555,"right")   #object
+# i30=Car("white",202,8525,"left")   #object
 
 i40=Kia("white",202,8525,"left")   #object
 
 i40.movealldirections()
+i40.classmethod1()
+i40.staticmethod1()

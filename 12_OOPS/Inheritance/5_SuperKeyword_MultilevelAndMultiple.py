@@ -11,13 +11,13 @@ class animal(human):
 
     def __init__(self,name,legs,jump):
         super().__init__(name,legs)
-        self.legs=jump
+        self.jump=jump
 
 
     def jump(self):
         print("I am able to jump")
 
-class mamals(animal,human):
+class mamals(human,animal):
 
     def __init__(self,name,legs,jump):
         super().__init__(name,legs,jump)
