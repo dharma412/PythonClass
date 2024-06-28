@@ -51,3 +51,7 @@ print_shape_details(square)
 
 print("\nCircle details:")
 print_shape_details(circle)
+''''
+print("\nCircle details:")
+print_shape_details(circle)
+'''''
