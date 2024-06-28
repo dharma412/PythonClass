@@ -32,7 +32,9 @@ Update Repo
     should be equal as integers    ${fetch_resp2.status_code}    200
     RETURN    ${fetch_resp2}
 
+
 Delete Repo
     [Tags]    Delete
-    ${del_resp}=    DELETE On Session    endpoint   url=${DeleteRepo}${UpdatedRepoName}   headers=${HEADERS}
-    should be equal as integers     ${del_resp.status_code}      204
+    log to console    ${Delete_repo}${Repo_Name}
+    ${dele_resp}=    DELETE On Session    endpoint    url=${Delete_repo}${Repo_Name}    headers=${HEADERS}
+    should be equal as integers    ${dele_resp.status_code}     204
