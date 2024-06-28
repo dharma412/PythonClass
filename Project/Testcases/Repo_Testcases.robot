@@ -3,7 +3,6 @@ Resource        ../Keywords/CommonAPI_Keywords.robot
 Resource        ../Keywords/RepoKeyords.robot
 Suite Setup   GITHUB COMMON SETUP
 
-*** Variables ***
 
 
 *** Test Cases ***
@@ -23,5 +22,12 @@ CreateRepoTest
 #    Delete Repo
 
 
+
+
+Update Repo
+    log to console    Update Repo
+
+DeleteRepoTest
+    Delete Repo
 
 

@@ -28,6 +28,9 @@ LoginTest
 # we can use --variable insted of -v
 
 
+robot -v Test:'test value' -v Test4:'This new string' -v Test2:'Test2value' -v Test5:'this is 5th line'  .\CommandLine.robot
+
+
 
 
 

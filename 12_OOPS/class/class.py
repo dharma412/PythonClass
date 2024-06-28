@@ -26,10 +26,7 @@ Iphone=MobileCopmanies("Iphone","America","2090$",7834378,"$150")
 print(type(sumsung.__str__()))
 print(type(sumsung.__repr__()))
 
-lis1=[5,5,8,96,852,45]
-lis1.__add__()
-print(type(str(lis1)))
-print(type(lis1.__str__()))
+
 
 
 

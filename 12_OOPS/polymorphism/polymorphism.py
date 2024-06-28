@@ -20,6 +20,7 @@ print("Geeks" * 4)
 # function polymorphism in python.
 # len() function can work with different data types in python
 print(len("stringstring"))
+
 print(len([1,35,2,5,5,2]))
 print(len({'name':"python",'name1':"python2",'name3':"python3"}))
 
@@ -58,7 +59,7 @@ for animal in (cat1, dog1):
     animal.info()
     animal.make_sound()
 
-# polymorphism in Inheritance
+# polymorphism in 1_Inheritance
 # when child class and parent calss has same method with same name and attributes is called the method ovverriding
 from math import pi
 
