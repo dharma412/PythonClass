@@ -2,14 +2,18 @@
 
 from abc import ABC,abstractmethod
 
-class Shape(ABC):
+class API(ABC):
 
     @abstractmethod
-    def area(self):
+    def Opeation1(self, a,b):
         pass
 
     @abstractmethod
-    def perimeter(self):
+    def Opeation2(self,a,b):
         pass
 
-s=Shape()
+s=API()
+
+
+import  json
+

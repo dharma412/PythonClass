@@ -1,0 +1,2 @@
+#  *    *       *        *      *
+# min  hour dayofmonth month dayofweek

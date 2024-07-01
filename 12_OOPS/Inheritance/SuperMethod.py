@@ -25,7 +25,6 @@ class Notebook(Laptop):
     def displayNotebook(self):
         super().displayDetails()
         super().disp()
-        super().
         print("The Config details are")
 
 n=Notebook('hp','i6')  # new __init_
