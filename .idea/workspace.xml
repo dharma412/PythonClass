@@ -6,9 +6,9 @@
   <component name="ChangeListManager">
     <list default="true" id="0779dc26-a903-4bb0-ab71-e7f9297d36a2" name="Changes" comment="API Testcases">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/6_DataTypes/Dictionary/Dictionary.py" beforeDir="false" afterPath="$PROJECT_DIR$/6_DataTypes/Dictionary/Dictionary.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/6_DataTypes/Strings/StringMethods.py" beforeDir="false" afterPath="$PROJECT_DIR$/6_DataTypes/Strings/StringMethods.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/6_DataTypes/Strings/Strings.py" beforeDir="false" afterPath="$PROJECT_DIR$/6_DataTypes/Strings/Strings.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/6_DataTypes/List.py" beforeDir="false" afterPath="$PROJECT_DIR$/6_DataTypes/List.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/6_DataTypes/Number/Number.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/6_DataTypes/Number/__init__.py" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -259,22 +259,6 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1717856429411</updated>
-    </task>
-    <task id="LOCAL-00015" summary="API Testcases">
-      <option name="closed" value="true" />
-      <created>1718370078344</created>
-      <option name="number" value="00015" />
-      <option name="presentableId" value="LOCAL-00015" />
-      <option name="project" value="LOCAL" />
-      <updated>1718370078344</updated>
-    </task>
-    <task id="LOCAL-00016" summary="API Testcases">
-      <option name="closed" value="true" />
-      <created>1718377266792</created>
-      <option name="number" value="00016" />
-      <option name="presentableId" value="LOCAL-00016" />
-      <option name="project" value="LOCAL" />
-      <updated>1718377266792</updated>
     </task>
     <task id="LOCAL-00017" summary="API Testcases">
       <option name="closed" value="true" />
@@ -652,7 +636,23 @@
       <option name="project" value="LOCAL" />
       <updated>1732679990361</updated>
     </task>
-    <option name="localTasksCounter" value="64" />
+    <task id="LOCAL-00064" summary="API Testcases">
+      <option name="closed" value="true" />
+      <created>1732690712333</created>
+      <option name="number" value="00064" />
+      <option name="presentableId" value="LOCAL-00064" />
+      <option name="project" value="LOCAL" />
+      <updated>1732690712333</updated>
+    </task>
+    <task id="LOCAL-00065" summary="API Testcases">
+      <option name="closed" value="true" />
+      <created>1732690760404</created>
+      <option name="number" value="00065" />
+      <option name="presentableId" value="LOCAL-00065" />
+      <option name="project" value="LOCAL" />
+      <updated>1732690760404</updated>
+    </task>
+    <option name="localTasksCounter" value="66" />
     <servers />
   </component>
   <component name="VcsManagerConfiguration">
