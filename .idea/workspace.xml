@@ -5,22 +5,8 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="0779dc26-a903-4bb0-ab71-e7f9297d36a2" name="Changes" comment="API Testcases">
-      <change afterPath="$PROJECT_DIR$/6_DataTypes/Strings/STringPractice.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/6_DataTypes/Tuple/TuplePractice.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/API_Notes.pdf" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/AutomationTesting_TOC.xlsx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/CSS Selector.docx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/DataStructureNotes.pdf" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Javascript_Executer_Selenium.docx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Python Testing TOC Updated.xlsx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Testing Concepts NP.pdf" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/UnLeashTheCode/CodingChallenge.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/UnLeashTheCode/__init__.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Window_Frame_Handling.docx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/git.pdf" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/6_DataTypes/Strings/StringMethods.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/1_Introduction/Basic Syntax/basic.py" beforeDir="false" afterPath="$PROJECT_DIR$/1_Introduction/Basic Syntax/basic.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/1_Introduction/Variable and Data Types/VariableRules.py" beforeDir="false" afterPath="$PROJECT_DIR$/1_Introduction/Variable and Data Types/VariableRules.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/6_DataTypes/Strings/Strings.py" beforeDir="false" afterPath="$PROJECT_DIR$/6_DataTypes/Strings/Strings.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -272,14 +258,6 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1717856429411</updated>
-    </task>
-    <task id="LOCAL-00011" summary="API Testcases">
-      <option name="closed" value="true" />
-      <created>1718366920937</created>
-      <option name="number" value="00011" />
-      <option name="presentableId" value="LOCAL-00011" />
-      <option name="project" value="LOCAL" />
-      <updated>1718366920937</updated>
     </task>
     <task id="LOCAL-00012" summary="API Testcases">
       <option name="closed" value="true" />
@@ -665,7 +643,15 @@
       <option name="project" value="LOCAL" />
       <updated>1720680387433</updated>
     </task>
-    <option name="localTasksCounter" value="60" />
+    <task id="LOCAL-00060" summary="API Testcases">
+      <option name="closed" value="true" />
+      <created>1732678689720</created>
+      <option name="number" value="00060" />
+      <option name="presentableId" value="LOCAL-00060" />
+      <option name="project" value="LOCAL" />
+      <updated>1732678689720</updated>
+    </task>
+    <option name="localTasksCounter" value="61" />
     <servers />
   </component>
   <component name="VcsManagerConfiguration">
