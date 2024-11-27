@@ -64,6 +64,11 @@ result=" ".join(b)
 print(result)
 
 
+#splitlines --
+str1='This is python  this is python\n     jsdadcsdjsd ncjdhjd\n     wdhasjkdhjk jdhjs'
+result=str1.splitlines()
+print(result)
+
 #join --- it joines the given data with some seprator
 
 list1=['this','is','python']
@@ -211,8 +216,6 @@ str1="_22Demo343"
 result=str1.isidentifier()
 print(result)
 
-
-
 # using format() method
 
 str2="{1} {2} {0}".format("Teja","leela","raja")
@@ -224,9 +227,7 @@ print(str2)
 #{[index]:[width][.precision][type]}
 var ="class"
 str4=f"This is python {var}"
-
 print(str4)
-
 
 # strip - removes extra characters left and right side of string
 str1="!!!hello !!!!!!!!python&&&"
@@ -237,9 +238,6 @@ result=str1.lstrip('&')
 
 str1="!!!hello !!!!!!!!python!!!!!!"
 result=str1.rstrip('!')
-
-
-
 
 #center  - method will center align the string using specified character , space is default
 
@@ -293,29 +291,6 @@ result=str1.isidentifier()
 print(result)
 
 
-#splitlines --
-str1='This is python  this is python\n     jsdadcsdjsd ncjdhjd\n     wdhasjkdhjk jdhjs'
-result=str1.splitlines()
-print(result)
-#reverse method---- it retunrs the given string.
-
-
-#splitlines --
-str1='This is python  this is python\n    jsdadcsdjsd ncjdhjd\n  wdhasjkdhjk jdhjs'
-print(str1)
-
-result=str1.splitlines()
-print(result)
-#reverse method---- it retunrs the given string.
-
-
-#Encode
-# str1='This is python  this is python'
-# result=str1.encode('ASCII')
-# result.decode()
-
-
-
 str1="H\te\tl\tl\to"
 print(str1)
 print(str1.expandtabs(2))
@@ -363,13 +338,3 @@ str3="($&"
 t=string1.maketrans(str1,str2,str3)
 print(string1.translate(t))
 print(t)
-
-
-
-print(ord('u '))
-print(chr(147))
-
-
-
-
-
