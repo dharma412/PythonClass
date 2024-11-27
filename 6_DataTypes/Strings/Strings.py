@@ -54,8 +54,6 @@ str1="either sune"
 print(str1==str2)
 
 
-
-
 list1=[1,2,3,4,5,56,4]
 print(list1[0])
 str1="!!!!!!!!hello hellohe sdsdudcdhcuSDFDFFFR!!!!!!!!"
@@ -192,6 +190,3 @@ print('He said, "What\\ there?\"')
 #1.create string and print individual elemnets separateed by '_' ex: python o/p:p_y_t_h_o_n_
 #2.create string and print each elements twice and separtaed by $ ex:python o/p:pp$yy$tt$hh$oo$nn$
 #note use only for and if loop
-
-
-

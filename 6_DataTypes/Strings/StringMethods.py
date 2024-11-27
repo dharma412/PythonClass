@@ -168,7 +168,7 @@ print(str1.lower()) #ascii
 #center  - method will center align the string using specified character , space is default
 
 str1="g"
-result=str1.center(10,',')
+result=str1.center(10,'*')
 print((result))
 
 #isalnum---
@@ -192,7 +192,7 @@ result=str1.isnumeric()
 print(result)
 
 #istitile --- check if given string in title formate
-str1="HEllo And Welcome"
+str1="Hello And Welcome"
 result=str1.istitle()
 print(result)
 
@@ -207,86 +207,12 @@ result=str1.isupper()
 print(result)
 
 #isspace --- check if all charecters in the strign are whitespaces
-str1="  "
+str1=" gfhfg "
 result=str1.isspace()
 print(result)
 
 #isidentifier----  check if the strign is identifier or variables
-str1="_22Demo343"
-result=str1.isidentifier()
-print(result)
-
-# using format() method
-
-str2="{1} {2} {0}".format("Teja","leela","raja")
-print(str2)
-
-str2="{a} {b} {c}".format(a=65,b="leela",c="raja")
-print(str2)
-
-#{[index]:[width][.precision][type]}
-var ="class"
-str4=f"This is python {var}"
-print(str4)
-
-# strip - removes extra characters left and right side of string
-str1="!!!hello !!!!!!!!python&&&"
-result=str1.strip("!") # strip only removes extra characters from left and right not from the middle.
-
-str1="!!!hello !!!!!!!!python!!!!"
-result=str1.lstrip('&')
-
-str1="!!!hello !!!!!!!!python!!!!!!"
-result=str1.rstrip('!')
-
-#center  - method will center align the string using specified character , space is default
-
-str1="g"
-result=str1.center(30,'O')
-print((result))
-
-#isalnum---
-str1="version32455rfsdf"
-result=str1.isalnum()
-print(result)
-
-# isdigit - return True if string has all digit else False
-str1="123445353&34%$"
-result=str1.isdigit()
-print(result)
-
-#isalpha - retunr True if string has all alphabhates letters
-str1="helloiamlearningpython"
-result=str1.isalpha()
-print(result)
-
-#isnumeric--- check if all characters in string are numaric
-str1="576778.88"
-result=str1.isnumeric()
-print(result)
-
-#istitile --- check if given string in title formate
-str1="HEllo And Welcome"
-result=str1.istitle()
-print(result)
-
-#islower - it will check string in lower caseornot
-str1="AmuLS ACADEmY"
-result=str1.islower()
-print(result)
-
-#isupper -  it will check string in upper case or not
-str1="ACADE"
-result=str1.isupper()
-print(result)
-
-#isspace --- check if all charecters in the strign are whitespaces
-str1="66868    979"
-result=str1.isspace()
-print(result)
-
-#isidentifier----  check if the strign is identifier
-str1="Demo343"
+str1="22Demo343"
 result=str1.isidentifier()
 print(result)
 
@@ -300,13 +226,13 @@ print(table)
 # maketrans with two arguments
 string1=""
 str1="abcde"
-str2="12345"
+str2="12348"
 t=string1.maketrans(str1,str2)
 print(t)
 str2="aeiuou"
 t1=str2.translate(t)
 print(t1)
-print(t)
+
 
 # maketrans with three arguments
 string1="hello guys and welcome$&123"

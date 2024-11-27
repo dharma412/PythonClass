@@ -6,7 +6,9 @@
   <component name="ChangeListManager">
     <list default="true" id="0779dc26-a903-4bb0-ab71-e7f9297d36a2" name="Changes" comment="API Testcases">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/6_DataTypes/Dictionary/Dictionary.py" beforeDir="false" afterPath="$PROJECT_DIR$/6_DataTypes/Dictionary/Dictionary.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/6_DataTypes/Strings/StringMethods.py" beforeDir="false" afterPath="$PROJECT_DIR$/6_DataTypes/Strings/StringMethods.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/6_DataTypes/Strings/Strings.py" beforeDir="false" afterPath="$PROJECT_DIR$/6_DataTypes/Strings/Strings.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -257,14 +259,6 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1717856429411</updated>
-    </task>
-    <task id="LOCAL-00014" summary="API Testcases">
-      <option name="closed" value="true" />
-      <created>1718369225135</created>
-      <option name="number" value="00014" />
-      <option name="presentableId" value="LOCAL-00014" />
-      <option name="project" value="LOCAL" />
-      <updated>1718369225135</updated>
     </task>
     <task id="LOCAL-00015" summary="API Testcases">
       <option name="closed" value="true" />
@@ -650,7 +644,15 @@
       <option name="project" value="LOCAL" />
       <updated>1732679559667</updated>
     </task>
-    <option name="localTasksCounter" value="63" />
+    <task id="LOCAL-00063" summary="API Testcases">
+      <option name="closed" value="true" />
+      <created>1732679990360</created>
+      <option name="number" value="00063" />
+      <option name="presentableId" value="LOCAL-00063" />
+      <option name="project" value="LOCAL" />
+      <updated>1732679990361</updated>
+    </task>
+    <option name="localTasksCounter" value="64" />
     <servers />
   </component>
   <component name="VcsManagerConfiguration">
