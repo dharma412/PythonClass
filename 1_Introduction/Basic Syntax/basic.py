@@ -1,4 +1,28 @@
 
+
+
+
+
+
+from keyword import kwlist
+print(kwlist)
+
+var1=10
+var2="oython"
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 a="""this is python
 bhbhjvhhj h
 jjjknjbj"""

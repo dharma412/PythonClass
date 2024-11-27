@@ -5,16 +5,23 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="0779dc26-a903-4bb0-ab71-e7f9297d36a2" name="Changes" comment="API Testcases">
-      <change beforePath="$PROJECT_DIR$/.idea/PythonClass.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/PythonClass.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/6_DataTypes/Strings/STringPractice.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/6_DataTypes/Tuple/TuplePractice.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/API_Notes.pdf" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/AutomationTesting_TOC.xlsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/CSS Selector.docx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/DataStructureNotes.pdf" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Javascript_Executer_Selenium.docx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Python Testing TOC Updated.xlsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Testing Concepts NP.pdf" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/UnLeashTheCode/CodingChallenge.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/UnLeashTheCode/__init__.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Window_Frame_Handling.docx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/git.pdf" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/8_Modules/CommonModulesInPython/Itertools/__init__.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/8_Modules/CommonModulesInPython/OSPATHModulePackage/OS.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/8_Modules/CommonModulesInPython/OSPATHModulePackage/OSModule.py" beforeDir="false" afterPath="$PROJECT_DIR$/8_Modules/CommonModulesInPython/OSPATHModulePackage/OSModule.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/8_Modules/CommonModulesInPython/OSPATHModulePackage/SystemModule.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/8_Modules/CommonModulesInPython/Random_module/Randome.py" beforeDir="false" afterPath="$PROJECT_DIR$/8_Modules/CommonModulesInPython/Random_module/Randome.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Project/Data/USER_INPUT.txt" beforeDir="false" afterPath="$PROJECT_DIR$/Project/Data/USER_INPUT.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Project/Testcases/Repo_Testcases.robot" beforeDir="false" afterPath="$PROJECT_DIR$/Project/Testcases/Repo_Testcases.robot" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/1_Introduction/Basic Syntax/basic.py" beforeDir="false" afterPath="$PROJECT_DIR$/1_Introduction/Basic Syntax/basic.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/1_Introduction/Variable and Data Types/VariableRules.py" beforeDir="false" afterPath="$PROJECT_DIR$/1_Introduction/Variable and Data Types/VariableRules.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/6_DataTypes/Strings/Strings.py" beforeDir="false" afterPath="$PROJECT_DIR$/6_DataTypes/Strings/Strings.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -82,9 +89,12 @@
     &quot;Python.ClassCar.executor&quot;: &quot;Run&quot;,
     &quot;Python.ClassWithOutConstrutor.executor&quot;: &quot;Run&quot;,
     &quot;Python.InheritanceInitialProgram.executor&quot;: &quot;Run&quot;,
+    &quot;Python.List1.executor&quot;: &quot;Run&quot;,
     &quot;Python.OSModule.executor&quot;: &quot;Run&quot;,
     &quot;Python.Randome.executor&quot;: &quot;Run&quot;,
+    &quot;Python.STringPractice.executor&quot;: &quot;Run&quot;,
     &quot;Python.Sample.executor&quot;: &quot;Run&quot;,
+    &quot;Python.TuplePractice.executor&quot;: &quot;Run&quot;,
     &quot;Python.ifstate.executor&quot;: &quot;Run&quot;,
     &quot;Robot Framework.TestExecution.executor&quot;: &quot;Run&quot;,
     &quot;Robot Framework.run [Test1].executor&quot;: &quot;Run&quot;,
@@ -94,7 +104,7 @@
     &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
     &quot;git-widget-placeholder&quot;: &quot;master&quot;,
     &quot;last_opened_file_path&quot;: &quot;C:/mydocuments/PythonClass/Project/Data&quot;,
-    &quot;settings.editor.selected.configurable&quot;: &quot;com.jetbrains.python.configuration.PyActiveSdkModuleConfigurable&quot;
+    &quot;settings.editor.selected.configurable&quot;: &quot;preferences.fileTypes&quot;
   }
 }</component>
   <component name="RecentsManager">
@@ -114,8 +124,8 @@
   <component name="RobotOptionsProvider">
     <option name="capitalizeKeywords" value="true" />
   </component>
-  <component name="RunManager" selected="Python.OSModule">
-    <configuration name="2_DemoProgramme" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
+  <component name="RunManager" selected="Python.STringPractice">
+    <configuration name="List1" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
       <module name="PythonClass" />
       <option name="ENV_FILES" value="" />
       <option name="INTERPRETER_OPTIONS" value="" />
@@ -124,55 +134,11 @@
         <env name="PYTHONUNBUFFERED" value="1" />
       </envs>
       <option name="SDK_HOME" value="" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/12_OOPS/Inheritance" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/6_DataTypes/List" />
       <option name="IS_MODULE_SDK" value="true" />
       <option name="ADD_CONTENT_ROOTS" value="true" />
       <option name="ADD_SOURCE_ROOTS" value="true" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/12_OOPS/Inheritance/2_DemoProgramme.py" />
-      <option name="PARAMETERS" value="" />
-      <option name="SHOW_COMMAND_LINE" value="false" />
-      <option name="EMULATE_TERMINAL" value="false" />
-      <option name="MODULE_MODE" value="false" />
-      <option name="REDIRECT_INPUT" value="false" />
-      <option name="INPUT_FILE" value="" />
-      <method v="2" />
-    </configuration>
-    <configuration name="3_MultiLevelInheritance" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
-      <module name="PythonClass" />
-      <option name="ENV_FILES" value="" />
-      <option name="INTERPRETER_OPTIONS" value="" />
-      <option name="PARENT_ENVS" value="true" />
-      <envs>
-        <env name="PYTHONUNBUFFERED" value="1" />
-      </envs>
-      <option name="SDK_HOME" value="" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/12_OOPS/Inheritance" />
-      <option name="IS_MODULE_SDK" value="true" />
-      <option name="ADD_CONTENT_ROOTS" value="true" />
-      <option name="ADD_SOURCE_ROOTS" value="true" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/12_OOPS/Inheritance/3_MultiLevelInheritance.py" />
-      <option name="PARAMETERS" value="" />
-      <option name="SHOW_COMMAND_LINE" value="false" />
-      <option name="EMULATE_TERMINAL" value="false" />
-      <option name="MODULE_MODE" value="false" />
-      <option name="REDIRECT_INPUT" value="false" />
-      <option name="INPUT_FILE" value="" />
-      <method v="2" />
-    </configuration>
-    <configuration name="6_Multlevel_SuperKeyword_Inheritance" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
-      <module name="PythonClass" />
-      <option name="ENV_FILES" value="" />
-      <option name="INTERPRETER_OPTIONS" value="" />
-      <option name="PARENT_ENVS" value="true" />
-      <envs>
-        <env name="PYTHONUNBUFFERED" value="1" />
-      </envs>
-      <option name="SDK_HOME" value="" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/12_OOPS/Inheritance" />
-      <option name="IS_MODULE_SDK" value="true" />
-      <option name="ADD_CONTENT_ROOTS" value="true" />
-      <option name="ADD_SOURCE_ROOTS" value="true" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/12_OOPS/Inheritance/6_Multlevel_SuperKeyword_Inheritance.py" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/6_DataTypes/List/List1.py" />
       <option name="PARAMETERS" value="" />
       <option name="SHOW_COMMAND_LINE" value="false" />
       <option name="EMULATE_TERMINAL" value="false" />
@@ -225,6 +191,50 @@
       <option name="INPUT_FILE" value="" />
       <method v="2" />
     </configuration>
+    <configuration name="STringPractice" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
+      <module name="PythonClass" />
+      <option name="ENV_FILES" value="" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/6_DataTypes/Strings" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/6_DataTypes/Strings/STringPractice.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
+    <configuration name="TuplePractice" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
+      <module name="PythonClass" />
+      <option name="ENV_FILES" value="" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/6_DataTypes/Tuple" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/6_DataTypes/Tuple/TuplePractice.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
     <configuration default="true" type="robot-runner" factoryName="RobotRunConfigurationFactory">
       <option name="extraArguments" />
       <option name="logFilePath" />
@@ -239,11 +249,11 @@
     </configuration>
     <recent_temporary>
       <list>
+        <item itemvalue="Python.STringPractice" />
+        <item itemvalue="Python.TuplePractice" />
+        <item itemvalue="Python.List1" />
         <item itemvalue="Python.OSModule" />
         <item itemvalue="Python.Randome" />
-        <item itemvalue="Python.6_Multlevel_SuperKeyword_Inheritance" />
-        <item itemvalue="Python.3_MultiLevelInheritance" />
-        <item itemvalue="Python.2_DemoProgramme" />
       </list>
     </recent_temporary>
   </component>
@@ -262,14 +272,6 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1717856429411</updated>
-    </task>
-    <task id="LOCAL-00010" summary="API Testcases">
-      <option name="closed" value="true" />
-      <created>1718184307798</created>
-      <option name="number" value="00010" />
-      <option name="presentableId" value="LOCAL-00010" />
-      <option name="project" value="LOCAL" />
-      <updated>1718184307798</updated>
     </task>
     <task id="LOCAL-00011" summary="API Testcases">
       <option name="closed" value="true" />
@@ -655,7 +657,15 @@
       <option name="project" value="LOCAL" />
       <updated>1719584734418</updated>
     </task>
-    <option name="localTasksCounter" value="59" />
+    <task id="LOCAL-00059" summary="API Testcases">
+      <option name="closed" value="true" />
+      <created>1720680387433</created>
+      <option name="number" value="00059" />
+      <option name="presentableId" value="LOCAL-00059" />
+      <option name="project" value="LOCAL" />
+      <updated>1720680387433</updated>
+    </task>
+    <option name="localTasksCounter" value="60" />
     <servers />
   </component>
   <component name="VcsManagerConfiguration">

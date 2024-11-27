@@ -1,9 +1,10 @@
+# we can access the elements of string  using the index
+# index must be integer can not use floate or other type which leads to typeError.
+
 # strings are immutable i.e elements we can not changed once they have assigned ,
-# we can simply reassign new string to it
-# string order collection.
-#conversion of character to numbers is called encoding , and the reverse process is decoding.
-#ASCII and unicode or the popular encodings used.
-import codecs
+# we can simply reassign new string to it.
+#+ve index is left to right and start from 0 to n-1
+# -ve index is right to left and strat from -1 to -n
 
 str1="This is p'ython"
 print((str1))
@@ -77,13 +78,7 @@ str3='''string 46436 can be write in multipe
     bgyftfyhb'''
 print(str3)
 
-# we can access the elements of string  using the index
-# index must be integer can not use floate or other type which leads to typeError.
 
-# strings are immutable i.e elements we can not changed once they have assigned ,
-# we can simply reassign new string to it.
-#+ve index is left to right and start from 0 to n-1
-# -ve index is right to left and strat from -1 to -n
 
 mystring='This is python'
 
@@ -199,7 +194,6 @@ print('He said, "What\\ there?\"')
 #note use only for and if loop
 
 
-# string methods
 
 # string methods start from here
 
@@ -227,7 +221,7 @@ print(count2)
 str1=".com.googlem"
 # result=str1.endswith("lem")
 # print(result)
-result=str1.endswith(".com1")
+result=str1.endswith("lem")
 print(result)
 
 #find -- it return the index of the given letter or word,it returns -1 if word or char is not presentin string
@@ -236,7 +230,7 @@ str1="amuls acdemy"
 # result=str1.find('a',3)
 # print(result)
 
-result=str1.find('z',3,9)
+result=str1.find('e',4,10)
 print(result)
 
 # print(str1.find('a'))
@@ -282,9 +276,6 @@ print(result)
 
 
 
-
-
-
 # upper - it will conver all letters into upper case letter
 str1="pytho is progMMMMamming language"
 str2=str1.upper()
@@ -302,13 +293,16 @@ str1= "hello welcome nishaoo"
 str2=str1.replace('o','z')
 print(str2)
 
+str1="5850"
+str1="785585"
+print(str1)
 
 
 
 # format--
 str1="Hello {name} world 2 {name3}"
-result=str1.format(name2=2,name3=4,name="taja")
-
+result=str1.format(name3=4,name="teja")
+print(result)
 
 
 # format--
@@ -336,7 +330,8 @@ print(str2)
 
 #{[index]:[width][.precision][type]}
 var ="class"
-str4=f"This is python {var}"
+d=" "
+str4=f"This is {d} {var}"
 print(str4)
 
 # strip - removes extra characters left and right side of string
