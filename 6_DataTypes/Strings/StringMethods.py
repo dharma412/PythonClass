@@ -291,29 +291,7 @@ result=str1.isidentifier()
 print(result)
 
 
-str1="H\te\tl\tl\to"
-print(str1)
-print(str1.expandtabs(2))
-
-
-str1.format_map()
-str1.partition()
-str1.ljust()
-str1.isprintable()
-str1.zfill()
-str1.removeprefix()
-str1.removesuffix()
-str1.startswith()
-str1.rindex()
-str1.rfind()
-str1.rjust()
-
-
-
-# traslate --
-
-# maketrans --
-
+# maketrans and traslate --
 str1=""
 dic1={"a":"1","b":"2","c":"3","d":"4"}
 table=str1.maketrans(dic1)
@@ -331,10 +309,25 @@ print(t1)
 print(t)
 
 # maketrans with three arguments
-string1="hello guys and welcome$&"
+string1="hello guys and welcome$&123"
 str1="abcde"
 str2="12345"
-str3="($&"
+str3="($&(*"
 t=string1.maketrans(str1,str2,str3)
 print(string1.translate(t))
 print(t)
+
+
+# More Methods
+str1.format_map()
+str1.partition()
+str1.ljust()
+str1.isprintable()
+str1.zfill()
+str1.removeprefix()
+str1.removesuffix()
+str1.startswith()
+str1.rindex()
+str1.rfind()
+str1.rjust()
+str1.expandtabs
