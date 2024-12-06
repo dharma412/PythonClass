@@ -6,16 +6,18 @@ import random
 import datetime
 
 a=10  # global variable
-def display():      #local variable
-    #global a
-    #a=a+1
-    print(a)
+def display(): #local variable
+
+    global a
+    a=a+1
+    return (a)
     # a=8
     # print(a)
     # a=a+1
     # print(a)
-display()
-# print(a)
+result=display()
+print(result)
+print(a)
 
 
 

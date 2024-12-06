@@ -5,10 +5,37 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="0779dc26-a903-4bb0-ab71-e7f9297d36a2" name="Changes" comment="API Testcases">
+      <change afterPath="$PROJECT_DIR$/9_Files/JSONParsing/JsonToFile.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/9_Files/JSONParsing/PythonToJsonString_Dumps.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/9_Files/TextFiles/ContentFile.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/PythonClass.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/PythonClass.iml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/6_DataTypes/List.py" beforeDir="false" afterPath="$PROJECT_DIR$/6_DataTypes/List.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/6_DataTypes/Number/Number.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/6_DataTypes/Number/__init__.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/1_Introduction/operators/AirthimeticOperators.py" beforeDir="false" afterPath="$PROJECT_DIR$/1_Introduction/operators/AirthimeticOperators.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/1_Introduction/operators/AssignmentOperators.py" beforeDir="false" afterPath="$PROJECT_DIR$/1_Introduction/operators/AssignmentOperators.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/1_Introduction/operators/BitwiseOperators.py" beforeDir="false" afterPath="$PROJECT_DIR$/1_Introduction/operators/BitwiseOperators.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/1_Introduction/operators/LogicalOperators.py" beforeDir="false" afterPath="$PROJECT_DIR$/1_Introduction/operators/LogicalOperators.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/1_Introduction/operators/OperatorPrecedence.py" beforeDir="false" afterPath="$PROJECT_DIR$/1_Introduction/operators/OperatorPrecedence.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/4_InputandOutPut/Input.py" beforeDir="false" afterPath="$PROJECT_DIR$/4_InputandOutPut/Input.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/4_InputandOutPut/StringFormateInPrint.py" beforeDir="false" afterPath="$PROJECT_DIR$/4_InputandOutPut/StringFormateInPrint.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/5_FlowControl/ConditionalStatements/if_else.py" beforeDir="false" afterPath="$PROJECT_DIR$/5_FlowControl/ConditionalStatements/if_else.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/5_FlowControl/TransferStatements/Break_Continue.py" beforeDir="false" afterPath="$PROJECT_DIR$/5_FlowControl/TransferStatements/Break_Continue.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/6_DataTypes/Set/Frozenset.py" beforeDir="false" afterPath="$PROJECT_DIR$/6_DataTypes/Set/Frozenset.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/6_DataTypes/Set/Set.py" beforeDir="false" afterPath="$PROJECT_DIR$/6_DataTypes/Set/Set.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/7_Functions/FunctionArguments.py" beforeDir="false" afterPath="$PROJECT_DIR$/7_Functions/FunctionArguments.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/7_Functions/GlobalVaribale.py" beforeDir="false" afterPath="$PROJECT_DIR$/7_Functions/GlobalVaribale.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/7_Functions/Recursion.py" beforeDir="false" afterPath="$PROJECT_DIR$/7_Functions/Recursion.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/7_Functions/anonymousfunction.py" beforeDir="false" afterPath="$PROJECT_DIR$/7_Functions/anonymousfunction.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/7_Functions/global_local_nonlocalVar.py" beforeDir="false" afterPath="$PROJECT_DIR$/7_Functions/global_local_nonlocalVar.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/8_Modules/CommonModulesInPython/DatetimeModule/DateTime.py" beforeDir="false" afterPath="$PROJECT_DIR$/8_Modules/CommonModulesInPython/DatetimeModule/DateTime.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/8_Modules/CommonModulesInPython/RegularExpressions/RegularExpression.py" beforeDir="false" afterPath="$PROJECT_DIR$/8_Modules/CommonModulesInPython/RegularExpressions/RegularExpression.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/8_Modules/CommonModulesInPython/RegularExpressions/Regularexp.txt" beforeDir="false" afterPath="$PROJECT_DIR$/8_Modules/CommonModulesInPython/RegularExpressions/Regularexp.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/9_Files/JSONParsing/AddQueryParaToRequest.py" beforeDir="false" afterPath="$PROJECT_DIR$/9_Files/JSONParsing/AddQueryParaToRequest.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/9_Files/JSONParsing/JsonFromFile.py" beforeDir="false" afterPath="$PROJECT_DIR$/9_Files/JSONParsing/JsonFromFile_Load.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/9_Files/JSONParsing/JsonStringtoPython.py" beforeDir="false" afterPath="$PROJECT_DIR$/9_Files/JSONParsing/JsonStringtoPython.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/9_Files/TextFiles/File.py" beforeDir="false" afterPath="$PROJECT_DIR$/9_Files/TextFiles/File.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/9_Files/TextFiles/FileHandiling.py" beforeDir="false" afterPath="$PROJECT_DIR$/9_Files/TextFiles/FileHandiling.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/9_Files/TextFiles/FileWriting.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/9_Files/TextFiles/sample.txt" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -63,37 +90,47 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;ASKED_ADD_EXTERNAL_FILES&quot;: &quot;true&quot;,
-    &quot;ASKED_SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
-    &quot;Python.1_InheritanceInitialProgram (1).executor&quot;: &quot;Run&quot;,
-    &quot;Python.1_SingleInheritance.executor&quot;: &quot;Run&quot;,
-    &quot;Python.2_DemoProgramme.executor&quot;: &quot;Run&quot;,
-    &quot;Python.3_MultiLevelInheritance.executor&quot;: &quot;Run&quot;,
-    &quot;Python.6_Multlevel_SuperKeyword_Inheritance.executor&quot;: &quot;Run&quot;,
-    &quot;Python.CarClass.executor&quot;: &quot;Run&quot;,
-    &quot;Python.ClassCar.executor&quot;: &quot;Run&quot;,
-    &quot;Python.ClassWithOutConstrutor.executor&quot;: &quot;Run&quot;,
-    &quot;Python.InheritanceInitialProgram.executor&quot;: &quot;Run&quot;,
-    &quot;Python.List1.executor&quot;: &quot;Run&quot;,
-    &quot;Python.OSModule.executor&quot;: &quot;Run&quot;,
-    &quot;Python.Randome.executor&quot;: &quot;Run&quot;,
-    &quot;Python.STringPractice.executor&quot;: &quot;Run&quot;,
-    &quot;Python.Sample.executor&quot;: &quot;Run&quot;,
-    &quot;Python.TuplePractice.executor&quot;: &quot;Run&quot;,
-    &quot;Python.ifstate.executor&quot;: &quot;Run&quot;,
-    &quot;Robot Framework.TestExecution.executor&quot;: &quot;Run&quot;,
-    &quot;Robot Framework.run [Test1].executor&quot;: &quot;Run&quot;,
-    &quot;Robot Framework.run current file.executor&quot;: &quot;Run&quot;,
-    &quot;Robot Runner.Basic - \&quot;Test1\&quot;.executor&quot;: &quot;Run&quot;,
-    &quot;Robot Runner.RobotExecution.executor&quot;: &quot;Run&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;master&quot;,
-    &quot;last_opened_file_path&quot;: &quot;C:/mydocuments/PythonClass/Project/Data&quot;,
-    &quot;settings.editor.selected.configurable&quot;: &quot;preferences.fileTypes&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "ASKED_ADD_EXTERNAL_FILES": "true",
+    "ASKED_SHARE_PROJECT_CONFIGURATION_FILES": "true",
+    "Python.1_InheritanceInitialProgram (1).executor": "Run",
+    "Python.1_SingleInheritance.executor": "Run",
+    "Python.2_DemoProgramme.executor": "Run",
+    "Python.3_MultiLevelInheritance.executor": "Run",
+    "Python.6_Multlevel_SuperKeyword_Inheritance.executor": "Run",
+    "Python.CarClass.executor": "Run",
+    "Python.ClassCar.executor": "Run",
+    "Python.ClassWithOutConstrutor.executor": "Run",
+    "Python.File.executor": "Run",
+    "Python.FileHandiling.executor": "Run",
+    "Python.IdentityOperators.executor": "Run",
+    "Python.InheritanceInitialProgram.executor": "Run",
+    "Python.Input.executor": "Run",
+    "Python.JsonFromFile.executor": "Run",
+    "Python.JsonFromFile_Load (1).executor": "Run",
+    "Python.JsonStringtoPython.executor": "Run",
+    "Python.JsonToFile.executor": "Run",
+    "Python.List1.executor": "Run",
+    "Python.MembershipOperators.executor": "Run",
+    "Python.OSModule.executor": "Run",
+    "Python.PythonToJsonString_Dumps.executor": "Run",
+    "Python.Randome.executor": "Run",
+    "Python.STringPractice.executor": "Run",
+    "Python.Sample.executor": "Run",
+    "Python.TuplePractice.executor": "Run",
+    "Python.ifstate.executor": "Run",
+    "Robot Framework.TestExecution.executor": "Run",
+    "Robot Framework.run [Test1].executor": "Run",
+    "Robot Framework.run current file.executor": "Run",
+    "Robot Runner.Basic - \"Test1\".executor": "Run",
+    "Robot Runner.RobotExecution.executor": "Run",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "git-widget-placeholder": "master",
+    "last_opened_file_path": "C:/mydocuments/PythonClass/Project/Data",
+    "settings.editor.selected.configurable": "preferences.fileTypes"
   }
-}</component>
+}]]></component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
       <recent name="C:\mydocuments\PythonClass\Project\Data" />
@@ -111,8 +148,8 @@
   <component name="RobotOptionsProvider">
     <option name="capitalizeKeywords" value="true" />
   </component>
-  <component name="RunManager" selected="Python.STringPractice">
-    <configuration name="List1" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
+  <component name="RunManager" selected="Python.AddQueryParaToRequest">
+    <configuration name="AddQueryParaToRequest" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
       <module name="PythonClass" />
       <option name="ENV_FILES" value="" />
       <option name="INTERPRETER_OPTIONS" value="" />
@@ -121,11 +158,11 @@
         <env name="PYTHONUNBUFFERED" value="1" />
       </envs>
       <option name="SDK_HOME" value="" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/6_DataTypes/List" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/9_Files/JSONParsing" />
       <option name="IS_MODULE_SDK" value="true" />
       <option name="ADD_CONTENT_ROOTS" value="true" />
       <option name="ADD_SOURCE_ROOTS" value="true" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/6_DataTypes/List/List1.py" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/9_Files/JSONParsing/AddQueryParaToRequest.py" />
       <option name="PARAMETERS" value="" />
       <option name="SHOW_COMMAND_LINE" value="false" />
       <option name="EMULATE_TERMINAL" value="false" />
@@ -134,7 +171,7 @@
       <option name="INPUT_FILE" value="" />
       <method v="2" />
     </configuration>
-    <configuration name="OSModule" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
+    <configuration name="JsonFromFile_Load (1)" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
       <module name="PythonClass" />
       <option name="ENV_FILES" value="" />
       <option name="INTERPRETER_OPTIONS" value="" />
@@ -143,11 +180,11 @@
         <env name="PYTHONUNBUFFERED" value="1" />
       </envs>
       <option name="SDK_HOME" value="" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/8_Modules/CommonModulesInPython/OSPATHModulePackage" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/9_Files/JSONParsing" />
       <option name="IS_MODULE_SDK" value="true" />
       <option name="ADD_CONTENT_ROOTS" value="true" />
       <option name="ADD_SOURCE_ROOTS" value="true" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/8_Modules/CommonModulesInPython/OSPATHModulePackage/OSModule.py" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/9_Files/JSONParsing/JsonFromFile_Load.py" />
       <option name="PARAMETERS" value="" />
       <option name="SHOW_COMMAND_LINE" value="false" />
       <option name="EMULATE_TERMINAL" value="false" />
@@ -156,7 +193,7 @@
       <option name="INPUT_FILE" value="" />
       <method v="2" />
     </configuration>
-    <configuration name="Randome" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
+    <configuration name="JsonStringtoPython" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
       <module name="PythonClass" />
       <option name="ENV_FILES" value="" />
       <option name="INTERPRETER_OPTIONS" value="" />
@@ -165,11 +202,11 @@
         <env name="PYTHONUNBUFFERED" value="1" />
       </envs>
       <option name="SDK_HOME" value="" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/8_Modules/CommonModulesInPython/Random_module" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/9_Files/JSONParsing" />
       <option name="IS_MODULE_SDK" value="true" />
       <option name="ADD_CONTENT_ROOTS" value="true" />
       <option name="ADD_SOURCE_ROOTS" value="true" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/8_Modules/CommonModulesInPython/Random_module/Randome.py" />
+      <option name="SCRIPT_NAME" value="C:\mydocuments\PythonClass\9_Files\JSONParsing\JsonStringtoPython.py" />
       <option name="PARAMETERS" value="" />
       <option name="SHOW_COMMAND_LINE" value="false" />
       <option name="EMULATE_TERMINAL" value="false" />
@@ -178,7 +215,7 @@
       <option name="INPUT_FILE" value="" />
       <method v="2" />
     </configuration>
-    <configuration name="STringPractice" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
+    <configuration name="JsonToFile" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
       <module name="PythonClass" />
       <option name="ENV_FILES" value="" />
       <option name="INTERPRETER_OPTIONS" value="" />
@@ -187,11 +224,11 @@
         <env name="PYTHONUNBUFFERED" value="1" />
       </envs>
       <option name="SDK_HOME" value="" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/6_DataTypes/Strings" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/9_Files/JSONParsing" />
       <option name="IS_MODULE_SDK" value="true" />
       <option name="ADD_CONTENT_ROOTS" value="true" />
       <option name="ADD_SOURCE_ROOTS" value="true" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/6_DataTypes/Strings/STringPractice.py" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/9_Files/JSONParsing/JsonToFile.py" />
       <option name="PARAMETERS" value="" />
       <option name="SHOW_COMMAND_LINE" value="false" />
       <option name="EMULATE_TERMINAL" value="false" />
@@ -200,7 +237,7 @@
       <option name="INPUT_FILE" value="" />
       <method v="2" />
     </configuration>
-    <configuration name="TuplePractice" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
+    <configuration name="PythonToJsonString_Dumps" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
       <module name="PythonClass" />
       <option name="ENV_FILES" value="" />
       <option name="INTERPRETER_OPTIONS" value="" />
@@ -209,11 +246,11 @@
         <env name="PYTHONUNBUFFERED" value="1" />
       </envs>
       <option name="SDK_HOME" value="" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/6_DataTypes/Tuple" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/9_Files/JSONParsing" />
       <option name="IS_MODULE_SDK" value="true" />
       <option name="ADD_CONTENT_ROOTS" value="true" />
       <option name="ADD_SOURCE_ROOTS" value="true" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/6_DataTypes/Tuple/TuplePractice.py" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/9_Files/JSONParsing/PythonToJsonString_Dumps.py" />
       <option name="PARAMETERS" value="" />
       <option name="SHOW_COMMAND_LINE" value="false" />
       <option name="EMULATE_TERMINAL" value="false" />
@@ -236,11 +273,11 @@
     </configuration>
     <recent_temporary>
       <list>
-        <item itemvalue="Python.STringPractice" />
-        <item itemvalue="Python.TuplePractice" />
-        <item itemvalue="Python.List1" />
-        <item itemvalue="Python.OSModule" />
-        <item itemvalue="Python.Randome" />
+        <item itemvalue="Python.AddQueryParaToRequest" />
+        <item itemvalue="Python.JsonFromFile_Load (1)" />
+        <item itemvalue="Python.JsonToFile" />
+        <item itemvalue="Python.PythonToJsonString_Dumps" />
+        <item itemvalue="Python.JsonStringtoPython_Loads" />
       </list>
     </recent_temporary>
   </component>
@@ -259,14 +296,6 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1717856429411</updated>
-    </task>
-    <task id="LOCAL-00017" summary="API Testcases">
-      <option name="closed" value="true" />
-      <created>1718727678648</created>
-      <option name="number" value="00017" />
-      <option name="presentableId" value="LOCAL-00017" />
-      <option name="project" value="LOCAL" />
-      <updated>1718727678648</updated>
     </task>
     <task id="LOCAL-00018" summary="API Testcases">
       <option name="closed" value="true" />
@@ -652,7 +681,15 @@
       <option name="project" value="LOCAL" />
       <updated>1732690760404</updated>
     </task>
-    <option name="localTasksCounter" value="66" />
+    <task id="LOCAL-00066" summary="API Testcases">
+      <option name="closed" value="true" />
+      <created>1732690840375</created>
+      <option name="number" value="00066" />
+      <option name="presentableId" value="LOCAL-00066" />
+      <option name="project" value="LOCAL" />
+      <updated>1732690840376</updated>
+    </task>
+    <option name="localTasksCounter" value="67" />
     <servers />
   </component>
   <component name="VcsManagerConfiguration">

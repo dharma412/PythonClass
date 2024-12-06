@@ -42,4 +42,6 @@ if matchobj:
 # \w  - matches alphanumeric character . equivalent to [a-zA-Z0-9_] , underscore is also consider as alphanumeric character.
 # \W  - matches non-alphanumeric character. equialent to [^a-zA-Z0-9]
 
+STRING=1425657 12343 2433
+([0-9]+)+
 

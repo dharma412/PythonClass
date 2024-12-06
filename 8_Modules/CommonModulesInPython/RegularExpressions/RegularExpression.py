@@ -1,5 +1,6 @@
 import re
 
+
 re.compile() #convert given string into patter.
 re.match() # it will look for patter at the begining of string and return None if it is not found.
 #re.match() it will return
@@ -7,19 +8,21 @@ re.search()# it will look for patter at any position in the string.
 
 #example: []
 import re
-var='****%$&$%122456DzZaddefdsABGDUEHFUccdedhf'
+var='fgfgfr****%$&$%122456DzZaddefdsABGDUEHFUccdedhf&&&&&hthftgf'
 patter='[a-zA-Z]+'
-matched=re.search(patter,var)
-#matched=re.match(patter,var)  # will return NONe
-print(matched)
-#print(matched.group())
+#matched=re.search(patter,var)
+matched=re.match(patter,var)# will return NONe
+values=re.findall(patter,var)
+print(values)
+# print(type(matched))
+# print(matched.group())
 
 #example: ()-group
 #pattern=(a|b|c)xy
 import re
-patter='(a|b|c)xy'
-string1='dxy'
-print(re.search(patter,string1))
+patter='((a|b|c)xy)'
+string1='axy56565654654bxy'
+print(re.findall(patter,string1))
 
 #eample: ^ and $
 import re
@@ -35,7 +38,7 @@ sentence = 'his ias python'
 patter='a{2,7}'
 #matched=re.match(patter,sentence)
 matched=re.search(patter,sentence)
-print(matched.group())
+print(matched)
 
 #example Alternation: |
 import re

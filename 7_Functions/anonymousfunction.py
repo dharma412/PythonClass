@@ -6,7 +6,7 @@
 # Lambda functions can be used wherever function objects are required.
 
 def addone(x,y):
-   print(x,y)
+   print(x+y)
 
 print(addone(5,7))
 
