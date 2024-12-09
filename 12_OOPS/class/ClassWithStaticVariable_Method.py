@@ -76,3 +76,98 @@ t=test()
 t.m1()
 # print(test.a)
 # print(t.a)
+
+
+# Static method.
+#1. if value is not varied from object to objcet then we call it as static variable ,
+# we will declare such variables outside of methods and inside the call.
+#2. we can access stat var by class or object name
+
+class stat():
+    x=10
+    def __init__(self,a,b):
+        self.a=a
+        self.b=b
+s=stat(2,6)
+print(s.x)  # access by referecne
+print(stat.x)
+stat.x=888
+s.a=787
+print(s.a)
+print(stat.x)
+
+# various places to declare static variable
+
+class Test:
+    statvar=10
+    def __init__(self):
+        Test.stratvar1=9  # inside the constucter by class name
+    def method(self):
+        Test.startvar3=89 # inside the intsant method by class name
+        print()
+
+    @classmethod
+    def classmethod(cls):
+        Test.stratvar4=87  # inside the class method by class name
+        cls.stratvar5=8777 # inside the class method by cls keyword
+    @staticmethod
+    def staticmethod():
+        Test.stratvar7=445 # inside the static method by classname
+t=Test()
+print(Test.__dict__)
+print(t.method())
+print(t.classmethod())
+Test.f=898  # declare outside of class by class name
+print(Test.__dict__)
+
+#how to access static variables
+
+class Test:
+    var1=89
+
+    def __init__(self):
+        print(self.var1)  # inside the constructor by self keyword
+        print(Test.var1)  # inside the constructor by class name
+
+    def m1(self):
+        print(self.var1)   # inside the instant method by using the self keyword
+        print(Test.var1)
+
+    @classmethod
+    def clsmethos(cls):
+        print(cls.var1)   # inside the class method by cls variable keyword
+        print(Test.var1)  # inside the class by using the variable keyword
+
+    @staticmethod
+    def startmethid(self):
+        print(Test.var1)
+t1=Test
+print(t1.var1) # outside the class by reference
+
+# modify the values of static variable
+class Test:
+    var2=788
+    @classmethod
+    def classmethod(cls):
+        Test.var2=000  # inside the clasmethod by using the Class name
+    @staticmethod
+    def staticmethod():
+        Test.var2=765  # inside the staticmethod by using the Class name
+print(Test.var2)
+print(Test.classmethod())
+print(Test.var2)
+print(Test.staticmethod())
+print(Test.var2)
+Test.var2=576767
+print(Test.var2)
+# if we chnage the value of static var ,new value will be created
+class Test1:
+    var8=999
+
+    def method(self):
+        self.var8=000
+        print(self.var8)
+
+t1=Test1()
+print(Test1.var8)
+print(t1.var8)
