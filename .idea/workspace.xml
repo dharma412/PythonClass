@@ -5,14 +5,10 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="0779dc26-a903-4bb0-ab71-e7f9297d36a2" name="Changes" comment="API Testcases">
-      <change afterPath="$PROJECT_DIR$/12_OOPS/class/ClassWithDifferntConstructor.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/12_OOPS/class/InstanVariable_Method.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/12_OOPS/class/classwithDocString.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/12_OOPS/class/ClassWithClassVariable.py" beforeDir="false" afterPath="$PROJECT_DIR$/12_OOPS/class/ClassWithClassVariable_Method.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/12_OOPS/class/ClassWithDifferntConstructor.py" beforeDir="false" afterPath="$PROJECT_DIR$/12_OOPS/class/ClassWithDifferntConstructor.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/12_OOPS/class/ClassWithOutConstrutor.py" beforeDir="false" afterPath="$PROJECT_DIR$/12_OOPS/class/ClassWithOutConstrutor.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/12_OOPS/class/ClassWithStaticVariable_Method.py" beforeDir="false" afterPath="$PROJECT_DIR$/12_OOPS/class/ClassWithStaticVariable_Method.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/12_OOPS/class/class.py" beforeDir="false" afterPath="$PROJECT_DIR$/12_OOPS/class/class.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/12_OOPS/class/InstanVariable_Method.py" beforeDir="false" afterPath="$PROJECT_DIR$/12_OOPS/class/InstanVariable_Method.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -276,14 +272,6 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1717856429411</updated>
-    </task>
-    <task id="LOCAL-00020" summary="API Testcases">
-      <option name="closed" value="true" />
-      <created>1718729029759</created>
-      <option name="number" value="00020" />
-      <option name="presentableId" value="LOCAL-00020" />
-      <option name="project" value="LOCAL" />
-      <updated>1718729029759</updated>
     </task>
     <task id="LOCAL-00021" summary="API Testcases">
       <option name="closed" value="true" />
@@ -669,7 +657,15 @@
       <option name="project" value="LOCAL" />
       <updated>1733762911831</updated>
     </task>
-    <option name="localTasksCounter" value="69" />
+    <task id="LOCAL-00069" summary="API Testcases">
+      <option name="closed" value="true" />
+      <created>1733764629551</created>
+      <option name="number" value="00069" />
+      <option name="presentableId" value="LOCAL-00069" />
+      <option name="project" value="LOCAL" />
+      <updated>1733764629551</updated>
+    </task>
+    <option name="localTasksCounter" value="70" />
     <servers />
   </component>
   <component name="VcsManagerConfiguration">

@@ -7,11 +7,12 @@ class employee():
         self.ename="teja"
         self.salary=432434
 
-    def display(self):
+    def display(self,d):
         self.address="narasaraopet"
         print("the employee details are ", self.eno,self.ename)
+        print(d)
 t=employee()
-t.display()
+t.display("dfdfdf")
 t.ousideinstanvar="new insta value"
 print(t.__dict__)
 
