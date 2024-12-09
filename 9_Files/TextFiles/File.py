@@ -1,7 +1,7 @@
 ################# Read Mode without "with" keyword ##################
 file1=open('ContentFile.txt','r')
 result=file1.read()
-print((result))
+print(type(result))
 file1.close()
 
 
@@ -53,9 +53,9 @@ with open('ContentFile.txt','r') as f:
 with open('ContentFile.txt','w') as f:
     print(f.writable())
 
-with open('ContentFile.txt','w') as f:
-    f.truncate(5)
-    print((f.read()))
+with open('ContentFile.txt','r+') as f:
+    f.truncate(50)
+    print(f.tell())
 
 
 with open('ContentFile.txt','r') as f:
@@ -90,7 +90,7 @@ with open('ContentFile.txt','a') as f:
 # binary mode
 with open('ContentFile.txt','rb') as f:
     content=f.read()  #
-    print(type(content))
+    print((content))
 
 with open(r'ContentFile.txt','a') as var1:
     var1.write("This is pythonfdfs")
