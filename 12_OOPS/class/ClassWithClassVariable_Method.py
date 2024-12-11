@@ -5,6 +5,7 @@ class pdm:
         self.ordID=ordID    #instaneous variables
         self.InvID=InvID
         self.cost=cost
+        print(pdm.var)
 
     def updateOrder(self):
         print("I am updating the order")
@@ -17,21 +18,28 @@ class pdm:
     def utility():
         print("I am Static method")
         #print(pdm.tax)
-        pdm.ClassMethod()
+        #pdm.ClassMethod()
+        print(pdm.var)
 
 
     @classmethod
     def ClassMethod(cls):
         print("I am class")
         cls.var=500
-        cls.tax
-        print(pdm.tax)
+        return "I am class methhod"
+        # cls.tax
+        #print(pdm.tax)
 
 
 obj1=pdm(858,585,15000)
-
+#
 obj1.updateOrder()
-obj1.ClassMethod()
-pdm.ClassMethod()
-print(obj1.var)
+print(pdm.ClassMethod())
 print(pdm.var)
+print(obj1.var)
+print(obj1.ClassMethod())
+#print(pdm.utility())
+pdm.utility()
+# pdm.ClassMethod()
+# print(obj1.var)
+# print(pdm.var)

@@ -15,6 +15,7 @@ class Childclass(BaseClass):
     def __init__(self,name,salary,address):
         self.c=address
         super().__init__(name,salary)
+        
     def disaply(self):
         print(self.c,self.a,self.b)
 

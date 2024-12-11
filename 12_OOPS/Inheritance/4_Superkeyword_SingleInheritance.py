@@ -10,14 +10,12 @@ class Parent:
 
 class Child(Parent):
 
-    # def __init__(self):
-    #    super().__init__(name='jhon',salary=98789)
-    #    self.d=45
+    # S
 
     def __init__(self, name, salary, age, address):
         super().__init__(name, salary)
+    def display(self):
+        print("I am child class")
 
-    print("I am child Class")
-
-c=Child('jhon', 2323, 26, 2232)
+c=Child('name0',85855,25,'dffsafdfafe')
 c.display()

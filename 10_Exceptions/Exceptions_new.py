@@ -1,22 +1,3 @@
-# fileobject=open('textfile89383489.txt','r')
-# print(fileobject.readlines())
-#
-#
-#
-# try:
-#     fileobject=open('textfile89383489.txt','r')
-#     print(fileobject.readlines())
-#
-# except (ReferenceError, FileNotFoundError,KeyError) as errortext:
-#     print(errortext)
-#
-#
-# finally:
-#     print("This is excuet always")
-#
-# print("I am leaing file system in python")
-
-
 # builtin-exceptions
 class smallvalueexception(Exception):
     """ small values not found. """
