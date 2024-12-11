@@ -5,18 +5,9 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="0779dc26-a903-4bb0-ab71-e7f9297d36a2" name="Changes" comment="API Testcases">
-      <change afterPath="$PROJECT_DIR$/10_Exceptions/Execptions_combinations.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/10_Exceptions/Exceptions.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/10_Exceptions/Exceptions_new.py" beforeDir="false" afterPath="$PROJECT_DIR$/10_Exceptions/Exceptions_new.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/10_Exceptions/Notes.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/12_OOPS/Inheritance/1_Inheritance/5_HybridInheritance.py" beforeDir="false" afterPath="$PROJECT_DIR$/12_OOPS/Inheritance/1_Inheritance/5_HybridInheritance.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/12_OOPS/Inheritance/4_Superkeyword_SingleInheritance.py" beforeDir="false" afterPath="$PROJECT_DIR$/12_OOPS/Inheritance/4_Superkeyword_SingleInheritance.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/12_OOPS/Inheritance/7_MethodOverriding.py" beforeDir="false" afterPath="$PROJECT_DIR$/12_OOPS/Inheritance/7_MethodOverriding.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/12_OOPS/Inheritance/HybridANdMRO.py" beforeDir="false" afterPath="$PROJECT_DIR$/12_OOPS/Inheritance/HybridANdMRO.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/12_OOPS/Inheritance/SuperKeyword.py" beforeDir="false" afterPath="$PROJECT_DIR$/12_OOPS/Inheritance/SuperKeyword.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/12_OOPS/Inheritance/SuperMethod.py" beforeDir="false" afterPath="$PROJECT_DIR$/12_OOPS/Inheritance/SuperMethod.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/12_OOPS/class/ClassWithClassVariable_Method.py" beforeDir="false" afterPath="$PROJECT_DIR$/12_OOPS/class/ClassWithClassVariable_Method.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/10_Exceptions/Exceptions_new.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/10_Exceptions/Execptions_combinations.py" beforeDir="false" afterPath="$PROJECT_DIR$/10_Exceptions/Execptions_combinations.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -289,14 +280,6 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1717856429411</updated>
-    </task>
-    <task id="LOCAL-00022" summary="API Testcases">
-      <option name="closed" value="true" />
-      <created>1718729877514</created>
-      <option name="number" value="00022" />
-      <option name="presentableId" value="LOCAL-00022" />
-      <option name="project" value="LOCAL" />
-      <updated>1718729877514</updated>
     </task>
     <task id="LOCAL-00023" summary="API Testcases">
       <option name="closed" value="true" />
@@ -682,7 +665,15 @@
       <option name="project" value="LOCAL" />
       <updated>1733764812018</updated>
     </task>
-    <option name="localTasksCounter" value="71" />
+    <task id="LOCAL-00071" summary="API Testcases">
+      <option name="closed" value="true" />
+      <created>1733942929078</created>
+      <option name="number" value="00071" />
+      <option name="presentableId" value="LOCAL-00071" />
+      <option name="project" value="LOCAL" />
+      <updated>1733942929078</updated>
+    </task>
+    <option name="localTasksCounter" value="72" />
     <servers />
   </component>
   <component name="VcsManagerConfiguration">

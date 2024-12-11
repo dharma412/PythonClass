@@ -147,3 +147,47 @@ finally:
 #     print("try")
 # else:
 #     print("else")
+
+'''********************* Type of exceptions****************************'''
+'''
+Pre defined 
+Customer exception
+'''
+#example -1
+class TooYoungException(Exception):
+ def __init__(self,arg):
+    self.msg=arg
+
+class TooOldException(Exception):
+    def __init__(self,arg):
+        self.msg=arg
+
+age=int(input("Enter Age:"))
+if age>60:
+    raise TooYoungException("Plz wait some more time you will get best match soon!!!")
+elif age<18:
+    raise TooOldException("Your age already crossed marriage age...no chance of getting marriage")
+else:
+    print("You will get match details soon by email!!!")
+
+#example -2
+
+# builtin-exceptions
+class smallvalueexception(Exception):
+    """ small values not found. """
+
+    def __init__(self, *args):  # real signature unknown
+        print(*args)
+
+class largevalue(Exception):
+    pass
+
+try:
+        a=int(input("enter the value: "))
+        if a<10:
+            raise smallvalueexception("this is messgae","This is 2nd error")
+        else:
+            raise largevalue
+except (smallvalueexception) as e:
+        print(e)
+        print("This is small/large exception")
