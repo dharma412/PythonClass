@@ -1,5 +1,15 @@
-def functionname():
-    print("hello world")
+def suntwonum(a,b=10):
+    c=a+b
+    return (c)
+
+result=str(suntwonum(18,25))
+print(type(result))
+
+def argfunc(**a):
+    print(type(a))
+    
+argfunc(vale="name",value2="name3")
+
 
 def greet(name, msg):
     """This function greets to

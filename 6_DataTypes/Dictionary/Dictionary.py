@@ -14,7 +14,7 @@ dic13={2:2,'name':'version'}
 dic_={2:2,'name':'version',1:[1,2,4,6,3]}
 print(type(dic_))
 
-dic_={2:'2','name':'version',(1,2,34):(1,2,4,6,3)}
+dic_={2:'2','name':'version',[1,2,34]:(1,2,4,6,3)}
 print((dic_))
 
 
@@ -27,12 +27,14 @@ print(my_dictionary12)
 
 # access element and update the values add dictionary.
 dic_={2:2,'name':'version',1:[1,2,4,6,3]}
-print(dic_['name'])
+# print(dic_['name8'])
+dic_['name']='version100'
+print(dic_)
 
 #print(dic_['name2'])  # retun keyerror if key is not there in dictionary.
 #print(dic_.get('name2')) #return none if key is not there in dictionary
 
-dic_['name']='version100'
+
 #dic_['name4']='version12'
 #dic_['name5']='version12'
 #dic_['name6']='version12'
@@ -49,14 +51,15 @@ print(dic_)
 
 # methods
 dic1_={'name':'teja','name1':'anil','name3':'mani',6:'mani4'}
-dic1_.update(name1='ujujdfd')
-print(dic1_)
-#items
-#for i,j in dic1_.items():
- #   print(i,j)
+# dic1_.update(name1='ujujdfd')
+# print(dic1_)
+
+# items
+# for i,j in dic1_.items():
+#    print(i,j)
 #
-#for i in dic1_.keys():
- #   print(i)
+# for i in dic1_.keys():
+#    print(i)
 
 #for i in dic1_.values():
 #    print(i)
@@ -91,11 +94,9 @@ str1='I am teja'
 for i in str1:
     print(i, end=',')
 
-dic3={'name':'jhon',1:'nani','list':[2,4,5,6],'new':'newvalue','new':'puybdhfd'}
-print(dic3)
-print(dic3.update(name='new value'))
-print(dic3)
-print(dic3.get(4,'nonfound'))
+dic3={'name':'jhon',1:'nani','list':[2,4,5,6],'new':"value"}
+print(dic3.update(list1='new value'))
+
 
 
 keys={'a','e','i','o','u'}
@@ -126,13 +127,13 @@ dic3.popitem()
 
 #dictionary Comprehension
 dict1 = {'a': 1, 'b': 2, 'c': 3, 'd': 4, 'e': 5}
-mydictionary={k:v*v*v for (k,v ) in dict1.items()}
+mydictionary={v*v*v for  (v ) in dict1.values()}
 print(mydictionary)
 
 
 #nested Dictionary
 nest_dict={ 'Dict1': 234,'Dict2': {'name': 'Bob', 'age': '25'}}
-print(nest_dict['Dict2']['name'])
+print(nest_dict['Dict2']['age'])
 print(nest_dict)
 
 nest_dict['Dict3'] = {'name': 'Cara', 'age': 25}
@@ -173,11 +174,10 @@ for i in result:
 #items
 dic1_={'name':'teja','name1':'anil','name3':'mani','name4':'mani4'}
 
-result=dic1_.items()
 
-for i in result:
-    print(type(i))
-    print(i[0],i[1])
+for i,j in dic1_.items():
+    print(i,j)
+
 
 
 
@@ -196,7 +196,7 @@ print(dic1_)
 # Return correspoding value if key is there in dictionary else new key and value will be added in dictionary
 # if no value provide defalut value  to None.
 dic1_={'name':'teja','name1':'anil','name3':'mani','name4':'mani4'}
-result=dic1_.setdefault('name22',23)
+result=dic1_.setdefault('name11',23)
 print(result)
 print(dic1_)
 
@@ -205,7 +205,7 @@ print(dic1_)
 list1=[1,2,3,5,543]
 value="thisispython"
 dic1={}
-dict2=dic1.fromkeys(list1,value)  # if we dont give value default to None.
+dict2=dic1.fromkeys(list1)  # if we dont give value default to None.
 print(dict2)
 
 

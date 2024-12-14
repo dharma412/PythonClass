@@ -5,9 +5,12 @@
 # <<	Zero fill left shift	Shift left by pushing zeros in from the right and let the leftmost bits fall off
 # >>	Signed right shift	Shift right by pushing copies of the leftmost bit in from the left, and let the rightmost bits fall off
 
-
-
-
+# &~
+#
+# 1 1  1 0  1   0
+# 1 0  0  1 1   1
+# 0 1  0  1 1   1
+# 0 0  0  1 0   0
 a=10  # 1010
 b=4   # 0100
 

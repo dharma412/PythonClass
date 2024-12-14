@@ -18,7 +18,7 @@ print(4**3)
 
 #division always return quotient
 
-print(10/6)  # normal division return float
+print(5//2)  # normal division return float
 
 
 print(10//8)  # floor division

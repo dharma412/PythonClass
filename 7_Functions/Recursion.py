@@ -8,11 +8,11 @@ def fac(x):
     if x==1 or x==0:
           return 1
     else:
-       print(x)
+       # print(x)
        result=x*fac(x-1)
        #print(result)
     return result
-result=fac(3)
+result=fac(5)
 print(result)
 
 

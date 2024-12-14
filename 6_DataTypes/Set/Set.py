@@ -30,7 +30,6 @@ print((myset))
 myset={1.0, "Hello", (1, 2, 3),2.6,2.6}
 print(myset)
 
-
 #set can not have duplicate elements
 my_set = {1, 2, 3, 4, 3, 2}
 print(my_set)
@@ -110,7 +109,7 @@ print(A.intersection(B))
 
 #**************** differnce ************
 A = {1,2,3,4,5,7}
-B = {4,5,6,8,8,6}
+B = {4,5,6,8,9,10}
 print(A-B)
 print(A.difference(B))
 
@@ -140,10 +139,3 @@ y = {"google", "microsoft", "apple"}
 y.difference_update(x)
 print(x)
 print(y)
-
-
-
-
-
-
-

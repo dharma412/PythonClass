@@ -16,5 +16,8 @@ if marks<100:
         print("I am passed but with A grade")
     elif 100<=marks>=90:
         print("I am passed with A+")
+    else:
+        print("")
 else:
     print("give propernumermarks below 100")
+

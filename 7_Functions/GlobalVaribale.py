@@ -25,5 +25,6 @@ def foo():
     print("Calling bar now")
     bar()
     print("After calling bar: ", x)
+
 foo()
 print("x in main: ", x)

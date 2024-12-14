@@ -203,19 +203,6 @@ lis1=[x*x for x in list1]
 print(lis1)
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
 #************************ Problem *******************************
 #Print all even numbers from given list
 list1=[1,2,3,65,2,457,2,9,8,62,87,2,2,2,8,62,2,2,2,2,8,62]
@@ -233,20 +220,6 @@ for i in list1:
 
 print(list2)
 
-
-
-
-
-
-
-
-
-
-#print(list2)
-a=8        #
-b='33433'  # string
-
-list2=[1,2,3,4]
 
 
 

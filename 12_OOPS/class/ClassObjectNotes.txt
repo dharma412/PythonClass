@@ -63,4 +63,3 @@ default constructor.
             del classname.variablename
             But inside classmethod we can also use cls variable
             del cls.variablename
-
