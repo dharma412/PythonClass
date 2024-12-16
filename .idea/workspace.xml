@@ -5,9 +5,19 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="0779dc26-a903-4bb0-ab71-e7f9297d36a2" name="Changes" comment="API Testcases">
+      <change afterPath="$PROJECT_DIR$/19_CodingStandards/File.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/19_CodingStandards/NamingConventions.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/19_CodingStandards/__init__.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/10_Exceptions/Exceptions_new.py" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/10_Exceptions/Execptions_combinations.py" beforeDir="false" afterPath="$PROJECT_DIR$/10_Exceptions/Execptions_combinations.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/17_SeleniumCLass/ActionChains/ActionChainObject.py" beforeDir="false" afterPath="$PROJECT_DIR$/17_SeleniumCLass/ActionChains/ActionChainObject.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/17_SeleniumCLass/Alerts/Alerts.py" beforeDir="false" afterPath="$PROJECT_DIR$/17_SeleniumCLass/Alerts/Alerts.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/17_SeleniumCLass/DropDownList/List.py" beforeDir="false" afterPath="$PROJECT_DIR$/17_SeleniumCLass/DropDownList/List.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/17_SeleniumCLass/Locators/CSS/Sample.py" beforeDir="false" afterPath="$PROJECT_DIR$/17_SeleniumCLass/Locators/CSS/Sample.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/17_SeleniumCLass/Locators/Locators.py" beforeDir="false" afterPath="$PROJECT_DIR$/17_SeleniumCLass/Locators/Locators.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/17_SeleniumCLass/Login/Locators.py" beforeDir="false" afterPath="$PROJECT_DIR$/17_SeleniumCLass/Login/Locators.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/17_SeleniumCLass/Login/SampleSelenium.py" beforeDir="false" afterPath="$PROJECT_DIR$/17_SeleniumCLass/Login/SampleSelenium.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Python Testing TOC Updated.xlsx" beforeDir="false" afterPath="$PROJECT_DIR$/Python Testing TOC Updated.xlsx" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -93,6 +103,7 @@
     "Python.JsonStringtoPython.executor": "Run",
     "Python.JsonToFile.executor": "Run",
     "Python.List1.executor": "Run",
+    "Python.Locators.executor": "Run",
     "Python.MembershipOperators.executor": "Run",
     "Python.OSModule.executor": "Run",
     "Python.PythonToJsonString_Dumps.executor": "Run",
@@ -112,7 +123,7 @@
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "git-widget-placeholder": "master",
     "last_opened_file_path": "C:/mydocuments/PythonClass/Project/Data",
-    "settings.editor.selected.configurable": "preferences.fileTypes"
+    "settings.editor.selected.configurable": "com.jetbrains.python.configuration.PyActiveSdkModuleConfigurable"
   }
 }]]></component>
   <component name="RecentsManager">
@@ -132,29 +143,7 @@
   <component name="RobotOptionsProvider">
     <option name="capitalizeKeywords" value="true" />
   </component>
-  <component name="RunManager" selected="Python.Exceptions_new">
-    <configuration name="7_MethodOverriding" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
-      <module name="PythonClass" />
-      <option name="ENV_FILES" value="" />
-      <option name="INTERPRETER_OPTIONS" value="" />
-      <option name="PARENT_ENVS" value="true" />
-      <envs>
-        <env name="PYTHONUNBUFFERED" value="1" />
-      </envs>
-      <option name="SDK_HOME" value="" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/12_OOPS/Inheritance" />
-      <option name="IS_MODULE_SDK" value="true" />
-      <option name="ADD_CONTENT_ROOTS" value="true" />
-      <option name="ADD_SOURCE_ROOTS" value="true" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/12_OOPS/Inheritance/7_MethodOverriding.py" />
-      <option name="PARAMETERS" value="" />
-      <option name="SHOW_COMMAND_LINE" value="false" />
-      <option name="EMULATE_TERMINAL" value="false" />
-      <option name="MODULE_MODE" value="false" />
-      <option name="REDIRECT_INPUT" value="false" />
-      <option name="INPUT_FILE" value="" />
-      <method v="2" />
-    </configuration>
+  <component name="RunManager" selected="Python.Locators">
     <configuration name="Exceptions_new" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
       <module name="PythonClass" />
       <option name="ENV_FILES" value="" />
@@ -177,7 +166,7 @@
       <option name="INPUT_FILE" value="" />
       <method v="2" />
     </configuration>
-    <configuration name="HybridANdMRO" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
+    <configuration name="Locators" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
       <module name="PythonClass" />
       <option name="ENV_FILES" value="" />
       <option name="INTERPRETER_OPTIONS" value="" />
@@ -186,11 +175,33 @@
         <env name="PYTHONUNBUFFERED" value="1" />
       </envs>
       <option name="SDK_HOME" value="" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/12_OOPS/Inheritance" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/17_SeleniumCLass/Login" />
       <option name="IS_MODULE_SDK" value="true" />
       <option name="ADD_CONTENT_ROOTS" value="true" />
       <option name="ADD_SOURCE_ROOTS" value="true" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/12_OOPS/Inheritance/HybridANdMRO.py" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/17_SeleniumCLass/Login/Locators.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
+    <configuration name="Sample" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
+      <module name="PythonClass" />
+      <option name="ENV_FILES" value="" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/17_SeleniumCLass/Locators/CSS" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/17_SeleniumCLass/Locators/CSS/Sample.py" />
       <option name="PARAMETERS" value="" />
       <option name="SHOW_COMMAND_LINE" value="false" />
       <option name="EMULATE_TERMINAL" value="false" />
@@ -257,11 +268,11 @@
     </configuration>
     <recent_temporary>
       <list>
+        <item itemvalue="Python.Locators" />
+        <item itemvalue="Python.Sample" />
         <item itemvalue="Python.Exceptions_new" />
         <item itemvalue="Python.SuperMethod" />
         <item itemvalue="Python.SuperKeyword" />
-        <item itemvalue="Python.HybridANdMRO" />
-        <item itemvalue="Python.7_MethodOverriding" />
       </list>
     </recent_temporary>
   </component>
@@ -280,22 +291,6 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1717856429411</updated>
-    </task>
-    <task id="LOCAL-00023" summary="API Testcases">
-      <option name="closed" value="true" />
-      <created>1718729899359</created>
-      <option name="number" value="00023" />
-      <option name="presentableId" value="LOCAL-00023" />
-      <option name="project" value="LOCAL" />
-      <updated>1718729899359</updated>
-    </task>
-    <task id="LOCAL-00024" summary="API Testcases">
-      <option name="closed" value="true" />
-      <created>1718729941525</created>
-      <option name="number" value="00024" />
-      <option name="presentableId" value="LOCAL-00024" />
-      <option name="project" value="LOCAL" />
-      <updated>1718729941525</updated>
     </task>
     <task id="LOCAL-00025" summary="API Testcases">
       <option name="closed" value="true" />
@@ -673,7 +668,23 @@
       <option name="project" value="LOCAL" />
       <updated>1733942929078</updated>
     </task>
-    <option name="localTasksCounter" value="72" />
+    <task id="LOCAL-00072" summary="API Testcases">
+      <option name="closed" value="true" />
+      <created>1733944014872</created>
+      <option name="number" value="00072" />
+      <option name="presentableId" value="LOCAL-00072" />
+      <option name="project" value="LOCAL" />
+      <updated>1733944014872</updated>
+    </task>
+    <task id="LOCAL-00073" summary="API Testcases">
+      <option name="closed" value="true" />
+      <created>1733944226566</created>
+      <option name="number" value="00073" />
+      <option name="presentableId" value="LOCAL-00073" />
+      <option name="project" value="LOCAL" />
+      <updated>1733944226566</updated>
+    </task>
+    <option name="localTasksCounter" value="74" />
     <servers />
   </component>
   <component name="VcsManagerConfiguration">

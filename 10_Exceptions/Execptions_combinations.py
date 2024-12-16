@@ -12,6 +12,10 @@ try:
         f.write("thisis python")
 except (FileNotFoundError,ArithmeticError) as e:
     print(e)
+except IndexError:
+    print()
+except :
+    print("I am defauult")
 else:
     print("I dont see any exception")
 finally:

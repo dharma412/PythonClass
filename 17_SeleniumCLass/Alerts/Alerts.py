@@ -3,7 +3,6 @@ from selenium import webdriver
 from selenium.webdriver.common.by import By
 from webdriver_manager.chrome import ChromeDriverManager
 from selenium.webdriver.common.alert import Alert
-<<<<<<< HEAD
 # create webdriver object
 driver = webdriver.Chrome(ChromeDriverManager().install())
 # get ide.geeksforgeeks.org
