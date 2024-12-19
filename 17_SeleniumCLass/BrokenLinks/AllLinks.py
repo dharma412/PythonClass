@@ -5,7 +5,7 @@ from selenium.webdriver.common.by import  By
 
 import time
 
-driver = webdriver.Chrome(ChromeDriverManager().install())
+driver=webdriver.Chrome(service=Service(ChromeDriverManager(url='https://storage.googleapis.com/chrome-for-testing-public/131.0.6778.108/win64/chromedriver-win64.zip').install()))
 
 driver.get("https://www.pavantestingtools.com/")
 driver.maximize_window()

@@ -5,19 +5,53 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="0779dc26-a903-4bb0-ab71-e7f9297d36a2" name="Changes" comment="API Testcases">
-      <change afterPath="$PROJECT_DIR$/19_CodingStandards/File.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/19_CodingStandards/NamingConventions.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/19_CodingStandards/__init__.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/17_SeleniumCLass/RadioButton/new.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/10_Exceptions/Execptions_combinations.py" beforeDir="false" afterPath="$PROJECT_DIR$/10_Exceptions/Execptions_combinations.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/17_SeleniumCLass/ActionChains/ActionChainObject.py" beforeDir="false" afterPath="$PROJECT_DIR$/17_SeleniumCLass/ActionChains/ActionChainObject.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/17_SeleniumCLass/ActionChains/Context_Or_rightClick.py" beforeDir="false" afterPath="$PROJECT_DIR$/17_SeleniumCLass/ActionChains/Context_Or_rightClick.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/17_SeleniumCLass/ActionChains/DoubleClick.py" beforeDir="false" afterPath="$PROJECT_DIR$/17_SeleniumCLass/ActionChains/DoubleClick.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/17_SeleniumCLass/ActionChains/Drag_And_Drop.py" beforeDir="false" afterPath="$PROJECT_DIR$/17_SeleniumCLass/ActionChains/Drag_And_Drop.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/17_SeleniumCLass/ActionChains/Move_to_element.py" beforeDir="false" afterPath="$PROJECT_DIR$/17_SeleniumCLass/ActionChains/Move_to_element.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/17_SeleniumCLass/ActionChains/Move_to_element_withoffset.py" beforeDir="false" afterPath="$PROJECT_DIR$/17_SeleniumCLass/ActionChains/Move_to_element_withoffset.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/17_SeleniumCLass/ActionChains/Sliders.py" beforeDir="false" afterPath="$PROJECT_DIR$/17_SeleniumCLass/ActionChains/Sliders.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/17_SeleniumCLass/ActionChains/drag_and_drop_offset.py" beforeDir="false" afterPath="$PROJECT_DIR$/17_SeleniumCLass/ActionChains/drag_and_drop_offset.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/17_SeleniumCLass/ActionChains/move_By_offset.py" beforeDir="false" afterPath="$PROJECT_DIR$/17_SeleniumCLass/ActionChains/move_By_offset.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/17_SeleniumCLass/Alerts/Alerts.py" beforeDir="false" afterPath="$PROJECT_DIR$/17_SeleniumCLass/Alerts/Alerts.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/17_SeleniumCLass/DropDownList/List.py" beforeDir="false" afterPath="$PROJECT_DIR$/17_SeleniumCLass/DropDownList/List.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/17_SeleniumCLass/Locators/CSS/Sample.py" beforeDir="false" afterPath="$PROJECT_DIR$/17_SeleniumCLass/Locators/CSS/Sample.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/17_SeleniumCLass/Locators/Locators.py" beforeDir="false" afterPath="$PROJECT_DIR$/17_SeleniumCLass/Locators/Locators.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/17_SeleniumCLass/AssertsAndVerifications/Asserstion1.py" beforeDir="false" afterPath="$PROJECT_DIR$/17_SeleniumCLass/AssertsAndVerifications/Asserstion1.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/17_SeleniumCLass/BrokenLinks/AllLinks.py" beforeDir="false" afterPath="$PROJECT_DIR$/17_SeleniumCLass/BrokenLinks/AllLinks.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/17_SeleniumCLass/BrokenLinks/BrokenLinks.py" beforeDir="false" afterPath="$PROJECT_DIR$/17_SeleniumCLass/BrokenLinks/BrokenLinks.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/17_SeleniumCLass/Calender_Automation/Calender1_yatra.py" beforeDir="false" afterPath="$PROJECT_DIR$/17_SeleniumCLass/Calender_Automation/Calender1_yatra.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/17_SeleniumCLass/Calender_Automation/Calender2.py" beforeDir="false" afterPath="$PROJECT_DIR$/17_SeleniumCLass/Calender_Automation/Calender2.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/17_SeleniumCLass/Calender_Automation/Calender_UsingJavaScript.py" beforeDir="false" afterPath="$PROJECT_DIR$/17_SeleniumCLass/Calender_Automation/Calender_UsingJavaScript.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/17_SeleniumCLass/CheckBox/CheckBox.py" beforeDir="false" afterPath="$PROJECT_DIR$/17_SeleniumCLass/CheckBox/CheckBox.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/17_SeleniumCLass/DesiredCapabilities/DesiredCapabilities.py" beforeDir="false" afterPath="$PROJECT_DIR$/17_SeleniumCLass/DesiredCapabilities/DesiredCapabilities.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/17_SeleniumCLass/DropDownList/DyanamicDropDwon.py" beforeDir="false" afterPath="$PROJECT_DIR$/17_SeleniumCLass/DropDownList/DyanamicDropDwon.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/17_SeleniumCLass/DropDownList/Select.py" beforeDir="false" afterPath="$PROJECT_DIR$/17_SeleniumCLass/DropDownList/Select.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/17_SeleniumCLass/DropDownList/Selectfile2.py" beforeDir="false" afterPath="$PROJECT_DIR$/17_SeleniumCLass/DropDownList/Selectfile2.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/17_SeleniumCLass/Exception/ElementNotInteractableException.py" beforeDir="false" afterPath="$PROJECT_DIR$/17_SeleniumCLass/Exception/ElementNotInteractableException.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/17_SeleniumCLass/Exception/ElementNotSelectableException.py" beforeDir="false" afterPath="$PROJECT_DIR$/17_SeleniumCLass/Exception/ElementNotSelectableException.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/17_SeleniumCLass/Exception/ElementNotVisibleException.py" beforeDir="false" afterPath="$PROJECT_DIR$/17_SeleniumCLass/Exception/ElementNotVisibleException.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/17_SeleniumCLass/Exception/Exception.py" beforeDir="false" afterPath="$PROJECT_DIR$/17_SeleniumCLass/Exception/Exception.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/17_SeleniumCLass/Exception/NoAlertPresentException.py" beforeDir="false" afterPath="$PROJECT_DIR$/17_SeleniumCLass/Exception/NoAlertPresentException.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/17_SeleniumCLass/Exception/NoSuchAttributeException.py" beforeDir="false" afterPath="$PROJECT_DIR$/17_SeleniumCLass/Exception/NoSuchAttributeException.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/17_SeleniumCLass/Exception/NoSuchElementException.py" beforeDir="false" afterPath="$PROJECT_DIR$/17_SeleniumCLass/Exception/NoSuchElementException.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/17_SeleniumCLass/Exception/NoSuchFrameException.py" beforeDir="false" afterPath="$PROJECT_DIR$/17_SeleniumCLass/Exception/NoSuchFrameException.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/17_SeleniumCLass/Exception/StaleElementReferenceException.py" beforeDir="false" afterPath="$PROJECT_DIR$/17_SeleniumCLass/Exception/StaleElementReferenceException.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/17_SeleniumCLass/ExplicitAndImplicitWaits/Waits.py" beforeDir="false" afterPath="$PROJECT_DIR$/17_SeleniumCLass/ExplicitAndImplicitWaits/Waits.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/17_SeleniumCLass/GetWindowsHandles/WindowHandles.py" beforeDir="false" afterPath="$PROJECT_DIR$/17_SeleniumCLass/GetWindowsHandles/WindowHandles.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/17_SeleniumCLass/HandleCertificateInSelenium/handleCertificate.py" beforeDir="false" afterPath="$PROJECT_DIR$/17_SeleniumCLass/HandleCertificateInSelenium/handleCertificate.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/17_SeleniumCLass/Iframes/Frames.py" beforeDir="false" afterPath="$PROJECT_DIR$/17_SeleniumCLass/Iframes/Frames.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/17_SeleniumCLass/JavaScriptExecutor/JavaScriptInPython.py" beforeDir="false" afterPath="$PROJECT_DIR$/17_SeleniumCLass/JavaScriptExecutor/JavaScriptInPython.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/17_SeleniumCLass/Login/Locators.py" beforeDir="false" afterPath="$PROJECT_DIR$/17_SeleniumCLass/Login/Locators.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/17_SeleniumCLass/Login/SampleSelenium.py" beforeDir="false" afterPath="$PROJECT_DIR$/17_SeleniumCLass/Login/SampleSelenium.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Python Testing TOC Updated.xlsx" beforeDir="false" afterPath="$PROJECT_DIR$/Python Testing TOC Updated.xlsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/17_SeleniumCLass/NavigationCommands/NavigationCommand.py" beforeDir="false" afterPath="$PROJECT_DIR$/17_SeleniumCLass/NavigationCommands/NavigationCommand.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/17_SeleniumCLass/RadioButton/RadioButton.py" beforeDir="false" afterPath="$PROJECT_DIR$/17_SeleniumCLass/RadioButton/RadioButton.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/17_SeleniumCLass/ScreenShot/Screenshot.py" beforeDir="false" afterPath="$PROJECT_DIR$/17_SeleniumCLass/ScreenShot/Screenshot.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/17_SeleniumCLass/ScrollAPage/ScrollPage.py" beforeDir="false" afterPath="$PROJECT_DIR$/17_SeleniumCLass/ScrollAPage/ScrollPage.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/17_SeleniumCLass/Tables/Tables.py" beforeDir="false" afterPath="$PROJECT_DIR$/17_SeleniumCLass/Tables/Tables.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/17_SeleniumCLass/UpLoadAndDownloadFile/UploadFile.py" beforeDir="false" afterPath="$PROJECT_DIR$/17_SeleniumCLass/UpLoadAndDownloadFile/UploadFile.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/17_SeleniumCLass/WaitsInSelenium/ImplicitWait.py" beforeDir="false" afterPath="$PROJECT_DIR$/17_SeleniumCLass/WaitsInSelenium/ImplicitWait.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/17_SeleniumCLass/cookies/addAndDeletecookies.py" beforeDir="false" afterPath="$PROJECT_DIR$/17_SeleniumCLass/cookies/addAndDeletecookies.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -72,60 +106,64 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "ASKED_ADD_EXTERNAL_FILES": "true",
-    "ASKED_SHARE_PROJECT_CONFIGURATION_FILES": "true",
-    "Python.1_InheritanceInitialProgram (1).executor": "Run",
-    "Python.1_SingleInheritance.executor": "Run",
-    "Python.2_DemoProgramme.executor": "Run",
-    "Python.2_MultiLevelInheritance.executor": "Run",
-    "Python.3_MultiLevelInheritance.executor": "Run",
-    "Python.4_Superkeyword_SingleInheritance.executor": "Run",
-    "Python.5_HybridInheritance.executor": "Run",
-    "Python.5_SuperKeyword_MultilevelAndMultiple.executor": "Run",
-    "Python.6_Multlevel_SuperKeyword_Inheritance.executor": "Run",
-    "Python.7_MethodOverriding.executor": "Run",
-    "Python.AddQueryParaToRequest.executor": "Run",
-    "Python.CarClass.executor": "Run",
-    "Python.ClassCar.executor": "Run",
-    "Python.ClassWithClassVariable_Method.executor": "Run",
-    "Python.ClassWithOutConstrutor.executor": "Run",
-    "Python.Exceptions_new.executor": "Run",
-    "Python.File.executor": "Run",
-    "Python.FileHandiling.executor": "Run",
-    "Python.HybridANdMRO.executor": "Run",
-    "Python.IdentityOperators.executor": "Run",
-    "Python.InheritanceInitialProgram.executor": "Run",
-    "Python.Input.executor": "Run",
-    "Python.JsonFromFile.executor": "Run",
-    "Python.JsonFromFile_Load (1).executor": "Run",
-    "Python.JsonStringtoPython.executor": "Run",
-    "Python.JsonToFile.executor": "Run",
-    "Python.List1.executor": "Run",
-    "Python.Locators.executor": "Run",
-    "Python.MembershipOperators.executor": "Run",
-    "Python.OSModule.executor": "Run",
-    "Python.PythonToJsonString_Dumps.executor": "Run",
-    "Python.Randome.executor": "Run",
-    "Python.STringPractice.executor": "Run",
-    "Python.Sample.executor": "Run",
-    "Python.SuperKeyword.executor": "Run",
-    "Python.SuperMethod.executor": "Run",
-    "Python.TuplePractice.executor": "Run",
-    "Python.classClass.executor": "Run",
-    "Python.ifstate.executor": "Run",
-    "Robot Framework.TestExecution.executor": "Run",
-    "Robot Framework.run [Test1].executor": "Run",
-    "Robot Framework.run current file.executor": "Run",
-    "Robot Runner.Basic - \"Test1\".executor": "Run",
-    "Robot Runner.RobotExecution.executor": "Run",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "git-widget-placeholder": "master",
-    "last_opened_file_path": "C:/mydocuments/PythonClass/Project/Data",
-    "settings.editor.selected.configurable": "com.jetbrains.python.configuration.PyActiveSdkModuleConfigurable"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;ASKED_ADD_EXTERNAL_FILES&quot;: &quot;true&quot;,
+    &quot;ASKED_SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
+    &quot;Python tests.Python tests in GetWindowHandles.py.executor&quot;: &quot;Run&quot;,
+    &quot;Python.1_InheritanceInitialProgram (1).executor&quot;: &quot;Run&quot;,
+    &quot;Python.1_SingleInheritance.executor&quot;: &quot;Run&quot;,
+    &quot;Python.2_DemoProgramme.executor&quot;: &quot;Run&quot;,
+    &quot;Python.2_MultiLevelInheritance.executor&quot;: &quot;Run&quot;,
+    &quot;Python.3_MultiLevelInheritance.executor&quot;: &quot;Run&quot;,
+    &quot;Python.4_Superkeyword_SingleInheritance.executor&quot;: &quot;Run&quot;,
+    &quot;Python.5_HybridInheritance.executor&quot;: &quot;Run&quot;,
+    &quot;Python.5_SuperKeyword_MultilevelAndMultiple.executor&quot;: &quot;Run&quot;,
+    &quot;Python.6_Multlevel_SuperKeyword_Inheritance.executor&quot;: &quot;Run&quot;,
+    &quot;Python.7_MethodOverriding.executor&quot;: &quot;Run&quot;,
+    &quot;Python.AddQueryParaToRequest.executor&quot;: &quot;Run&quot;,
+    &quot;Python.AllLinks.executor&quot;: &quot;Run&quot;,
+    &quot;Python.CarClass.executor&quot;: &quot;Run&quot;,
+    &quot;Python.ClassCar.executor&quot;: &quot;Run&quot;,
+    &quot;Python.ClassWithClassVariable_Method.executor&quot;: &quot;Run&quot;,
+    &quot;Python.ClassWithOutConstrutor.executor&quot;: &quot;Run&quot;,
+    &quot;Python.DesiredCapabilities.executor&quot;: &quot;Run&quot;,
+    &quot;Python.Exceptions_new.executor&quot;: &quot;Run&quot;,
+    &quot;Python.File.executor&quot;: &quot;Run&quot;,
+    &quot;Python.FileHandiling.executor&quot;: &quot;Run&quot;,
+    &quot;Python.HybridANdMRO.executor&quot;: &quot;Run&quot;,
+    &quot;Python.IdentityOperators.executor&quot;: &quot;Run&quot;,
+    &quot;Python.InheritanceInitialProgram.executor&quot;: &quot;Run&quot;,
+    &quot;Python.Input.executor&quot;: &quot;Run&quot;,
+    &quot;Python.JsonFromFile.executor&quot;: &quot;Run&quot;,
+    &quot;Python.JsonFromFile_Load (1).executor&quot;: &quot;Run&quot;,
+    &quot;Python.JsonStringtoPython.executor&quot;: &quot;Run&quot;,
+    &quot;Python.JsonToFile.executor&quot;: &quot;Run&quot;,
+    &quot;Python.List1.executor&quot;: &quot;Run&quot;,
+    &quot;Python.Locators.executor&quot;: &quot;Run&quot;,
+    &quot;Python.MembershipOperators.executor&quot;: &quot;Run&quot;,
+    &quot;Python.OSModule.executor&quot;: &quot;Run&quot;,
+    &quot;Python.PythonToJsonString_Dumps.executor&quot;: &quot;Run&quot;,
+    &quot;Python.Randome.executor&quot;: &quot;Run&quot;,
+    &quot;Python.STringPractice.executor&quot;: &quot;Run&quot;,
+    &quot;Python.Sample.executor&quot;: &quot;Run&quot;,
+    &quot;Python.SampleSelenium.executor&quot;: &quot;Run&quot;,
+    &quot;Python.SuperKeyword.executor&quot;: &quot;Run&quot;,
+    &quot;Python.SuperMethod.executor&quot;: &quot;Run&quot;,
+    &quot;Python.TuplePractice.executor&quot;: &quot;Run&quot;,
+    &quot;Python.classClass.executor&quot;: &quot;Run&quot;,
+    &quot;Python.ifstate.executor&quot;: &quot;Run&quot;,
+    &quot;Robot Framework.TestExecution.executor&quot;: &quot;Run&quot;,
+    &quot;Robot Framework.run [Test1].executor&quot;: &quot;Run&quot;,
+    &quot;Robot Framework.run current file.executor&quot;: &quot;Run&quot;,
+    &quot;Robot Runner.Basic - \&quot;Test1\&quot;.executor&quot;: &quot;Run&quot;,
+    &quot;Robot Runner.RobotExecution.executor&quot;: &quot;Run&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;master&quot;,
+    &quot;last_opened_file_path&quot;: &quot;C:/mydocuments/PythonClass/Project/Data&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;com.jetbrains.python.configuration.PyActiveSdkModuleConfigurable&quot;
   }
-}]]></component>
+}</component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
       <recent name="C:\mydocuments\PythonClass\Project\Data" />
@@ -143,8 +181,20 @@
   <component name="RobotOptionsProvider">
     <option name="capitalizeKeywords" value="true" />
   </component>
-  <component name="RunManager" selected="Python.Locators">
-    <configuration name="Exceptions_new" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
+  <component name="RunManager" selected="Python tests.Python tests in GetWindowHandles.py">
+    <configuration default="true" type="robot-runner" factoryName="RobotRunConfigurationFactory">
+      <option name="extraArguments" />
+      <option name="logFilePath" />
+      <option name="logTitle" />
+      <option name="outputDirPath" />
+      <option name="outputFilePath" />
+      <option name="pabotArguments" />
+      <option name="reportFilePath" />
+      <option name="reportTitle" />
+      <option name="sdkHomePath" />
+      <method v="2" />
+    </configuration>
+    <configuration name="AllLinks" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
       <module name="PythonClass" />
       <option name="ENV_FILES" value="" />
       <option name="INTERPRETER_OPTIONS" value="" />
@@ -153,11 +203,33 @@
         <env name="PYTHONUNBUFFERED" value="1" />
       </envs>
       <option name="SDK_HOME" value="" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/10_Exceptions" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/17_SeleniumCLass/BrokenLinks" />
       <option name="IS_MODULE_SDK" value="true" />
       <option name="ADD_CONTENT_ROOTS" value="true" />
       <option name="ADD_SOURCE_ROOTS" value="true" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/10_Exceptions/Exceptions_new.py" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/17_SeleniumCLass/BrokenLinks/AllLinks.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
+    <configuration name="DesiredCapabilities" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
+      <module name="PythonClass" />
+      <option name="ENV_FILES" value="" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/17_SeleniumCLass/DesiredCapabilities" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/17_SeleniumCLass/DesiredCapabilities/DesiredCapabilities.py" />
       <option name="PARAMETERS" value="" />
       <option name="SHOW_COMMAND_LINE" value="false" />
       <option name="EMULATE_TERMINAL" value="false" />
@@ -188,7 +260,7 @@
       <option name="INPUT_FILE" value="" />
       <method v="2" />
     </configuration>
-    <configuration name="Sample" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
+    <configuration name="SampleSelenium" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
       <module name="PythonClass" />
       <option name="ENV_FILES" value="" />
       <option name="INTERPRETER_OPTIONS" value="" />
@@ -197,11 +269,11 @@
         <env name="PYTHONUNBUFFERED" value="1" />
       </envs>
       <option name="SDK_HOME" value="" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/17_SeleniumCLass/Locators/CSS" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/17_SeleniumCLass/Login" />
       <option name="IS_MODULE_SDK" value="true" />
       <option name="ADD_CONTENT_ROOTS" value="true" />
       <option name="ADD_SOURCE_ROOTS" value="true" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/17_SeleniumCLass/Locators/CSS/Sample.py" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/17_SeleniumCLass/Login/SampleSelenium.py" />
       <option name="PARAMETERS" value="" />
       <option name="SHOW_COMMAND_LINE" value="false" />
       <option name="EMULATE_TERMINAL" value="false" />
@@ -210,76 +282,35 @@
       <option name="INPUT_FILE" value="" />
       <method v="2" />
     </configuration>
-    <configuration name="SuperKeyword" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
+    <configuration name="Python tests in GetWindowHandles.py" type="tests" factoryName="Autodetect" temporary="true" nameIsGenerated="true">
       <module name="PythonClass" />
       <option name="ENV_FILES" value="" />
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
-      <envs>
-        <env name="PYTHONUNBUFFERED" value="1" />
-      </envs>
       <option name="SDK_HOME" value="" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/12_OOPS/Inheritance" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/17_SeleniumCLass/GetWindowsHandles" />
       <option name="IS_MODULE_SDK" value="true" />
       <option name="ADD_CONTENT_ROOTS" value="true" />
       <option name="ADD_SOURCE_ROOTS" value="true" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/12_OOPS/Inheritance/SuperKeyword.py" />
-      <option name="PARAMETERS" value="" />
-      <option name="SHOW_COMMAND_LINE" value="false" />
-      <option name="EMULATE_TERMINAL" value="false" />
-      <option name="MODULE_MODE" value="false" />
-      <option name="REDIRECT_INPUT" value="false" />
-      <option name="INPUT_FILE" value="" />
-      <method v="2" />
-    </configuration>
-    <configuration name="SuperMethod" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
-      <module name="PythonClass" />
-      <option name="ENV_FILES" value="" />
-      <option name="INTERPRETER_OPTIONS" value="" />
-      <option name="PARENT_ENVS" value="true" />
-      <envs>
-        <env name="PYTHONUNBUFFERED" value="1" />
-      </envs>
-      <option name="SDK_HOME" value="" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/12_OOPS/Inheritance" />
-      <option name="IS_MODULE_SDK" value="true" />
-      <option name="ADD_CONTENT_ROOTS" value="true" />
-      <option name="ADD_SOURCE_ROOTS" value="true" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/12_OOPS/Inheritance/SuperMethod.py" />
-      <option name="PARAMETERS" value="" />
-      <option name="SHOW_COMMAND_LINE" value="false" />
-      <option name="EMULATE_TERMINAL" value="false" />
-      <option name="MODULE_MODE" value="false" />
-      <option name="REDIRECT_INPUT" value="false" />
-      <option name="INPUT_FILE" value="" />
-      <method v="2" />
-    </configuration>
-    <configuration default="true" type="robot-runner" factoryName="RobotRunConfigurationFactory">
-      <option name="extraArguments" />
-      <option name="logFilePath" />
-      <option name="logTitle" />
-      <option name="outputDirPath" />
-      <option name="outputFilePath" />
-      <option name="pabotArguments" />
-      <option name="reportFilePath" />
-      <option name="reportTitle" />
-      <option name="sdkHomePath" />
+      <option name="_new_additionalArguments" value="&quot;&quot;" />
+      <option name="_new_target" value="&quot;$PROJECT_DIR$/17_SeleniumCLass/GetWindowsHandles/GetWindowHandles.py&quot;" />
+      <option name="_new_targetType" value="&quot;PATH&quot;" />
       <method v="2" />
     </configuration>
     <recent_temporary>
       <list>
+        <item itemvalue="Python tests.Python tests in GetWindowHandles.py" />
+        <item itemvalue="Python.DesiredCapabilities" />
+        <item itemvalue="Python.SampleSelenium" />
+        <item itemvalue="Python.AllLinks" />
         <item itemvalue="Python.Locators" />
-        <item itemvalue="Python.Sample" />
-        <item itemvalue="Python.Exceptions_new" />
-        <item itemvalue="Python.SuperMethod" />
-        <item itemvalue="Python.SuperKeyword" />
       </list>
     </recent_temporary>
   </component>
   <component name="SharedIndexes">
     <attachedChunks>
       <set>
-        <option value="bundled-python-sdk-5b207ade9991-746f403e7f0c-com.jetbrains.pycharm.community.sharedIndexes.bundled-PC-241.17890.14" />
+        <option value="bundled-python-sdk-babbdf50b680-746f403e7f0c-com.jetbrains.pycharm.community.sharedIndexes.bundled-PC-241.15989.155" />
       </set>
     </attachedChunks>
   </component>

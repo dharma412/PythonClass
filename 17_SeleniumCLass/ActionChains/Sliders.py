@@ -5,7 +5,7 @@ from selenium.webdriver.common.action_chains import  ActionChains
 from PIL import Image
 
 # Here Chrome will be used
-driver = webdriver.Chrome(ChromeDriverManager().install())
+driver=webdriver.Chrome(service=Service(ChromeDriverManager(url='https://storage.googleapis.com/chrome-for-testing-public/131.0.6778.108/win64/chromedriver-win64.zip').install()))
 # URL of website
 driver.maximize_window()
 driver.get("https://jqueryui.com/slider/#colorpicker")
@@ -27,7 +27,7 @@ from webdriver_manager.chrome import ChromeDriverManager
 from selenium.webdriver.common.action_chains import ActionChains
 import time
 from selenium.webdriver.support.ui import Select
-driver = webdriver.Chrome(ChromeDriverManager().install())
+driver=webdriver.Chrome(service=Service(ChromeDriverManager(url='https://storage.googleapis.com/chrome-for-testing-public/131.0.6778.108/win64/chromedriver-win64.zip').install()))
 driver.maximize_window()
 driver.get("https://www.seiyria.com/bootstrap-slider")
 slider = driver.find_element(By.CSS_SELECTOR,"div#example-1 div.slider-handle.min-slider-handle.round")

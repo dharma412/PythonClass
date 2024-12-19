@@ -1,30 +1,18 @@
+
 from selenium import webdriver
-from selenium.webdriver.common.by import By
-from selenium.webdriver.support.ui import WebDriverWait
-from selenium.webdriver.support import expected_conditions as EC
-from webdrivermanager.chrome import ChromeDriverManager
 from selenium.webdriver.chrome.service import Service
 
-service = Service(ChromeDriverManager().download())
-driver = webdriver.Chrome(service=service)
+from webdriver_manager.chrome import ChromeDriverManager
+
+from selenium.webdriver.common.keys import  Keys
+
+#create Driver objcet
+driver=webdriver.Chrome(service=Service(ChromeDriverManager(url='https://storage.googleapis.com/chrome-for-testing-public/131.0.6778.108/win64/chromedriver-win64.zip').install()))
 
 driver.get("http://www.google.com")
 driver.maximize_window()
 
 
-# driver.find_element_by_name(name='q').send_keys("naveen automation")
-#
-# wait=WebDriverWait(driver,200,ignored_exceptions=["elmenet not intracyable exception","No Such a Element Exception"],poll_frequency=4)
-#
-# wait.until(EC.element_to_be_clickable(driver.find_element(By.XPATH,"//input[@type='name']")))
-#
-#
-# optionsList = driver.find_elements(By.XPATH, '//span[contains(text(),"naveen automation")]//child::b')
-#
-# print(len(optionsList))
-#
-# for ele in optionsList:
-#     print(ele.text)
 #
 # driver.get("https://www.youtube.com/")
 # driver.maximize_window()
@@ -47,3 +35,19 @@ driver.maximize_window()
 # time.sleep(10)
 #
 # #//*[@id="value"]
+
+
+
+# driver.find_element_by_name(name='q').send_keys("naveen automation")
+#
+# wait=WebDriverWait(driver,200,ignored_exceptions=["elmenet not intracyable exception","No Such a Element Exception"],poll_frequency=4)
+#
+# wait.until(EC.element_to_be_clickable(driver.find_element(By.XPATH,"//input[@type='name']")))
+#
+#
+# optionsList = driver.find_elements(By.XPATH, '//span[contains(text(),"naveen automation")]//child::b')
+#
+# print(len(optionsList))
+#
+# for ele in optionsList:
+#     print(ele.text)

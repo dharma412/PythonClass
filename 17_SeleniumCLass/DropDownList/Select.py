@@ -9,7 +9,7 @@ from selenium.webdriver.support.select import Select
 from selenium.webdriver.common.by import By
 driver = webdriver.Chrome(executable_path="C:\\chromedriver.exe")
 =======
-driver = webdriver.Chrome(ChromeDriverManager().install())
+driver=webdriver.Chrome(service=Service(ChromeDriverManager(url='https://storage.googleapis.com/chrome-for-testing-public/131.0.6778.108/win64/chromedriver-win64.zip').install()))
 #driver = webdriver.Chrome(executable_path="C:\\chromedriver.exe")
 >>>>>>> 6c4a2aacb6a4d51b30fc808c15c3240350bd8d85
 driver.implicitly_wait(0.5)
