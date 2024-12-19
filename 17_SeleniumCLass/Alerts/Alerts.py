@@ -20,7 +20,7 @@ print(alert.text)
 alert.dismiss()
 alert.accept()
 alert.send_keys("hhdsdsf")
-=======
+
 # # create webdriver object
 # driver=webdriver.Chrome(service=Service(ChromeDriverManager(url='https://storage.googleapis.com/chrome-for-testing-public/131.0.6778.108/win64/chromedriver-win64.zip').install()))
 # # get ide.geeksforgeeks.org
@@ -34,7 +34,7 @@ alert.send_keys("hhdsdsf")
 # # get alert text
 # print(alert.text)
 # alert.dismiss()
->>>>>>> 6c4a2aacb6a4d51b30fc808c15c3240350bd8d85
+
 
 # alter with Text Box
 from selenium import webdriver
