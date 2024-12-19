@@ -14,23 +14,23 @@ driver.get("https://www.rahulshettyacademy.com/AutomationPractice/")
 
 driver.maximize_window()
 time.sleep(5)
-print(driver.current_window_handle)
-driver.find_element(By.XPATH,"//button[text()='Open Window']").click()
+parent_handle=driver.current_window_handle
+driver.find_element(By.XPATH,"//a[text()='Open Tab']").click()
 time.sleep(5)
 
-# driver.switch_to.new_window("window")
-#
-# driver.find_element(By.XPATH,"//a[text()='Courses']").click()
-#
-# time.sleep(5)
+handles=driver.window_handles
 
-#allwindows=driver.window_handles
-# print(len(allwindows))
-# print(type(allwindows))
-#
-# driver.switch_to.window(allwindows[1])
-#
-# driver.find_element(By.XPATH,"//a[text()='Courses']").click()
-#
-# time.sleep(5)
+for i in range(len(handles)):
+    if handles[i] != parent_handle:
+        driver.switch_to.window(handles[i])
+        if driver.title=="QAClick Academy - A Testing Academy to Learn, Earn and Shine":
+            print("I am window")
+            driver.find_element(By.XPATH, "//a[text()='Courses']").click()
+        break
+
+driver.switch_to.window(handles[0])
+time.sleep(4)
+print(driver.title)
+time.sleep(5)
+driver.quit()
 
