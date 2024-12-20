@@ -25,4 +25,3 @@ driver.switch_to.default_content()
 print(driver.find_element(By.XPATH,"//h1[text()='Practice Page']").text)
 time.sleep(5)
 driver.close()
-
