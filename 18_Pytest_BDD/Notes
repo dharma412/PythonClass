@@ -1,0 +1,11 @@
+Pytest can run multiple tests in parallel, which reduces the execution time of the test suite.
+
+Pytest has its own way to detect the test file and test functions automatically, if not mentioned explicitly.
+
+Pytest allows us to skip a subset of the tests during execution.
+
+Pytest allows us to run a subset of the entire test suite.
+
+Pytest is free and open source.
+
+Because of its simple syntax, pytest is very easy to start with.
