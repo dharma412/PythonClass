@@ -1,0 +1,798 @@
+Date: Tue, 24 Dec 2024 03:59:43 +0000 (UTC)
+Message-ID: <598928481.9.1735012783017@e4649fdd0b67>
+Subject: Exported From Confluence
+MIME-Version: 1.0
+Content-Type: multipart/related; 
+	boundary="----=_Part_8_1534786306.1735012783016"
+
+------=_Part_8_1534786306.1735012783016
+Content-Type: text/html; charset=UTF-8
+Content-Transfer-Encoding: quoted-printable
+Content-Location: file:///C:/exported.html
+
+<html xmlns:o=3D'urn:schemas-microsoft-com:office:office'
+      xmlns:w=3D'urn:schemas-microsoft-com:office:word'
+      xmlns:v=3D'urn:schemas-microsoft-com:vml'
+      xmlns=3D'urn:w3-org-ns:HTML'>
+<head>
+    <meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3Dutf-8=
+">
+    <title>PyTest Learning</title>
+    <!--[if gte mso 9]>
+    <xml>
+        <o:OfficeDocumentSettings>
+            <o:TargetScreenSize>1024x640</o:TargetScreenSize>
+            <o:PixelsPerInch>72</o:PixelsPerInch>
+            <o:AllowPNG/>
+        </o:OfficeDocumentSettings>
+        <w:WordDocument>
+            <w:View>Print</w:View>
+            <w:Zoom>90</w:Zoom>
+            <w:DoNotOptimizeForBrowser/>
+        </w:WordDocument>
+    </xml>
+    <![endif]-->
+    <style>
+                <!--
+        @page Section1 {
+            size: 8.5in 11.0in;
+            margin: 1.0in;
+            mso-header-margin: .5in;
+            mso-footer-margin: .5in;
+            mso-paper-source: 0;
+        }
+
+        table {
+            border: solid 1px;
+            border-collapse: collapse;
+        }
+
+        table td, table th {
+            border: solid 1px;
+            padding: 5px;
+        }
+
+        td {
+            page-break-inside: avoid;
+        }
+
+        tr {
+            page-break-after: avoid;
+        }
+
+        div.Section1 {
+            page: Section1;
+        }
+
+        /* Confluence print stylesheet. Common to all themes for print medi=
+a */
+/* Full of !important until we improve batching for print CSS */
+
+@media print {
+    #main {
+        padding-bottom: 1em !important; /* The default padding of 6em is to=
+o much for printouts */
+    }
+
+    body {
+        font-family: Arial, Helvetica, FreeSans, sans-serif;
+        font-size: 10pt;
+        line-height: 1.2;
+    }
+
+    body, #full-height-container, #main, #page, #content, .has-personal-sid=
+ebar #content {
+        background: var(--ds-surface, #fff) !important;
+        color: var(--ds-text, #000) !important;
+        border: 0 !important;
+        width: 100% !important;
+        height: auto !important;
+        min-height: auto !important;
+        margin: 0 !important;
+        padding: 0 !important;
+        display: block !important;
+    }
+
+    a, a:link, a:visited, a:focus, a:hover, a:active {
+        color: var(--ds-text, #000);
+    }
+
+    #content h1,
+    #content h2,
+    #content h3,
+    #content h4,
+    #content h5,
+    #content h6 {
+        font-family: Arial, Helvetica, FreeSans, sans-serif;
+        page-break-after: avoid;
+    }
+
+    pre {
+        font-family: Monaco, "Courier New", monospace;
+    }
+
+    #header,
+    .aui-header-inner,
+    #navigation,
+    #sidebar,
+    .sidebar,
+    #personal-info-sidebar,
+    .ia-fixed-sidebar,
+    .page-actions,
+    .navmenu,
+    .ajs-menu-bar,
+    .noprint,
+    .inline-control-link,
+    .inline-control-link a,
+    a.show-labels-editor,
+    .global-comment-actions,
+    .comment-actions,
+    .quick-comment-container,
+    #addcomment {
+        display: none !important;
+    }
+
+    /* CONF-28544 cannot print multiple pages in IE */
+    #splitter-content {
+        position: relative !important;
+    }
+
+    .comment .date::before {
+        content: none !important; /* remove middot for print view */
+    }
+
+    h1.pagetitle img {
+        height: auto;
+        width: auto;
+    }
+
+    .print-only {
+        display: block;
+    }
+
+    #footer {
+        position: relative !important; /* CONF-17506 Place the footer at en=
+d of the content */
+        margin: 0;
+        padding: 0;
+        background: none;
+        clear: both;
+    }
+
+    #poweredby {
+        border-top: none;
+        background: none;
+    }
+
+    #poweredby li.print-only {
+        display: list-item;
+        font-style: italic;
+    }
+
+    #poweredby li.noprint {
+        display: none;
+    }
+
+    /* no width controls in print */
+    .wiki-content .table-wrap,
+    .wiki-content p,
+    .panel .codeContent,
+    .panel .codeContent pre,
+    .image-wrap {
+        overflow: visible !important;
+    }
+
+    /* TODO - should this work? */
+    #children-section,
+    #comments-section .comment,
+    #comments-section .comment .comment-body,
+    #comments-section .comment .comment-content,
+    #comments-section .comment p {
+        page-break-inside: avoid;
+    }
+
+    #page-children a {
+        text-decoration: none;
+    }
+
+    /**
+     hide twixies
+
+     the specificity here is a hack because print styles
+     are getting loaded before the base styles. */
+    #comments-section.pageSection .section-header,
+    #comments-section.pageSection .section-title,
+    #children-section.pageSection .section-header,
+    #children-section.pageSection .section-title,
+    .children-show-hide {
+        padding-left: 0;
+        margin-left: 0;
+    }
+
+    .children-show-hide.icon {
+        display: none;
+    }
+
+    /* personal sidebar */
+    .has-personal-sidebar #content {
+        margin-right: 0px;
+    }
+
+    .has-personal-sidebar #content .pageSection {
+        margin-right: 0px;
+    }
+
+    .no-print, .no-print * {
+        display: none !important;
+    }
+}
+-->
+    </style>
+</head>
+<body>
+    <h1>PyTest Learning</h1>
+    <div class=3D"Section1">
+        <ul>
+<li>
+<p>Pytest can run multiple tests in parallel, which reduces the execution t=
+ime of the test suite.</p></li>
+<li>
+<p>Pytest has its own way to detect the test file and test functions automa=
+tically, if not mentioned explicitly.</p></li>
+<li>
+<p>Pytest allows us to skip a subset of the tests during execution.</p></li=
+>
+<li>
+<p>Pytest allows us to run a subset of the entire test suite.</p></li>
+<li>
+<p>Pytest is free and open source.</p></li>
+<li>
+<p>Because of its simple syntax, pytest is very easy to start with.</p></li=
+>
+</ul>
+<h2 id=3D"PyTestLearning-Installation">Installation</h2>
+<p>To start the installation, execute the following command =E2=88=92</p>
+<div class=3D"code panel pdl" style=3D"border-width: 1px;">
+<div class=3D"codeContent panelContent pdl">
+<pre class=3D"syntaxhighlighter-pre" data-syntaxhighlighter-params=3D"brush=
+: java; gutter: false; theme: Confluence" data-theme=3D"Confluence">pip ins=
+tall pytest =3D=3D 2.9.1
+</pre>
+</div>
+</div>
+<p>We can install any version of pytest. Here, 2.9.1 is the version we are =
+installing.</p>
+<p>To install the latest version of pytest, execute the following command =
+=E2=88=92</p>
+<div class=3D"code panel pdl" style=3D"border-width: 1px;">
+<div class=3D"codeContent panelContent pdl">
+<pre class=3D"syntaxhighlighter-pre" data-syntaxhighlighter-params=3D"brush=
+: java; gutter: false; theme: Confluence" data-theme=3D"Confluence">pip ins=
+tall pytest
+</pre>
+</div>
+</div>
+<p>Confirm the installation using the following command to display the help=
+ section of pytest.</p>
+<div class=3D"code panel pdl" style=3D"border-width: 1px;">
+<div class=3D"codeContent panelContent pdl">
+<pre class=3D"syntaxhighlighter-pre" data-syntaxhighlighter-params=3D"brush=
+: java; gutter: false; theme: Confluence" data-theme=3D"Confluence">pytest =
+-h</pre>
+</div>
+</div>
+<p></p>
+<h2 id=3D"PyTestLearning-IdentifyingTestfilesandTestFunctions">Identifying =
+Test files and Test Functions</h2>
+<p></p>
+<p>Running pytest without mentioning a filename will run all files of forma=
+t <strong>test_*.py</strong> or <strong>*_test.py</strong> in the current d=
+irectory and subdirectories. Pytest automatically identifies those files as=
+ test files. We <strong>can</strong> make pytest run other filenames by exp=
+licitly mentioning them.</p>
+<p>Pytest requires the test function names to start with <strong>test</stro=
+ng>. Function names which are not of format <strong>test*</strong> are not =
+considered as test functions by pytest. We <strong>cannot</strong> explicit=
+ly make pytest consider any function not starting with <strong>test</strong=
+> as a test function.</p>
+<p></p>
+<h2 id=3D"PyTestLearning-ExecutionCommands">Execution Commands</h2>
+<p>Navigate to the execution folder and execute.</p>
+<p>pytest command will execute all the files of format <strong>test_*</stro=
+ng> or <strong>*_test</strong> in the current directory and subdirectories.=
+</p>
+<p>command =E2=80=93 Pytest will execute all testcases in automation folder=
+.</p>
+<p>pytest -v gives the more verbosity to the user</p>
+<p>Execiting particular file <strong>pytest &lt;filename&gt; and pytest &lt=
+;filename&gt; -v </strong>for more verbosity.</p>
+<h2 id=3D"PyTestLearning-ExecuteaSubsetofTestSuite">Execute a Subset of Tes=
+t Suite</h2>
+<p>we will have multiple test files and each file will have a number of tes=
+ts. Tests will cover various modules and functionalities. Suppose, we want =
+to run only a specific set of tests; how do we go about it?</p>
+<p>Pytest provides two ways to run the subset of the test suite.</p>
+<ul>
+<li>
+<p>Select tests to run based on substring matching of test names.</p></li>
+<li>
+<p>Select tests groups to run based on the markers applied.</p></li>
+</ul>
+<p>To execute the tests containing a string in its name we can use the foll=
+owing syntax =E2=88=92</p>
+<div class=3D"code panel pdl" style=3D"border-width: 1px;">
+<div class=3D"codeContent panelContent pdl">
+<pre class=3D"syntaxhighlighter-pre" data-syntaxhighlighter-params=3D"brush=
+: java; gutter: false; theme: Confluence" data-theme=3D"Confluence">pytest =
+-k &lt;substring&gt; -v
+</pre>
+</div>
+</div>
+<p>-k &lt;substring&gt; represents the substring to search for in the test =
+names.</p>
+<p>Now, run the following command =E2=88=92</p>
+<div class=3D"code panel pdl" style=3D"border-width: 1px;">
+<div class=3D"codeContent panelContent pdl">
+<pre class=3D"syntaxhighlighter-pre" data-syntaxhighlighter-params=3D"brush=
+: java; gutter: false; theme: Confluence" data-theme=3D"Confluence">pytest =
+-k great -v</pre>
+</div>
+</div>
+<p></p>
+<h2 id=3D"PyTestLearning-Pytest-GroupingtheTests">Pytest - Grouping the Tes=
+ts</h2>
+<p></p>
+<p>Pytest allows us to use markers on test functions. Markers are used to s=
+et various features/attributes to test functions. Pytest provides many inbu=
+ilt markers such as xfail, skip and parametrize. Apart from that, users can=
+ create their own marker names. Markers are applied on the tests using the =
+syntax given below =E2=88=92</p>
+<div class=3D"code panel pdl" style=3D"border-width: 1px;">
+<div class=3D"codeContent panelContent pdl">
+<pre class=3D"syntaxhighlighter-pre" data-syntaxhighlighter-params=3D"brush=
+: java; gutter: false; theme: Confluence" data-theme=3D"Confluence">@pytest=
+.mark.&lt;markername&gt;
+</pre>
+</div>
+</div>
+<p>To use markers, we have to <strong>import pytest</strong> module in the =
+test file. We can define our own marker names to the tests and run the test=
+s having those marker names.</p>
+<p>To run the marked tests, we can use the following syntax =E2=88=92</p>
+<div class=3D"code panel pdl" style=3D"border-width: 1px;">
+<div class=3D"codeContent panelContent pdl">
+<pre class=3D"syntaxhighlighter-pre" data-syntaxhighlighter-params=3D"brush=
+: java; gutter: false; theme: Confluence" data-theme=3D"Confluence">pytest =
+-m &lt;markername&gt; -v
+</pre>
+</div>
+</div>
+<p>-m &lt;markername&gt; represents the marker name of the tests to be exec=
+uted.</p>
+<p>Update our test files <strong>test_compare.py</strong> and <strong>test_=
+square.py</strong> with the following code. We are defining 3 markers <stro=
+ng>=E2=80=93 great, square, others</strong>.</p>
+<p>In pytest, you can group markers during execution by combining them usin=
+g logical operators such as <code>and</code>, <code>or</code>, and <code>no=
+t</code>. This allows you to execute tests that match specific combinations=
+ of markers.</p>
+<p></p>
+<h2 id=3D"PyTestLearning-Pytest-Fixtures">Pytest - Fixtures</h2>
+<p></p>
+<p>Fixtures are functions, which will run before each test function to whic=
+h it is applied. Fixtures are used to feed some data to the tests such as d=
+atabase connections, URLs to test and some sort of input data. Therefore, i=
+nstead of running the same code for every test, we can attach fixture funct=
+ion to the tests and it will run and return the data to the test before exe=
+cuting each test.</p>
+<p></p>
+<p>A function is marked as a fixture by =E2=88=92</p>
+<div class=3D"code panel pdl" style=3D"border-width: 1px;">
+<div class=3D"codeContent panelContent pdl">
+<pre class=3D"syntaxhighlighter-pre" data-syntaxhighlighter-params=3D"brush=
+: java; gutter: false; theme: Confluence" data-theme=3D"Confluence">@pytest=
+.fixture</pre>
+</div>
+</div>
+<div class=3D"code panel pdl" style=3D"border-width: 1px;">
+<div class=3D"codeContent panelContent pdl">
+<pre class=3D"syntaxhighlighter-pre" data-syntaxhighlighter-params=3D"brush=
+: java; gutter: false; theme: Confluence" data-theme=3D"Confluence">import =
+pytest
+
+@pytest.fixture
+def input_value():
+   input =3D 39
+   return input
+
+def test_divisible_by_3(input_value):
+   assert input_value % 3 =3D=3D 0
+
+def test_divisible_by_6(input_value):
+   assert input_value % 6 =3D=3D 0</pre>
+</div>
+</div>
+<p>Here, we have a fixture function named <strong>input_value</strong>, whi=
+ch supplies the input to the tests. To access the fixture function, the tes=
+ts have to mention the fixture name as input parameter.</p>
+<p>Pytest while the test is getting executed, will see the fixture name as =
+input parameter. It then executes the fixture function and the returned val=
+ue is stored to the input parameter, which can be used by the test.</p>
+<p></p>
+<p>However, the approach comes with its own limitation. A fixture function =
+defined inside a test file has a scope within the test file only. We cannot=
+ use that fixture in another test file. To make a fixture available to mult=
+iple test files, we have to define the fixture function in a file called co=
+nftest.py.</p>
+<h2 id=3D"PyTestLearning-Pytest-Conftest.py">Pytest - Conftest.py</h2>
+<p>We can define the fixture functions in this file to make them accessible=
+ across multiple test files.</p>
+<p>Edit the <strong>test_div_by_3_6.py</strong> to remove the fixture funct=
+ion =E2=88=92</p>
+<div class=3D"code panel pdl" style=3D"border-width: 1px;">
+<div class=3D"codeContent panelContent pdl">
+<pre class=3D"syntaxhighlighter-pre" data-syntaxhighlighter-params=3D"brush=
+: java; gutter: false; theme: Confluence" data-theme=3D"Confluence">import =
+pytest
+
+def test_divisible_by_3(input_value):
+   assert input_value % 3 =3D=3D 0
+
+def test_divisible_by_6(input_value):
+   assert input_value % 6 =3D=3D 0</pre>
+</div>
+</div>
+<p>Create a new file <strong>test_div_by_13.py</strong> =E2=88=92</p>
+<div class=3D"code panel pdl" style=3D"border-width: 1px;">
+<div class=3D"codeContent panelContent pdl">
+<pre class=3D"syntaxhighlighter-pre" data-syntaxhighlighter-params=3D"brush=
+: java; gutter: false; theme: Confluence" data-theme=3D"Confluence">import =
+pytest
+
+def test_divisible_by_13(input_value):
+   assert input_value % 13 =3D=3D 0</pre>
+</div>
+</div>
+<p>Now, we have the files <strong>test_div_by_3_6.py</strong> and <strong>t=
+est_div_by_13.py</strong> making use of the fixture defined in <strong>conf=
+test.py</strong>.</p>
+<p>Run the tests by executing the following command =E2=88=92</p>
+<div class=3D"code panel pdl" style=3D"border-width: 1px;">
+<div class=3D"codeContent panelContent pdl">
+<pre class=3D"syntaxhighlighter-pre" data-syntaxhighlighter-params=3D"brush=
+: java; gutter: false; theme: Confluence" data-theme=3D"Confluence">pytest =
+-k divisible -v</pre>
+</div>
+</div>
+<p>The tests will look for fixture in the same file. As the fixture is not =
+found in the file, it will check for fixture in conftest.py file. On findin=
+g it, the fixture method is invoked and the result is returned to the input=
+ argument of the test.</p>
+<p></p>
+<h2 id=3D"PyTestLearning-Pytest-ParameterizingTests">Pytest - Parameterizin=
+g Tests</h2>
+<p></p>
+<p>Parameterizing of a test is done to run the test against multiple sets o=
+f inputs. We can do this by using the following marker =E2=88=92</p>
+<div class=3D"code panel pdl" style=3D"border-width: 1px;">
+<div class=3D"codeContent panelContent pdl">
+<pre class=3D"syntaxhighlighter-pre" data-syntaxhighlighter-params=3D"brush=
+: java; gutter: false; theme: Confluence" data-theme=3D"Confluence">@pytest=
+.mark.parametrize
+</pre>
+</div>
+</div>
+<p>Copy the below code into a file called <strong>test_multiplication.py</s=
+trong> =E2=88=92</p>
+<div class=3D"code panel pdl" style=3D"border-width: 1px;">
+<div class=3D"codeContent panelContent pdl">
+<pre class=3D"syntaxhighlighter-pre" data-syntaxhighlighter-params=3D"brush=
+: java; gutter: false; theme: Confluence" data-theme=3D"Confluence">import =
+pytest
+
+@pytest.mark.parametrize("num, output",[(1,11),(2,22),(3,35),(4,44)])
+def test_multiplication_11(num, output):
+   assert 11*num =3D=3D output</pre>
+</div>
+</div>
+<p>Here the test multiplies an input with 11 and compares the result with t=
+he expected output. The test has 4 sets of inputs, each has 2 values =E2=80=
+=93 one is the number to be multiplied with 11 and the other is the expecte=
+d result.</p>
+<p>Execute the test by running the following command =E2=88=92</p>
+<div class=3D"code panel pdl" style=3D"border-width: 1px;">
+<div class=3D"codeContent panelContent pdl">
+<pre class=3D"syntaxhighlighter-pre" data-syntaxhighlighter-params=3D"brush=
+: java; gutter: false; theme: Confluence" data-theme=3D"Confluence">Pytest =
+-k multiplication -v</pre>
+</div>
+</div>
+<p></p>
+<h2 id=3D"PyTestLearning-Pytest-Xfail/SkipTests">Pytest - Xfail/Skip Tests<=
+/h2>
+<p></p>
+<p>Now, consider the below situations =E2=88=92</p>
+<ul>
+<li>
+<p>A test is not relevant for some time due to some reasons.</p></li>
+<li>
+<p>A new feature is being implemented and we already added a test for that =
+feature.</p></li>
+</ul>
+<p>In these situations, we have the option to xfail the test or skip the te=
+sts.</p>
+<p>Pytest will execute the xfailed test, but it will not be considered as p=
+art failed or passed tests. Details of these tests will not be printed even=
+ if the test fails (remember pytest usually prints the failed test details)=
+. We can xfail tests using the following marker =E2=88=92</p>
+<div class=3D"code panel pdl" style=3D"border-width: 1px;">
+<div class=3D"codeContent panelContent pdl">
+<pre class=3D"syntaxhighlighter-pre" data-syntaxhighlighter-params=3D"brush=
+: java; gutter: false; theme: Confluence" data-theme=3D"Confluence">@pytest=
+.mark.xfail
+</pre>
+</div>
+</div>
+<p>Skipping a test means that the test will not be executed. We can skip te=
+sts using the following marker =E2=88=92</p>
+<div class=3D"code panel pdl" style=3D"border-width: 1px;">
+<div class=3D"codeContent panelContent pdl">
+<pre class=3D"syntaxhighlighter-pre" data-syntaxhighlighter-params=3D"brush=
+: java; gutter: false; theme: Confluence" data-theme=3D"Confluence">@pytest=
+.mark.skip</pre>
+</div>
+</div>
+<p></p>
+<p>In pytest, <code>xfail</code> and <code>skip</code> are markers used to =
+handle tests that should not be executed normally, but they serve different=
+ purposes and are used in distinct scenarios. Here's a comparison:</p>
+<hr>
+<h3 id=3D"PyTestLearning-1.xfail(ExpectedFailure)"><strong>1. </strong><cod=
+e>xfail</code><strong> (Expected Failure)</strong></h3>
+<ul>
+<li>
+<p><strong>Purpose:</strong> Indicates that a test is expected to fail due =
+to a known issue (e.g., a bug or unimplemented feature).</p></li>
+<li>
+<p><strong>Behavior:</strong></p>
+<ul>
+<li>
+<p>If the test fails, pytest marks it as "expected failure" (not a failure)=
+.</p></li>
+<li>
+<p>If the test unexpectedly passes, pytest marks it as "unexpected success,=
+" which can help track progress when fixing bugs.</p></li>
+</ul></li>
+<li>
+<p><strong>Usage:</strong></p>
+<div class=3D"code panel pdl" style=3D"border-width: 1px;">
+<div class=3D"codeContent panelContent pdl">
+<pre class=3D"syntaxhighlighter-pre" data-syntaxhighlighter-params=3D"brush=
+: java; gutter: false; theme: Confluence" data-theme=3D"Confluence">import =
+pytest
+
+@pytest.mark.xfail(reason=3D"Known bug in the feature")
+def test_example():
+    assert 1 =3D=3D 2  # This test is expected to fail
+</pre>
+</div>
+</div></li>
+<li>
+<p><strong>Best Use Case:</strong> When you want to document known issues a=
+nd ensure they don't interfere with the overall test suite status.</p></li>
+</ul>
+<hr>
+<h3 id=3D"PyTestLearning-2.skip"><strong>2. </strong><code>skip</code></h3>
+<ul>
+<li>
+<p><strong>Purpose:</strong> Completely skips the execution of a test, ofte=
+n based on conditions (e.g., missing dependencies, unsupported platforms).<=
+/p></li>
+<li>
+<p><strong>Behavior:</strong></p>
+<ul>
+<li>
+<p>The test is not run at all.</p></li>
+<li>
+<p>Skipped tests are marked as "skipped" in the pytest output.</p></li>
+</ul></li>
+<li>
+<p><strong>Usage:</strong></p>
+<div class=3D"code panel pdl" style=3D"border-width: 1px;">
+<div class=3D"codeContent panelContent pdl">
+<pre class=3D"syntaxhighlighter-pre" data-syntaxhighlighter-params=3D"brush=
+: java; gutter: false; theme: Confluence" data-theme=3D"Confluence">import =
+pytest
+
+@pytest.mark.skip(reason=3D"Feature not implemented yet")
+def test_example():
+    assert 1 =3D=3D 2  # This test is skipped entirely
+</pre>
+</div>
+</div>
+<p>Or conditionally:</p>
+<div class=3D"code panel pdl" style=3D"border-width: 1px;">
+<div class=3D"codeContent panelContent pdl">
+<pre class=3D"syntaxhighlighter-pre" data-syntaxhighlighter-params=3D"brush=
+: java; gutter: false; theme: Confluence" data-theme=3D"Confluence">import =
+pytest
+import sys
+
+@pytest.mark.skipif(sys.platform =3D=3D "win32", reason=3D"Doesn't run on W=
+indows")
+def test_example():
+    assert 1 =3D=3D 2
+</pre>
+</div>
+</div></li>
+<li>
+<p><strong>Best Use Case:</strong> When a test cannot or should not run in =
+specific environments or situations.</p></li>
+</ul>
+<hr>
+<h3 id=3D"PyTestLearning-KeyDifferences:"><strong>Key Differences:</strong>=
+</h3>
+<div class=3D"table-wrap">
+<table data-table-width=3D"760" data-layout=3D"default" data-local-id=3D"e4=
+c114f0-f84d-45ed-9a96-01483c726f2d" class=3D"confluenceTable">
+<tbody>
+<tr>
+<th class=3D"confluenceTh">
+<p>Feature</p></th>
+<th class=3D"confluenceTh">
+<p><code>xfail</code></p></th>
+<th class=3D"confluenceTh">
+<p><code>skip</code></p></th>
+</tr>
+<tr>
+<td class=3D"confluenceTd">
+<p><strong>Execution</strong></p></td>
+<td class=3D"confluenceTd">
+<p>Test runs but failure is expected.</p></td>
+<td class=3D"confluenceTd">
+<p>Test is skipped entirely.</p></td>
+</tr>
+<tr>
+<td class=3D"confluenceTd">
+<p><strong>Result on Failure</strong></p></td>
+<td class=3D"confluenceTd">
+<p>Marked as "expected failure."</p></td>
+<td class=3D"confluenceTd">
+<p>Not executed; marked as "skipped."</p></td>
+</tr>
+<tr>
+<td class=3D"confluenceTd">
+<p><strong>Result on Success</strong></p></td>
+<td class=3D"confluenceTd">
+<p>Marked as "unexpected success."</p></td>
+<td class=3D"confluenceTd">
+<p>Test is not run.</p></td>
+</tr>
+<tr>
+<td class=3D"confluenceTd">
+<p><strong>Purpose</strong></p></td>
+<td class=3D"confluenceTd">
+<p>Tracks known failures.</p></td>
+<td class=3D"confluenceTd">
+<p>Avoids running irrelevant/unsupported tests.</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<hr>
+<h3 id=3D"PyTestLearning-WhentoUse:"><strong>When to Use:</strong></h3>
+<ul>
+<li>
+<p>Use <code>xfail</code> for tests that represent <strong>known bugs</stro=
+ng> or <strong>unimplemented features</strong> that you want to track over =
+time.</p></li>
+<li>
+<p>Use <code>skip</code> for tests that should not run due to <strong>envir=
+onmental conditions</strong> or <strong>temporary constraints</strong>.</p>=
+</li>
+</ul>
+<p>Both tools enhance test suite flexibility and readability, making it eas=
+ier to manage diverse testing scenarios.</p>
+<h2 id=3D"PyTestLearning-Pytest-StopTestSuiteafterNTestFailures">Pytest - S=
+top Test Suite after N Test Failures</h2>
+<p></p>
+<p>In a real scenario, once a new version of the code is ready to deploy, i=
+t is first deployed into pre-prod/ staging environment. Then a test suite r=
+uns on it.</p>
+<p>The code is qualified for deploying to production only if the test suite=
+ passes. If there is test failure, whether it is one or many, the code is n=
+ot production ready.</p>
+<p>Therefore, what if we want to stop the execution of test suite soon afte=
+r n number of test fails. This can be done in pytest using maxfail.</p>
+<p>The syntax to stop the execution of test suite soon after n number of te=
+st fails is as follows =E2=88=92</p>
+<div class=3D"code panel pdl" style=3D"border-width: 1px;">
+<div class=3D"codeContent panelContent pdl">
+<pre class=3D"syntaxhighlighter-pre" data-syntaxhighlighter-params=3D"brush=
+: java; gutter: false; theme: Confluence" data-theme=3D"Confluence">pytest =
+--maxfail =3D &lt;num&gt;
+</pre>
+</div>
+</div>
+<p>Create a file test_failure.py with the following code.</p>
+<div class=3D"code panel pdl" style=3D"border-width: 1px;">
+<div class=3D"codeContent panelContent pdl">
+<pre class=3D"syntaxhighlighter-pre" data-syntaxhighlighter-params=3D"brush=
+: java; gutter: false; theme: Confluence" data-theme=3D"Confluence">import =
+pytest
+import math
+
+def test_sqrt_failure():
+   num =3D 25
+   assert math.sqrt(num) =3D=3D 6
+
+def test_square_failure():
+   num =3D 7
+   assert 7*7 =3D=3D 40
+
+def test_equality_failure():
+   assert 10 =3D=3D 11</pre>
+</div>
+</div>
+<p>All the 3 tests will fail on executing this test file. Here, we are goin=
+g to stop the execution of the test after one failure itself by =E2=88=92</=
+p>
+<div class=3D"code panel pdl" style=3D"border-width: 1px;">
+<div class=3D"codeContent panelContent pdl">
+<pre class=3D"syntaxhighlighter-pre" data-syntaxhighlighter-params=3D"brush=
+: java; gutter: false; theme: Confluence" data-theme=3D"Confluence">pytest =
+test_failure.py -v --maxfail 1</pre>
+</div>
+</div>
+<p>we can see the execution is stopped on one failure.</p>
+<h2 id=3D"PyTestLearning-Pytest-RunTestsinParallel">Pytest - Run Tests in P=
+arallel</h2>
+<p></p>
+<p>By default, pytest runs tests in sequential order. In a real scenario, a=
+ test suite will have a number of test files and each file will have a bunc=
+h of tests. This will lead to a large execution time. To overcome this, pyt=
+est provides us with an option to run tests in parallel.</p>
+<p>For this, we need to first install the pytest-xdist plugin.</p>
+<p>Install pytest-xdist by running the following command =E2=88=92</p>
+<div class=3D"code panel pdl" style=3D"border-width: 1px;">
+<div class=3D"codeContent panelContent pdl">
+<pre class=3D"syntaxhighlighter-pre" data-syntaxhighlighter-params=3D"brush=
+: java; gutter: false; theme: Confluence" data-theme=3D"Confluence">pip ins=
+tall pytest-xdist
+</pre>
+</div>
+</div>
+<p>Now, we can run tests by using the syntax <strong>pytest -n &lt;num&gt;<=
+/strong></p>
+<div class=3D"code panel pdl" style=3D"border-width: 1px;">
+<div class=3D"codeContent panelContent pdl">
+<pre class=3D"syntaxhighlighter-pre" data-syntaxhighlighter-params=3D"brush=
+: java; gutter: false; theme: Confluence" data-theme=3D"Confluence">pytest =
+-n 3
+</pre>
+</div>
+</div>
+<p>-n &lt;num&gt; runs the tests by using multiple workers, here it is 3.</=
+p>
+<p>We will not be having much time difference when there is only a few test=
+s to run. However, it matters when the test suite is large.</p>
+<p></p>
+<h2 id=3D"PyTestLearning-TestExecutionResultsinXMLFormat">Test Execution Re=
+sults in XML Format</h2>
+<p>We can generate the details of the test execution in an xml file. This x=
+ml file is mainly useful in cases where we have a dashboard that projects t=
+he test results. In such cases, the xml can be parsed to get the details of=
+ the execution.</p>
+<p>We will now execute the tests from test_multiplcation.py and generate th=
+e xml by running</p>
+<div class=3D"code panel pdl" style=3D"border-width: 1px;">
+<div class=3D"codeContent panelContent pdl">
+<pre class=3D"syntaxhighlighter-pre" data-syntaxhighlighter-params=3D"brush=
+: java; gutter: false; theme: Confluence" data-theme=3D"Confluence">pytest =
+test_multiplication.py -v --junitxml=3D"result.xml"</pre>
+</div>
+</div>
+    </div>
+</body>
+</html>
+------=_Part_8_1534786306.1735012783016--

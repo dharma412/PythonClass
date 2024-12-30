@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?><testsuites><testsuite name="pytest" errors="0" failures="4" skipped="2" tests="14" time="0.094" timestamp="2024-12-22T22:57:50.348634" hostname="BLRL145786"><testcase classname="test_basics" name="test_test1" time="0.001" /><testcase classname="test_basics" name="test_test2" time="0.000" /><testcase classname="test_basics" name="test_test3" time="0.001" /><testcase classname="test_basics2" name="test_test3" time="0.000" /><testcase classname="test_basics2" name="test_test4" time="0.000" /><testcase classname="test_basics2" name="test_test5" time="0.000" /><testcase classname="test_fixture" name="test_divisible_by_3" time="0.000" /><testcase classname="test_fixture" name="test_divisible_by_6" time="0.001"><failure message="assert (39 % 6) == 0">input_value = 39
+
+    def test_divisible_by_6(input_value):
+&gt;      assert input_value % 6 == 0
+E      assert (39 % 6) == 0
+
+test_fixture.py:12: AssertionError</failure></testcase><testcase classname="test_stop_testsuite" name="test_sqrt_failure" time="0.001"><failure message="assert 5.0 == 6&#10; +  where 5.0 = &lt;built-in function sqrt&gt;(25)&#10; +    where &lt;built-in function sqrt&gt; = math.sqrt">def test_sqrt_failure():
+       num = 25
+&gt;      assert math.sqrt(num) == 6
+E      assert 5.0 == 6
+E       +  where 5.0 = &lt;built-in function sqrt&gt;(25)
+E       +    where &lt;built-in function sqrt&gt; = math.sqrt
+
+test_stop_testsuite.py:6: AssertionError</failure></testcase><testcase classname="test_stop_testsuite" name="test_square_failure" time="0.000"><failure message="assert (7 * 7) == 40">def test_square_failure():
+       num = 7
+&gt;      assert 7*7 == 40
+E      assert (7 * 7) == 40
+
+test_stop_testsuite.py:10: AssertionError</failure></testcase><testcase classname="test_stop_testsuite" name="test_equality_failure" time="0.000"><failure message="assert 10 == 11">def test_equality_failure():
+&gt;      assert 10 == 11
+E      assert 10 == 11
+
+test_stop_testsuite.py:13: AssertionError</failure></testcase><testcase classname="test_xfail_skip" name="test_greater" time="0.000"><skipped type="pytest.xfail" message="" /></testcase><testcase classname="test_xfail_skip" name="test_greater_equal" time="0.000" /><testcase classname="test_xfail_skip" name="test_less" time="0.000"><skipped type="pytest.skip" message="unconditional skip">C:\mydocuments\PythonClass\18_Pytest_BDD\test_xfail_skip.py:14: unconditional skip</skipped></testcase></testsuite></testsuites>

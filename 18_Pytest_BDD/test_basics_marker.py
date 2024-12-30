@@ -1,18 +1,20 @@
 import pytest
 
 
-@pytest.mark.regg
-def test_test1():
+@pytest.mark.santy1
+@pytest.mark.sanity2
+def test_test1_my():
     print("This is first testcase")
 
 @pytest.mark.smoke
-def test_test2():
+def test_test2_my():
     print("This is first testcase")
 
 @pytest.mark.sanity
 @pytest.mark.smoke
-def test_test3():
+
+def test_test3_my():
     print("This is first testcase")
 
-def tes_quality():
-    assert 10 == 11
+def test_quality():
+    assert 10 == 10
