@@ -5,53 +5,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="0779dc26-a903-4bb0-ab71-e7f9297d36a2" name="Changes" comment="API Testcases">
-      <change afterPath="$PROJECT_DIR$/17_SeleniumCLass/RadioButton/new.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/17_SeleniumCLass/ActionChains/Context_Or_rightClick.py" beforeDir="false" afterPath="$PROJECT_DIR$/17_SeleniumCLass/ActionChains/Context_Or_rightClick.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/17_SeleniumCLass/ActionChains/DoubleClick.py" beforeDir="false" afterPath="$PROJECT_DIR$/17_SeleniumCLass/ActionChains/DoubleClick.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/17_SeleniumCLass/ActionChains/Drag_And_Drop.py" beforeDir="false" afterPath="$PROJECT_DIR$/17_SeleniumCLass/ActionChains/Drag_And_Drop.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/17_SeleniumCLass/ActionChains/Move_to_element.py" beforeDir="false" afterPath="$PROJECT_DIR$/17_SeleniumCLass/ActionChains/Move_to_element.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/17_SeleniumCLass/ActionChains/Move_to_element_withoffset.py" beforeDir="false" afterPath="$PROJECT_DIR$/17_SeleniumCLass/ActionChains/Move_to_element_withoffset.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/17_SeleniumCLass/ActionChains/Sliders.py" beforeDir="false" afterPath="$PROJECT_DIR$/17_SeleniumCLass/ActionChains/Sliders.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/17_SeleniumCLass/ActionChains/drag_and_drop_offset.py" beforeDir="false" afterPath="$PROJECT_DIR$/17_SeleniumCLass/ActionChains/drag_and_drop_offset.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/17_SeleniumCLass/ActionChains/move_By_offset.py" beforeDir="false" afterPath="$PROJECT_DIR$/17_SeleniumCLass/ActionChains/move_By_offset.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/17_SeleniumCLass/Alerts/Alerts.py" beforeDir="false" afterPath="$PROJECT_DIR$/17_SeleniumCLass/Alerts/Alerts.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/17_SeleniumCLass/AssertsAndVerifications/Asserstion1.py" beforeDir="false" afterPath="$PROJECT_DIR$/17_SeleniumCLass/AssertsAndVerifications/Asserstion1.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/17_SeleniumCLass/BrokenLinks/AllLinks.py" beforeDir="false" afterPath="$PROJECT_DIR$/17_SeleniumCLass/BrokenLinks/AllLinks.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/17_SeleniumCLass/BrokenLinks/BrokenLinks.py" beforeDir="false" afterPath="$PROJECT_DIR$/17_SeleniumCLass/BrokenLinks/BrokenLinks.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/17_SeleniumCLass/Calender_Automation/Calender1_yatra.py" beforeDir="false" afterPath="$PROJECT_DIR$/17_SeleniumCLass/Calender_Automation/Calender1_yatra.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/17_SeleniumCLass/Calender_Automation/Calender2.py" beforeDir="false" afterPath="$PROJECT_DIR$/17_SeleniumCLass/Calender_Automation/Calender2.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/17_SeleniumCLass/Calender_Automation/Calender_UsingJavaScript.py" beforeDir="false" afterPath="$PROJECT_DIR$/17_SeleniumCLass/Calender_Automation/Calender_UsingJavaScript.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/17_SeleniumCLass/CheckBox/CheckBox.py" beforeDir="false" afterPath="$PROJECT_DIR$/17_SeleniumCLass/CheckBox/CheckBox.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/17_SeleniumCLass/DesiredCapabilities/DesiredCapabilities.py" beforeDir="false" afterPath="$PROJECT_DIR$/17_SeleniumCLass/DesiredCapabilities/DesiredCapabilities.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/17_SeleniumCLass/DropDownList/DyanamicDropDwon.py" beforeDir="false" afterPath="$PROJECT_DIR$/17_SeleniumCLass/DropDownList/DyanamicDropDwon.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/17_SeleniumCLass/DropDownList/Select.py" beforeDir="false" afterPath="$PROJECT_DIR$/17_SeleniumCLass/DropDownList/Select.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/17_SeleniumCLass/DropDownList/Selectfile2.py" beforeDir="false" afterPath="$PROJECT_DIR$/17_SeleniumCLass/DropDownList/Selectfile2.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/17_SeleniumCLass/Exception/ElementNotInteractableException.py" beforeDir="false" afterPath="$PROJECT_DIR$/17_SeleniumCLass/Exception/ElementNotInteractableException.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/17_SeleniumCLass/Exception/ElementNotSelectableException.py" beforeDir="false" afterPath="$PROJECT_DIR$/17_SeleniumCLass/Exception/ElementNotSelectableException.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/17_SeleniumCLass/Exception/ElementNotVisibleException.py" beforeDir="false" afterPath="$PROJECT_DIR$/17_SeleniumCLass/Exception/ElementNotVisibleException.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/17_SeleniumCLass/Exception/Exception.py" beforeDir="false" afterPath="$PROJECT_DIR$/17_SeleniumCLass/Exception/Exception.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/17_SeleniumCLass/Exception/NoAlertPresentException.py" beforeDir="false" afterPath="$PROJECT_DIR$/17_SeleniumCLass/Exception/NoAlertPresentException.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/17_SeleniumCLass/Exception/NoSuchAttributeException.py" beforeDir="false" afterPath="$PROJECT_DIR$/17_SeleniumCLass/Exception/NoSuchAttributeException.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/17_SeleniumCLass/Exception/NoSuchElementException.py" beforeDir="false" afterPath="$PROJECT_DIR$/17_SeleniumCLass/Exception/NoSuchElementException.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/17_SeleniumCLass/Exception/NoSuchFrameException.py" beforeDir="false" afterPath="$PROJECT_DIR$/17_SeleniumCLass/Exception/NoSuchFrameException.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/17_SeleniumCLass/Exception/StaleElementReferenceException.py" beforeDir="false" afterPath="$PROJECT_DIR$/17_SeleniumCLass/Exception/StaleElementReferenceException.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/17_SeleniumCLass/ExplicitAndImplicitWaits/Waits.py" beforeDir="false" afterPath="$PROJECT_DIR$/17_SeleniumCLass/ExplicitAndImplicitWaits/Waits.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/17_SeleniumCLass/GetWindowsHandles/WindowHandles.py" beforeDir="false" afterPath="$PROJECT_DIR$/17_SeleniumCLass/GetWindowsHandles/WindowHandles.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/17_SeleniumCLass/HandleCertificateInSelenium/handleCertificate.py" beforeDir="false" afterPath="$PROJECT_DIR$/17_SeleniumCLass/HandleCertificateInSelenium/handleCertificate.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/17_SeleniumCLass/Iframes/Frames.py" beforeDir="false" afterPath="$PROJECT_DIR$/17_SeleniumCLass/Iframes/Frames.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/17_SeleniumCLass/JavaScriptExecutor/JavaScriptInPython.py" beforeDir="false" afterPath="$PROJECT_DIR$/17_SeleniumCLass/JavaScriptExecutor/JavaScriptInPython.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/17_SeleniumCLass/Login/Locators.py" beforeDir="false" afterPath="$PROJECT_DIR$/17_SeleniumCLass/Login/Locators.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/17_SeleniumCLass/Login/SampleSelenium.py" beforeDir="false" afterPath="$PROJECT_DIR$/17_SeleniumCLass/Login/SampleSelenium.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/17_SeleniumCLass/NavigationCommands/NavigationCommand.py" beforeDir="false" afterPath="$PROJECT_DIR$/17_SeleniumCLass/NavigationCommands/NavigationCommand.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/17_SeleniumCLass/RadioButton/RadioButton.py" beforeDir="false" afterPath="$PROJECT_DIR$/17_SeleniumCLass/RadioButton/RadioButton.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/17_SeleniumCLass/ScreenShot/Screenshot.py" beforeDir="false" afterPath="$PROJECT_DIR$/17_SeleniumCLass/ScreenShot/Screenshot.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/17_SeleniumCLass/ScrollAPage/ScrollPage.py" beforeDir="false" afterPath="$PROJECT_DIR$/17_SeleniumCLass/ScrollAPage/ScrollPage.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/17_SeleniumCLass/Tables/Tables.py" beforeDir="false" afterPath="$PROJECT_DIR$/17_SeleniumCLass/Tables/Tables.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/17_SeleniumCLass/UpLoadAndDownloadFile/UploadFile.py" beforeDir="false" afterPath="$PROJECT_DIR$/17_SeleniumCLass/UpLoadAndDownloadFile/UploadFile.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/17_SeleniumCLass/WaitsInSelenium/ImplicitWait.py" beforeDir="false" afterPath="$PROJECT_DIR$/17_SeleniumCLass/WaitsInSelenium/ImplicitWait.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/17_SeleniumCLass/cookies/addAndDeletecookies.py" beforeDir="false" afterPath="$PROJECT_DIR$/17_SeleniumCLass/cookies/addAndDeletecookies.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -131,8 +85,10 @@
     &quot;Python.Exceptions_new.executor&quot;: &quot;Run&quot;,
     &quot;Python.File.executor&quot;: &quot;Run&quot;,
     &quot;Python.FileHandiling.executor&quot;: &quot;Run&quot;,
+    &quot;Python.Frames.executor&quot;: &quot;Run&quot;,
     &quot;Python.HybridANdMRO.executor&quot;: &quot;Run&quot;,
     &quot;Python.IdentityOperators.executor&quot;: &quot;Run&quot;,
+    &quot;Python.Iframe.executor&quot;: &quot;Run&quot;,
     &quot;Python.InheritanceInitialProgram.executor&quot;: &quot;Run&quot;,
     &quot;Python.Input.executor&quot;: &quot;Run&quot;,
     &quot;Python.JsonFromFile.executor&quot;: &quot;Run&quot;,
@@ -150,9 +106,12 @@
     &quot;Python.SampleSelenium.executor&quot;: &quot;Run&quot;,
     &quot;Python.SuperKeyword.executor&quot;: &quot;Run&quot;,
     &quot;Python.SuperMethod.executor&quot;: &quot;Run&quot;,
+    &quot;Python.Tab.executor&quot;: &quot;Run&quot;,
     &quot;Python.TuplePractice.executor&quot;: &quot;Run&quot;,
+    &quot;Python.WindowHandles.executor&quot;: &quot;Run&quot;,
     &quot;Python.classClass.executor&quot;: &quot;Run&quot;,
     &quot;Python.ifstate.executor&quot;: &quot;Run&quot;,
+    &quot;Python.windows_leela.executor&quot;: &quot;Run&quot;,
     &quot;Robot Framework.TestExecution.executor&quot;: &quot;Run&quot;,
     &quot;Robot Framework.run [Test1].executor&quot;: &quot;Run&quot;,
     &quot;Robot Framework.run current file.executor&quot;: &quot;Run&quot;,
@@ -160,7 +119,8 @@
     &quot;Robot Runner.RobotExecution.executor&quot;: &quot;Run&quot;,
     &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
     &quot;git-widget-placeholder&quot;: &quot;master&quot;,
-    &quot;last_opened_file_path&quot;: &quot;C:/mydocuments/PythonClass/Project/Data&quot;,
+    &quot;ignore.virus.scanning.warn.message&quot;: &quot;true&quot;,
+    &quot;last_opened_file_path&quot;: &quot;D:/Learning/pytest-bdd-example&quot;,
     &quot;settings.editor.selected.configurable&quot;: &quot;com.jetbrains.python.configuration.PyActiveSdkModuleConfigurable&quot;
   }
 }</component>
@@ -181,7 +141,7 @@
   <component name="RobotOptionsProvider">
     <option name="capitalizeKeywords" value="true" />
   </component>
-  <component name="RunManager" selected="Python tests.Python tests in GetWindowHandles.py">
+  <component name="RunManager" selected="Python.Iframe">
     <configuration default="true" type="robot-runner" factoryName="RobotRunConfigurationFactory">
       <option name="extraArguments" />
       <option name="logFilePath" />
@@ -194,7 +154,7 @@
       <option name="sdkHomePath" />
       <method v="2" />
     </configuration>
-    <configuration name="AllLinks" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
+    <configuration name="Iframe" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
       <module name="PythonClass" />
       <option name="ENV_FILES" value="" />
       <option name="INTERPRETER_OPTIONS" value="" />
@@ -203,11 +163,11 @@
         <env name="PYTHONUNBUFFERED" value="1" />
       </envs>
       <option name="SDK_HOME" value="" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/17_SeleniumCLass/BrokenLinks" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/17_SeleniumCLass/Iframes" />
       <option name="IS_MODULE_SDK" value="true" />
       <option name="ADD_CONTENT_ROOTS" value="true" />
       <option name="ADD_SOURCE_ROOTS" value="true" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/17_SeleniumCLass/BrokenLinks/AllLinks.py" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/17_SeleniumCLass/Iframes/Iframe.py" />
       <option name="PARAMETERS" value="" />
       <option name="SHOW_COMMAND_LINE" value="false" />
       <option name="EMULATE_TERMINAL" value="false" />
@@ -216,7 +176,7 @@
       <option name="INPUT_FILE" value="" />
       <method v="2" />
     </configuration>
-    <configuration name="DesiredCapabilities" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
+    <configuration name="Tab" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
       <module name="PythonClass" />
       <option name="ENV_FILES" value="" />
       <option name="INTERPRETER_OPTIONS" value="" />
@@ -225,11 +185,11 @@
         <env name="PYTHONUNBUFFERED" value="1" />
       </envs>
       <option name="SDK_HOME" value="" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/17_SeleniumCLass/DesiredCapabilities" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/17_SeleniumCLass/GetWindowsHandles" />
       <option name="IS_MODULE_SDK" value="true" />
       <option name="ADD_CONTENT_ROOTS" value="true" />
       <option name="ADD_SOURCE_ROOTS" value="true" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/17_SeleniumCLass/DesiredCapabilities/DesiredCapabilities.py" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/17_SeleniumCLass/GetWindowsHandles/Tab.py" />
       <option name="PARAMETERS" value="" />
       <option name="SHOW_COMMAND_LINE" value="false" />
       <option name="EMULATE_TERMINAL" value="false" />
@@ -238,7 +198,7 @@
       <option name="INPUT_FILE" value="" />
       <method v="2" />
     </configuration>
-    <configuration name="Locators" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
+    <configuration name="WindowHandles" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
       <module name="PythonClass" />
       <option name="ENV_FILES" value="" />
       <option name="INTERPRETER_OPTIONS" value="" />
@@ -247,11 +207,11 @@
         <env name="PYTHONUNBUFFERED" value="1" />
       </envs>
       <option name="SDK_HOME" value="" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/17_SeleniumCLass/Login" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/17_SeleniumCLass/GetWindowsHandles" />
       <option name="IS_MODULE_SDK" value="true" />
       <option name="ADD_CONTENT_ROOTS" value="true" />
       <option name="ADD_SOURCE_ROOTS" value="true" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/17_SeleniumCLass/Login/Locators.py" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/17_SeleniumCLass/GetWindowsHandles/WindowHandles.py" />
       <option name="PARAMETERS" value="" />
       <option name="SHOW_COMMAND_LINE" value="false" />
       <option name="EMULATE_TERMINAL" value="false" />
@@ -260,7 +220,7 @@
       <option name="INPUT_FILE" value="" />
       <method v="2" />
     </configuration>
-    <configuration name="SampleSelenium" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
+    <configuration name="windows_leela" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
       <module name="PythonClass" />
       <option name="ENV_FILES" value="" />
       <option name="INTERPRETER_OPTIONS" value="" />
@@ -269,11 +229,11 @@
         <env name="PYTHONUNBUFFERED" value="1" />
       </envs>
       <option name="SDK_HOME" value="" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/17_SeleniumCLass/Login" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/17_SeleniumCLass/GetWindowsHandles" />
       <option name="IS_MODULE_SDK" value="true" />
       <option name="ADD_CONTENT_ROOTS" value="true" />
       <option name="ADD_SOURCE_ROOTS" value="true" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/17_SeleniumCLass/Login/SampleSelenium.py" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/17_SeleniumCLass/GetWindowsHandles/windows_leela.py" />
       <option name="PARAMETERS" value="" />
       <option name="SHOW_COMMAND_LINE" value="false" />
       <option name="EMULATE_TERMINAL" value="false" />
@@ -300,10 +260,10 @@
     <recent_temporary>
       <list>
         <item itemvalue="Python tests.Python tests in GetWindowHandles.py" />
-        <item itemvalue="Python.DesiredCapabilities" />
-        <item itemvalue="Python.SampleSelenium" />
-        <item itemvalue="Python.AllLinks" />
-        <item itemvalue="Python.Locators" />
+        <item itemvalue="Python.windows_leela" />
+        <item itemvalue="Python.WindowHandles" />
+        <item itemvalue="Python.Tab" />
+        <item itemvalue="Python.Iframe" />
       </list>
     </recent_temporary>
   </component>
@@ -322,46 +282,6 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1717856429411</updated>
-    </task>
-    <task id="LOCAL-00025" summary="API Testcases">
-      <option name="closed" value="true" />
-      <created>1718730090780</created>
-      <option name="number" value="00025" />
-      <option name="presentableId" value="LOCAL-00025" />
-      <option name="project" value="LOCAL" />
-      <updated>1718730090780</updated>
-    </task>
-    <task id="LOCAL-00026" summary="API Testcases">
-      <option name="closed" value="true" />
-      <created>1718730615432</created>
-      <option name="number" value="00026" />
-      <option name="presentableId" value="LOCAL-00026" />
-      <option name="project" value="LOCAL" />
-      <updated>1718730615432</updated>
-    </task>
-    <task id="LOCAL-00027" summary="API Testcases">
-      <option name="closed" value="true" />
-      <created>1718730790836</created>
-      <option name="number" value="00027" />
-      <option name="presentableId" value="LOCAL-00027" />
-      <option name="project" value="LOCAL" />
-      <updated>1718730790836</updated>
-    </task>
-    <task id="LOCAL-00028" summary="API Testcases">
-      <option name="closed" value="true" />
-      <created>1718730962293</created>
-      <option name="number" value="00028" />
-      <option name="presentableId" value="LOCAL-00028" />
-      <option name="project" value="LOCAL" />
-      <updated>1718730962293</updated>
-    </task>
-    <task id="LOCAL-00029" summary="API Testcases">
-      <option name="closed" value="true" />
-      <created>1718731476731</created>
-      <option name="number" value="00029" />
-      <option name="presentableId" value="LOCAL-00029" />
-      <option name="project" value="LOCAL" />
-      <updated>1718731476731</updated>
     </task>
     <task id="LOCAL-00030" summary="API Testcases">
       <option name="closed" value="true" />
@@ -715,7 +635,47 @@
       <option name="project" value="LOCAL" />
       <updated>1733944226566</updated>
     </task>
-    <option name="localTasksCounter" value="74" />
+    <task id="LOCAL-00074" summary="API Testcases">
+      <option name="closed" value="true" />
+      <created>1734625966931</created>
+      <option name="number" value="00074" />
+      <option name="presentableId" value="LOCAL-00074" />
+      <option name="project" value="LOCAL" />
+      <updated>1734625966932</updated>
+    </task>
+    <task id="LOCAL-00075" summary="API Testcases">
+      <option name="closed" value="true" />
+      <created>1734626270168</created>
+      <option name="number" value="00075" />
+      <option name="presentableId" value="LOCAL-00075" />
+      <option name="project" value="LOCAL" />
+      <updated>1734626270168</updated>
+    </task>
+    <task id="LOCAL-00076" summary="API Testcases">
+      <option name="closed" value="true" />
+      <created>1734629542862</created>
+      <option name="number" value="00076" />
+      <option name="presentableId" value="LOCAL-00076" />
+      <option name="project" value="LOCAL" />
+      <updated>1734629542862</updated>
+    </task>
+    <task id="LOCAL-00077" summary="API Testcases">
+      <option name="closed" value="true" />
+      <created>1734683188921</created>
+      <option name="number" value="00077" />
+      <option name="presentableId" value="LOCAL-00077" />
+      <option name="project" value="LOCAL" />
+      <updated>1734683188921</updated>
+    </task>
+    <task id="LOCAL-00078" summary="API Testcases">
+      <option name="closed" value="true" />
+      <created>1734685170912</created>
+      <option name="number" value="00078" />
+      <option name="presentableId" value="LOCAL-00078" />
+      <option name="project" value="LOCAL" />
+      <updated>1734685170912</updated>
+    </task>
+    <option name="localTasksCounter" value="79" />
     <servers />
   </component>
   <component name="VcsManagerConfiguration">
