@@ -1,6 +1,8 @@
 import time
 
+import By
 from selenium import  webdriver
+from selenium.webdriver.chrome.service import Service
 from selenium.webdriver.common.action_chains import  ActionChains
 from selenium.webdriver.common.keys import  Keys
 from selenium.webdriver.support.ui import WebDriverWait
@@ -13,7 +15,7 @@ from selenium import webdriver
 from webdriver_manager.chrome import ChromeDriverManager
 from selenium.webdriver.common.alert import Alert
 # create webdriver object
-driver = webdriver.Chrome(ChromeDriverManager().install())
+driver=webdriver.Chrome(service=Service(ChromeDriverManager(url='https://storage.googleapis.com/chrome-for-testing-public/131.0.6778.108/win64/chromedriver-win64.zip').install()))
 driver.get("https://www.rahulshettyacademy.com/AutomationPractice/")
 driver.maximize_window()
 #implict wait
@@ -38,6 +40,7 @@ driver.find_element_by_name("checkBoxOption1").click()
 
 
 wait=WebDriverWait(driver,10)
+
 ele=driver.find_element(By.XPATH,"//a[@data-tracking-id='men']"))
 #here the driver will wait a maximum of 10 seconds untill the condition is fulfilled.
 menu=wait.until(ec.element_to_be_clickable(ele))
@@ -74,4 +77,3 @@ for i in list_of_element:
 #Throws TimeoutException when there is no element located using the locator.
 
 ele=wait.until(ec.presence_of_element_located(By.ID,"Hippro"))
-

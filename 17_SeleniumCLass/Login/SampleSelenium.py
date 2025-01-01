@@ -1,7 +1,15 @@
+
 from selenium import webdriver
+from selenium.webdriver.chrome.service import Service
 from selenium.webdriver.common.by import By
 
-driver=webdriver.Chrome(executable_path='chromedriver.exe')
+from webdriver_manager.chrome import ChromeDriverManager
+
+from selenium.webdriver.common.keys import  Keys
+
+#create Driver objcet
+driver=webdriver.Chrome(service=Service(ChromeDriverManager(url='https://storage.googleapis.com/chrome-for-testing-public/131.0.6778.108/win64/chromedriver-win64.zip').install()))
+
 
 driver.get("https://www.facebook.com/login/")
 
@@ -14,36 +22,3 @@ driver.find_element(By.XPATH,"//a[starts-with(text(),'Forgotten')]").send_keys("
 driver.find_element(By.LINK_TEXT,"Forgotten account?")
 
 driver.find_element(By.PARTIAL_LINK_TEXT,"Forgotten").click()
-
-
-# xpath-- /html/body/div[1]/div[1]/div[1]/div/div[2]/div[2]/form/div/div[3]/button
-# relative xpath-
-
-#//tag[@attribute="value"]
-#//input[@type="text"]
-#//*[@*="text"]
-#//input[@type="text" or @name="email1"]
-# text() , contains(input,desired),
-# //a[starts-with(text(),"Forgotten")]
-# //input[@id="email"]
-
-#child
-#parent
-#ancestor
-#following
-
-# Preceding
-#Following - sibling:
-#Descendant
-
-# id, name, classname,xpath,css selectors,link text,partial link text.
-
-
-
-
-
-
-
-
-
-

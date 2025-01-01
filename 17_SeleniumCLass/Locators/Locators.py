@@ -4,8 +4,7 @@
 #name  -- done
 #xpath  --  done
 #link test   -  done
-#partical link text  - done
-#tag name   -- tag name
+#partical link text  - donetag name   -- tag name
 #css selector   ---
 
 #************  id *****************
@@ -13,6 +12,8 @@
 #********** xpath *************
     #relative xpath (xml path)  - //*[@id="pass"]
     #absolute xpath (xml path)  -- / single forward slash
+
+# //a[contains(text(),"Privacy")]
 
 #relative xpath
     #1.way  (tag,attribute, value)  , *
@@ -38,6 +39,7 @@
                     #
                 #Parent  --//a[text()="Sign in"]//parent::li//parent::ul//parent::div//parent::div
                 #child    -- (//div//child::div[@class="_6lux"]//child::input)[2]
+
                 #preceding  --
                 #following-sibling.  -- doone
                 #Self  --
@@ -53,6 +55,7 @@
 
     # syntax: tagname[attribute=value]
         #tagname[attribute=value][attribute=value]
+
     # tag attribute class value
         # tag.classname[attribute=value]
             #a._97w5[rel="nofollow"]
@@ -93,6 +96,7 @@
 
         # nth-child
             #div[class="_8iep _8icy _9ahz _9ah-"]>div:nth-child(1)
+
         # first of type
             #div[class="_8iep _8icy _9ahz _9ah-"]>div:first-of-type
         #last of type
@@ -104,3 +108,7 @@
             #div[class="_8iep _8icy _9ahz _9ah-"]>div:not([id="reg_pages_msg"])
 
 
+
+#div[class="clearfix _5466 _44mg"] div:nth-of-type(1)
+
+#div[class="clearfix _5466 _44mg"] div:not([class="_9lsa"])

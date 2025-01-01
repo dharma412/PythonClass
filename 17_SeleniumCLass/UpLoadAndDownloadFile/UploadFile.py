@@ -3,7 +3,7 @@ from webdriver_manager.chrome import ChromeDriverManager
 from webdriver_manager.firefox import GeckoDriverManager
 
 from selenium.webdriver.common.by import By
-driver = webdriver.Chrome(ChromeDriverManager().install())
+driver=webdriver.Chrome(service=Service(ChromeDriverManager(url='https://storage.googleapis.com/chrome-for-testing-public/131.0.6778.108/win64/chromedriver-win64.zip').install()))
 
 driver.get("http://testautomationpractice.blogspot.com/")
 driver.maximize_window()

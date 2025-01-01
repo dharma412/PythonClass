@@ -5,7 +5,9 @@ from selenium.webdriver.chrome.service import Service
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support.select import Select
 from webdriver_manager.chrome import ChromeDriverManager
+
 driver=webdriver.Chrome(service=Service(ChromeDriverManager().install()))
+
 driver.implicitly_wait(10)
 driver.get("https://www.tutorialspoint.com/selenium/selenium_automation_practice.htm")
 driver.maximize_window()
