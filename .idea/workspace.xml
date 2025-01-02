@@ -4,8 +4,30 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="0779dc26-a903-4bb0-ab71-e7f9297d36a2" name="Changes" comment="API Testcases">
+    <list default="true" id="0779dc26-a903-4bb0-ab71-e7f9297d36a2" name="Changes" comment="pytest testcases">
+      <change afterPath="$PROJECT_DIR$/18_Pytest/reports/assets/style.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/18_Pytest/reports/test_report.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/18_Pytest/result.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/18_Pytest/tests/report.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/18_Pytest/tests/test_subdirec/report.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/API_Notes.pdf" beforeDir="false" afterPath="$PROJECT_DIR$/ZZ_Materials/API_Notes.pdf" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/AutomationTesting_TOC.xlsx" beforeDir="false" afterPath="$PROJECT_DIR$/ZZ_Materials/AutomationTesting_TOC.xlsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/CSS Selector.docx" beforeDir="false" afterPath="$PROJECT_DIR$/ZZ_Materials/CSS Selector.docx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/DataStructureNotes.pdf" beforeDir="false" afterPath="$PROJECT_DIR$/ZZ_Materials/DataStructureNotes.pdf" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Javascript_Executer_Selenium.docx" beforeDir="false" afterPath="$PROJECT_DIR$/ZZ_Materials/Javascript_Executer_Selenium.docx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/PyTest+Learning.doc" beforeDir="false" afterPath="$PROJECT_DIR$/ZZ_Materials/PyTest+Learning.doc" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Python Selenium Syllabus (1).pdf" beforeDir="false" afterPath="$PROJECT_DIR$/ZZ_Materials/Python Selenium Syllabus (1).pdf" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Python Testing TOC Updated.xlsx" beforeDir="false" afterPath="$PROJECT_DIR$/ZZ_Materials/Python Testing TOC Updated.xlsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/RAF_Topics.xlsx" beforeDir="false" afterPath="$PROJECT_DIR$/ZZ_Materials/RAF_Topics.xlsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Testing Concepts NP.pdf" beforeDir="false" afterPath="$PROJECT_DIR$/ZZ_Materials/Testing Concepts NP.pdf" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Window_Frame_Handling.docx" beforeDir="false" afterPath="$PROJECT_DIR$/ZZ_Materials/Window_Frame_Handling.docx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/durga python full.pdf" beforeDir="false" afterPath="$PROJECT_DIR$/ZZ_Materials/durga python full.pdf" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/git.pdf" beforeDir="false" afterPath="$PROJECT_DIR$/ZZ_Materials/git.pdf" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/log.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/output.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/pyCharm_KeyMap.pdf" beforeDir="false" afterPath="$PROJECT_DIR$/ZZ_Materials/pyCharm_KeyMap.pdf" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/report.html" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -60,70 +82,79 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;ASKED_ADD_EXTERNAL_FILES&quot;: &quot;true&quot;,
-    &quot;ASKED_SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
-    &quot;Python tests.Python tests in GetWindowHandles.py.executor&quot;: &quot;Run&quot;,
-    &quot;Python.1_InheritanceInitialProgram (1).executor&quot;: &quot;Run&quot;,
-    &quot;Python.1_SingleInheritance.executor&quot;: &quot;Run&quot;,
-    &quot;Python.2_DemoProgramme.executor&quot;: &quot;Run&quot;,
-    &quot;Python.2_MultiLevelInheritance.executor&quot;: &quot;Run&quot;,
-    &quot;Python.3_MultiLevelInheritance.executor&quot;: &quot;Run&quot;,
-    &quot;Python.4_Superkeyword_SingleInheritance.executor&quot;: &quot;Run&quot;,
-    &quot;Python.5_HybridInheritance.executor&quot;: &quot;Run&quot;,
-    &quot;Python.5_SuperKeyword_MultilevelAndMultiple.executor&quot;: &quot;Run&quot;,
-    &quot;Python.6_Multlevel_SuperKeyword_Inheritance.executor&quot;: &quot;Run&quot;,
-    &quot;Python.7_MethodOverriding.executor&quot;: &quot;Run&quot;,
-    &quot;Python.AddQueryParaToRequest.executor&quot;: &quot;Run&quot;,
-    &quot;Python.AllLinks.executor&quot;: &quot;Run&quot;,
-    &quot;Python.CarClass.executor&quot;: &quot;Run&quot;,
-    &quot;Python.ClassCar.executor&quot;: &quot;Run&quot;,
-    &quot;Python.ClassWithClassVariable_Method.executor&quot;: &quot;Run&quot;,
-    &quot;Python.ClassWithOutConstrutor.executor&quot;: &quot;Run&quot;,
-    &quot;Python.DesiredCapabilities.executor&quot;: &quot;Run&quot;,
-    &quot;Python.Exceptions_new.executor&quot;: &quot;Run&quot;,
-    &quot;Python.File.executor&quot;: &quot;Run&quot;,
-    &quot;Python.FileHandiling.executor&quot;: &quot;Run&quot;,
-    &quot;Python.Frames.executor&quot;: &quot;Run&quot;,
-    &quot;Python.HybridANdMRO.executor&quot;: &quot;Run&quot;,
-    &quot;Python.IdentityOperators.executor&quot;: &quot;Run&quot;,
-    &quot;Python.Iframe.executor&quot;: &quot;Run&quot;,
-    &quot;Python.InheritanceInitialProgram.executor&quot;: &quot;Run&quot;,
-    &quot;Python.Input.executor&quot;: &quot;Run&quot;,
-    &quot;Python.JsonFromFile.executor&quot;: &quot;Run&quot;,
-    &quot;Python.JsonFromFile_Load (1).executor&quot;: &quot;Run&quot;,
-    &quot;Python.JsonStringtoPython.executor&quot;: &quot;Run&quot;,
-    &quot;Python.JsonToFile.executor&quot;: &quot;Run&quot;,
-    &quot;Python.List1.executor&quot;: &quot;Run&quot;,
-    &quot;Python.Locators.executor&quot;: &quot;Run&quot;,
-    &quot;Python.MembershipOperators.executor&quot;: &quot;Run&quot;,
-    &quot;Python.OSModule.executor&quot;: &quot;Run&quot;,
-    &quot;Python.PythonToJsonString_Dumps.executor&quot;: &quot;Run&quot;,
-    &quot;Python.Randome.executor&quot;: &quot;Run&quot;,
-    &quot;Python.STringPractice.executor&quot;: &quot;Run&quot;,
-    &quot;Python.Sample.executor&quot;: &quot;Run&quot;,
-    &quot;Python.SampleSelenium.executor&quot;: &quot;Run&quot;,
-    &quot;Python.SuperKeyword.executor&quot;: &quot;Run&quot;,
-    &quot;Python.SuperMethod.executor&quot;: &quot;Run&quot;,
-    &quot;Python.Tab.executor&quot;: &quot;Run&quot;,
-    &quot;Python.TuplePractice.executor&quot;: &quot;Run&quot;,
-    &quot;Python.WindowHandles.executor&quot;: &quot;Run&quot;,
-    &quot;Python.classClass.executor&quot;: &quot;Run&quot;,
-    &quot;Python.ifstate.executor&quot;: &quot;Run&quot;,
-    &quot;Python.windows_leela.executor&quot;: &quot;Run&quot;,
-    &quot;Robot Framework.TestExecution.executor&quot;: &quot;Run&quot;,
-    &quot;Robot Framework.run [Test1].executor&quot;: &quot;Run&quot;,
-    &quot;Robot Framework.run current file.executor&quot;: &quot;Run&quot;,
-    &quot;Robot Runner.Basic - \&quot;Test1\&quot;.executor&quot;: &quot;Run&quot;,
-    &quot;Robot Runner.RobotExecution.executor&quot;: &quot;Run&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;master&quot;,
-    &quot;ignore.virus.scanning.warn.message&quot;: &quot;true&quot;,
-    &quot;last_opened_file_path&quot;: &quot;D:/Learning/pytest-bdd-example&quot;,
-    &quot;settings.editor.selected.configurable&quot;: &quot;com.jetbrains.python.configuration.PyActiveSdkModuleConfigurable&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "ASKED_ADD_EXTERNAL_FILES": "true",
+    "ASKED_SHARE_PROJECT_CONFIGURATION_FILES": "true",
+    "Python tests.Python tests for test_conftest.test_first.executor": "Run",
+    "Python tests.Python tests for test_conftest.test_fourth.executor": "Run",
+    "Python tests.Python tests for test_conftest.test_second.executor": "Run",
+    "Python tests.Python tests for test_fixture.test_divisible_by_3.executor": "Run",
+    "Python tests.Python tests for test_subtest.test_first.executor": "Run",
+    "Python tests.Python tests for test_subtest.test_second.executor": "Run",
+    "Python tests.Python tests for test_subtest.test_third.executor": "Run",
+    "Python tests.Python tests in GetWindowHandles.py.executor": "Run",
+    "Python tests.Python tests in test_conftest.py.executor": "Run",
+    "Python tests.Python tests in test_subtest.py.executor": "Run",
+    "Python.1_InheritanceInitialProgram (1).executor": "Run",
+    "Python.1_SingleInheritance.executor": "Run",
+    "Python.2_DemoProgramme.executor": "Run",
+    "Python.2_MultiLevelInheritance.executor": "Run",
+    "Python.3_MultiLevelInheritance.executor": "Run",
+    "Python.4_Superkeyword_SingleInheritance.executor": "Run",
+    "Python.5_HybridInheritance.executor": "Run",
+    "Python.5_SuperKeyword_MultilevelAndMultiple.executor": "Run",
+    "Python.6_Multlevel_SuperKeyword_Inheritance.executor": "Run",
+    "Python.7_MethodOverriding.executor": "Run",
+    "Python.AddQueryParaToRequest.executor": "Run",
+    "Python.AllLinks.executor": "Run",
+    "Python.CarClass.executor": "Run",
+    "Python.ClassCar.executor": "Run",
+    "Python.ClassWithClassVariable_Method.executor": "Run",
+    "Python.ClassWithOutConstrutor.executor": "Run",
+    "Python.DesiredCapabilities.executor": "Run",
+    "Python.Exceptions_new.executor": "Run",
+    "Python.File.executor": "Run",
+    "Python.FileHandiling.executor": "Run",
+    "Python.Frames.executor": "Run",
+    "Python.HybridANdMRO.executor": "Run",
+    "Python.IdentityOperators.executor": "Run",
+    "Python.Iframe.executor": "Run",
+    "Python.InheritanceInitialProgram.executor": "Run",
+    "Python.Input.executor": "Run",
+    "Python.JsonFromFile.executor": "Run",
+    "Python.JsonFromFile_Load (1).executor": "Run",
+    "Python.JsonStringtoPython.executor": "Run",
+    "Python.JsonToFile.executor": "Run",
+    "Python.List1.executor": "Run",
+    "Python.Locators.executor": "Run",
+    "Python.MembershipOperators.executor": "Run",
+    "Python.OSModule.executor": "Run",
+    "Python.PythonToJsonString_Dumps.executor": "Run",
+    "Python.Randome.executor": "Run",
+    "Python.STringPractice.executor": "Run",
+    "Python.Sample.executor": "Run",
+    "Python.SampleSelenium.executor": "Run",
+    "Python.SuperKeyword.executor": "Run",
+    "Python.SuperMethod.executor": "Run",
+    "Python.Tab.executor": "Run",
+    "Python.TuplePractice.executor": "Run",
+    "Python.WindowHandles.executor": "Run",
+    "Python.classClass.executor": "Run",
+    "Python.ifstate.executor": "Run",
+    "Python.windows_leela.executor": "Run",
+    "Robot Framework.TestExecution.executor": "Run",
+    "Robot Framework.run [Test1].executor": "Run",
+    "Robot Framework.run current file.executor": "Run",
+    "Robot Runner.Basic - \"Test1\".executor": "Run",
+    "Robot Runner.RobotExecution.executor": "Run",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "git-widget-placeholder": "master",
+    "ignore.virus.scanning.warn.message": "true",
+    "last_opened_file_path": "D:/Ericsson_Files/VNF_Automation/VNF_Automation/aiaas-test-iofa/automation",
+    "settings.editor.selected.configurable": "com.jetbrains.python.configuration.PyActiveSdkModuleConfigurable"
   }
-}</component>
+}]]></component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
       <recent name="C:\mydocuments\PythonClass\Project\Data" />
@@ -131,17 +162,17 @@
       <recent name="C:\mydocuments\PythonClass\RobotFramework\Standard\Collections" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="D:\Learning\PythonClass\ZZ_Materials" />
+      <recent name="D:\Learning\PythonClass\18_Pytest\PytestConcepts" />
+      <recent name="D:\Learning\PythonClass\18_Pytest\tests" />
+      <recent name="D:\Learning\PythonClass\18_Pytest" />
       <recent name="C:\mydocuments\PythonClass\12_OOPS\Inheritance\1_Inheritance" />
-      <recent name="C:\mydocuments\PythonClass\12_OOPS\class" />
-      <recent name="C:\mydocuments\PythonClass\Project\Testcases\BranchFeature" />
-      <recent name="C:\mydocuments\PythonClass\Project\Testcases" />
-      <recent name="C:\mydocuments\PythonClass\Project\Testcases\Test2" />
     </key>
   </component>
   <component name="RobotOptionsProvider">
     <option name="capitalizeKeywords" value="true" />
   </component>
-  <component name="RunManager" selected="Python.Iframe">
+  <component name="RunManager" selected="Python tests.Python tests in test_subtest.py">
     <configuration default="true" type="robot-runner" factoryName="RobotRunConfigurationFactory">
       <option name="extraArguments" />
       <option name="logFilePath" />
@@ -154,116 +185,88 @@
       <option name="sdkHomePath" />
       <method v="2" />
     </configuration>
-    <configuration name="Iframe" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
-      <module name="PythonClass" />
-      <option name="ENV_FILES" value="" />
-      <option name="INTERPRETER_OPTIONS" value="" />
-      <option name="PARENT_ENVS" value="true" />
-      <envs>
-        <env name="PYTHONUNBUFFERED" value="1" />
-      </envs>
-      <option name="SDK_HOME" value="" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/17_SeleniumCLass/Iframes" />
-      <option name="IS_MODULE_SDK" value="true" />
-      <option name="ADD_CONTENT_ROOTS" value="true" />
-      <option name="ADD_SOURCE_ROOTS" value="true" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/17_SeleniumCLass/Iframes/Iframe.py" />
-      <option name="PARAMETERS" value="" />
-      <option name="SHOW_COMMAND_LINE" value="false" />
-      <option name="EMULATE_TERMINAL" value="false" />
-      <option name="MODULE_MODE" value="false" />
-      <option name="REDIRECT_INPUT" value="false" />
-      <option name="INPUT_FILE" value="" />
-      <method v="2" />
-    </configuration>
-    <configuration name="Tab" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
-      <module name="PythonClass" />
-      <option name="ENV_FILES" value="" />
-      <option name="INTERPRETER_OPTIONS" value="" />
-      <option name="PARENT_ENVS" value="true" />
-      <envs>
-        <env name="PYTHONUNBUFFERED" value="1" />
-      </envs>
-      <option name="SDK_HOME" value="" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/17_SeleniumCLass/GetWindowsHandles" />
-      <option name="IS_MODULE_SDK" value="true" />
-      <option name="ADD_CONTENT_ROOTS" value="true" />
-      <option name="ADD_SOURCE_ROOTS" value="true" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/17_SeleniumCLass/GetWindowsHandles/Tab.py" />
-      <option name="PARAMETERS" value="" />
-      <option name="SHOW_COMMAND_LINE" value="false" />
-      <option name="EMULATE_TERMINAL" value="false" />
-      <option name="MODULE_MODE" value="false" />
-      <option name="REDIRECT_INPUT" value="false" />
-      <option name="INPUT_FILE" value="" />
-      <method v="2" />
-    </configuration>
-    <configuration name="WindowHandles" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
-      <module name="PythonClass" />
-      <option name="ENV_FILES" value="" />
-      <option name="INTERPRETER_OPTIONS" value="" />
-      <option name="PARENT_ENVS" value="true" />
-      <envs>
-        <env name="PYTHONUNBUFFERED" value="1" />
-      </envs>
-      <option name="SDK_HOME" value="" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/17_SeleniumCLass/GetWindowsHandles" />
-      <option name="IS_MODULE_SDK" value="true" />
-      <option name="ADD_CONTENT_ROOTS" value="true" />
-      <option name="ADD_SOURCE_ROOTS" value="true" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/17_SeleniumCLass/GetWindowsHandles/WindowHandles.py" />
-      <option name="PARAMETERS" value="" />
-      <option name="SHOW_COMMAND_LINE" value="false" />
-      <option name="EMULATE_TERMINAL" value="false" />
-      <option name="MODULE_MODE" value="false" />
-      <option name="REDIRECT_INPUT" value="false" />
-      <option name="INPUT_FILE" value="" />
-      <method v="2" />
-    </configuration>
-    <configuration name="windows_leela" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
-      <module name="PythonClass" />
-      <option name="ENV_FILES" value="" />
-      <option name="INTERPRETER_OPTIONS" value="" />
-      <option name="PARENT_ENVS" value="true" />
-      <envs>
-        <env name="PYTHONUNBUFFERED" value="1" />
-      </envs>
-      <option name="SDK_HOME" value="" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/17_SeleniumCLass/GetWindowsHandles" />
-      <option name="IS_MODULE_SDK" value="true" />
-      <option name="ADD_CONTENT_ROOTS" value="true" />
-      <option name="ADD_SOURCE_ROOTS" value="true" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/17_SeleniumCLass/GetWindowsHandles/windows_leela.py" />
-      <option name="PARAMETERS" value="" />
-      <option name="SHOW_COMMAND_LINE" value="false" />
-      <option name="EMULATE_TERMINAL" value="false" />
-      <option name="MODULE_MODE" value="false" />
-      <option name="REDIRECT_INPUT" value="false" />
-      <option name="INPUT_FILE" value="" />
-      <method v="2" />
-    </configuration>
-    <configuration name="Python tests in GetWindowHandles.py" type="tests" factoryName="Autodetect" temporary="true" nameIsGenerated="true">
+    <configuration name="Python tests for test_conftest.test_second" type="tests" factoryName="Autodetect" temporary="true" nameIsGenerated="true">
       <module name="PythonClass" />
       <option name="ENV_FILES" value="" />
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
       <option name="SDK_HOME" value="" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/17_SeleniumCLass/GetWindowsHandles" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/18_Pytest/tests" />
       <option name="IS_MODULE_SDK" value="true" />
       <option name="ADD_CONTENT_ROOTS" value="true" />
       <option name="ADD_SOURCE_ROOTS" value="true" />
       <option name="_new_additionalArguments" value="&quot;&quot;" />
-      <option name="_new_target" value="&quot;$PROJECT_DIR$/17_SeleniumCLass/GetWindowsHandles/GetWindowHandles.py&quot;" />
+      <option name="_new_target" value="&quot;test_conftest.test_second&quot;" />
+      <option name="_new_targetType" value="&quot;PYTHON&quot;" />
+      <method v="2" />
+    </configuration>
+    <configuration name="Python tests for test_fixture.test_divisible_by_3" type="tests" factoryName="Autodetect" temporary="true" nameIsGenerated="true">
+      <module name="PythonClass" />
+      <option name="ENV_FILES" value="" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/18_Pytest" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <option name="_new_additionalArguments" value="&quot;&quot;" />
+      <option name="_new_target" value="&quot;test_fixture.test_divisible_by_3&quot;" />
+      <option name="_new_targetType" value="&quot;PYTHON&quot;" />
+      <method v="2" />
+    </configuration>
+    <configuration name="Python tests for test_subtest.test_second" type="tests" factoryName="Autodetect" temporary="true" nameIsGenerated="true">
+      <module name="PythonClass" />
+      <option name="ENV_FILES" value="" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/18_Pytest/tests/test_subdirec" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <option name="_new_additionalArguments" value="&quot;&quot;" />
+      <option name="_new_target" value="&quot;test_subtest.test_second&quot;" />
+      <option name="_new_targetType" value="&quot;PYTHON&quot;" />
+      <method v="2" />
+    </configuration>
+    <configuration name="Python tests in test_conftest.py" type="tests" factoryName="Autodetect" temporary="true" nameIsGenerated="true">
+      <module name="PythonClass" />
+      <option name="ENV_FILES" value="" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/18_Pytest/tests" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <option name="_new_additionalArguments" value="&quot;&quot;" />
+      <option name="_new_target" value="&quot;$PROJECT_DIR$/18_Pytest/tests/test_conftest.py&quot;" />
+      <option name="_new_targetType" value="&quot;PATH&quot;" />
+      <method v="2" />
+    </configuration>
+    <configuration name="Python tests in test_subtest.py" type="tests" factoryName="Autodetect" temporary="true" nameIsGenerated="true">
+      <module name="PythonClass" />
+      <option name="ENV_FILES" value="" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/18_Pytest/tests/test_subdirec" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <option name="_new_additionalArguments" value="&quot;&quot;" />
+      <option name="_new_target" value="&quot;$PROJECT_DIR$/18_Pytest/tests/test_subdirec/test_subtest.py&quot;" />
       <option name="_new_targetType" value="&quot;PATH&quot;" />
       <method v="2" />
     </configuration>
     <recent_temporary>
       <list>
-        <item itemvalue="Python tests.Python tests in GetWindowHandles.py" />
-        <item itemvalue="Python.windows_leela" />
-        <item itemvalue="Python.WindowHandles" />
-        <item itemvalue="Python.Tab" />
-        <item itemvalue="Python.Iframe" />
+        <item itemvalue="Python tests.Python tests in test_subtest.py" />
+        <item itemvalue="Python tests.Python tests for test_subtest.test_second" />
+        <item itemvalue="Python tests.Python tests in test_conftest.py" />
+        <item itemvalue="Python tests.Python tests for test_conftest.test_second" />
+        <item itemvalue="Python tests.Python tests for test_fixture.test_divisible_by_3" />
       </list>
     </recent_temporary>
   </component>
@@ -282,62 +285,6 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1717856429411</updated>
-    </task>
-    <task id="LOCAL-00031" summary="API Testcases">
-      <option name="closed" value="true" />
-      <created>1718731812819</created>
-      <option name="number" value="00031" />
-      <option name="presentableId" value="LOCAL-00031" />
-      <option name="project" value="LOCAL" />
-      <updated>1718731812819</updated>
-    </task>
-    <task id="LOCAL-00032" summary="API Testcases">
-      <option name="closed" value="true" />
-      <created>1718732071531</created>
-      <option name="number" value="00032" />
-      <option name="presentableId" value="LOCAL-00032" />
-      <option name="project" value="LOCAL" />
-      <updated>1718732071531</updated>
-    </task>
-    <task id="LOCAL-00033" summary="API Testcases">
-      <option name="closed" value="true" />
-      <created>1718733259902</created>
-      <option name="number" value="00033" />
-      <option name="presentableId" value="LOCAL-00033" />
-      <option name="project" value="LOCAL" />
-      <updated>1718733259902</updated>
-    </task>
-    <task id="LOCAL-00034" summary="API Testcases">
-      <option name="closed" value="true" />
-      <created>1718733865398</created>
-      <option name="number" value="00034" />
-      <option name="presentableId" value="LOCAL-00034" />
-      <option name="project" value="LOCAL" />
-      <updated>1718733865398</updated>
-    </task>
-    <task id="LOCAL-00035" summary="API Testcases">
-      <option name="closed" value="true" />
-      <created>1718733948462</created>
-      <option name="number" value="00035" />
-      <option name="presentableId" value="LOCAL-00035" />
-      <option name="project" value="LOCAL" />
-      <updated>1718733948462</updated>
-    </task>
-    <task id="LOCAL-00036" summary="API Testcases">
-      <option name="closed" value="true" />
-      <created>1718734101294</created>
-      <option name="number" value="00036" />
-      <option name="presentableId" value="LOCAL-00036" />
-      <option name="project" value="LOCAL" />
-      <updated>1718734101294</updated>
-    </task>
-    <task id="LOCAL-00037" summary="API Testcases">
-      <option name="closed" value="true" />
-      <created>1718734109471</created>
-      <option name="number" value="00037" />
-      <option name="presentableId" value="LOCAL-00037" />
-      <option name="project" value="LOCAL" />
-      <updated>1718734109471</updated>
     </task>
     <task id="LOCAL-00038" summary="API Testcases">
       <option name="closed" value="true" />
@@ -675,12 +622,73 @@
       <option name="project" value="LOCAL" />
       <updated>1735739313423</updated>
     </task>
-    <option name="localTasksCounter" value="80" />
+    <task id="LOCAL-00080" summary="pytest">
+      <option name="closed" value="true" />
+      <created>1735739836721</created>
+      <option name="number" value="00080" />
+      <option name="presentableId" value="LOCAL-00080" />
+      <option name="project" value="LOCAL" />
+      <updated>1735739836721</updated>
+    </task>
+    <task id="LOCAL-00081" summary="pytest">
+      <option name="closed" value="true" />
+      <created>1735740466874</created>
+      <option name="number" value="00081" />
+      <option name="presentableId" value="LOCAL-00081" />
+      <option name="project" value="LOCAL" />
+      <updated>1735740466874</updated>
+    </task>
+    <task id="LOCAL-00082" summary="pytest">
+      <option name="closed" value="true" />
+      <created>1735784390705</created>
+      <option name="number" value="00082" />
+      <option name="presentableId" value="LOCAL-00082" />
+      <option name="project" value="LOCAL" />
+      <updated>1735784390705</updated>
+    </task>
+    <task id="LOCAL-00083" summary="pytest">
+      <option name="closed" value="true" />
+      <created>1735785602746</created>
+      <option name="number" value="00083" />
+      <option name="presentableId" value="LOCAL-00083" />
+      <option name="project" value="LOCAL" />
+      <updated>1735785602746</updated>
+    </task>
+    <task id="LOCAL-00084" summary="pytest">
+      <option name="closed" value="true" />
+      <created>1735787971506</created>
+      <option name="number" value="00084" />
+      <option name="presentableId" value="LOCAL-00084" />
+      <option name="project" value="LOCAL" />
+      <updated>1735787971506</updated>
+    </task>
+    <task id="LOCAL-00085" summary="pytest">
+      <option name="closed" value="true" />
+      <created>1735809899481</created>
+      <option name="number" value="00085" />
+      <option name="presentableId" value="LOCAL-00085" />
+      <option name="project" value="LOCAL" />
+      <updated>1735809899481</updated>
+    </task>
+    <task id="LOCAL-00086" summary="pytest testcases">
+      <option name="closed" value="true" />
+      <created>1735819475422</created>
+      <option name="number" value="00086" />
+      <option name="presentableId" value="LOCAL-00086" />
+      <option name="project" value="LOCAL" />
+      <updated>1735819475422</updated>
+    </task>
+    <option name="localTasksCounter" value="87" />
     <servers />
+  </component>
+  <component name="UnknownFeatures">
+    <option featureType="com.intellij.fileTypeFactory" implementationName="*.ini" />
   </component>
   <component name="VcsManagerConfiguration">
     <option name="ADD_EXTERNAL_FILES_SILENTLY" value="true" />
     <MESSAGE value="API Testcases" />
-    <option name="LAST_COMMIT_MESSAGE" value="API Testcases" />
+    <MESSAGE value="pytest" />
+    <MESSAGE value="pytest testcases" />
+    <option name="LAST_COMMIT_MESSAGE" value="pytest testcases" />
   </component>
 </project>
