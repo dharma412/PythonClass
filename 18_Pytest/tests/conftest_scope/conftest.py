@@ -5,7 +5,7 @@ from selenium.webdriver.chrome.options import Options
 
 import pytest
 
-@pytest.fixture(scope='package')
+@pytest.fixture(scope='class')
 def driver_creation():
     options = Options()
     options.add_argument('--disable-gpu')
