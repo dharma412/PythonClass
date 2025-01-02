@@ -1,6 +1,6 @@
 import pytest
 
-@pytest.fixture(scope='module')
+@pytest.fixture()
 def input_value():
-   input = 36
+   input = 100
    return input
